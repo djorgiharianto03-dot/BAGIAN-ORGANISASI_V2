@@ -1,0 +1,621 @@
+/**
+ * Navbar portal — sticky premium (blur, semi-transparan, area klik lebar)
+ * Muat setelah enterprise.css
+ */
+
+.sg-portal-page {
+    --sg-nav-font: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    --sg-nav-accent: #1d9bf0;
+    --sg-nav-accent-soft: rgba(29, 155, 240, 0.2);
+    --sg-nav-blur: 20px;
+    --sg-nav-row-min-h: 56px;
+    --sg-nav-shadow-scroll: 0 4px 24px rgba(15, 23, 42, 0.12);
+    --sg-nav-border: rgba(255, 255, 255, 0.12);
+    --sg-nav-tap: 40px;
+}
+
+/* Header portal: sticky (semua item navbar) — lihat sg-portal-shell-align.css */
+body.sg-portal-page .site-header--sg-portal {
+    position: sticky !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: none;
+    z-index: 200;
+    transition: box-shadow 0.35s ease;
+}
+
+.sg-portal-page .site-header--sg-portal.is-scrolled {
+    box-shadow: var(--sg-nav-shadow-scroll);
+}
+
+.sg-portal-page .site-layout-main {
+    padding-top: 0;
+}
+
+.sg-portal-page .site-layout-main > .sg-subhero,
+.sg-portal-page .site-layout-main > .org-hero.sg-subhero {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+body.sg-homepage.sg-portal-page > #sg-hero,
+.sg-portal-page.sg-homepage #sg-hero {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+/* Gradient header + panel nav: org-container-global.css (--sg-header-gradient) */
+.sg-portal-page .site-header--sg-portal .site-header__gradient {
+    transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    border-bottom: none;
+}
+
+/* Topbar: spacing vertikal saja (horizontal = container-global) */
+.sg-portal-page .site-header__topbar {
+    align-items: center;
+    gap: 0.5rem 1rem;
+    padding: 0.28rem 0 0.22rem;
+}
+
+.sg-portal-page .site-header__logo {
+    max-height: 48px;
+    width: auto;
+}
+
+@media (min-width: 992px) {
+    .sg-portal-page .site-header__logo {
+        max-height: 52px;
+    }
+}
+
+.sg-portal-page .site-header__title {
+    font-family: var(--sg-nav-font);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    font-size: clamp(0.8rem, 0.5vw + 0.7rem, 0.95rem);
+}
+
+.sg-portal-page .site-header__subtitle {
+    font-family: var(--sg-nav-font);
+    font-size: 0.75rem;
+    opacity: 0.92;
+}
+
+.sg-portal-page .site-header--sg-portal:not(.is-scrolled) .site-header__title,
+.sg-portal-page .site-header--sg-portal:not(.is-scrolled) .site-header__subtitle {
+    color: #fff;
+    text-shadow: none;
+}
+
+.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__title,
+.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__subtitle {
+    color: #fff;
+    text-shadow: none;
+}
+
+/* Panel nav: org-container-global.css */
+
+/* Tema hari besar — override variabel portal */
+body[class*='theme-'].sg-portal-page {
+    --sg-header-gradient: var(
+        --holiday-header-gradient,
+        linear-gradient(90deg, #001428 0%, #073d6b 50%, #001428 100%)
+    );
+    --sg-header-gradient-scrolled: var(
+        --holiday-header-gradient-scrolled,
+        var(--holiday-header-gradient, linear-gradient(90deg, #001428 0%, #053057 50%, #001428 100%))
+    );
+    --sg-nav-panel-bg: var(--holiday-nav-surface, rgba(2, 22, 48, 0.72));
+    --sg-nav-panel-bg-scrolled: var(--holiday-nav-surface, rgba(2, 22, 48, 0.82));
+}
+
+body[class*='theme-'].sg-portal-page .site-header--sg-portal.is-scrolled .site-header__gradient {
+    opacity: 0.98;
+}
+
+body[class*='theme-'].sg-portal-page .site-header__holiday-ucapan--inline {
+    background: var(--holiday-ucapan-bg, rgba(255, 255, 255, 0.1)) !important;
+    border-color: rgba(255, 255, 255, 0.22) !important;
+}
+
+body[class*='theme-'].sg-portal-page .site-header__holiday-ucapan--inline .site-header__holiday-ucapan-title {
+    color: var(--holiday-ucapan-text, #ffffff);
+}
+
+body[class*='theme-'].sg-portal-page .site-header__holiday-ucapan--inline .site-header__holiday-ucapan-sub {
+    color: var(--holiday-ucapan-sub, rgba(255, 255, 255, 0.88));
+}
+
+/* Baris menu: tinggi 72px (desktop) */
+.sg-portal-page .site-header__nav-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.45rem 0.75rem;
+    width: 100%;
+    max-width: 100%;
+    padding: 0.12rem 0;
+    min-height: var(--sg-nav-row-min-h);
+    box-sizing: border-box;
+}
+
+.sg-portal-page .site-header__nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.15rem 0.35rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.sg-portal-page .site-header__nav li {
+    flex: 0 1 auto;
+    max-width: 100%;
+}
+
+.sg-portal-page .site-header__nav a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-family: var(--sg-nav-font);
+    font-weight: 500;
+    font-size: clamp(0.8125rem, 0.25vw + 0.78rem, 0.9375rem);
+    letter-spacing: 0.01em;
+    text-transform: none;
+    line-height: 1.3;
+    text-align: center;
+    white-space: nowrap;
+    padding: 0.45rem 0.75rem;
+    min-height: var(--sg-nav-tap);
+    border-radius: 0.75rem;
+    color: rgba(255, 255, 255, 0.88) !important;
+    text-decoration: none;
+    transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+}
+
+.sg-portal-page .site-header__nav a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0.35rem;
+    width: calc(100% - 1.25rem);
+    max-width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background: #fff;
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    box-shadow: none;
+}
+
+.sg-portal-page .site-header__nav a:hover {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.sg-portal-page .site-header__nav a:hover::after {
+    transform: translateX(-50%) scaleX(1);
+    opacity: 0.85;
+}
+
+.sg-portal-page .site-header__nav a.is-active {
+    color: #fff !important;
+    background: var(--sg-nav-accent-soft);
+    text-shadow: none;
+}
+
+.sg-portal-page .site-header__nav a.is-active::after {
+    transform: translateX(-50%) scaleX(1);
+    opacity: 1;
+    background: var(--sg-nav-accent);
+}
+
+@media (min-width: 1400px) {
+    .sg-portal-page .site-header__nav {
+        flex-wrap: nowrap;
+        gap: 0.2rem 0.5rem;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1399.98px) {
+    .sg-portal-page .site-header__nav a {
+        padding: 0.55rem 0.75rem;
+        font-size: 0.8125rem;
+    }
+
+    .sg-portal-page .site-header__actions-end .btn {
+        padding: 0.45rem 0.85rem;
+        font-size: 0.75rem;
+    }
+}
+
+/* Pencarian — pill modern */
+.sg-portal-page .site-header__search-wrap {
+    flex: 1 1 220px;
+    min-width: 0;
+    max-width: min(100%, 22rem);
+}
+
+.sg-portal-page .site-header-doc-search--navbar .site-header-doc-search__field {
+    display: flex;
+    align-items: center;
+    min-height: var(--sg-nav-tap);
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    padding: 0 0.35rem 0 1rem;
+    transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sg-portal-page .site-header-doc-search--navbar .site-header-doc-search__field:focus-within {
+    border-color: rgba(29, 155, 240, 0.65);
+    background: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 0 0 3px rgba(29, 155, 240, 0.22);
+}
+
+.sg-portal-page .site-header-doc-search__input {
+    flex: 1;
+    min-width: 0;
+    border: 0 !important;
+    background: transparent !important;
+    color: #fff !important;
+    font-size: 0.875rem;
+    padding: 0.5rem 0.5rem 0.5rem 0;
+    box-shadow: none !important;
+}
+
+.sg-portal-page .site-header-doc-search__input::placeholder {
+    color: rgba(248, 250, 252, 0.55);
+}
+
+.sg-portal-page .site-header-doc-search__submit {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    margin: 3px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.sg-portal-page .site-header-doc-search__submit:hover {
+    background: var(--sg-nav-accent);
+    transform: scale(1.05);
+}
+
+/* Tombol hamburger — area sentuh modern */
+.sg-portal-page .site-header__nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-width: var(--sg-nav-tap);
+    min-height: var(--sg-nav-tap);
+    padding: 0 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.sg-portal-page .site-header__nav-toggle:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.sg-portal-page .site-header__hamburger-line {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.sg-portal-page .site-header__nav-toggle[aria-expanded='true'] .site-header__hamburger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.sg-portal-page .site-header__nav-toggle[aria-expanded='true'] .site-header__hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.sg-portal-page .site-header__nav-toggle[aria-expanded='true'] .site-header__hamburger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Aksi kanan — tema, login/dashboard */
+.sg-portal-page .site-header__actions {
+    flex: 0 0 auto;
+    margin-left: auto;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.sg-portal-page .site-header__actions-end {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.sg-portal-page .site-header__actions-end .btn {
+    font-family: var(--sg-nav-font);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    min-height: var(--sg-nav-tap);
+    padding: 0.4rem 0.95rem;
+    border-radius: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.sg-portal-page .site-header__actions-end .btn:hover {
+    transform: translateY(-1px);
+}
+
+.sg-portal-page .site-header--sg-portal .btn-header-dashboard {
+    color: #fff !important;
+    background: var(--sg-nav-accent) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.12) !important;
+}
+
+.sg-portal-page .site-header--sg-portal .btn-header-dashboard:hover {
+    background: #1590df !important;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.14) !important;
+}
+
+.sg-portal-page .site-header--sg-portal .btn-header-login,
+.sg-portal-page .site-header--sg-portal .btn-header-logout {
+    color: #0f4c81 !important;
+    background: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.85) !important;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08) !important;
+}
+
+.sg-portal-page .site-header--sg-portal .btn-header-login:hover,
+.sg-portal-page .site-header--sg-portal .btn-header-logout:hover {
+    background: #f8fafc !important;
+}
+
+/* Banner hari besar inline — selalu ikut blok nav saat scroll (tidak di-collapse) */
+.sg-portal-page .site-header__holiday-ucapan--inline {
+    width: 100%;
+    flex-shrink: 0;
+    margin: 0 0 0.22rem;
+    border-radius: 10px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    box-shadow: none !important;
+    max-height: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sg-portal-page .site-header__holiday-ucapan--inline.is-nav-stuck {
+    margin-bottom: 0.2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+.sg-portal-page .site-header__holiday-ucapan--inline.is-collapsed {
+    max-height: none !important;
+    margin: 0 0 0.22rem !important;
+    padding: inherit !important;
+    border-width: 1px !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+}
+
+.sg-portal-page .site-header__holiday-ucapan--inline .site-header__holiday-ucapan-shimmer,
+.sg-portal-page .site-header__holiday-ucapan--inline .site-header__holiday-ucapan-border,
+.sg-portal-page .site-header__holiday-ucapan--inline::before {
+    display: none !important;
+}
+
+.sg-portal-page .site-header__holiday-ucapan-inline {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem 0.65rem;
+    padding: 0.2rem 0.5rem;
+    text-align: left;
+}
+
+.sg-portal-page .site-header__holiday-ucapan--inline .site-header__holiday-ucapan-copy {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.15rem 0.45rem;
+    min-width: 0;
+    flex: 1;
+}
+
+.sg-portal-page .site-header__holiday-ucapan--inline .site-header__holiday-ucapan-title {
+    font-family: var(--sg-nav-font);
+    font-size: clamp(0.68rem, 1.1vw, 0.8rem);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.25;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    color: #f1f5f9 !important;
+}
+
+.sg-portal-page .site-header__holiday-ucapan--inline .site-header__holiday-ucapan-sub {
+    font-size: 0.65rem;
+    font-style: normal;
+    margin: 0 !important;
+    color: rgba(226, 232, 240, 0.78) !important;
+}
+
+.sg-portal-page .site-header__holiday-ucapan--inline .site-header__holiday-ucapan-badge {
+    font-size: 0.54rem;
+    padding: 0.1rem 0.45rem;
+    letter-spacing: 0.08em;
+    flex-shrink: 0;
+}
+
+/* Mobile: drawer + animasi halus */
+@media (max-width: 991.98px) {
+    .sg-portal-page .site-header--sg-portal .site-header__nav-wrap {
+        padding-top: 0.4rem !important;
+        padding-bottom: 0.5rem !important;
+    }
+
+    .sg-portal-page .site-header__nav-row {
+        min-height: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+    }
+
+    .sg-portal-page .site-header__nav-panel.is-open,
+    .sg-portal-page .site-header__nav-collapse.collapsing {
+        transition: height 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .sg-portal-page .site-header__nav-panel .site-header__nav-row,
+    .sg-portal-page .site-header__nav-collapse .site-header__nav-row {
+        padding: 0.5rem 0.25rem 0.65rem;
+    }
+
+    .sg-portal-page .site-header__nav-panel.is-open .site-header__nav-row,
+    .sg-portal-page .site-header__nav-collapse.show .site-header__nav-row {
+        animation: sgNavMobileReveal 0.35s ease forwards;
+    }
+
+    @keyframes sgNavMobileReveal {
+        from {
+            opacity: 0.92;
+            transform: translateY(-6px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .sg-portal-page .site-header__nav {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.25rem;
+        width: 100%;
+    }
+
+    .sg-portal-page .site-header__nav li {
+        width: 100%;
+        max-width: none;
+    }
+
+    .sg-portal-page .site-header__nav a {
+        justify-content: flex-start;
+        width: 100%;
+        white-space: normal;
+        text-align: left;
+        font-size: 0.9375rem;
+        padding: 0.75rem 1rem;
+        min-height: var(--sg-nav-tap);
+        border-radius: 0.75rem;
+    }
+
+    .sg-portal-page .site-header__nav a::after {
+        left: 1rem;
+        right: auto;
+        bottom: 0.55rem;
+        width: 2.5rem;
+        transform: scaleX(0);
+        transform-origin: left;
+    }
+
+    .sg-portal-page .site-header__nav a:hover::after,
+    .sg-portal-page .site-header__nav a.is-active::after {
+        transform: scaleX(1);
+    }
+
+    .sg-portal-page .site-header__nav a.is-active {
+        background: rgba(29, 155, 240, 0.18);
+    }
+
+    .sg-portal-page .site-header__actions {
+        width: 100%;
+        margin-left: 0;
+        padding-top: 0.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: 0.35rem;
+    }
+
+    .sg-portal-page .site-header__actions-end {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sg-portal-page .site-header__actions-end .btn,
+    .sg-portal-page .site-header__actions-end form {
+        width: 100%;
+    }
+
+    .sg-portal-page .site-header__actions-end form .btn {
+        width: 100%;
+    }
+
+    .sg-portal-page .site-header__search-wrap {
+        max-width: none;
+        flex: 1 1 auto;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .sg-portal-page .site-header__logo {
+        max-height: 48px;
+        max-width: 36vw;
+    }
+
+    .sg-portal-page .site-header__holiday-ucapan--inline .site-header__holiday-ucapan-sub {
+        display: none !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sg-portal-page .site-header__nav a,
+    .sg-portal-page .site-header__nav a::after,
+    .sg-portal-page .site-header-doc-search--navbar .site-header-doc-search__field,
+    .sg-portal-page .site-header-doc-search__submit,
+    .sg-portal-page .site-header__actions-end .btn,
+    .sg-portal-page .site-header__nav-panel .site-header__nav-row,
+    .sg-portal-page .site-header__nav-collapse .site-header__nav-row {
+        transition: none;
+    }
+
+    .sg-portal-page .site-header__nav-panel.is-open .site-header__nav-row,
+    .sg-portal-page .site-header__nav-collapse.show .site-header__nav-row {
+        animation: none;
+    }
+
+    .sg-portal-page .site-header__hamburger-line {
+        transition: none;
+    }
+}

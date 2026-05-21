@@ -1,0 +1,350 @@
+/**
+ * Profil organisasi — tampilan institusional modern (baca mudah, timeline, aside)
+ * Muat setelah profil_org_premium_styles (inline) + enterprise.
+ */
+
+.page-profil-org .profil-org--institutional {
+    --pi-primary: #0f4c81;
+    --pi-border: #e2e8f0;
+    --pi-muted: #64748b;
+    --pi-text: #1e293b;
+    --pi-surface: #fafbfc;
+    --pi-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+}
+
+/* Latar section lebih tenang */
+.page-profil-org .profil-org--institutional.profil-org--premium {
+    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 45%, #f8fafc 100%);
+}
+
+.page-profil-org .profil-org--institutional .profil-org__ambient .profil-org__orb {
+    opacity: 0.18;
+    filter: blur(56px);
+}
+
+.page-profil-org .profil-org--institutional .profil-org__grain {
+    opacity: 0.2;
+}
+
+.page-profil-org .profil-org--institutional .profil-org__container--wide {
+    max-width: 72rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-profil-org .profil-org--institutional .profil-org__page-head--institutional {
+    text-align: left;
+    max-width: 40rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.page-profil-org .profil-org--institutional .profil-org__accent-line {
+    margin: 0 0 1rem;
+    width: 3rem;
+    height: 3px;
+    background: var(--pi-primary);
+    box-shadow: none;
+}
+
+.page-profil-org .profil-org--institutional .profil-org__eyebrow {
+    letter-spacing: 0.12em;
+    color: var(--pi-primary);
+    opacity: 1;
+}
+
+.page-profil-org .profil-org--institutional .profil-org__page-title {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--pi-text);
+}
+
+.page-profil-org .profil-org--institutional .profil-org__page-lead {
+    max-width: none;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--pi-muted);
+    opacity: 1;
+}
+
+/* Layout asimetris: konten utama + kolom samping */
+.page-profil-org .profil-org--institutional .profil-org__layout {
+    display: grid;
+    gap: clamp(1.75rem, 3vw, 2.5rem);
+    align-items: start;
+}
+
+@media (min-width: 1200px) {
+    .page-profil-org .profil-org--institutional .profil-org__layout {
+        grid-template-columns: minmax(0, 1fr) minmax(260px, 300px);
+        gap: 2.5rem;
+    }
+
+    .page-profil-org .profil-org--institutional .profil-org__aside {
+        position: sticky;
+        top: calc(var(--sg-portal-header-offset, 120px) + 1rem);
+    }
+}
+
+/* Timeline vertikal */
+.page-profil-org .profil-org--institutional .profil-org__timeline {
+    position: relative;
+    padding-left: 0;
+}
+
+@media (min-width: 768px) {
+    .page-profil-org .profil-org--institutional .profil-org__timeline {
+        padding-left: 1.75rem;
+        border-left: 2px solid var(--pi-border);
+    }
+
+    .page-profil-org .profil-org--institutional .profil-org__timeline-item {
+        position: relative;
+        padding-bottom: clamp(1.75rem, 3vw, 2.75rem);
+        margin-bottom: clamp(1.75rem, 3vw, 2.75rem);
+        border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+    }
+
+    .page-profil-org .profil-org--institutional .profil-org__timeline-item:last-child {
+        border-bottom: 0;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .page-profil-org .profil-org--institutional .profil-org__timeline-item::before {
+        content: '';
+        position: absolute;
+        left: calc(-1.75rem - 7px);
+        top: 1.35rem;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #fff;
+        border: 3px solid var(--pi-primary);
+        box-shadow: 0 0 0 3px #f1f5f9;
+        z-index: 1;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .page-profil-org .profil-org--institutional .profil-org__timeline-item + .profil-org__timeline-item {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--pi-border);
+    }
+}
+
+/* Kartu: permukaan lembut, bayangan minimal */
+.page-profil-org .profil-org--institutional .profil-org-glass {
+    border-radius: 16px;
+    background: var(--pi-surface) !important;
+    border: 1px solid var(--pi-border) !important;
+    box-shadow: var(--pi-shadow) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+.page-profil-org .profil-org--institutional .profil-org-glass::before,
+.page-profil-org .profil-org--institutional .profil-org-glass::after {
+    display: none !important;
+}
+
+.page-profil-org .profil-org--institutional .profil-org-glass:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(15, 23, 42, 0.08) !important;
+    border-color: #cbd5e1 !important;
+}
+
+.page-profil-org .profil-org--institutional .profil-org-glass__inner {
+    padding: clamp(1.5rem, 2.5vw, 2rem) clamp(1.35rem, 2.5vw, 1.85rem);
+}
+
+.page-profil-org .profil-org--institutional .profil-org-card__icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 12px;
+    box-shadow: none;
+}
+
+.page-profil-org .profil-org--institutional .profil-org-card__icon::before {
+    display: none;
+}
+
+.page-profil-org .profil-org--institutional .profil-org-card__icon--visi {
+    color: var(--pi-primary);
+    background: rgba(15, 76, 129, 0.08);
+    border: 1px solid rgba(15, 76, 129, 0.12);
+}
+
+.page-profil-org .profil-org--institutional .profil-org-card__icon--misi {
+    color: #0369a1;
+    background: rgba(14, 165, 233, 0.1);
+    border: 1px solid rgba(14, 165, 233, 0.18);
+}
+
+.page-profil-org .profil-org--institutional .profil-org-card__icon--ringkasan {
+    color: #0f766e;
+    background: rgba(20, 184, 166, 0.1);
+    border: 1px solid rgba(20, 184, 166, 0.2);
+}
+
+.page-profil-org .profil-org--institutional .profil-org-vision__label,
+.page-profil-org .profil-org--institutional .profil-org-mission__label,
+.page-profil-org .profil-org--institutional .profil-org-summary__label {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    font-weight: 700;
+    color: var(--pi-primary);
+}
+
+.page-profil-org .profil-org--institutional .profil-org-vision__body p,
+.page-profil-org .profil-org--institutional .profil-org-vision__text,
+.page-profil-org .profil-org--institutional .profil-org-mission__text,
+.page-profil-org .profil-org--institutional .profil-org-summary__text {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--pi-text);
+}
+
+.page-profil-org .profil-org--institutional .profil-org-mission__item {
+    padding: 0.85rem 0;
+    border-bottom: 1px solid #f1f5f9;
+    gap: 0.85rem;
+}
+
+.page-profil-org .profil-org--institutional .profil-org-mission__item:last-child {
+    border-bottom: 0;
+}
+
+.page-profil-org .profil-org--institutional .profil-org-mission__bullet {
+    color: var(--pi-primary);
+    opacity: 0.85;
+}
+
+/* Aside */
+.page-profil-org .profil-org-aside {
+    background: #fff;
+    border: 1px solid var(--pi-border);
+    border-radius: 16px;
+    box-shadow: var(--pi-shadow);
+    padding: 1.5rem 1.35rem;
+}
+
+.page-profil-org .profil-org-aside__title {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--pi-text);
+    margin: 0 0 0.5rem;
+}
+
+.page-profil-org .profil-org-aside__lead {
+    font-size: 0.875rem;
+    line-height: 1.65;
+    color: var(--pi-muted);
+    margin: 0 0 1.25rem;
+}
+
+.page-profil-org .profil-org-aside__facts {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.page-profil-org .profil-org-aside__fact {
+    padding: 0.85rem 0.75rem;
+    border-radius: 12px;
+    background: var(--pi-surface);
+    border: 1px solid var(--pi-border);
+    text-align: center;
+}
+
+.page-profil-org .profil-org-aside__fact dt {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--pi-muted);
+    margin: 0 0 0.25rem;
+}
+
+.page-profil-org .profil-org-aside__fact dd {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--pi-primary);
+}
+
+.page-profil-org .profil-org-aside__sep {
+    margin: 1.25rem 0;
+    border: 0;
+    border-top: 1px solid var(--pi-border);
+    opacity: 1;
+}
+
+.page-profil-org .profil-org-aside__nav-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--pi-muted);
+    margin: 0 0 0.65rem;
+}
+
+.page-profil-org .profil-org-aside__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.page-profil-org .profil-org-aside__link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.65rem 0.75rem;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--pi-text);
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.page-profil-org .profil-org-aside__link i {
+    width: 1.1rem;
+    color: var(--pi-primary);
+    opacity: 0.85;
+}
+
+.page-profil-org .profil-org-aside__link:hover {
+    background: var(--pi-surface);
+    border-color: var(--pi-border);
+    color: var(--pi-primary);
+}
+
+.page-profil-org .profil-org--institutional .profil-org__admin-hint {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--pi-border);
+    font-size: 0.875rem;
+    color: var(--pi-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-profil-org .profil-org--institutional .profil-org-glass:hover {
+        transform: none;
+    }
+
+    .page-profil-org .profil-org-aside__link {
+        transition: none;
+    }
+}
+
+/* Pemisah lembut sebelum blok struktur & personel */
+.page-profil-org .profil-structure.section-spacing {
+    margin-top: clamp(0.5rem, 2vw, 1rem);
+    padding-top: clamp(2.25rem, 4vw, 3.25rem);
+    border-top: 1px solid #e2e8f0;
+}

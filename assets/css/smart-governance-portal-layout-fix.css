@@ -1,0 +1,177 @@
+/**
+ * Portal layout v7 — stabil (tanpa 100vw bleed / app-container)
+ */
+
+body.sg-portal-page {
+    --sg-portal-sky-top: #0f4c81;
+    --sg-portal-sky-mid: #0a3d66;
+    --sg-portal-sky-base: #082f4f;
+    --sg-portal-sky-deep: #081c2e;
+}
+
+/* html/body width + scrollbar: org-container-global.css (jangan stable di html) */
+
+/* Navbar & gradient = lebar penuh */
+body.sg-portal-page .site-header--sg-portal {
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: none;
+}
+
+body.sg-portal-page .site-header--sg-portal .site-header__gradient {
+    width: 100%;
+    max-width: none;
+}
+
+/* Header gradient & panel nav: org-container-global.css (--sg-header-gradient) */
+
+/* Header/navbar/hero rail: org-container-global.css */
+
+/* Lebar konten: org-container-global.css (.container-global) */
+
+body.sg-portal-page .site-header--sg-portal .site-header__topbar {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Sembunyikan lapisan bleed lama (jika masih ada di cache) */
+.sg-portal-viewport-bleed,
+.sg-hero-viewport-bleed {
+    display: none !important;
+}
+
+body.sg-portal-page .site-layout-main,
+body.sg-portal-page .sg-portal-main,
+body.sg-portal-page .sg-portal-main-inner {
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* .site-main → org-container-global.css */
+
+/* —— Beranda: hero (org-container-global.css + sg-portal-panel-layout.css) —— */
+
+/* Hero dekoratif: sg-portal-panel-layout.css · konten: org-container-global.css */
+
+/* Jangan timpa hero dengan main */
+body.sg-homepage.sg-portal-page .site-layout-main {
+    position: relative;
+    z-index: auto;
+    background: transparent;
+}
+
+body.sg-homepage.sg-portal-page .sg-portal-main.sg-dash-main {
+    background: linear-gradient(180deg, #f4f7fb 0%, #eef2f7 100%);
+}
+
+/* —— Subhalaman —— */
+body.sg-portal-subpage.sg-portal-page .site-layout-main {
+    padding-top: 0;
+    background: var(--sg-surface, #f4f7fb);
+}
+
+body.sg-portal-page .site-layout-main > .sg-subhero,
+body.sg-portal-page .site-layout-main > .org-hero.sg-subhero {
+    position: relative;
+    width: 100%;
+    max-width: none;
+    margin-top: 0;
+    padding-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+body.sg-portal-subpage.sg-portal-page .sg-subhero__bg {
+    position: absolute;
+    inset: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: none;
+    opacity: 1;
+    visibility: visible;
+    background:
+        linear-gradient(180deg, var(--sg-portal-sky-base) 0%, transparent 14%),
+        radial-gradient(ellipse 70% 80% at 10% 0%, rgba(6, 182, 212, 0.28), transparent 55%),
+        linear-gradient(125deg, var(--sg-portal-sky-deep) 0%, #0c2d5a 45%, #1a5da8 100%) !important;
+}
+
+/* Enterprise override abu — biarkan gradient portal pada __bg */
+body.sg-portal-subpage.sg-portal-page .sg-subhero {
+    background: transparent;
+    color: #f8fafc;
+}
+
+/* .sg-subhero__container → org-container-global.css */
+
+/* Tipografi terang di hero biru (Profil, Layanan, Dokumen, …) */
+body.sg-portal-page .sg-subhero .org-heading-1,
+body.sg-portal-page .sg-subhero__title,
+body.sg-portal-page .org-hero__title.sg-subhero__title {
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+body.sg-portal-page .sg-subhero .org-eyebrow,
+body.sg-portal-page .sg-subhero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    color: rgba(186, 230, 253, 0.95) !important;
+    -webkit-text-fill-color: rgba(186, 230, 253, 0.95) !important;
+}
+
+body.sg-portal-page .sg-subhero .org-eyebrow__dot,
+body.sg-portal-page .sg-subhero__eyebrow-dot,
+body.sg-portal-page .sg-hero__eyebrow-dot {
+    background: #38bdf8 !important;
+}
+
+body.sg-portal-page .sg-subhero .org-text-lead,
+body.sg-portal-page .sg-subhero__lead {
+    color: rgba(226, 232, 240, 0.92) !important;
+}
+
+body.sg-portal-page .sg-subhero__breadcrumb {
+    color: rgba(203, 213, 225, 0.9) !important;
+    opacity: 1;
+}
+
+body.sg-portal-page .sg-subhero__breadcrumb a {
+    color: #bae6fd !important;
+}
+
+body.sg-portal-page .sg-subhero__breadcrumb a:hover {
+    color: #ffffff !important;
+}
+
+body.sg-portal-page .sg-subhero__breadcrumb span {
+    color: rgba(203, 213, 225, 0.85) !important;
+}
+
+body.sg-portal-page .sg-subhero__stat {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+}
+
+body.sg-portal-page .sg-subhero__stat-num {
+    color: #ffffff !important;
+}
+
+body.sg-portal-page .sg-subhero__stat-label {
+    color: rgba(203, 213, 225, 0.88) !important;
+}
+
+body.sg-homepage.sg-portal-page #sg-hero.sg-hero--ultra {
+    border-radius: 0 !important;
+}

@@ -1,0 +1,10 @@
+<?php
+declare(strict_types=1);
+
+/**
+ * Salin file ini menjadi openai.local.php dan isi API key OpenAI.
+ * File openai.local.php tidak boleh di-commit ke Git.
+ */
+return [
+    'api_key' => 'sk-your-openai-api-key-here',
+];

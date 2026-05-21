@@ -1,0 +1,5 @@
+# Apache: cegah eksekusi PHP di folder unggahan
+<FilesMatch "\.ph(p[3-8]?|tml)$">
+    Require all denied
+</FilesMatch>
+Options -Indexes

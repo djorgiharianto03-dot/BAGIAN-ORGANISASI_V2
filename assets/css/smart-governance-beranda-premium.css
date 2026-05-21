@@ -1,0 +1,510 @@
+/**
+ * Beranda — Premium enterprise refinement (GovTech / Linear-inspired)
+ * Muat terakhir setelah govtech + ultra. Tidak mengubah struktur HTML.
+ */
+
+/* Header container: org-container-global.css */
+
+.sg-homepage.sg-portal-page {
+    --sg-primary: #0f4c81;
+    --sg-secondary: #1d9bf0;
+    --sg-accent: #38bdf8;
+    --sg-bg-deep: #081c2e;
+    --sg-surface: rgba(255, 255, 255, 0.08);
+    --sg-border: rgba(255, 255, 255, 0.1);
+    --sg-text: #f8fafc;
+    --sg-text-muted: #cbd5e1;
+    --sg-radius-lg: 20px;
+    --sg-shadow-elevated: 0 10px 30px rgba(0, 0, 0, 0.18);
+    --sg-ease: 0.3s ease;
+    --sg-font-display: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    --sg-font-body: 'Inter', system-ui, sans-serif;
+}
+
+/* —— Hero background: depth + noise —— */
+.sg-homepage .sg-hero--govtech .sg-hero__bg {
+    background:
+        radial-gradient(ellipse 120% 80% at 72% -8%, rgba(29, 155, 240, 0.16), transparent 48%),
+        radial-gradient(ellipse 90% 60% at 8% 88%, rgba(15, 76, 129, 0.38), transparent 52%),
+        radial-gradient(ellipse 70% 50% at 50% 105%, rgba(8, 28, 46, 0.55), transparent 58%),
+        linear-gradient(165deg, #081c2e 0%, #0f4c81 38%, #0c3560 72%, #081c2e 100%);
+}
+
+.sg-homepage .sg-hero--govtech .sg-hero__bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+}
+
+.sg-homepage .sg-hero--govtech .sg-hero__grid-floor {
+    opacity: 0.32;
+}
+
+.sg-homepage .sg-hero--govtech .sg-particles {
+    opacity: 0.38;
+}
+
+.sg-homepage .sg-hero--govtech .sg-ambient-glow {
+    opacity: 0.22;
+}
+
+/* —— Typography hierarchy —— */
+.sg-homepage .sg-hero__copy {
+    max-width: 38rem;
+}
+
+.sg-homepage .sg-hero__title {
+    font-family: var(--sg-font-display);
+    font-size: clamp(2.125rem, 4.2vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 1.05;
+    margin: 0 0 0.5rem;
+    color: var(--sg-text);
+}
+
+.sg-homepage .sg-hero__title-secondary {
+    display: block;
+    margin: 0 0 0.55rem;
+    font-size: clamp(0.72rem, 1.35vw, 0.875rem);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(203, 213, 225, 0.88);
+    -webkit-text-fill-color: rgba(203, 213, 225, 0.88);
+    line-height: 1.35;
+}
+
+.sg-homepage .sg-hero__title-primary {
+    display: block;
+    margin: 0 0 0.5rem;
+    font-size: 1em;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.06;
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
+}
+
+.sg-homepage .sg-hero__title-org {
+    display: block;
+    margin: 0;
+    font-family: var(--sg-font-body);
+    font-size: clamp(0.9375rem, 1.5vw, 1.125rem);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.45;
+    color: rgba(226, 232, 240, 0.92);
+    -webkit-text-fill-color: rgba(226, 232, 240, 0.92);
+}
+
+.sg-homepage .sg-hero__tagline {
+    margin: 0 0 1.65rem;
+    max-width: 34rem;
+    font-family: var(--sg-font-body);
+    font-size: clamp(0.9375rem, 1.25vw, 1.0625rem);
+    font-weight: 400;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+    color: var(--sg-text-muted);
+}
+
+.sg-homepage .sg-hero__cta {
+    gap: 0.85rem 1rem;
+}
+
+/* —— CTAs: rounded-xl enterprise —— */
+.sg-homepage .sg-btn--hero-primary {
+    border-radius: 12px;
+    font-family: var(--sg-font-body);
+    font-weight: 600;
+    background: linear-gradient(180deg, #135892 0%, var(--sg-primary) 100%);
+    box-shadow: var(--sg-shadow-elevated);
+    transition: transform var(--sg-ease), box-shadow var(--sg-ease), background var(--sg-ease);
+}
+
+.sg-homepage .sg-btn--hero-primary:hover {
+    background: linear-gradient(180deg, #1a6bb0 0%, #135892 100%);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.22);
+}
+
+.sg-homepage .sg-btn--hero-secondary {
+    border-radius: 12px;
+    font-family: var(--sg-font-body);
+    border-color: rgba(255, 255, 255, 0.35);
+    transition: background var(--sg-ease), border-color var(--sg-ease), transform var(--sg-ease);
+}
+
+/* —— Visual: softer glass, gentle float —— */
+.sg-homepage .sg-hero__visual-frame {
+    border-radius: var(--sg-radius-lg);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--sg-border);
+    box-shadow: var(--sg-shadow-elevated);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.sg-homepage .sg-hero__holo .sg-command-center {
+    max-width: min(380px, 100%);
+    filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.18)) !important;
+    animation: sgHeroVisualFloat 7s ease-in-out infinite;
+}
+
+@keyframes sgHeroVisualFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+.sg-homepage .sg-command-center__mesh {
+    opacity: 0.55;
+}
+
+.sg-homepage .sg-command-center__mesh g[stroke] {
+    opacity: 0.45;
+    filter: none;
+}
+
+.sg-homepage .sg-command-center__hub-core {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+}
+
+.sg-homepage .sg-command-center__hub-ring {
+    animation: sgHubRingSoft 6s ease-in-out infinite !important;
+    opacity: 0.75;
+}
+
+@keyframes sgHubRingSoft {
+    0%, 100% { opacity: 0.65; transform: scale(1); }
+    50% { opacity: 0.85; transform: scale(1.03); }
+}
+
+.sg-homepage .sg-float-card {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12) !important;
+    animation: sgFloatSoft 5.5s ease-in-out infinite !important;
+}
+
+.sg-homepage .sg-float-card:hover {
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.16) !important;
+}
+
+/* Node interaktif: sg-command-center-interactive.css */
+.sg-homepage .sg-command-center--interactive .sg-command-center__node-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(147, 197, 253, 0.28);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+@keyframes sgFloatSoft {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+/* —— Quick access cards —— */
+.sg-homepage .sg-quick-menu {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+    gap: 1rem;
+}
+
+@media (min-width: 992px) {
+    .sg-homepage .sg-quick-menu {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 992px) {
+    .sg-homepage .sg-quick-menu {
+        gap: 1.15rem;
+    }
+}
+
+.sg-homepage .sg-quick-menu__card {
+    border-radius: var(--sg-radius-lg);
+    padding: 1.1rem 1.25rem;
+    background: var(--sg-surface);
+    border: 1px solid var(--sg-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transition: transform var(--sg-ease), box-shadow var(--sg-ease), border-color var(--sg-ease), background var(--sg-ease);
+}
+
+.sg-homepage .sg-quick-menu__card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(56, 189, 248, 0.35);
+    background: rgba(255, 255, 255, 0.11);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+}
+
+.sg-homepage .sg-quick-menu__icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: rgba(15, 76, 129, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--sg-accent);
+    font-size: 1.05rem;
+}
+
+.sg-homepage .sg-quick-menu__label {
+    font-family: var(--sg-font-display);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--sg-text);
+}
+
+.sg-homepage .sg-quick-menu__desc {
+    font-size: 0.8125rem;
+    color: rgba(203, 213, 225, 0.78);
+    line-height: 1.45;
+}
+
+.sg-homepage .sg-quick-menu__arrow {
+    opacity: 0.55;
+    transition: transform var(--sg-ease), opacity var(--sg-ease);
+}
+
+.sg-homepage .sg-quick-menu__card:hover .sg-quick-menu__arrow {
+    opacity: 1;
+    transform: translateX(3px);
+}
+
+/* —— Statistics: glass cards —— */
+.sg-homepage .sg-hero-stats {
+    gap: 1rem;
+    margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+}
+
+@media (min-width: 768px) {
+    .sg-homepage .sg-hero-stats {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1.15rem;
+    }
+}
+
+.sg-homepage .sg-hero-stats .sg-stat-glass,
+.sg-homepage .sg-hero-stat-card {
+    min-height: 5.25rem;
+    padding: 1.1rem 1.15rem;
+    border-radius: var(--sg-radius-lg);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+    transition: transform var(--sg-ease), box-shadow var(--sg-ease), border-color var(--sg-ease), background var(--sg-ease);
+}
+
+.sg-homepage .sg-hero-stats .sg-stat-glass:hover,
+.sg-homepage .sg-hero-stat-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(56, 189, 248, 0.28);
+    background: rgba(255, 255, 255, 0.11);
+    box-shadow: var(--sg-shadow-elevated);
+}
+
+/* Statistik hero: data saja, bukan tombol */
+.sg-homepage .sg-hero-stats .sg-stat-display,
+.sg-homepage .sg-hero-stats .sg-stat-display.sg-stat-glass {
+    display: block;
+    cursor: default;
+    pointer-events: none;
+    text-align: center;
+}
+
+.sg-homepage .sg-hero-stats .sg-stat-display:hover,
+.sg-homepage .sg-hero-stats .sg-stat-display.sg-hero-stat-card:hover {
+    transform: none;
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+}
+
+.sg-homepage .sg-hero-stats .sg-stat-display .sg-stat-glass__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+.sg-homepage .sg-hero-stats .sg-stat-display .sg-stat-glass__num {
+    font-size: clamp(1.5rem, 2.2vw, 1.85rem);
+}
+
+.sg-homepage .sg-hero-stats .sg-stat-display .sg-stat-glass__label {
+    text-transform: none;
+    letter-spacing: 0.02em;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: rgba(226, 232, 240, 0.78);
+}
+
+.sg-homepage .sg-hero-stats .sg-stat-glass__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+    text-align: left;
+}
+
+.sg-homepage .sg-hero-stats .sg-stat-glass,
+.sg-homepage .sg-hero-stat-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sg-homepage .sg-hero-stats .sg-stat-glass__icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    font-size: 1rem;
+    color: var(--sg-accent);
+    background: rgba(29, 155, 240, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.sg-homepage .sg-hero-stats .sg-stat-glass__num {
+    font-family: var(--sg-font-display);
+    font-size: clamp(1.4rem, 2.1vw, 1.75rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+.sg-homepage .sg-hero-stats .sg-stat-glass__label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sg-text-muted);
+}
+
+/* —— Navbar beranda: lebih ringkas —— */
+.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__topbar {
+    padding: 0.22rem 0 0.18rem;
+}
+
+.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled {
+    box-shadow: var(--sg-shadow-elevated);
+}
+
+.sg-homepage.sg-portal-page .site-header__nav a {
+    border-radius: 10px;
+    padding: 0.42rem 0.7rem !important;
+    transition: background var(--sg-ease), color var(--sg-ease);
+}
+
+/* Menu aktif header: org-container-global.css (semua sg-portal-page) */
+
+.sg-homepage.sg-portal-page .site-header__actions-end .btn {
+    border-radius: 12px !important;
+    font-weight: 600;
+    transition: transform var(--sg-ease), box-shadow var(--sg-ease);
+}
+
+.sg-homepage.sg-portal-page .site-header__actions-end .btn:hover {
+    transform: translateY(-1px);
+}
+
+/* —— Reveal: jangan sembunyikan teks hero —— */
+.sg-homepage #sg-hero .sg-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+}
+
+html.sg-js .sg-homepage #beranda-root .sg-reveal,
+html.sg-js .sg-homepage .sg-reveal-section {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+html.sg-js .sg-homepage .sg-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.sg-homepage .sg-reveal--delay {
+    transition-delay: 0.1s;
+}
+
+.sg-homepage .sg-reveal--delay-2 {
+    transition-delay: 0.18s;
+}
+
+.sg-homepage .sg-reveal--delay-3 {
+    transition-delay: 0.26s;
+}
+
+/* —— Mobile —— */
+@media (max-width: 991.98px) {
+    .sg-homepage .sg-hero__grid {
+        gap: 1.75rem;
+    }
+
+    .sg-homepage .sg-hero__copy {
+        max-width: none;
+        text-align: left;
+    }
+
+    .sg-homepage .sg-hero__visual-col {
+        order: -1;
+    }
+
+    .sg-homepage .sg-hero--govtech .sg-hero__holo {
+        min-height: min(240px, 50vw);
+    }
+
+    .sg-homepage .sg-hero__tagline {
+        margin-bottom: 1.35rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .sg-homepage .sg-hero-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .sg-homepage .sg-hero__cta {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sg-homepage .sg-btn--hero-primary,
+    .sg-homepage .sg-btn--hero-secondary {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sg-homepage .sg-hero--govtech .sg-hero__holo .sg-command-center,
+    .sg-homepage .sg-command-center__node-btn,
+    .sg-homepage .sg-command-center__hub-ring {
+        animation: none;
+    }
+
+    .sg-homepage .sg-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}

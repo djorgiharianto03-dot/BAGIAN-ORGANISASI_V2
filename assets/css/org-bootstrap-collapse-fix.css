@@ -1,0 +1,74 @@
+/**
+ * Bootstrap Collapse vs Tailwind .collapse (visibility:collapse).
+ * Muat setelah Bootstrap + org-tailwind.css.
+ * Mencakup: accordion, navbar-collapse, panel collapse (monitoring disposisi), dll.
+ */
+
+/* —— Accordion (beranda target tim, manajemen tugas, …) —— */
+.accordion-collapse.collapse:not(.show) {
+    display: none !important;
+    visibility: visible !important;
+}
+
+.accordion-collapse.collapse.show,
+.accordion-collapse.collapse.collapsing {
+    display: block !important;
+    visibility: visible !important;
+}
+
+.accordion-collapse.collapse.show {
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.accordion-collapse.collapse.show .accordion-body,
+.accordion-collapse.collapse.show .accordion-body * {
+    visibility: visible !important;
+}
+
+.accordion-item:has(.accordion-collapse.collapse.show) {
+    overflow: visible;
+}
+
+/* —— Panel collapse umum (Monitoring Disposisi, dll.) —— */
+div.collapse:not(.navbar-collapse):not(.accordion-collapse):not(.site-header__nav-panel):not(.show) {
+    display: none !important;
+    visibility: visible !important;
+}
+
+div.collapse:not(.navbar-collapse):not(.accordion-collapse):not(.site-header__nav-panel).show,
+div.collapse:not(.navbar-collapse):not(.accordion-collapse):not(.site-header__nav-panel).collapsing {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* —— Navbar Bootstrap (admin, dll.) —— */
+.collapse.navbar-collapse {
+    visibility: visible !important;
+}
+
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-collapse.collapse {
+        display: flex !important;
+        flex-basis: auto;
+        visibility: visible !important;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .navbar-expand-lg .navbar-collapse.collapse:not(.show) {
+        display: none !important;
+        visibility: visible !important;
+    }
+
+    .navbar-expand-lg .navbar-collapse.collapse.show {
+        display: block !important;
+        visibility: visible !important;
+    }
+}
+
+/* —— Navbar portal (org-navbar.css menangani display; pastikan visibility) —— */
+.site-header__nav-panel.collapse,
+.site-header__nav-panel.collapsing {
+    visibility: visible !important;
+}

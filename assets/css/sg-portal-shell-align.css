@@ -1,0 +1,105 @@
+/**
+ * Portal — header sticky + shell hero/subhero full-width (satu lebar alur dokumen).
+ * Beranda, Profil, Layanan, Dokumen, Berita, Galeri, Informasi, E-Organisasi, …
+ */
+
+html.sg-portal-html,
+html.sg-portal-html-home {
+    overflow-x: clip;
+    overflow-y: scroll;
+    scrollbar-gutter: auto !important;
+}
+
+body.sg-portal-page {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    overflow-x: clip;
+    box-sizing: border-box;
+}
+
+body.sg-homepage.sg-portal-page {
+    background-color: #07325a;
+}
+
+body.sg-portal-page .site-layout-main {
+    width: 100%;
+    max-width: none;
+    padding-top: 0;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main {
+    background: transparent;
+}
+
+/* Header navbar: sticky (semua item menu portal) */
+body.sg-portal-page .site-header--sg-portal {
+    position: sticky !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    z-index: 200;
+    box-sizing: border-box;
+}
+
+body.sg-portal-page .site-header--sg-portal .site-header__gradient {
+    display: block;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+}
+
+/* Beranda — #sg-hero di bawah header */
+body.sg-homepage.sg-portal-page > section#sg-hero.hero-section,
+body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
+body.sg-homepage.sg-portal-page > #sg-hero.sg-hero {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding-top: 0 !important;
+    box-sizing: border-box;
+}
+
+body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__bg,
+body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__grid-floor,
+body.sg-homepage.sg-portal-page > #sg-hero .sg-ambient-layer,
+body.sg-homepage.sg-portal-page > #sg-hero.hero-section::before {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+}
+
+/* Subhalaman — subhero pertama di main (tanpa padding-top offset header fixed) */
+body.sg-portal-page .site-layout-main > .org-hero.sg-subhero,
+body.sg-portal-page .site-layout-main > .sg-subhero,
+body.sg-portal-page .site-layout-main > .org-hero.org-hero--sub.sg-subhero:first-child {
+    width: 100% !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    box-sizing: border-box;
+}
+
+body.sg-portal-page .org-hero.sg-subhero .org-hero__bg,
+body.sg-portal-page .org-hero.sg-subhero .sg-subhero__bg,
+body.sg-portal-page .sg-subhero .sg-subhero__bg {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+}
+
+body.sg-portal-page .sg-portal-main-inner,
+body.sg-portal-page .sg-portal-main {
+    width: 100%;
+    max-width: none;
+}

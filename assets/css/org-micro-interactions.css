@@ -1,0 +1,258 @@
+/**
+ * Premium micro-interactions — subtle, professional
+ * Duration: 0.2s–0.4s · ease / ease-out
+ */
+
+:root {
+    --org-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --org-dur-fast: 0.2s;
+    --org-dur: 0.32s;
+    --org-dur-slow: 0.4s;
+    --org-lift: translateY(-4px);
+    --org-shadow-rest: 0 4px 14px rgba(15, 23, 42, 0.06);
+    --org-shadow-hover: 0 14px 32px rgba(15, 23, 42, 0.1);
+}
+
+/* —— Scroll reveal (JS toggles .is-visible) —— */
+.org-reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+        opacity var(--org-dur) var(--org-ease),
+        transform var(--org-dur) var(--org-ease);
+    will-change: opacity, transform;
+}
+
+.org-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.org-reveal-stagger > .org-reveal,
+.org-reveal-stagger > * {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+        opacity var(--org-dur) var(--org-ease),
+        transform var(--org-dur) var(--org-ease);
+    transition-delay: calc(var(--org-reveal-i, 0) * 55ms);
+}
+
+.org-reveal-stagger.is-visible > .org-reveal,
+.org-reveal-stagger.is-visible > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* —— Card hover elevation —— */
+.card,
+.section-card,
+.pub-float-panel,
+.np-card,
+.np-hero__card,
+.gl-item,
+.eo-stat-card,
+.eo-widget,
+.eo-module-card,
+.eorg-hub-card,
+.pi-portal-card,
+.pi-portal-empty,
+.beranda-galeri-item,
+.site-footer-card,
+.sg-card,
+.sg-stat-glass {
+    transition:
+        transform var(--org-dur) var(--org-ease),
+        box-shadow var(--org-dur) var(--org-ease),
+        border-color var(--org-dur-fast) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .card:hover,
+    .section-card:hover,
+    .pub-float-panel:hover,
+    a.np-card__link:hover .np-card,
+    a.gl-item:hover,
+    .eo-stat-card:hover,
+    .eo-widget:hover,
+    a.eo-module-card:hover,
+    a.eorg-hub-card:hover,
+    a.pi-portal-card-link:hover .pi-portal-card,
+    a.beranda-galeri-item:hover,
+    .site-footer-card:hover,
+    .sg-card:hover {
+        transform: var(--org-lift);
+        box-shadow: var(--org-shadow-hover);
+    }
+
+    a.np-card__link:hover .np-card,
+    a.pi-portal-card-link:hover .pi-portal-card {
+        border-color: rgba(29, 78, 216, 0.22);
+    }
+}
+
+/* —— Buttons —— */
+.btn,
+.site-header-doc-search__submit,
+.gl-filters__tab {
+    position: relative;
+    overflow: hidden;
+    transition:
+        transform var(--org-dur-fast) var(--org-ease),
+        box-shadow var(--org-dur-fast) var(--org-ease),
+        background-color var(--org-dur-fast) ease,
+        border-color var(--org-dur-fast) ease,
+        color var(--org-dur-fast) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .btn:hover:not(:disabled):not(.btn-close),
+    .site-header-doc-search__submit:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
+    }
+
+    .btn:active:not(:disabled):not(.btn-close) {
+        transform: translateY(0);
+        transition-duration: 0.12s;
+    }
+}
+
+/* Ripple */
+.org-ripple .org-ripple__wave {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    pointer-events: none;
+    background: rgba(255, 255, 255, 0.45);
+    animation: orgRipple var(--org-dur-slow) var(--org-ease) forwards;
+}
+
+.btn-primary .org-ripple__wave,
+.btn-header-dashboard .org-ripple__wave {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.btn-outline-primary .org-ripple__wave,
+.btn-outline-secondary .org-ripple__wave,
+.btn-header-login .org-ripple__wave,
+.btn-header-logout .org-ripple__wave {
+    background: rgba(15, 23, 42, 0.12);
+}
+
+@keyframes orgRipple {
+    to {
+        transform: scale(2.8);
+        opacity: 0;
+    }
+}
+
+/* —— Navbar —— */
+.site-header__nav a,
+.site-header__footer__nav a,
+.site-footer__nav a {
+    transition:
+        color var(--org-dur-fast) ease,
+        background-color var(--org-dur-fast) ease,
+        transform var(--org-dur-fast) var(--org-ease),
+        box-shadow var(--org-dur-fast) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .site-header__nav a:hover {
+        transform: translateY(-1px);
+    }
+}
+
+.site-header__nav a.is-active {
+    transition: color var(--org-dur-fast) ease, background-color var(--org-dur-fast) ease, box-shadow var(--org-dur) var(--org-ease);
+}
+
+.site-header__nav-collapse {
+    transition: height var(--org-dur-slow) var(--org-ease);
+}
+
+.site-header__hamburger-line {
+    transition: transform var(--org-dur-fast) var(--org-ease), opacity var(--org-dur-fast) ease;
+}
+
+.site-header__nav-toggle[aria-expanded="true"] .site-header__hamburger-line:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.site-header__nav-toggle[aria-expanded="true"] .site-header__hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.site-header__nav-toggle[aria-expanded="true"] .site-header__hamburger-line:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+/* —— Links & chips —— */
+a:not(.btn):not(.card):not(.gl-item):not(.np-card__link):not(.eo-module-card) {
+    transition: color var(--org-dur-fast) ease, opacity var(--org-dur-fast) ease;
+}
+
+.gl-filters__tab,
+.np-card__cat,
+.eo-progress-row__icon {
+    transition:
+        background-color var(--org-dur-fast) ease,
+        color var(--org-dur-fast) ease,
+        transform var(--org-dur-fast) var(--org-ease),
+        box-shadow var(--org-dur-fast) ease;
+}
+
+.gl-filters__tab.is-active {
+    transition: all var(--org-dur) var(--org-ease);
+}
+
+/* —— Images in cards —— */
+a:hover .np-card__img,
+a:hover .gl-item__img,
+a:hover .pi-portal-card__img,
+a:hover .beranda-galeri-item__img {
+    transition: transform var(--org-dur-slow) var(--org-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    a.np-card__link:hover .np-card__img,
+    a.gl-item:hover .gl-item__img,
+    a.pi-portal-card-link:hover .pi-portal-card__img,
+    a.beranda-galeri-item:hover .beranda-galeri-item__img {
+        transform: scale(1.04);
+    }
+}
+
+/* —— AOS harmonization (subtler) —— */
+[data-aos] {
+    transition-timing-function: var(--org-ease) !important;
+}
+
+/* —— Reduced motion —— */
+@media (prefers-reduced-motion: reduce) {
+    .org-reveal,
+    .org-reveal-stagger > * {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .card:hover,
+    .section-card:hover,
+    .btn:hover,
+    .site-header__nav a:hover,
+    a.np-card__link:hover .np-card,
+    a.gl-item:hover {
+        transform: none !important;
+    }
+
+    .org-ripple .org-ripple__wave {
+        display: none !important;
+    }
+
+    [data-aos] {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

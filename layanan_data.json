@@ -1,0 +1,26 @@
+[
+    {
+        "kategori": "Kelembagaan",
+        "nama": "PENGUSULAN ANJAB ABK MUTASI",
+        "deskripsi": "",
+        "media_image": "uploads\/layanan_assets\/layanan_img_20260506083100_20678.png",
+        "media_document": "",
+        "media_documents": [],
+        "link": "",
+        "pin_label": "",
+        "pin_position": "",
+        "urutan": 0
+    },
+    {
+        "kategori": "Kelembagaan",
+        "nama": "PENGINPUTAN ANJAB ABK",
+        "deskripsi": "Penginputan Dilakukan Pada Aplikasi Simona-Kemendagri",
+        "media_image": "uploads\/layanan_assets\/layanan_img_20260512054216_51739.png",
+        "media_document": "",
+        "media_documents": [],
+        "link": "https:\/\/anjababk-simona.kemendagri.go.id\/2023\/auth\/login",
+        "pin_label": "Utama",
+        "pin_position": "before",
+        "urutan": 1
+    }
+]

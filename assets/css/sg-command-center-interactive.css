@@ -1,0 +1,276 @@
+/**
+ * Governance command center — node interaktif (beranda hero).
+ * Layout posisi: smart-governance-dashboard.css (--1 s/d --4, hub inset).
+ */
+
+.sg-command-center--interactive {
+    position: relative;
+    z-index: 1;
+}
+
+.sg-command-center--interactive .sg-command-center__mesh {
+    pointer-events: none;
+}
+
+.sg-command-center__mesh-lines {
+    transition: opacity 220ms ease, stroke-width 220ms ease;
+}
+
+.sg-command-center--interactive:has(.sg-command-center__node-btn:is(:hover, :focus-visible)),
+.sg-command-center--interactive:has(.sg-command-center__hub-btn:is(:hover, :focus-visible)) {
+    --sg-mesh-line-opacity: 0.88;
+    --sg-mesh-glow: 0.42;
+}
+
+.sg-command-center--interactive:has(.sg-command-center__node-btn:is(:hover, :focus-visible)) .sg-command-center__mesh-lines,
+.sg-command-center--interactive:has(.sg-command-center__hub-btn:is(:hover, :focus-visible)) .sg-command-center__mesh-lines {
+    opacity: var(--sg-mesh-line-opacity, 0.88);
+}
+
+.sg-command-center--interactive:has(.sg-command-center__node-btn:is(:hover, :focus-visible)) .sg-command-center__mesh-lines path,
+.sg-command-center--interactive:has(.sg-command-center__node-btn:is(:hover, :focus-visible)) .sg-command-center__mesh-lines circle,
+.sg-command-center--interactive:has(.sg-command-center__hub-btn:is(:hover, :focus-visible)) .sg-command-center__mesh-lines path,
+.sg-command-center--interactive:has(.sg-command-center__hub-btn:is(:hover, :focus-visible)) .sg-command-center__mesh-lines circle {
+    stroke-opacity: 0.92;
+}
+
+/* —— Corner nodes —— */
+.sg-command-center__node-btn {
+    position: absolute;
+    z-index: 4;
+    width: 52px;
+    height: 52px;
+    margin: 0;
+    padding: 0;
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    color: #e0f2fe;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(147, 197, 253, 0.28);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 6px 20px rgba(0, 12, 30, 0.28), 0 0 0 0 rgba(56, 189, 248, 0);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 220ms ease;
+    animation: sgFloatSoft 5.5s ease-in-out infinite;
+}
+
+.sg-command-center__node-btn--1 {
+    top: 4%;
+    left: 2%;
+    animation-delay: 0s;
+}
+
+.sg-command-center__node-btn--2 {
+    top: 6%;
+    right: 0;
+    animation-delay: -1.2s;
+}
+
+.sg-command-center__node-btn--3 {
+    bottom: 8%;
+    left: 4%;
+    animation-delay: -2s;
+}
+
+.sg-command-center__node-btn--4 {
+    bottom: 4%;
+    right: 2%;
+    animation-delay: -0.6s;
+}
+
+.sg-command-center__node-btn__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: transform 220ms ease;
+}
+
+.sg-command-center__node-btn:hover,
+.sg-command-center__node-btn:focus-visible {
+    transform: translateY(-2px) scale(1.04);
+    border-color: rgba(125, 211, 252, 0.55);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow:
+        0 10px 28px rgba(0, 12, 30, 0.35),
+        0 0 22px rgba(56, 189, 248, 0.38);
+    color: #fff;
+    outline: none;
+}
+
+.sg-command-center__node-btn:focus-visible {
+    box-shadow:
+        0 10px 28px rgba(0, 12, 30, 0.35),
+        0 0 22px rgba(56, 189, 248, 0.38),
+        0 0 0 3px rgba(56, 189, 248, 0.45);
+}
+
+.sg-command-center__node-btn:hover .sg-command-center__node-btn__icon,
+.sg-command-center__node-btn:focus-visible .sg-command-center__node-btn__icon {
+    transform: scale(1.05);
+}
+
+/* Tooltip */
+.sg-command-center__tooltip {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 10px);
+    transform: translateX(-50%) translateY(4px);
+    padding: 0.35rem 0.65rem;
+    border-radius: 8px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+    white-space: nowrap;
+    color: #f8fafc;
+    background: rgba(2, 22, 48, 0.92);
+    border: 1px solid rgba(125, 211, 252, 0.35);
+    box-shadow: 0 8px 20px rgba(0, 10, 28, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 220ms ease, transform 220ms ease, visibility 220ms ease;
+}
+
+.sg-command-center__node-btn:hover .sg-command-center__tooltip,
+.sg-command-center__node-btn:focus-visible .sg-command-center__tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.sg-command-center__node-btn--2 .sg-command-center__tooltip,
+.sg-command-center__node-btn--4 .sg-command-center__tooltip {
+    left: auto;
+    right: 0;
+    transform: translateY(4px);
+}
+
+.sg-command-center__node-btn--2:hover .sg-command-center__tooltip,
+.sg-command-center__node-btn--2:focus-visible .sg-command-center__tooltip,
+.sg-command-center__node-btn--4:hover .sg-command-center__tooltip,
+.sg-command-center__node-btn--4:focus-visible .sg-command-center__tooltip {
+    transform: translateY(0);
+}
+
+/* —— Hub utama —— */
+.sg-command-center__hub-btn {
+    position: absolute;
+    inset: 28%;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 220ms ease;
+    border-radius: 22px;
+}
+
+.sg-command-center__hub-btn .sg-command-center__hub-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 22px;
+    border: 1px solid rgba(34, 211, 238, 0.45);
+    box-shadow: 0 0 24px rgba(34, 211, 238, 0.2), inset 0 0 24px rgba(34, 211, 238, 0.1);
+    transition: all 220ms ease;
+    pointer-events: none;
+}
+
+.sg-command-center__hub-btn .sg-command-center__hub-core {
+    position: relative;
+    z-index: 2;
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #e0f2fe;
+    background: linear-gradient(145deg, rgba(34, 211, 238, 0.35), rgba(37, 99, 235, 0.25));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 12px 40px rgba(34, 211, 238, 0.28);
+    transition: all 220ms ease;
+    pointer-events: none;
+}
+
+.sg-command-center__hub-btn:hover,
+.sg-command-center__hub-btn:focus-visible {
+    outline: none;
+}
+
+.sg-command-center__hub-btn:hover .sg-command-center__hub-core,
+.sg-command-center__hub-btn:focus-visible .sg-command-center__hub-core {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 16px 44px rgba(34, 211, 238, 0.42), 0 0 28px rgba(56, 189, 248, 0.35);
+    border-color: rgba(186, 230, 253, 0.65);
+    color: #fff;
+}
+
+.sg-command-center__hub-btn:hover .sg-command-center__hub-ring,
+.sg-command-center__hub-btn:focus-visible .sg-command-center__hub-ring {
+    border-color: rgba(125, 211, 252, 0.65);
+    box-shadow: 0 0 32px rgba(56, 189, 248, 0.45), inset 0 0 28px rgba(34, 211, 238, 0.18);
+}
+
+.sg-command-center__hub-btn:focus-visible {
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.4);
+}
+
+.sg-command-center__hub-tooltip {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 12px);
+    transform: translateX(-50%) translateY(4px);
+    padding: 0.4rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    white-space: nowrap;
+    color: #f8fafc;
+    background: rgba(2, 22, 48, 0.92);
+    border: 1px solid rgba(125, 211, 252, 0.35);
+    box-shadow: 0 8px 20px rgba(0, 10, 28, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 220ms ease, transform 220ms ease, visibility 220ms ease;
+}
+
+.sg-command-center__hub-btn:hover .sg-command-center__hub-tooltip,
+.sg-command-center__hub-btn:focus-visible .sg-command-center__hub-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sg-command-center__node-btn,
+    .sg-command-center__hub-btn,
+    .sg-command-center__hub-btn .sg-command-center__hub-core,
+    .sg-command-center__hub-btn .sg-command-center__hub-ring,
+    .sg-command-center__mesh-lines,
+    .sg-command-center__tooltip,
+    .sg-command-center__hub-tooltip {
+        transition: none;
+        animation: none;
+    }
+
+    .sg-command-center__node-btn:hover,
+    .sg-command-center__node-btn:focus-visible,
+    .sg-command-center__hub-btn:hover .sg-command-center__hub-core,
+    .sg-command-center__hub-btn:focus-visible .sg-command-center__hub-core {
+        transform: none;
+    }
+}

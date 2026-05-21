@@ -1,0 +1,77 @@
+/**
+ * Modal, loader, dan perbaikan konflik Tailwind vs Bootstrap.
+ */
+
+/* Bootstrap collapse: org-bootstrap-collapse-fix.css */
+
+/**
+ * Modal & loader — modal selalu di atas navbar/loader/dekorasi.
+ */
+
+/* Loader portal tidak menutupi dialog (sebelumnya z-index 9999 > modal) */
+.sg-portal-loader {
+    z-index: 1035 !important;
+}
+
+.sg-portal-loader.is-done,
+body.modal-open .sg-portal-loader,
+body.modal-open #sgPortalLoader {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    opacity: 0 !important;
+}
+
+/* Di atas navbar fixed (~1055) */
+.modal-backdrop {
+    z-index: 1090 !important;
+}
+
+.modal {
+    z-index: 1100 !important;
+}
+
+.sg-portal-page .modal-backdrop {
+    z-index: 1190 !important;
+}
+
+.sg-portal-page .modal {
+    z-index: 1200 !important;
+}
+
+.modal.show {
+    pointer-events: auto;
+}
+
+.modal-content {
+    position: relative;
+    z-index: 1;
+    background-color: #fff;
+}
+
+/* Indikator & Statistik — modal tidak terpotong parent */
+.gov-kpi-section,
+.gov-kpi-section__shell,
+#beranda-dashboard-widgets {
+    overflow: visible;
+}
+
+.gov-kpi-modal__header .modal-title {
+    color: #fff;
+}
+
+.gov-kpi-modal__panel-title .fa-spinner {
+    font-size: 0.85rem;
+    vertical-align: middle;
+}
+
+/* Saat modal terbuka, kurangi dekorasi dashboard di belakang */
+body.modal-open .sg-portal-main .sg-ambient-layer--floor {
+    opacity: 0.12 !important;
+    pointer-events: none !important;
+}
+
+body.modal-open .sg-float-widget {
+    visibility: hidden;
+    pointer-events: none;
+}

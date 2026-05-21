@@ -1,0 +1,50 @@
+/**
+ * Portal beranda — lapisan dekoratif hero (konten di org-container-global.css)
+ */
+
+html.sg-portal-html-home,
+html.sg-portal-html-home body.sg-homepage.sg-portal-page {
+    background-color: #07325a;
+}
+
+body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
+body.sg-homepage.sg-portal-page > section#sg-hero.sg-hero {
+    display: block;
+    position: relative;
+    width: 100%;
+    max-width: none;
+    min-height: min(760px, 92vh);
+    margin: 0;
+    isolation: isolate;
+    box-sizing: border-box;
+}
+
+body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+}
+
+body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__grid-floor,
+body.sg-homepage.sg-portal-page > #sg-hero .sg-ambient-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    transform: none;
+}
+
+body.sg-homepage.sg-portal-page > #sg-hero.sg-hero--govtech .sg-hero__bg::before {
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    transform: none;
+}

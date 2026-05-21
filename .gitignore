@@ -1,0 +1,30 @@
+# Dependensi Node (CSS Tailwind di-build ke assets/css/org-tailwind.css)
+/node_modules/
+
+# Rahasia & konfigurasi lokal (buat dari *.example di server)
+.env
+config/database.php
+config/openai.local.php
+site_settings.json
+
+# Unggahan pengguna — jangan commit isi berkas (termasuk subfolder)
+/uploads/**
+!/uploads/.gitkeep
+!/uploads/.htaccess
+!/uploads/**/
+!/uploads/**/.gitkeep
+
+# Cache/metadata upload lokal
+uploads/.arsip_chart_cache.json
+uploads/arsip_surat_meta.json
+
+# File sementara / debug lokal
+tmp_*
+*.log
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp

@@ -1,0 +1,481 @@
+/**
+ * Smart Governance Dashboard — command center layer
+ * National Digital Governance · premium SaaS / AI ops aesthetic
+ */
+
+.sg-portal-page {
+    --sg-dash-bg: #f0f4f9;
+    --sg-dash-bg-alt: #e8eef6;
+    --sg-dash-card: rgba(255, 255, 255, 0.92);
+    --sg-dash-glass: rgba(255, 255, 255, 0.08);
+    --sg-dash-glass-border: rgba(255, 255, 255, 0.22);
+    --sg-dash-glow: 0 0 0 1px rgba(34, 211, 238, 0.15), 0 20px 50px rgba(6, 26, 51, 0.12);
+    --sg-dash-glow-strong: 0 0 24px rgba(34, 211, 238, 0.35), 0 0 0 1px rgba(34, 211, 238, 0.25);
+    --sg-dash-radius: 20px;
+    --sg-dash-radius-lg: 24px;
+    --sg-dash-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --sg-surface: var(--sg-dash-bg);
+    --sg-radius-xl: var(--sg-dash-radius-lg);
+    --sg-shadow: 0 4px 6px rgba(15, 39, 68, 0.04), 0 18px 40px rgba(15, 39, 68, 0.08);
+    --sg-shadow-lg: 0 8px 16px rgba(15, 39, 68, 0.06), 0 28px 56px rgba(15, 39, 68, 0.12);
+}
+
+.sg-portal-page,
+.sg-portal-page .site-layout-main,
+.sg-portal-page .sg-portal-main,
+.sg-portal-page .sg-portal-main-inner {
+    font-family: var(--sg-font);
+}
+
+/* —— Loader command center —— */
+.sg-portal-loader {
+    background:
+        radial-gradient(ellipse 80% 50% at 50% 0%, rgba(34, 211, 238, 0.2), transparent 55%),
+        linear-gradient(160deg, #030d1a 0%, #061a33 40%, #0c2d5a 100%);
+}
+.sg-portal-loader__ring {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-top-color: #22d3ee;
+    border-radius: 50%;
+    animation: sgSpin 0.9s linear infinite;
+}
+/* —— Hero command center —— */
+.sg-hero__orb--3 {
+    width: 180px;
+    height: 180px;
+    background: #0891b2;
+    top: 42%;
+    right: 22%;
+    animation-delay: -6s;
+    opacity: 0.35;
+}
+.sg-hero {
+    min-height: min(92vh, 920px);
+    isolation: isolate;
+}
+.sg-hero__bg {
+    background:
+        radial-gradient(ellipse 90% 70% at 15% 10%, rgba(34, 211, 238, 0.22), transparent 50%),
+        radial-gradient(ellipse 60% 50% at 90% 20%, rgba(59, 130, 246, 0.35), transparent 45%),
+        radial-gradient(ellipse 50% 40% at 50% 100%, rgba(6, 182, 212, 0.15), transparent 50%),
+        linear-gradient(155deg, #020810 0%, #061a33 28%, #0a2f63 55%, #0f4c8a 85%, #123d6e 100%);
+}
+.sg-hero__bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(34, 211, 238, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34, 211, 238, 0.06) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 90% 80% at 50% 30%, #000 20%, transparent 75%);
+    animation: sgDashGridDrift 40s linear infinite;
+}
+.sg-hero__bg::after {
+    background-size: 40px 40px;
+    opacity: 0.7;
+}
+.sg-hero__scanline {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent 0%, rgba(34, 211, 238, 0.04) 50%, transparent 100%);
+    background-size: 100% 200%;
+    animation: sgDashScan 8s ease-in-out infinite;
+    z-index: 1;
+}
+@keyframes sgDashGridDrift {
+    to { background-position: 56px 56px; }
+}
+@keyframes sgDashScan {
+    0%, 100% { background-position: 0 -100%; }
+    50% { background-position: 0 100%; }
+}
+
+.sg-hero__eyebrow {
+    background: rgba(6, 26, 51, 0.45);
+    border: 1px solid rgba(34, 211, 238, 0.35);
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.15);
+    backdrop-filter: blur(12px);
+}
+.sg-hero__title {
+    font-size: clamp(2.15rem, 5vw, 3.65rem);
+    letter-spacing: -0.04em;
+    text-shadow: 0 2px 40px rgba(0, 0, 0, 0.35);
+}
+.sg-hero__title span {
+    background: linear-gradient(105deg, #67e8f9 0%, #a5f3fc 40%, #e0f2fe 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.sg-btn--primary {
+    background: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 20px rgba(34, 211, 238, 0.4), var(--sg-dash-glow);
+}
+.sg-btn--primary:hover {
+    box-shadow: 0 8px 32px rgba(34, 211, 238, 0.5), var(--sg-dash-glow-strong);
+}
+.sg-btn--glass {
+    background: var(--sg-dash-glass);
+    border-color: var(--sg-dash-glass-border);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.sg-btn--glass:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(34, 211, 238, 0.45);
+}
+
+.sg-hero__glass {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--sg-dash-radius-lg);
+    box-shadow: var(--sg-dash-glow), 0 24px 48px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+.sg-hero__glass::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.6), transparent);
+}
+.sg-hero__stat {
+    border-radius: 16px;
+    background: rgba(6, 26, 51, 0.35);
+    border: 1px solid rgba(34, 211, 238, 0.2);
+    transition: transform 0.3s var(--sg-dash-ease), box-shadow 0.3s var(--sg-dash-ease);
+}
+.sg-hero__stat:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(34, 211, 238, 0.2);
+}
+.sg-hero__stat-num {
+    background: linear-gradient(180deg, #fff, #bae6fd);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Command center illustration */
+.sg-command-center {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    aspect-ratio: 1;
+    margin: 0 auto;
+}
+.sg-command-center__mesh {
+    width: 100%;
+    height: 100%;
+    animation: sgDashMeshRotate 80s linear infinite;
+}
+@keyframes sgDashMeshRotate {
+    to { transform: rotate(360deg); }
+}
+.sg-command-center__hub {
+    position: absolute;
+    inset: 28%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sg-command-center__hub-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 22px;
+    border: 1px solid rgba(34, 211, 238, 0.5);
+    box-shadow: var(--sg-dash-glow-strong), inset 0 0 30px rgba(34, 211, 238, 0.15);
+    animation: sgDashHubPulse 3s ease-in-out infinite;
+}
+.sg-command-center__hub-core {
+    position: relative;
+    z-index: 2;
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #e0f2fe;
+    background: linear-gradient(145deg, rgba(34, 211, 238, 0.35), rgba(37, 99, 235, 0.25));
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 12px 40px rgba(34, 211, 238, 0.35);
+}
+@keyframes sgDashHubPulse {
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.03); }
+}
+.sg-command-center__float {
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    color: #e0f2fe;
+    background: var(--sg-dash-glass);
+    border: 1px solid var(--sg-dash-glass-border);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--sg-dash-glow);
+    animation: sgFloatCard 5s ease-in-out infinite;
+}
+.sg-command-center__float--1 { top: 4%; left: 2%; animation-delay: 0s; }
+.sg-command-center__float--2 { top: 6%; right: 0; animation-delay: -1.2s; }
+.sg-command-center__float--3 { bottom: 8%; left: 4%; animation-delay: -2s; }
+.sg-command-center__float--4 { bottom: 4%; right: 2%; animation-delay: -0.6s; }
+.sg-command-center__pulse {
+    animation: sgDashNodeBlink 2.5s ease-in-out infinite;
+}
+@keyframes sgDashNodeBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+.sg-hero__command-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+@media (min-width: 992px) {
+    .sg-hero__command-wrap {
+        flex-direction: row;
+        align-items: stretch;
+        gap: 1rem;
+    }
+    .sg-hero__glass { flex: 1; min-width: 0; }
+    .sg-hero__command-visual { flex: 1; min-width: 0; display: flex; align-items: center; }
+}
+
+/* —— Dashboard main (light command floor) —— */
+.sg-portal-main {
+    background: var(--sg-dash-bg);
+    position: relative;
+}
+.sg-portal-main::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(180deg, rgba(6, 26, 51, 0.06), transparent);
+    pointer-events: none;
+}
+
+.sg-portal-page #beranda-root > .beranda-section,
+.sg-portal-page #beranda-root > section {
+    position: relative;
+}
+.sg-portal-page #beranda-root > .beranda-section:nth-child(odd),
+.sg-portal-page #beranda-root .beranda-section--surface-muted {
+    background: var(--sg-dash-bg-alt) !important;
+}
+.sg-portal-page #beranda-root > .beranda-section:nth-child(even),
+.sg-portal-page #beranda-root .beranda-section--surface-white {
+    background: #fff !important;
+}
+
+.sg-portal-page .beranda-section__title,
+.sg-portal-page .gov-kpi-section__title,
+.sg-portal-page .gov-team-target-section__title {
+    font-size: clamp(1.4rem, 2.8vw, 1.95rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--sg-text);
+}
+.sg-portal-page .beranda-section__desc,
+.sg-portal-page .gov-kpi-section__subtitle {
+    color: var(--sg-muted);
+    font-size: 0.9375rem;
+}
+
+/* KPI command cards */
+.sg-portal-page .gov-kpi-section__shell {
+    background: var(--sg-dash-card);
+    border: 1px solid rgba(15, 55, 95, 0.08);
+    border-radius: var(--sg-dash-radius-lg);
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    box-shadow: var(--sg-shadow);
+    backdrop-filter: blur(8px);
+}
+.sg-portal-page .gov-kpi-section__live {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+.sg-portal-page .gov-kpi-card {
+    border-radius: var(--sg-dash-radius);
+    border: 1px solid rgba(15, 55, 95, 0.08);
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(15, 39, 68, 0.04);
+    transition: transform 0.35s var(--sg-dash-ease), box-shadow 0.35s var(--sg-dash-ease), border-color 0.35s;
+}
+.sg-portal-page .gov-kpi-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--sg-shadow-lg);
+    border-color: rgba(34, 211, 238, 0.25);
+}
+.sg-portal-page .gov-kpi-card__icon {
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+}
+.sg-portal-page .gov-kpi-card .progress {
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(15, 55, 95, 0.08);
+    overflow: hidden;
+}
+.sg-portal-page .gov-kpi-card .progress-bar {
+    border-radius: 999px;
+    background: linear-gradient(90deg, #06b6d4, #3b82f6);
+    box-shadow: 0 0 12px rgba(34, 211, 238, 0.45);
+    transition: width 1s var(--sg-dash-ease);
+}
+
+.sg-portal-page .gov-team-target-section__shell--glass {
+    background: var(--sg-dash-card);
+    border: 1px solid rgba(15, 55, 95, 0.08);
+    backdrop-filter: blur(12px);
+}
+
+.sg-portal-page #beranda-kunjungan-web .beranda-visit-card {
+    background: var(--sg-dash-card);
+    border: 1px solid rgba(15, 55, 95, 0.08) !important;
+    border-radius: var(--sg-dash-radius-lg) !important;
+    box-shadow: var(--sg-shadow) !important;
+    overflow: hidden;
+}
+.sg-portal-page #beranda-kunjungan-web .beranda-visit-card::before {
+    content: '';
+    display: block;
+    height: 3px;
+    background: linear-gradient(90deg, #06b6d4, #3b82f6, #06b6d4);
+    background-size: 200% 100%;
+    animation: sgDashBarShine 4s linear infinite;
+}
+@keyframes sgDashBarShine {
+    to { background-position: 200% 0; }
+}
+.sg-portal-page #beranda-kunjungan-web .beranda-visit-stat {
+    border-radius: var(--sg-dash-radius);
+    border: 1px solid rgba(15, 55, 95, 0.06);
+    transition: transform 0.3s var(--sg-dash-ease), box-shadow 0.3s;
+}
+.sg-portal-page #beranda-kunjungan-web .beranda-visit-stat:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(37, 99, 235, 0.12);
+}
+
+.sg-portal-page .pi-portal-card,
+.sg-portal-page .beranda-galeri-item {
+    background: #fff;
+    border: 1px solid rgba(15, 55, 95, 0.08);
+    box-shadow: var(--sg-shadow);
+}
+.sg-portal-page .pi-portal-card:hover,
+.sg-portal-page .beranda-galeri-item:hover {
+    border-color: rgba(34, 211, 238, 0.3);
+    box-shadow: var(--sg-shadow-lg), 0 0 0 1px rgba(34, 211, 238, 0.12);
+}
+
+.sg-portal-page .beranda-section__link-all {
+    font-weight: 600;
+    color: var(--sg-blue-600);
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(37, 99, 235, 0.08);
+    transition: background 0.2s, color 0.2s;
+}
+.sg-portal-page .beranda-section__link-all:hover {
+    background: rgba(37, 99, 235, 0.14);
+    color: var(--sg-blue-800);
+}
+
+/* Scroll reveal */
+.sg-dash-reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s var(--sg-dash-ease), transform 0.7s var(--sg-dash-ease);
+}
+.sg-dash-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Sub-hero command strip */
+.sg-subhero__bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(34, 211, 238, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34, 211, 238, 0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent 90%);
+}
+.sg-subhero__bg {
+    background:
+        radial-gradient(ellipse 80% 60% at 20% 0%, rgba(34, 211, 238, 0.2), transparent 50%),
+        linear-gradient(145deg, #020810 0%, #061a33 35%, #0f4c8a 100%);
+}
+.sg-subhero__stat {
+    border-radius: 16px;
+    border-color: rgba(34, 211, 238, 0.25);
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.08);
+}
+.sg-subhero__eyebrow--dash {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(6, 26, 51, 0.45);
+    border: 1px solid rgba(34, 211, 238, 0.35);
+    backdrop-filter: blur(10px);
+}
+.sg-subhero__title {
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* Subpage content panels */
+.sg-portal-subpage .sg-portal-main-inner {
+    background: var(--sg-dash-bg);
+}
+.sg-portal-subpage .layanan-premium-section,
+.sg-portal-subpage .digital-library .section-card,
+.sg-portal-subpage .profil-org--premium {
+    background: var(--sg-dash-card) !important;
+    border: 1px solid rgba(15, 55, 95, 0.08) !important;
+    box-shadow: var(--sg-shadow) !important;
+    border-radius: var(--sg-dash-radius-lg) !important;
+}
+
+/* Header portal: org-container-global.css + smart-governance-portal-nav.css */
+
+@media (prefers-reduced-motion: reduce) {
+    .sg-hero__bg::before,
+    .sg-command-center__mesh,
+    .sg-hero__scanline,
+    .sg-command-center__hub-ring,
+    .sg-command-center__float,
+    .sg-portal-loader__ring {
+        animation: none;
+    }
+    .sg-dash-reveal {
+        opacity: 1;
+        transform: none;
+    }
+}

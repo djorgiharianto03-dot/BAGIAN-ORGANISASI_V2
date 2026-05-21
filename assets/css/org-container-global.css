@@ -1,0 +1,454 @@
+/**
+ * Portal — satu sistem .container-global (1320px + 32px)
+ * Muat terakhir di <head> halaman sg-portal-page.
+ */
+
+:root {
+    --container-max: 1320px;
+    --layout-max-width: 1320px;
+}
+
+html.sg-portal-html,
+html.sg-portal-html-home,
+html,
+body,
+#root,
+main,
+.site-layout-main {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+/*
+ * Beranda: header fixed vs hero in-flow harus satu lebar layout.
+ * scrollbar-gutter: stable (inline di header.php) mempersempit body → celah kanan hero.
+ * overflow-y: scroll = scrollbar selalu ada → lebar stabil (selaras site_styles.php).
+ */
+html.sg-portal-html,
+html.sg-portal-html-home {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-gutter: auto !important;
+    width: 100%;
+    max-width: none;
+}
+
+body.sg-portal-page {
+    width: 100%;
+    max-width: none;
+    overflow-x: hidden;
+    --sg-header-gradient: linear-gradient(
+        90deg,
+        #001428 0%,
+        #032244 12%,
+        #073d6b 30%,
+        #0a4d85 50%,
+        #073d6b 70%,
+        #032244 88%,
+        #001428 100%
+    );
+    --sg-header-gradient-scrolled: linear-gradient(
+        90deg,
+        #001428 0%,
+        #053057 50%,
+        #001428 100%
+    );
+    --sg-nav-panel-bg: rgba(2, 22, 48, 0.72);
+    --sg-nav-panel-bg-scrolled: rgba(2, 22, 48, 0.82);
+    --sg-nav-panel-border: rgba(147, 197, 253, 0.18);
+}
+
+/* —— Satu rail konten (header, navbar, hero, main, footer) —— */
+.container-global {
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 32px;
+    box-sizing: border-box;
+}
+
+/* Hero content box — sama dengan rail (timpa Tailwind .org-container / px-5) */
+.org-hero__container,
+.sg-portal-page .org-hero__container {
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 32px;
+    box-sizing: border-box;
+}
+
+/* Grid/layout wrapper di dalam container — bukan rail */
+.hero-inner,
+.sg-portal-page .hero-inner {
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/* Elemen yang memakai .container-global + hero class: satu rail, jangan di-reset */
+.container-global.hero-inner,
+.container-global.org-hero__container,
+.hero-inner.container-global,
+.org-hero__container.container-global {
+    max-width: 1320px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 32px;
+    padding-right: 32px;
+}
+
+/* Shell section full-width (bukan .container-global) */
+.org-hero,
+.sg-subhero,
+.sg-portal-page .org-hero,
+.sg-portal-page .org-hero.sg-subhero,
+.sg-portal-page .sg-subhero {
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+    overflow: hidden;
+}
+
+.sg-portal-page .org-hero__grid,
+.sg-portal-page .sg-subhero__grid {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.sg-portal-page {
+    --container-max: 1320px;
+    --layout-max-width: 1320px;
+}
+
+/* Bootstrap .container yang juga memakai container-global */
+.sg-portal-page .container-global.container,
+.sg-portal-page .container-global.org-container {
+    --bs-gutter-x: 0;
+    max-width: 1320px;
+    padding-left: 32px;
+    padding-right: 32px;
+}
+
+/* Shell background full-width (konten tetap di .container-global) */
+.sg-portal-page .site-header,
+.sg-portal-page .site-header--sg-portal,
+.sg-portal-page .site-header--sg-portal .site-header__gradient,
+.sg-portal-page .hero-section,
+.sg-portal-page #sg-hero,
+.sg-portal-page #sg-hero.sg-hero,
+.sg-portal-page .sg-hero.sg-hero--govtech,
+.sg-portal-page .sg-subhero,
+.sg-portal-page .site-layout-main,
+.sg-portal-page .site-footer {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
+body.sg-homepage.sg-portal-page > section#sg-hero.hero-section,
+body.sg-homepage.sg-portal-page > #sg-hero.sg-hero {
+    display: block;
+    position: relative;
+    left: 0;
+    right: 0;
+    transform: none;
+}
+
+/* Header portal: sticky — lihat sg-portal-shell-align.css */
+
+/* Timpa site_styles (padding/margin/position lama pada header & nav) */
+.sg-portal-page .site-header__inner.header-inner,
+.sg-portal-page .header-inner {
+    padding-top: 0;
+    padding-bottom: 0;
+    display: flex;
+    align-items: center;
+}
+
+.sg-portal-page .header-inner .site-header__topbar {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.sg-portal-page .header-inner .site-header__brand-row,
+.sg-portal-page .header-inner .site-header__brand-row > a:first-child {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.sg-portal-page .navbar-wrapper {
+    margin-top: 18px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.sg-portal-page .navbar-panel,
+.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel {
+    width: 100%;
+    min-height: 88px;
+    margin: 0;
+    border-radius: 20px;
+    background: var(--sg-nav-panel-bg) !important;
+    backdrop-filter: blur(14px) saturate(1.08);
+    -webkit-backdrop-filter: blur(14px) saturate(1.08);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    padding: 0.35rem 0;
+    box-sizing: border-box;
+    border: 1px solid var(--sg-nav-panel-border) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.07),
+        0 10px 32px rgba(0, 10, 28, 0.42);
+}
+
+.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,
+.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel {
+    background: var(--sg-nav-panel-bg-scrolled) !important;
+}
+
+.sg-portal-page .navbar-panel.site-header__nav-wrap {
+    position: static;
+    top: auto;
+    left: auto;
+    right: auto;
+    transform: none;
+    opacity: 1;
+    animation: none;
+}
+
+.sg-portal-page .navbar-panel .site-header__nav-panel,
+.sg-portal-page .navbar-panel .site-header__nav-row {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.sg-portal-page .navbar-panel .site-header__nav-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.45rem 0.75rem;
+    min-height: 56px;
+}
+
+.sg-portal-page .site-header__nav-wrap.is-features-fixed,
+.sg-portal-page .navbar-panel.site-header__nav-wrap.is-features-fixed {
+    position: static;
+    left: auto;
+    right: auto;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+}
+
+.sg-portal-page .site-header__nav-wrap-spacer,
+.sg-portal-page .site-header__nav-wrap-spacer.is-active {
+    display: none;
+    height: 0;
+}
+
+.sg-portal-page .site-header--sg-portal .site-header__gradient {
+    padding: 24px 0 16px;
+    box-sizing: border-box;
+}
+
+/* Header portal (beranda + subhalaman) — gradasi navy horizontal */
+body.sg-portal-page .site-header--sg-portal .site-header__gradient {
+    background: var(--sg-header-gradient) !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+body.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__gradient {
+    background: var(--sg-header-gradient-scrolled) !important;
+    box-shadow: 0 6px 24px rgba(0, 12, 30, 0.38) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* Menu aktif + tombol Dashboard (semua halaman portal) */
+body.sg-portal-page .site-header__nav a.is-active {
+    background: rgba(37, 99, 235, 0.4) !important;
+    color: #fff !important;
+    box-shadow: inset 0 -2px 0 0 #60a5fa;
+}
+
+body.sg-portal-page .site-header__nav a.is-active::after {
+    background: #7dd3fc;
+    opacity: 1;
+}
+
+body.sg-portal-page .site-header--sg-portal .btn-header-dashboard {
+    background: linear-gradient(135deg, #1e40af 0%, #2563eb 45%, #38bdf8 100%) !important;
+    border: 1px solid rgba(147, 197, 253, 0.35) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35) !important;
+}
+
+body.sg-portal-page .site-header--sg-portal .btn-header-dashboard:hover {
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #7dd3fc 100%) !important;
+    box-shadow: 0 6px 22px rgba(56, 189, 248, 0.4) !important;
+}
+
+/* Hero beranda */
+body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
+body.sg-homepage.sg-portal-page > section#sg-hero.hero-section {
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+    background: linear-gradient(135deg, #07325a 0%, #0f4c81 100%);
+    padding-bottom: 72px;
+    padding-top: 0;
+    overflow: hidden;
+}
+
+body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__bg,
+body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__grid-floor,
+body.sg-homepage.sg-portal-page > #sg-hero .sg-ambient-layer {
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: none;
+}
+
+body.sg-portal-page .container-global.hero-inner,
+body.sg-portal-page .hero-inner.container-global {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 460px;
+    gap: 88px;
+    align-items: center;
+    position: relative;
+    z-index: 5;
+}
+
+.sg-portal-page .hero-text,
+.sg-portal-page .hero-inner > .sg-hero__copy {
+    margin: 0;
+    min-width: 0;
+    max-width: 620px;
+}
+
+.sg-portal-page .site-header__nav {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.sg-portal-page .hero-visual,
+.sg-portal-page .hero-inner > .sg-hero__visual-col {
+    width: 100%;
+    max-width: 420px;
+    justify-self: end;
+    margin: 0;
+    padding: 0 clamp(0.75rem, 2vw, 1.5rem) 0 0;
+    transform: scale(0.94);
+    transform-origin: center;
+}
+
+.sg-portal-page .hero-visual .sg-hero__visual-frame {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: clamp(0.75rem, 1.75vw, 1rem);
+    padding-right: 0;
+    box-sizing: border-box;
+}
+
+.sg-portal-page .sg-hero--govtech .sg-hero__holo,
+.sg-portal-page .sg-hero--govtech .sg-hero__holo .sg-command-center {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.sg-portal-page .shortcut-grid {
+    margin-top: clamp(1.25rem, 2.5vw, 2rem);
+    position: relative;
+    z-index: 4;
+}
+
+.sg-portal-page .stats-grid {
+    margin-top: clamp(1rem, 2vw, 1.5rem);
+    position: relative;
+    z-index: 4;
+}
+
+.sg-portal-page .shortcut-grid .sg-quick-menu,
+.sg-portal-page .stats-grid .sg-hero-stats {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main / beranda: jangan double-padding pada .container nested */
+.sg-portal-page .site-main.container-global > .container,
+.sg-portal-page #beranda-root > .container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.sg-portal-page .site-main.container-global > section,
+.sg-portal-page #beranda-root > section {
+    width: 100%;
+    max-width: 100%;
+}
+
+.sg-portal-page .org-hero.sg-subhero .container-global,
+.sg-portal-page .org-hero.sg-subhero .org-hero__container.container-global {
+    position: relative;
+    z-index: 2;
+}
+
+/* Subhalaman: vertikal dari section; horizontal tetap 32px dari rail di atas */
+.sg-portal-page .org-hero.org-hero--sub .org-hero__container.container-global {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.sg-portal-page .site-footer__nav-wrap,
+.sg-portal-page .site-footer__copyright-inner {
+    width: 100%;
+    max-width: 100%;
+}
+
+@media (max-width: 1024px) {
+    body.sg-portal-page .container-global.hero-inner,
+    body.sg-portal-page .hero-inner.container-global {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .sg-portal-page .hero-text,
+    .sg-portal-page .hero-inner > .sg-hero__copy {
+        max-width: none;
+    }
+
+    .sg-portal-page .hero-visual,
+    .sg-portal-page .hero-inner > .sg-hero__visual-col {
+        max-width: none;
+        padding-right: 0;
+        transform: none;
+    }
+}
