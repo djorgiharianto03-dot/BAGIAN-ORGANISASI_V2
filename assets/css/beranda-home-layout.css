@@ -1,0 +1,92 @@
+/**
+ * Beranda — layout compact: hero, quick access, spacing, lebar konten.
+ */
+
+body.sg-homepage.sg-portal-page {
+    --beranda-content-max: min(1200px, 100%);
+}
+
+body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
+body.sg-homepage.sg-portal-page > #sg-hero.sg-hero--compact {
+    padding-top: var(--sg-portal-header-offset, 5.75rem) !important;
+    padding-bottom: 0.5rem !important;
+}
+
+body.sg-homepage .sg-hero.sg-hero--compact {
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.5rem !important;
+}
+
+body.sg-homepage .beranda-scroll-hint {
+    display: none !important;
+}
+
+body.sg-homepage .shortcut-grid.container-global,
+body.sg-homepage .stats-grid.container-global,
+body.sg-homepage .container-global.hero-inner {
+    max-width: var(--beranda-content-max) !important;
+}
+
+body.sg-homepage .shortcut-grid.container-global {
+    margin-top: 0.5rem !important;
+    padding-left: var(--beranda-gutter, clamp(1rem, 2.5vw, 1.5rem));
+    padding-right: var(--beranda-gutter, clamp(1rem, 2.5vw, 1.5rem));
+}
+
+body.sg-homepage .stats-grid.container-global {
+    margin-top: 0.45rem !important;
+    margin-bottom: 0.25rem !important;
+}
+
+body.sg-homepage .sg-quick-menu {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+}
+
+@media (min-width: 768px) {
+    body.sg-homepage .sg-quick-menu {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.625rem;
+    }
+}
+
+body.sg-homepage .sg-quick-menu__card {
+    width: 100%;
+    max-width: 100%;
+    min-height: 3.75rem;
+    padding: 0.625rem 0.75rem !important;
+}
+
+body.sg-homepage #beranda-root > .beranda-section,
+body.sg-homepage #beranda-root > .beranda-ssr-section {
+    padding-top: clamp(1.5rem, 3vw, 2rem) !important;
+    padding-bottom: clamp(1.5rem, 3vw, 2rem) !important;
+}
+
+body.sg-homepage #beranda-root > .beranda-section:first-child {
+    padding-top: clamp(1.25rem, 2.5vw, 1.75rem) !important;
+}
+
+body.sg-homepage .beranda-ssr-section {
+    min-height: 0 !important;
+}
+
+body.sg-homepage .beranda-chunk-skeleton,
+body.sg-homepage .beranda-lazy-section__placeholder {
+    display: none !important;
+}
+
+body.sg-homepage .sg-hero-stats .sg-stat-glass__num {
+    font-variant-numeric: tabular-nums;
+}
+
+body.sg-homepage .sg-hero__visual-col {
+    display: none !important;
+}
+
+body.sg-homepage.sg-portal-page .container-global.hero-inner {
+    grid-template-columns: 1fr !important;
+}

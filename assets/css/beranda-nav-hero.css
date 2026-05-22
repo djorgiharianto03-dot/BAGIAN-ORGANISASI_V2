@@ -164,8 +164,8 @@ body.sg-homepage.sg-portal-page .site-header__nav-toggle {
 body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
 body.sg-homepage.sg-portal-page > #sg-hero.sg-hero--compact {
     background: var(--nav-hero-hero-bg) !important;
-    padding-bottom: 0.85rem !important;
-    padding-top: var(--sg-portal-header-offset, 6.25rem) !important;
+    padding-bottom: 0.55rem !important;
+    padding-top: var(--sg-portal-header-offset, 5.75rem) !important;
 }
 
 body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__bg {
@@ -178,8 +178,8 @@ body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__bg::before {
 
 body.sg-homepage .sg-hero.sg-hero--compact,
 body.sg-homepage .sg-hero.sg-hero--ultra.sg-hero--compact {
-    padding-top: 0.35rem !important;
-    padding-bottom: 0.85rem !important;
+    padding-top: 0.2rem !important;
+    padding-bottom: 0.5rem !important;
 }
 
 body.sg-homepage.sg-portal-page .container-global.hero-inner {

@@ -505,12 +505,56 @@
         });
     });
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function () {
-            if (document.body.classList.contains('is-lite-ready')) {
-                deferPortalEnhancements();
-            }
-        });
+    function bootSsrBeranda() {
+        if (document.getElementById('gov-kpi-details-data')) {
+            loadGovKpiModal();
+        }
+        if (document.getElementById('gov-team-target-charts-data')) {
+            ensureTeamTargetCharts();
+        }
+        if (document.getElementById('berandaVisitChart')) {
+            whenChartHostVisible(function () {
+                whenIdle(function () {
+                    loadChartJs();
+                }, 500);
+            });
+        }
+        var galeriLink = document.querySelector('[data-fancybox="beranda-galeri-kegiatan"]');
+        if (!galeriLink) {
+            return;
+        }
+        var galeriSection = document.getElementById('beranda-galeri-kegiatan');
+        if (galeriSection && 'IntersectionObserver' in window) {
+            var galeriIo = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
+                    galeriIo.disconnect();
+                    initFancybox();
+                });
+            }, { rootMargin: '140px 0px', threshold: 0.02 });
+            galeriIo.observe(galeriSection);
+            return;
+        }
+        initFancybox();
     }
+
+    function onDomReady() {
+        bootSsrBeranda();
+        if (document.body.classList.contains('is-lite-ready')) {
+            deferPortalEnhancements();
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', onDomReady);
+    } else {
+        onDomReady();
+    }
+
+    document.addEventListener('beranda:lite-ready', function () {
+        bootSsrBeranda();
+    }, { once: true });
 
 })();

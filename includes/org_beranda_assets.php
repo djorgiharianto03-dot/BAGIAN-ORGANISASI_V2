@@ -152,6 +152,7 @@ function org_beranda_header_vendor_markup(): string
         $out .= org_beranda_design_system_stylesheet_link();
         $out .= org_beranda_nav_hero_stylesheet_link();
         $out .= org_beranda_dashboard_cards_stylesheet_link();
+        $out .= org_beranda_home_layout_stylesheet_link();
     }
 
     $out .= '<style id="sg-beranda-head-critical">'
@@ -226,6 +227,14 @@ function org_beranda_dashboard_cards_stylesheet_link(): string
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
     return org_asset_stylesheet_link('assets/css/beranda-dashboard-cards.css');
+}
+
+/** Beranda — layout compact hero, quick access, spacing (cascade terakhir). */
+function org_beranda_home_layout_stylesheet_link(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+
+    return org_asset_stylesheet_link('assets/css/beranda-home-layout.css');
 }
 
 function org_beranda_lite_render_script_tag(): string

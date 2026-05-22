@@ -172,7 +172,7 @@ $sgQuickLinks[] = $sgEOrgQuick;
 
                 <div class="sg-stat-glass__body">
 
-                    <p class="sg-stat-glass__num mb-0" data-sg-count="<?php echo (int) $berandaTotalToday; ?>">0</p>
+                    <p class="sg-stat-glass__num mb-0"><?php echo (int) $berandaTotalToday; ?></p>
 
                     <p class="sg-stat-glass__label mb-0">Tamu Hari Ini</p>
 
@@ -184,7 +184,7 @@ $sgQuickLinks[] = $sgEOrgQuick;
 
                 <div class="sg-stat-glass__body">
 
-                    <p class="sg-stat-glass__num mb-0" data-sg-count="<?php echo (int) $berandaTotalWeek; ?>">0</p>
+                    <p class="sg-stat-glass__num mb-0"><?php echo (int) $berandaTotalWeek; ?></p>
 
                     <p class="sg-stat-glass__label mb-0">Kunjungan 7 Hari</p>
 
@@ -196,7 +196,7 @@ $sgQuickLinks[] = $sgEOrgQuick;
 
                 <div class="sg-stat-glass__body">
 
-                    <p class="sg-stat-glass__num mb-0" data-sg-count="<?php echo (int) $sgPortalDocCount; ?>">0</p>
+                    <p class="sg-stat-glass__num mb-0"><?php echo (int) $sgPortalDocCount; ?></p>
 
                     <p class="sg-stat-glass__label mb-0">Dokumen Digital</p>
 
@@ -208,7 +208,7 @@ $sgQuickLinks[] = $sgEOrgQuick;
 
                 <div class="sg-stat-glass__body">
 
-                    <p class="sg-stat-glass__num mb-0" data-sg-count="<?php echo (int) $sgPortalInfoCount; ?>">0</p>
+                    <p class="sg-stat-glass__num mb-0"><?php echo (int) $sgPortalInfoCount; ?></p>
 
                     <p class="sg-stat-glass__label mb-0">Publikasi Aktif</p>
 

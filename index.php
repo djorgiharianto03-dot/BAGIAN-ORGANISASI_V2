@@ -24,7 +24,7 @@ $navActive = 'beranda';
 $siteLogoAlt = 'Logo Bagian Organisasi — Sekretariat Daerah Kabupaten Kepulauan Aru';
 $includePersonnelModals = false;
 $includeNewsModals = false;
-$bodyClass = 'page-index-redesign sg-portal-page sg-homepage is-lite-render is-perf-lite';
+$bodyClass = 'page-index-redesign sg-portal-page sg-homepage is-lite-render is-perf-lite beranda-ssr-content';
 $smartPortalNav = true;
 
 /** Satu kalimat inti untuk kartu Visi beranda (dari HTML ke plain). */
@@ -49,8 +49,13 @@ $berandaVisiPlain = trim(preg_replace('/\s+/u', ' ', strip_tags((string) ($siteS
 $berandaMisiPlain = trim(preg_replace('/\s+/u', ' ', strip_tags((string) ($siteSettings['profile_misi'] ?? ''))));
 $berandaVisiRingkas = $berandaVisiPlain !== '' ? $berandaVisiPlain : $orgBerandaKalimatPertama((string) ($siteSettings['profile_visi'] ?? ''));
 
-$berandaTotalToday = 0;
-$berandaTotalWeek = 0;
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_beranda_perf.php';
+$berandaVisitDb = ($dbApp ?? null) instanceof mysqli ? $dbApp : org_db();
+$berandaVisitStats = org_beranda_fetch_visit_stats($berandaVisitDb instanceof mysqli ? $berandaVisitDb : null);
+$berandaVisitLabels = $berandaVisitStats['labels'];
+$berandaVisitValues = $berandaVisitStats['values'];
+$berandaTotalToday = (int) $berandaVisitStats['total_today'];
+$berandaTotalWeek = (int) $berandaVisitStats['total_week'];
 
 $sgPortalDocCount = $berandaLibraryDocCount !== null
     ? (int) $berandaLibraryDocCount
@@ -77,7 +82,9 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 
 
 $sgAssetBase = org_asset_web_base();
 $pageSeoHeadMarkup = org_beranda_seo_head_markup((string) ($logoWebPath ?? ''));
-$extraHeadMarkup = org_portal_head_markup_beranda(org_beranda_bundle_stylesheet_async_link());
+$extraHeadMarkup = org_portal_head_markup_beranda(
+    org_beranda_bundle_stylesheet_async_link() . org_beranda_home_layout_stylesheet_link()
+);
 $extraFooterMarkup = org_portal_footer_markup_beranda('');
 $orgWebRootJs = defined('ORG_WEB_ROOT') ? ORG_WEB_ROOT : '';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_production_assets.php';
@@ -121,47 +128,32 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'part
             <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_pusat_informasi.php'; ?>
         </section>
 
-        <?php
-        $berandaLazySectionId = 'smart-gov';
-        $berandaLazySectionLabel = 'Memuat Smart Governance…';
-        $berandaLazySectionHiddenTitle = 'Dashboard Kinerja dan Capaian Tim Kerja';
-        require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_lazy_section_shell.php';
-        unset($berandaLazySectionHiddenTitle);
-        ?>
-            <div id="beranda-chunk-dashboard" class="beranda-chunk-slot" data-beranda-chunk="dashboard" aria-busy="true" aria-live="polite">
-                <section class="beranda-section beranda-chunk-skeleton" id="beranda-dashboard-widgets" aria-labelledby="beranda-dashboard-widgets-title">
-                    <h2 id="beranda-dashboard-widgets-title" class="visually-hidden">Indikator dan Statistik</h2>
-                    <div class="beranda-chunk-skeleton__bar" style="width:42%"></div>
-                    <div class="beranda-chunk-skeleton__grid">
-                        <div class="beranda-chunk-skeleton__card"></div>
-                        <div class="beranda-chunk-skeleton__card"></div>
-                        <div class="beranda-chunk-skeleton__card"></div>
-                    </div>
-                </section>
-            </div>
-            <div id="beranda-chunk-team" class="beranda-chunk-slot" data-beranda-chunk="team" data-beranda-tahun="<?php echo (int) ($berandaTeamTargetsTahun ?? (int) date('Y')); ?>" aria-busy="true" aria-live="polite">
-                <section class="beranda-section beranda-chunk-skeleton" id="beranda-team-targets" aria-labelledby="beranda-team-targets-title">
-                    <h2 id="beranda-team-targets-title" class="visually-hidden">Capaian Target Tim Kerja</h2>
-                    <div class="beranda-chunk-skeleton__bar" style="width:55%"></div>
-                    <div class="beranda-chunk-skeleton__chart"></div>
-                </section>
-            </div>
-        <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_lazy_section_shell_end.php'; ?>
+        <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_dashboard_widgets.php'; ?>
 
-        <?php
-        $berandaLazySectionId = 'visit';
-        $berandaLazySectionLabel = 'Memuat statistik kunjungan…';
-        require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_lazy_section_shell.php';
-        require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_lazy_section_shell_end.php';
-        $berandaLazySectionId = 'eksekutif';
-        $berandaLazySectionLabel = 'Memuat ringkasan eksekutif…';
-        require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_lazy_section_shell.php';
-        require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_lazy_section_shell_end.php';
-        $berandaLazySectionId = 'galeri';
-        $berandaLazySectionLabel = 'Memuat galeri kegiatan…';
-        require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_lazy_section_shell.php';
-        require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_lazy_section_shell_end.php';
-        ?>
+        <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_team_targets.php'; ?>
+
+        <section class="beranda-section beranda-section--surface-muted beranda-ssr-section" id="beranda-ringkasan-eksekutif" aria-labelledby="beranda-exec-title">
+            <header class="beranda-exec-section__head">
+                <h2 id="beranda-exec-title" class="beranda-section__title mb-0">Ringkasan eksekutif</h2>
+                <p class="beranda-exec-section__eyebrow">Visi · Misi · Struktur organisasi</p>
+                <p class="beranda-section__desc mb-0 mt-2">Gambaran singkat arah organisasi dan tata kelola unit kerja.</p>
+            </header>
+            <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_ringkasan_eksekutif.php'; ?>
+            <p class="small text-muted mb-0 mt-3 beranda-exec-section__foot"><a href="profil.php" class="text-decoration-none">Halaman Profil</a> berisi Visi, Misi, struktur, dan ringkasan organisasi secara lengkap.</p>
+        </section>
+
+        <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_kunjungan_web.php'; ?>
+
+        <section class="beranda-section beranda-section--surface-muted beranda-ssr-section" id="beranda-galeri-kegiatan" aria-labelledby="beranda-galeri-title">
+            <div class="beranda-section__head-row d-flex flex-wrap justify-content-between align-items-end gap-2">
+                <div>
+                    <h2 id="beranda-galeri-title" class="beranda-section__title mb-0">Galeri Kegiatan Terbaru</h2>
+                    <p class="beranda-section__desc mb-0 mt-1">Dokumentasi visual kegiatan dan program Bagian Organisasi.</p>
+                </div>
+                <a class="small text-decoration-none beranda-section__link-all" href="galeri.php">Lihat galeri lengkap <i class="fa-solid fa-arrow-right ms-1 small" aria-hidden="true"></i></a>
+            </div>
+            <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_galeri_kegiatan.php'; ?>
+        </section>
 
     </div>
 </div>
