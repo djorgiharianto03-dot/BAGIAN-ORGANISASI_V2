@@ -38,7 +38,7 @@ body.sg-homepage.is-lite-ready .beranda-scroll-hint {
 }
 
 body.sg-homepage .beranda-lazy-section:not(.is-section-revealed):not(.is-section-loaded) {
-    min-height: 10rem;
+    min-height: 0;
 }
 
 body.sg-homepage .beranda-lazy-section:not(.is-section-revealed) .beranda-lazy-section__inner {

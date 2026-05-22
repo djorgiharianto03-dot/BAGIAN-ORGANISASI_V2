@@ -10,8 +10,9 @@
 
 html.sg-portal-html-home,
 body.sg-homepage.sg-portal-page {
-    --container-max: 1280px;
-    --layout-max-width: 1280px;
+    --container-max: 1180px;
+    --layout-max-width: 1180px;
+    --beranda-gutter: clamp(1rem, 2vw, 1.25rem);
 }
 
 html.sg-portal-html,
@@ -82,7 +83,9 @@ body.sg-homepage.sg-portal-page .header-inner.container-global,
 body.sg-homepage.sg-portal-page .navbar-wrapper.container-global,
 body.sg-homepage.sg-portal-page .container-global.hero-inner,
 body.sg-homepage.sg-portal-page .hero-inner.container-global {
-    max-width: 1280px;
+    max-width: var(--layout-max-width, 1180px);
+    padding-left: var(--beranda-gutter, clamp(1rem, 2vw, 1.25rem));
+    padding-right: var(--beranda-gutter, clamp(1rem, 2vw, 1.25rem));
 }
 
 /* Hero content box — sama dengan rail (timpa Tailwind .org-container / px-5) */

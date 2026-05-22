@@ -8,11 +8,11 @@ body.sg-homepage.sg-portal-page {
 }
 
 body.sg-homepage.sg-portal-page {
-    --container-max: 1280px;
-    --layout-max-width: 1280px;
-    --beranda-gutter: clamp(1rem, 2.5vw, 1.5rem);
-    --beranda-section-y: clamp(2.25rem, 4vw, 3rem);
-    --beranda-section-head-gap: 1.25rem;
+    --container-max: 1180px;
+    --layout-max-width: 1180px;
+    --beranda-gutter: clamp(1rem, 2vw, 1.25rem);
+    --beranda-section-y: clamp(1.35rem, 2.5vw, 2rem);
+    --beranda-section-head-gap: 0.875rem;
     --beranda-card-radius: 12px;
     --beranda-hero-bg: linear-gradient(135deg, #07325a 0%, #0f4c81 100%);
 }
@@ -95,7 +95,7 @@ body.sg-homepage.sg-portal-page .site-layout-main {
     box-sizing: border-box;
 }
 
-/* Satu rail konten 1280px — header, hero dalam, main */
+/* Satu rail konten — header, hero dalam, main (selaras org-container-global) */
 body.sg-homepage.sg-portal-page .container-global,
 body.sg-homepage.sg-portal-page .org-hero__container,
 body.sg-homepage.sg-portal-page .container-global.hero-inner,
@@ -105,7 +105,7 @@ body.sg-homepage.sg-portal-page .navbar-wrapper.container-global,
 body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global,
 body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-wrapper.container-global {
     width: 100%;
-    max-width: 1280px;
+    max-width: var(--layout-max-width, 1180px);
     margin-left: auto;
     margin-right: auto;
     padding-left: var(--beranda-gutter);
@@ -300,7 +300,7 @@ body.sg-homepage .sg-dash-main {
 
 body.sg-homepage #beranda-root.site-main.container-global {
     width: 100%;
-    max-width: 1280px;
+    max-width: var(--layout-max-width, 1180px);
     margin-left: auto;
     margin-right: auto;
     padding-left: var(--beranda-gutter);

@@ -1,11 +1,47 @@
 /**
- * Beranda — layout compact: hero, quick access, spacing, lebar konten.
+ * Beranda — satu rail layout (header, hero, main, footer).
+ * Muat terakhir; menimpa token/override layout-fix & bundle.
  */
 
+html.sg-portal-html-home,
 body.sg-homepage.sg-portal-page {
-    --beranda-content-max: min(1200px, 100%);
+    --container-max: 1180px;
+    --layout-max-width: 1180px;
+    --beranda-gutter: clamp(1rem, 2vw, 1.25rem);
+    --beranda-section-y: clamp(1.35rem, 2.5vw, 2rem);
+    --beranda-section-head-gap: 0.875rem;
+    --beranda-rail-max: min(var(--layout-max-width), 100%);
 }
 
+/* —— Satu rail: navbar, hero, konten, footer —— */
+body.sg-homepage.sg-portal-page .header-inner.container-global,
+body.sg-homepage.sg-portal-page .navbar-wrapper.container-global,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-wrapper.container-global,
+body.sg-homepage.sg-portal-page .container-global.hero-inner,
+body.sg-homepage .shortcut-grid.container-global,
+body.sg-homepage .stats-grid.container-global,
+body.sg-homepage #beranda-root.site-main.container-global,
+body.sg-homepage .site-footer .container-global,
+body.sg-homepage .org-footer .container-global {
+    width: 100% !important;
+    max-width: var(--beranda-rail-max) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: var(--beranda-gutter) !important;
+    padding-right: var(--beranda-gutter) !important;
+    box-sizing: border-box;
+}
+
+body.sg-homepage.sg-portal-page .navbar-panel,
+body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Shell full-width; konten di dalam rail */
 body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
 body.sg-homepage.sg-portal-page > #sg-hero.sg-hero--compact {
     padding-top: var(--sg-portal-header-offset, 5.75rem) !important;
@@ -13,29 +49,39 @@ body.sg-homepage.sg-portal-page > #sg-hero.sg-hero--compact {
 }
 
 body.sg-homepage .sg-hero.sg-hero--compact {
-    padding-top: 0.25rem !important;
-    padding-bottom: 0.5rem !important;
+    padding-top: 0.2rem !important;
+    padding-bottom: 0.45rem !important;
 }
 
 body.sg-homepage .beranda-scroll-hint {
     display: none !important;
 }
 
-body.sg-homepage .shortcut-grid.container-global,
-body.sg-homepage .stats-grid.container-global,
-body.sg-homepage .container-global.hero-inner {
-    max-width: var(--beranda-content-max) !important;
+body.sg-homepage .sg-hero__visual-col {
+    display: none !important;
 }
 
+body.sg-homepage.sg-portal-page .container-global.hero-inner {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+}
+
+body.sg-homepage .sg-hero__copy {
+    max-width: 38rem;
+}
+
+body.sg-homepage .sg-hero__tagline {
+    max-width: 36rem;
+}
+
+/* Quick access & stat hero — selaras rail */
 body.sg-homepage .shortcut-grid.container-global {
     margin-top: 0.5rem !important;
-    padding-left: var(--beranda-gutter, clamp(1rem, 2.5vw, 1.5rem));
-    padding-right: var(--beranda-gutter, clamp(1rem, 2.5vw, 1.5rem));
 }
 
 body.sg-homepage .stats-grid.container-global {
-    margin-top: 0.45rem !important;
-    margin-bottom: 0.25rem !important;
+    margin-top: 0.4rem !important;
+    margin-bottom: 0.15rem !important;
 }
 
 body.sg-homepage .sg-quick-menu {
@@ -56,37 +102,151 @@ body.sg-homepage .sg-quick-menu {
 body.sg-homepage .sg-quick-menu__card {
     width: 100%;
     max-width: 100%;
-    min-height: 3.75rem;
-    padding: 0.625rem 0.75rem !important;
+    min-height: 3.65rem;
+    padding: 0.6rem 0.75rem !important;
 }
 
+body.sg-homepage .sg-hero-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    body.sg-homepage .sg-hero-stats {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.625rem;
+    }
+}
+
+body.sg-homepage .sg-hero-stats .sg-stat-glass,
+body.sg-homepage .sg-hero-stat-card {
+    min-height: 5.5rem;
+    padding: 0.75rem 0.9rem !important;
+}
+
+body.sg-homepage .sg-hero-stats .sg-stat-glass__num {
+    font-variant-numeric: tabular-nums;
+    font-size: clamp(1.25rem, 1.1rem + 0.35vw, 1.625rem) !important;
+}
+
+/* Main shell — tanpa padding horizontal tambahan */
+body.sg-homepage .sg-portal-main,
+body.sg-homepage .sg-dash-main {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body.sg-homepage #beranda-root.site-main.container-global {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding-top: 0;
+    padding-bottom: 0.75rem;
+}
+
+/* Section — lebar penuh di dalam rail, spacing vertikal seragam */
 body.sg-homepage #beranda-root > .beranda-section,
-body.sg-homepage #beranda-root > .beranda-ssr-section {
-    padding-top: clamp(1.5rem, 3vw, 2rem) !important;
-    padding-bottom: clamp(1.5rem, 3vw, 2rem) !important;
+body.sg-homepage #beranda-root > .beranda-ssr-section,
+body.sg-homepage #beranda-root > .beranda-lite-section,
+body.sg-homepage #beranda-root > section[id^="beranda-"] {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: var(--beranda-section-y) !important;
+    padding-bottom: var(--beranda-section-y) !important;
+    box-sizing: border-box;
 }
 
-body.sg-homepage #beranda-root > .beranda-section:first-child {
-    padding-top: clamp(1.25rem, 2.5vw, 1.75rem) !important;
+body.sg-homepage #beranda-root > .beranda-section:first-child,
+body.sg-homepage #beranda-root > .beranda-lite-section:first-child {
+    padding-top: clamp(1.15rem, 2vw, 1.65rem) !important;
+}
+
+body.sg-homepage #beranda-root .beranda-section__head-row,
+body.sg-homepage #beranda-root .beranda-exec-section__head,
+body.sg-homepage #beranda-root .gov-kpi-section__header {
+    margin-bottom: var(--beranda-section-head-gap);
+}
+
+body.sg-homepage #beranda-root .beranda-section__title,
+body.sg-homepage #beranda-root .gov-kpi-section__title,
+body.sg-homepage #beranda-root .gov-team-target-section__title {
+    font-size: clamp(1.2rem, 1.05rem + 0.4vw, 1.4375rem) !important;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #0f2744;
+}
+
+body.sg-homepage #beranda-root .beranda-section__desc,
+body.sg-homepage #beranda-root .gov-kpi-section__subtitle,
+body.sg-homepage #beranda-root .beranda-exec-section__eyebrow {
+    max-width: none;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+body.sg-homepage #beranda-root .beranda-section__link-all {
+    font-weight: 600;
+    color: #0a57b7;
+    white-space: nowrap;
+}
+
+/* Grid konten — memakai lebar rail, tidak menyempit di tengah */
+body.sg-homepage #beranda-root .pi-portal-grid,
+body.sg-homepage #beranda-root .gov-kpi-grid,
+body.sg-homepage #beranda-root .gov-kpi-section__shell > .row,
+body.sg-homepage #beranda-root .gov-team-target-dash-grid,
+body.sg-homepage #beranda-root .beranda-exec-grid,
+body.sg-homepage #beranda-root .beranda-galeri-grid,
+body.sg-homepage #beranda-root .beranda-visit-stats {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    --bs-gutter-x: 1rem;
+    --bs-gutter-y: 1rem;
 }
 
 body.sg-homepage .beranda-ssr-section {
     min-height: 0 !important;
 }
 
+/* Skeleton / lazy — minimal, tidak mendominasi */
 body.sg-homepage .beranda-chunk-skeleton,
-body.sg-homepage .beranda-lazy-section__placeholder {
+body.sg-homepage .beranda-lazy-section__placeholder,
+body.sg-homepage .beranda-lazy-section:not(.is-section-revealed) .beranda-lazy-section__placeholder {
     display: none !important;
 }
 
-body.sg-homepage .sg-hero-stats .sg-stat-glass__num {
-    font-variant-numeric: tabular-nums;
+body.sg-homepage .beranda-lazy-section:not(.is-section-revealed):not(.is-section-loaded) {
+    min-height: 0 !important;
 }
 
-body.sg-homepage .sg-hero__visual-col {
+body.sg-homepage .beranda-chunk-slot[aria-busy="true"]:empty,
+body.sg-homepage .beranda-chunk-slot--error {
     display: none !important;
 }
 
-body.sg-homepage.sg-portal-page .container-global.hero-inner {
-    grid-template-columns: 1fr !important;
+body.sg-homepage .beranda-chunk-skeleton__bar,
+body.sg-homepage .beranda-chunk-skeleton__card,
+body.sg-homepage .beranda-chunk-skeleton__chart,
+body.sg-homepage .beranda-lazy-section__placeholder-bar,
+body.sg-homepage .beranda-lazy-section__placeholder-block {
+    min-height: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    overflow: hidden !important;
+}
+
+@media (max-width: 575.98px) {
+    body.sg-homepage .sg-quick-menu {
+        grid-template-columns: 1fr;
+    }
 }
