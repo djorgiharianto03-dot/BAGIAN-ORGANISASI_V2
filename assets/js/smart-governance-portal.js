@@ -41,9 +41,11 @@
             document.body.style.setProperty('--sg-portal-header-offset', h + 'px');
         }
         if (!document.body.classList.contains('sg-portal-page')) return;
+        var isHome = document.body.classList.contains('sg-homepage');
         var main = document.querySelector('.site-layout-main');
         if (main) {
-            main.style.paddingTop = '0';
+            /* Beranda: hero di bawah header fixed; subhalaman: main diberi offset */
+            main.style.paddingTop = isHome ? '0' : (h > 0 ? h + 'px' : '');
         }
         var subhero = document.querySelector('.site-layout-main > .sg-subhero, .site-layout-main > .org-hero.sg-subhero');
         if (subhero) {

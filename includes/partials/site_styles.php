@@ -2992,8 +2992,32 @@
                 margin-top: 0.45rem;
                 margin-bottom: 0.45rem;
             }
-            .site-header__nav-wrap {
-                gap: 0.65rem;
+            .site-header__nav-wrap:not(:has(.site-header__nav-panel.is-open)) {
+                display: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                min-height: 0 !important;
+                border: none !important;
+                background: transparent !important;
+                box-shadow: none !important;
+                animation: none;
+                opacity: 1;
+            }
+            .site-header__nav-wrap:has(.site-header__nav-panel.is-open) {
+                display: block;
+                gap: 0;
+                margin: 0 !important;
+                padding: 0 !important;
+                min-height: 0 !important;
+                height: 0;
+                border: none !important;
+                background: transparent !important;
+                box-shadow: none !important;
+                overflow: visible;
+            }
+            .sg-portal-page .navbar-wrapper:not(:has(.site-header__nav-panel.is-open)) {
+                display: none !important;
+                margin-top: 0 !important;
             }
             .site-header__nav-toggle {
                 border-radius: 8px;

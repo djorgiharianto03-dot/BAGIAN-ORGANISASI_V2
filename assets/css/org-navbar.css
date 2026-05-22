@@ -127,9 +127,97 @@
         --site-header-mobile-max-height: calc(100vh - 120px);
     }
 
+    /* Kotak kosong di bawah logo: wrapper/panel nav tanpa isi saat menu tertutup */
+    .sg-portal-page .navbar-wrapper:not(:has(.site-header__nav-panel.is-open)) {
+        display: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        min-height: 0 !important;
+    }
+
+    .sg-portal-page .navbar-wrapper:has(.site-header__nav-panel.is-open) {
+        display: block;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .sg-portal-page .site-header__nav-wrap.navbar-panel:not(:has(.site-header__nav-panel.is-open)),
+    .sg-portal-page .navbar-panel.site-header__nav-wrap:not(:has(.site-header__nav-panel.is-open)) {
+        display: none !important;
+        min-height: 0 !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .sg-portal-page .site-header__nav-wrap.navbar-panel:has(.site-header__nav-panel.is-open),
+    .sg-portal-page .navbar-panel.site-header__nav-wrap:has(.site-header__nav-panel.is-open) {
+        display: block;
+        min-height: 0 !important;
+        height: 0;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        overflow: visible;
+    }
+
+    .site-header:not(.site-header--sg-portal) .site-header__nav-wrap:not(:has(.site-header__nav-panel.is-open)) {
+        display: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        min-height: 0 !important;
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .site-header:not(.site-header--sg-portal) .site-header__nav-wrap:has(.site-header__nav-panel.is-open) {
+        display: block;
+        min-height: 0 !important;
+        height: 0;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        overflow: visible;
+    }
+
+    /* Header lebih ringkas di HP */
+    .sg-portal-page .site-header--sg-portal .site-header__gradient {
+        padding-top: 10px !important;
+        padding-bottom: 6px !important;
+    }
+
+    .sg-portal-page .site-header__topbar {
+        gap: 0.35rem 0.5rem;
+        padding-top: 0.1rem;
+        padding-bottom: 0.1rem;
+    }
+
+    .sg-portal-page .site-header__logo {
+        max-height: 38px;
+    }
+
+    .sg-portal-page .site-header__subtitle {
+        font-size: 0.65rem;
+        line-height: 1.2;
+        margin-top: 0.05rem;
+    }
+
+    .site-header__search-wrap {
+        margin-top: 0.25rem !important;
+        margin-bottom: 0.2rem !important;
+    }
+
     .site-header__nav-panel {
         display: none;
-        margin-top: 0.5rem;
+        margin-top: 0;
         border-radius: 14px;
         border: 1px solid var(--header-nav-border, rgba(255, 255, 255, 0.14));
         background: var(--header-nav-surface, linear-gradient(135deg, #1e3a5f 0%, #27496d 100%));
@@ -138,7 +226,7 @@
     }
 
     .site-header__nav-panel.is-open {
-        display: block;
+        display: block !important;
         position: fixed;
         top: var(--site-header-mobile-top, 120px);
         left: 0;
@@ -220,6 +308,22 @@
 
     body.site-header-nav-open {
         overflow: hidden;
+    }
+
+    /* Navbar tetap di atas saat scroll (portal) */
+    body.sg-portal-page .site-header--sg-portal {
+        position: fixed !important;
+        top: 0 !important;
+        z-index: 1100 !important;
+    }
+}
+
+/* Desktop: bar menu dalam header ikut fixed */
+@media (min-width: 768px) {
+    body.sg-portal-page .site-header--sg-portal {
+        position: fixed !important;
+        top: 0 !important;
+        z-index: 1100 !important;
     }
 }
 

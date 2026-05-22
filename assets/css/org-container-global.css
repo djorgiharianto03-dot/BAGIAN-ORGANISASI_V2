@@ -452,3 +452,32 @@ body.sg-portal-page .hero-inner.container-global {
         transform: none;
     }
 }
+
+/* Mobile: hilangkan kotak nav kosong (min-height 88px) — menu lewat panel fixed .is-open */
+@media (max-width: 767.98px) {
+    .sg-portal-page .navbar-wrapper {
+        margin-top: 0 !important;
+    }
+
+    .sg-portal-page .navbar-wrapper:not(:has(.site-header__nav-panel.is-open)) {
+        display: none !important;
+    }
+
+    .sg-portal-page .navbar-panel,
+    .sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel {
+        min-height: 0 !important;
+        padding: 0 !important;
+    }
+
+    .sg-portal-page .navbar-panel:not(:has(.site-header__nav-panel.is-open)),
+    .sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel:not(:has(.site-header__nav-panel.is-open)) {
+        display: none !important;
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .sg-portal-page .site-header--sg-portal .site-header__gradient {
+        padding: 10px 0 6px !important;
+    }
+}

@@ -32,7 +32,7 @@ function org_portal_footer_markup(string $existing = ''): string
         define('ORG_WEB_ROOT', org_site_web_root());
     }
     $assetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
-    $script = '<script src="' . htmlspecialchars($assetBase . '/assets/js/smart-governance-portal.js?v=13', ENT_QUOTES, 'UTF-8') . '" defer></script>' . "\n";
+    $script = '<script src="' . htmlspecialchars($assetBase . '/assets/js/smart-governance-portal.js?v=14', ENT_QUOTES, 'UTF-8') . '" defer></script>' . "\n";
 
     return $existing . $script;
 }
