@@ -268,13 +268,35 @@ $sgQuickLinks[] = $sgEOrgQuick;
     }
 }
 
-/* Hero shell — cegah background/glow melebar ke kanan */
+/* Hero shell — satu rail dengan header (1320px), bukan bleed viewport */
 .sg-homepage #sg-hero.hero-section,
 .sg-homepage #sg-hero.sg-hero--govtech {
+    width: 100%;
+    max-width: min(1320px, 100%);
+    margin-left: auto;
+    margin-right: auto;
     overflow-x: hidden;
     overflow-y: visible;
-    max-width: 100%;
+    box-sizing: border-box;
+}
+.sg-homepage #sg-hero .container-global.hero-inner,
+.sg-homepage #sg-hero .shortcut-grid.container-global,
+.sg-homepage #sg-hero .stats-grid.container-global {
     width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    min-width: 0;
+}
+.sg-homepage #sg-hero .hero-inner.container-global {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+}
+.sg-homepage #sg-hero .sg-quick-menu {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 .sg-homepage #sg-hero .sg-hero__bg,
 .sg-homepage #sg-hero .sg-hero__grid-floor,

@@ -19,7 +19,7 @@ function org_portal_head_markup(string $existing = ''): string
         . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-dashboard.css', ENT_QUOTES, 'UTF-8') . '">'
         . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-premium-ui.css', ENT_QUOTES, 'UTF-8') . '">'
         . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-enterprise.css', ENT_QUOTES, 'UTF-8') . '">'
-        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal-nav.css?v=4', ENT_QUOTES, 'UTF-8') . '">'
+        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal-nav.css?v=5', ENT_QUOTES, 'UTF-8') . '">'
         . "\n";
 
     return $base . $existing;

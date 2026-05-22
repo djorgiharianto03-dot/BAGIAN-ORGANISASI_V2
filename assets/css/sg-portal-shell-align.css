@@ -65,8 +65,9 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section,
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero {
     display: block !important;
     width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
+    max-width: min(var(--layout-max-width, 1320px), 100%) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
     padding-top: 0 !important;
     overflow-x: hidden !important;
     overflow-y: visible !important;

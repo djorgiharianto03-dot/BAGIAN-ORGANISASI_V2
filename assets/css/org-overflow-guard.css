@@ -53,9 +53,12 @@ body.sg-homepage.sg-portal-page > #sg-hero,
 body.sg-homepage.sg-portal-page > section#sg-hero,
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero,
 body.sg-homepage.sg-portal-page .site-layout-main > section#sg-hero {
-    max-width: 100%;
     width: 100%;
+    max-width: min(1320px, 100%);
+    margin-left: auto;
+    margin-right: auto;
     overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 .site-header--sg-portal .container-global,

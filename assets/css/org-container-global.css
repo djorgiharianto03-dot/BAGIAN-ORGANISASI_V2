@@ -427,11 +427,12 @@ body.sg-homepage.sg-portal-page #sg-hero .sg-ambient-glow--b {
 body.sg-portal-page .container-global.hero-inner,
 body.sg-portal-page .hero-inner.container-global {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 460px;
-    gap: 88px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+    gap: clamp(1.5rem, 4vw, 3.5rem);
     align-items: center;
     position: relative;
     z-index: 5;
+    min-width: 0;
 }
 
 .sg-portal-page .hero-text,
@@ -547,22 +548,35 @@ body.sg-portal-page .hero-inner.container-global {
     }
 }
 
-/* Beranda — header & hero satu lebar viewport; tanpa scrollbar kedua */
-body.sg-portal-page .site-header--sg-portal,
-body.sg-portal-page .site-header--sg-portal .site-header__gradient {
-    width: 100%;
-    max-width: 100%;
-    left: 0;
-    right: 0;
-}
-
+/* Beranda — hero shell = satu rail dengan .site-header__rail (1320px + gutter) */
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section,
 body.sg-homepage.sg-portal-page .site-layout-main > section#sg-hero,
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero {
     width: 100%;
-    max-width: 100%;
+    max-width: min(var(--layout-max-width, 1320px), 100%);
+    margin-left: auto;
+    margin-right: auto;
     overflow-x: hidden;
     overflow-y: visible;
+    box-sizing: border-box;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .container-global.hero-inner,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .shortcut-grid.container-global,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .stats-grid.container-global {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .hero-inner.container-global {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 400px);
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: center;
+    min-width: 0;
 }
 
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__bg,
@@ -574,4 +588,30 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section::befor
     left: 0;
     right: 0;
     margin: 0;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-quick-menu,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .shortcut-grid .sg-quick-menu {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(0.5rem, 1.2vw, 1rem);
+}
+
+@media (max-width: 991.98px) {
+    body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .hero-inner.container-global {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-quick-menu {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 575.98px) {
+    body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-quick-menu {
+        grid-template-columns: 1fr;
+    }
 }
