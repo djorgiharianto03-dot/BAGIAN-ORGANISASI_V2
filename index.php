@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 declare(strict_types=1);
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
@@ -2113,7 +2113,6 @@ $extraHeadMarkup .= '<link rel="stylesheet" href="' . htmlspecialchars($sgAssetB
 $extraHeadMarkup .= '<link rel="stylesheet" href="' . htmlspecialchars($sgAssetBase . '/assets/css/smart-governance-beranda-premium.css?v=5', ENT_QUOTES, 'UTF-8') . '">' . "\n";
 $extraHeadMarkup .= '<link rel="stylesheet" href="' . htmlspecialchars($sgAssetBase . '/assets/css/smart-governance-beranda-govtech.css?v=5', ENT_QUOTES, 'UTF-8') . '">' . "\n";
 $extraHeadMarkup .= '<link rel="stylesheet" href="' . htmlspecialchars($sgAssetBase . '/assets/css/smart-governance-beranda-polish.css?v=2', ENT_QUOTES, 'UTF-8') . '">' . "\n";
-$extraHeadMarkup .= '<link rel="stylesheet" href="' . htmlspecialchars($sgAssetBase . '/assets/css/sg-command-center-interactive.css?v=1', ENT_QUOTES, 'UTF-8') . '">' . "\n";
 
 /** Portal beranda: lebar shell header/hero — org-container-global.css */
 $htmlClass = 'sg-portal-html-home';

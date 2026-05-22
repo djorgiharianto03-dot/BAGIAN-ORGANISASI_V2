@@ -1,0 +1,81 @@
+/**
+ * Governance hub — cadangan (utama: CSS kritis di beranda_smart_hero.php).
+ * Tanpa animasi berat; layout sama dengan partial sg_command_center_illus.php.
+ */
+.sg-command-center--interactive {
+    position: relative;
+    width: 100%;
+    max-width: 340px;
+    aspect-ratio: 1;
+    margin: 0 auto;
+}
+
+.sg-command-center__mesh {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.sg-command-center__node-btn {
+    position: absolute;
+    z-index: 4;
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    color: #e0f2fe;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(147, 197, 253, 0.35);
+    text-decoration: none;
+}
+
+.sg-command-center__node-btn--1 { top: 6%; left: 4%; }
+.sg-command-center__node-btn--2 { top: 6%; right: 4%; }
+.sg-command-center__node-btn--3 { bottom: 10%; left: 6%; }
+.sg-command-center__node-btn--4 { bottom: 6%; right: 4%; }
+
+.sg-command-center__hub-btn {
+    position: absolute;
+    inset: 30%;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    text-decoration: none;
+}
+
+.sg-command-center__hub-core {
+    width: 68px;
+    height: 68px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    color: #e0f2fe;
+    background: linear-gradient(145deg, rgba(34, 211, 238, 0.4), rgba(37, 99, 235, 0.3));
+    border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.sg-command-center__tooltip,
+.sg-command-center__hub-tooltip {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.sg-command-center__node-btn:hover .sg-command-center__tooltip,
+.sg-command-center__node-btn:focus-visible .sg-command-center__tooltip,
+.sg-command-center__hub-btn:hover .sg-command-center__hub-tooltip,
+.sg-command-center__hub-btn:focus-visible .sg-command-center__hub-tooltip {
+    opacity: 1;
+    visibility: visible;
+}

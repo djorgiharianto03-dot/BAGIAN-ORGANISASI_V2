@@ -47,36 +47,11 @@ if (empty($canAccessEOrganisasi)) {
     aria-label="Governance hub interaktif"
 >
     <svg class="sg-command-center__mesh" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-        <defs>
-            <linearGradient id="sgMeshGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.55"/>
-                <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.2"/>
-            </linearGradient>
-            <filter id="sgMeshGlow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="2" result="b"/>
-                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-        </defs>
-        <g
-            class="sg-command-center__mesh-lines"
-            stroke="url(#sgMeshGrad)"
-            stroke-width="0.75"
-            fill="none"
-            opacity="0.65"
-            filter="url(#sgMeshGlow)"
-        >
-            <path d="M240 40 L400 140 L400 340 L240 440 L80 340 L80 140 Z"/>
-            <path d="M240 40 L240 440"/>
-            <path d="M80 140 L400 140"/>
-            <path d="M80 340 L400 340"/>
-            <path d="M160 90 L320 390"/>
-            <path d="M320 90 L160 390"/>
-            <circle cx="240" cy="240" r="72" stroke-dasharray="4 6"/>
-            <circle cx="240" cy="240" r="120" stroke-dasharray="2 8" opacity="0.5"/>
+        <g class="sg-command-center__mesh-lines" stroke="rgba(34,211,238,0.45)" stroke-width="1" fill="none">
+            <path d="M240 48 L392 142 L392 338 L240 432 L88 338 L88 142 Z"/>
+            <circle cx="240" cy="240" r="88" stroke-dasharray="5 7" opacity="0.65"/>
         </g>
-        <g fill="#22d3ee" aria-hidden="true">
-            <circle class="sg-command-center__pulse" cx="240" cy="240" r="5"/>
-        </g>
+        <circle cx="240" cy="240" r="4" fill="rgba(56,189,248,0.9)" aria-hidden="true"/>
     </svg>
 
     <?php foreach ($sgGovNodes as $node): ?>
@@ -96,12 +71,13 @@ if (empty($canAccessEOrganisasi)) {
     <a
         href="<?php echo htmlspecialchars($sgGovHubHref, ENT_QUOTES, 'UTF-8'); ?>"
         class="sg-command-center__hub-btn"
-        aria-label="Pusat governance portal — indikator dan statistik utama"
+        aria-label="Pusat Governance — indikator dan statistik utama"
+        title="Pusat Governance"
     >
         <span class="sg-command-center__hub-ring" aria-hidden="true"></span>
         <span class="sg-command-center__hub-core" aria-hidden="true">
-            <i class="fa-solid fa-building-columns"></i>
+            <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
         </span>
-        <span class="sg-command-center__hub-tooltip">Pusat Governance</span>
+        <span class="sg-command-center__hub-tooltip" aria-hidden="true">Pusat Governance</span>
     </a>
 </nav>

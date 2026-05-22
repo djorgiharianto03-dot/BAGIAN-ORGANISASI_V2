@@ -94,6 +94,153 @@ $sgQuickLinks[] = $sgEOrgQuick;
     text-align: center;
 }
 
+/* Governance hub — layout & klik (CSS kritis, tanpa file ekstra) */
+.sg-homepage .sg-hero__visual-col.hero-visual {
+    width: 100%;
+    max-width: 400px;
+    min-width: 0;
+    transform: none;
+}
+.sg-homepage .sg-hero__visual-frame,
+.sg-homepage .sg-hero__holo {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+.sg-homepage .sg-hero__holo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: min(300px, 42vw);
+    padding: 0.25rem 0;
+}
+.sg-homepage .sg-command-center--interactive {
+    position: relative;
+    width: 100%;
+    max-width: min(340px, 100%);
+    aspect-ratio: 1;
+    margin: 0 auto;
+}
+.sg-homepage .sg-command-center__mesh {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    animation: none !important;
+}
+.sg-homepage .sg-command-center__node-btn {
+    position: absolute;
+    z-index: 4;
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    color: #e0f2fe;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(147, 197, 253, 0.35);
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.sg-homepage .sg-command-center__node-btn--1 { top: 6%; left: 4%; }
+.sg-homepage .sg-command-center__node-btn--2 { top: 6%; right: 4%; }
+.sg-homepage .sg-command-center__node-btn--3 { bottom: 10%; left: 6%; }
+.sg-homepage .sg-command-center__node-btn--4 { bottom: 6%; right: 4%; }
+.sg-homepage .sg-command-center__node-btn:hover,
+.sg-homepage .sg-command-center__node-btn:focus-visible {
+    transform: translateY(-2px);
+    border-color: rgba(125, 211, 252, 0.65);
+    box-shadow: 0 8px 20px rgba(0, 12, 30, 0.35);
+    outline: none;
+}
+.sg-homepage .sg-command-center__hub-btn {
+    position: absolute;
+    inset: 30%;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    text-decoration: none;
+    border-radius: 18px;
+}
+.sg-homepage .sg-command-center__hub-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    border: 1px solid rgba(34, 211, 238, 0.45);
+    pointer-events: none;
+}
+.sg-homepage .sg-command-center__hub-core {
+    position: relative;
+    z-index: 2;
+    width: 68px;
+    height: 68px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    color: #e0f2fe;
+    background: linear-gradient(145deg, rgba(34, 211, 238, 0.4), rgba(37, 99, 235, 0.3));
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 10px 28px rgba(34, 211, 238, 0.25);
+    pointer-events: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.sg-homepage .sg-command-center__hub-btn:hover .sg-command-center__hub-core,
+.sg-homepage .sg-command-center__hub-btn:focus-visible .sg-command-center__hub-core {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 14px 32px rgba(34, 211, 238, 0.4);
+    outline: none;
+}
+.sg-homepage .sg-command-center__tooltip,
+.sg-homepage .sg-command-center__hub-tooltip {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 8px);
+    transform: translateX(-50%);
+    padding: 0.3rem 0.55rem;
+    border-radius: 6px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    line-height: 1.25;
+    white-space: nowrap;
+    color: #f8fafc;
+    background: rgba(2, 22, 48, 0.92);
+    border: 1px solid rgba(125, 211, 252, 0.35);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+.sg-homepage .sg-command-center__node-btn--2 .sg-command-center__tooltip,
+.sg-homepage .sg-command-center__node-btn--4 .sg-command-center__tooltip {
+    left: auto;
+    right: 0;
+    transform: none;
+}
+.sg-homepage .sg-command-center__node-btn:hover .sg-command-center__tooltip,
+.sg-homepage .sg-command-center__node-btn:focus-visible .sg-command-center__tooltip,
+.sg-homepage .sg-command-center__hub-btn:hover .sg-command-center__hub-tooltip,
+.sg-homepage .sg-command-center__hub-btn:focus-visible .sg-command-center__hub-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+@media (prefers-reduced-motion: reduce) {
+    .sg-homepage .sg-command-center__node-btn,
+    .sg-homepage .sg-command-center__hub-core {
+        transition: none;
+    }
+}
+
 </style>
 
 <div id="sgPortalLoader" class="sg-portal-loader" aria-hidden="true">
@@ -116,7 +263,7 @@ $sgQuickLinks[] = $sgEOrgQuick;
 
     <div class="sg-hero__grid-floor" aria-hidden="true"></div>
 
-    <?php $sgAmbientVariant = 'hero'; $sgParticleCount = 40; require __DIR__ . DIRECTORY_SEPARATOR . 'sg_ambient_layer.php'; ?>
+    <?php $sgAmbientVariant = 'hero'; $sgParticleCount = 10; require __DIR__ . DIRECTORY_SEPARATOR . 'sg_ambient_layer.php'; ?>
 
 
 
