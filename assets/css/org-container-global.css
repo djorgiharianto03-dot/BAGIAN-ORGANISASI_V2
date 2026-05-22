@@ -207,19 +207,28 @@ body.sg-homepage.sg-portal-page > #sg-hero.sg-hero {
 
 /* Header portal: sticky — lihat sg-portal-shell-align.css */
 
-/* Timpa site_styles (padding/margin/position lama pada header & nav) */
+/* Timpa site_styles — logo di atas, navbar di bawah (bukan samping kanan) */
+.sg-portal-page .site-header__rail.container-global,
 .sg-portal-page .site-header__inner.header-inner,
 .sg-portal-page .header-inner {
     padding-top: 0;
     padding-bottom: 0;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: 100%;
+    box-sizing: border-box;
 }
 
+.sg-portal-page .site-header__rail .site-header__topbar,
 .sg-portal-page .header-inner .site-header__topbar {
     width: 100%;
+    max-width: 100%;
     margin: 0;
     padding: 0;
+    flex: 0 0 auto;
+    align-self: stretch;
 }
 
 .sg-portal-page .header-inner .site-header__brand-row,
@@ -229,10 +238,18 @@ body.sg-homepage.sg-portal-page > #sg-hero.sg-hero {
 }
 
 .sg-portal-page .site-header__rail .navbar-wrapper,
+.sg-portal-page .site-header__rail .org-navbar__nav-shell,
 .sg-portal-page .navbar-wrapper {
+    display: block;
+    width: 100%;
+    max-width: 100%;
     margin-top: clamp(0.5rem, 1.2vw, 1.125rem);
+    margin-left: 0;
+    margin-right: 0;
     padding-top: 0;
     padding-bottom: 0;
+    flex: 0 0 auto;
+    align-self: stretch;
 }
 
 .sg-portal-page .navbar-panel,

@@ -97,6 +97,8 @@ if (str_contains($bodyClassAttr, 'sg-portal-page')) {
 if (str_contains($bodyClassAttr, 'sg-portal-page')) {
     echo '<style id="sg-portal-shell-critical">'
         . 'body.sg-portal-page .site-header--sg-portal{position:fixed!important;top:0;left:0;right:0;width:100%!important;max-width:none!important;z-index:1100!important}'
+        . 'body.sg-portal-page .site-header__rail.header-inner{display:flex!important;flex-direction:column!important;align-items:stretch!important;width:100%!important}'
+        . 'body.sg-portal-page .site-header__rail .navbar-wrapper{display:block!important;width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important}'
         . 'body.sg-portal-page .site-layout-main>.org-hero.sg-subhero,body.sg-portal-page .site-layout-main>.sg-subhero{padding-top:0!important;width:100%!important;max-width:none!important;margin-left:0!important;margin-right:0!important}'
         . 'body.sg-homepage.sg-portal-page>#sg-hero{padding-top:0!important;width:100%!important;max-width:none!important;margin:0!important}'
         . '</style>' . "\n";
