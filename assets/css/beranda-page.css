@@ -155,8 +155,11 @@
     margin-bottom: 0;
     padding-top: clamp(2.25rem, 4vw, 3rem);
     padding-bottom: clamp(2.25rem, 4vw, 3rem);
-    content-visibility: auto;
-    contain-intrinsic-size: auto 320px;
+}
+body.sg-homepage #beranda-root > .beranda-section,
+body.sg-homepage #beranda-root > section {
+    content-visibility: visible;
+    contain-intrinsic-size: unset;
 }
 
 #beranda-root > .beranda-section:first-of-type,

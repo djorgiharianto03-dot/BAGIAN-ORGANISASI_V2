@@ -83,7 +83,7 @@ $timIcons = [
 ];
 $baseUrl = strtok($_SERVER['REQUEST_URI'] ?? 'index.php', '?') ?: 'index.php';
 ?>
-        <section class="beranda-section gov-team-target-section gov-team-target-dashboard" id="beranda-team-targets" aria-labelledby="beranda-team-targets-title">
+        <section class="beranda-section beranda-section--surface-white gov-team-target-section gov-team-target-dashboard" id="beranda-team-targets" aria-labelledby="beranda-team-targets-title">
             <div class="gov-team-target-section__shell gov-team-target-section__shell--glass">
                 <header class="gov-team-target-section__header">
                     <div class="gov-team-target-section__heading">

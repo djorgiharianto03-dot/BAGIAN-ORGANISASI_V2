@@ -1,18 +1,25 @@
 /**
- * Portal — satu sistem .container-global (1320px + 32px)
+ * Portal — satu sistem .container-global (1180px rail, selaras beranda)
  * Muat terakhir di <head> halaman sg-portal-page.
  */
 
 :root {
-    --container-max: 1320px;
-    --layout-max-width: 1320px;
+    --container-max: 1180px;
+    --layout-max-width: 1180px;
+    --portal-content-gutter: clamp(1rem, 2vw, 1.25rem);
 }
 
 html.sg-portal-html-home,
 body.sg-homepage.sg-portal-page {
     --container-max: 1180px;
     --layout-max-width: 1180px;
-    --beranda-gutter: clamp(1rem, 2vw, 1.25rem);
+    --beranda-gutter: var(--portal-content-gutter);
+}
+
+html.sg-portal-html,
+body.sg-portal-page {
+    --container-max: 1180px;
+    --layout-max-width: 1180px;
 }
 
 html.sg-portal-html,
@@ -72,9 +79,10 @@ body.sg-portal-page {
 /* —— Satu rail konten (header, navbar, hero, main, footer) —— */
 .container-global {
     width: 100%;
-    max-width: var(--layout-max-width, 1320px);
+    max-width: var(--layout-max-width, 1180px);
     margin: 0 auto;
-    padding: 0 32px;
+    padding-left: var(--portal-content-gutter, clamp(1rem, 2vw, 1.25rem));
+    padding-right: var(--portal-content-gutter, clamp(1rem, 2vw, 1.25rem));
     box-sizing: border-box;
 }
 
@@ -92,9 +100,10 @@ body.sg-homepage.sg-portal-page .hero-inner.container-global {
 .org-hero__container,
 .sg-portal-page .org-hero__container {
     width: 100%;
-    max-width: 1320px;
+    max-width: var(--layout-max-width, 1180px);
     margin: 0 auto;
-    padding: 0 32px;
+    padding-left: var(--portal-content-gutter, clamp(1rem, 2vw, 1.25rem));
+    padding-right: var(--portal-content-gutter, clamp(1rem, 2vw, 1.25rem));
     box-sizing: border-box;
 }
 
@@ -111,11 +120,11 @@ body.sg-homepage.sg-portal-page .hero-inner.container-global {
 .container-global.org-hero__container,
 .hero-inner.container-global,
 .org-hero__container.container-global {
-    max-width: 1320px;
+    max-width: var(--layout-max-width, 1180px);
     margin-left: auto;
     margin-right: auto;
-    padding-left: 32px;
-    padding-right: 32px;
+    padding-left: var(--portal-content-gutter, clamp(1rem, 2vw, 1.25rem));
+    padding-right: var(--portal-content-gutter, clamp(1rem, 2vw, 1.25rem));
 }
 
 /* Shell section full-width (bukan .container-global) */
@@ -140,18 +149,15 @@ body.sg-homepage.sg-portal-page .hero-inner.container-global {
     box-sizing: border-box;
 }
 
-.sg-portal-page {
-    --container-max: 1320px;
-    --layout-max-width: 1320px;
-}
-
 /* Bootstrap .container yang juga memakai container-global */
 .sg-portal-page .container-global.container,
-.sg-portal-page .container-global.org-container {
+.sg-portal-page .container-global.org-container,
+.sg-portal-page .sg-portal-main-inner > .container.site-main,
+.sg-portal-page .sg-portal-main-inner > .container-global.site-main {
     --bs-gutter-x: 0;
-    max-width: 1320px;
-    padding-left: 32px;
-    padding-right: 32px;
+    max-width: var(--layout-max-width, 1180px);
+    padding-left: var(--portal-content-gutter, clamp(1rem, 2vw, 1.25rem));
+    padding-right: var(--portal-content-gutter, clamp(1rem, 2vw, 1.25rem));
 }
 
 /* Shell background full-width (konten tetap di .container-global) */
@@ -487,8 +493,13 @@ body.sg-homepage.sg-portal-page .hero-inner > .sg-hero__visual-col {
         margin-top: 0 !important;
     }
 
-    .sg-portal-page .navbar-wrapper:not(:has(.site-header__nav-panel.is-open)) {
+    .sg-portal-page .navbar-wrapper:not(.is-navbar-menu-open):not(:has(.site-header__nav-panel.is-open)) {
         display: none !important;
+    }
+
+    body.site-header-nav-open.sg-portal-page .navbar-wrapper,
+    .sg-portal-page .navbar-wrapper.is-navbar-menu-open {
+        display: block !important;
     }
 
     .sg-portal-page .navbar-panel,

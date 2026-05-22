@@ -425,6 +425,31 @@ body.sg-homepage #beranda-root #beranda-team-targets {
     opacity: 1 !important;
 }
 
+/* Satu halaman: konten abu terang menyambung footer (bukan lompatan biru panjang) */
+body.sg-homepage.sg-portal-page > #sg-hero.sg-hero--minimal + #beranda-root,
+body.sg-homepage.sg-portal-page > #sg-hero + #beranda-root {
+    margin-top: 0 !important;
+}
+
+body.sg-homepage.sg-portal-page #beranda-root > #beranda-dashboard-widgets,
+body.sg-homepage.sg-portal-page #beranda-root > #beranda-team-targets {
+    background: #ffffff;
+    border-radius: 0;
+}
+
+body.sg-homepage.sg-portal-page .site-footer.site-footer--modern {
+    margin-top: 0 !important;
+}
+
+body.sg-homepage.sg-portal-page .org-footer__cta-band {
+    background: #f4f7fb !important;
+    border-top: 1px solid #e2e8f0;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-section__empty {
+    padding: 0.5rem 0 0.25rem;
+}
+
 /* Skeleton / lazy — minimal, tidak mendominasi */
 body.sg-homepage .beranda-chunk-skeleton,
 body.sg-homepage .beranda-lazy-section__placeholder,

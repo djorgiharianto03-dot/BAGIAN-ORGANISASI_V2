@@ -134,16 +134,18 @@
         --site-header-mobile-max-height: calc(100vh - 120px);
     }
 
-    /* Kotak kosong di bawah logo: wrapper/panel nav tanpa isi saat menu tertutup */
-    .sg-portal-page .navbar-wrapper:not(:has(.site-header__nav-panel.is-open)) {
+    /* Kotak kosong di bawah logo: wrapper nav disembunyikan sampai menu dibuka */
+    .sg-portal-page .navbar-wrapper:not(.is-navbar-menu-open):not(:has(.site-header__nav-panel.is-open)) {
         display: none !important;
         margin: 0 !important;
         padding: 0 !important;
         min-height: 0 !important;
     }
 
+    body.site-header-nav-open.sg-portal-page .navbar-wrapper,
+    .sg-portal-page .navbar-wrapper.is-navbar-menu-open,
     .sg-portal-page .navbar-wrapper:has(.site-header__nav-panel.is-open) {
-        display: block;
+        display: block !important;
         margin: 0 !important;
         padding: 0 !important;
     }
@@ -416,5 +418,69 @@
     .site-header--sg-portal .site-header__nav a {
         font-size: 0.72rem;
         padding: 0.32rem 0.45rem;
+    }
+}
+
+/* Navigasi dapat diklik — di atas lapisan dekoratif, tap area jelas */
+body.sg-portal-page .site-header--sg-portal {
+    pointer-events: auto;
+}
+
+body.sg-portal-page .site-header__nav-panel,
+body.sg-portal-page .site-header__nav-row,
+body.sg-portal-page .site-header__nav,
+body.sg-portal-page .site-header__actions {
+    position: relative;
+    z-index: 2;
+    pointer-events: auto;
+}
+
+body.sg-portal-page .site-header__nav a,
+body.sg-portal-page .site-header__actions .btn,
+body.sg-portal-page .site-header__actions a,
+body.sg-portal-page .site-header__actions button,
+body.sg-portal-page .org-theme-toggle {
+    position: relative;
+    z-index: 3;
+    pointer-events: auto !important;
+    cursor: pointer;
+}
+
+body.sg-portal-page .site-header__nav a::after {
+    pointer-events: none;
+}
+
+@media (min-width: 992px) {
+    .sg-portal-page .site-header--sg-portal .navbar-panel,
+    .sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel {
+        min-height: 0 !important;
+        overflow: visible !important;
+    }
+
+    .sg-portal-page .site-header__nav-panel {
+        display: block !important;
+        visibility: visible !important;
+        overflow: visible !important;
+        opacity: 1 !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+
+    .sg-portal-page .site-header__holiday-ucapan--inline {
+        flex: 0 1 auto;
+        max-width: min(200px, 22vw);
+        pointer-events: auto;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .sg-portal-page .site-header__nav-panel.is-open {
+        z-index: 1190 !important;
+        pointer-events: auto !important;
+    }
+
+    .sg-portal-page .site-header__nav-panel.is-open .site-header__nav a {
+        pointer-events: auto !important;
+        cursor: pointer;
     }
 }

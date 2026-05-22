@@ -169,11 +169,21 @@
 /* —— Hero —— */
 .sg-hero {
     position: relative;
+    color: #fff;
+    isolation: isolate;
+}
+.sg-hero:not(.sg-hero--minimal) {
     min-height: min(62vh, 640px);
     padding: clamp(2rem, 4vw, 2.75rem) 0 clamp(2.25rem, 4.5vw, 3rem);
     overflow: hidden;
-    color: #fff;
-    isolation: isolate;
+}
+body.sg-homepage.sg-portal-page > #sg-hero.sg-hero--minimal,
+body.sg-homepage.sg-portal-page > #sg-hero.sg-hero.sg-hero--compact.sg-hero--minimal {
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    padding-bottom: 0.75rem !important;
+    overflow: visible !important;
 }
 .sg-hero__bg {
     position: absolute;
@@ -668,9 +678,9 @@
     margin: 0;
 }
 .sg-portal-page #beranda-dashboard-widgets { order: 1; }
-.sg-portal-page #beranda-team-targets { order: 4; }
-.sg-portal-page #beranda-pusat-informasi { order: 5; }
-.sg-portal-page #beranda-ringkasan-eksekutif { order: 8; }
+.sg-portal-page #beranda-team-targets { order: 2; }
+.sg-portal-page #beranda-pusat-informasi { order: 3; }
+.sg-portal-page #beranda-ringkasan-eksekutif { order: 4; }
 .sg-portal-page #beranda-galeri-kegiatan { order: 9; }
 .sg-portal-page #beranda-kunjungan-web { order: 6; }
 .sg-portal-page #beranda-kunjungan-web .beranda-visit-card {

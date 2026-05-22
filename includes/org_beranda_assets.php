@@ -112,7 +112,7 @@ function org_container_global_stylesheet_link_async(): string
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
     $links = '';
     foreach ([
-        'assets/css/org-container-global.css?v=36',
+        'assets/css/org-container-global.css?v=37',
         'assets/css/sg-portal-panel-layout.css?v=6',
         'assets/css/sg-portal-shell-align.css?v=5',
         'assets/css/org-overflow-guard.css?v=1',
@@ -140,7 +140,7 @@ function org_beranda_header_vendor_markup(): string
     $out .= org_vendor_stylesheet_preload(org_vendor_bootstrap_css());
     $out .= org_vendor_stylesheet_preload(org_vendor_fontawesome_css());
     $out .= org_asset_stylesheet_async('assets/css/org-dark-mode.css?v=1', true);
-    $out .= org_asset_stylesheet_async('assets/css/org-navbar.css?v=11', true);
+    $out .= org_asset_stylesheet_async('assets/css/org-navbar.css?v=12', true);
     $out .= org_asset_stylesheet_async('assets/css/org-modal-layer.css', true);
     $out .= org_beranda_lite_stylesheet_link();
 
@@ -155,9 +155,15 @@ function org_beranda_header_vendor_markup(): string
     }
 
     $out .= '<style id="sg-beranda-head-critical">'
+        . 'html.sg-portal-html-home,body.sg-homepage.sg-portal-page{background:#f4f7fb!important}'
         . 'body.sg-homepage #sgPortalLoader{display:none!important}'
-        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal{position:fixed!important;top:0;left:0;right:0;z-index:1100}'
+        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal{position:fixed!important;top:0;left:0;right:0;z-index:1200;pointer-events:auto}'
+        . 'body.sg-homepage.sg-portal-page .site-header__nav a{pointer-events:auto!important;cursor:pointer}'
+        . 'body.sg-homepage.sg-portal-page>.site-layout-main{background:#f4f7fb!important;display:block!important}'
         . 'body.sg-homepage.sg-portal-page>#sg-hero{padding-top:var(--sg-portal-header-offset,6.25rem)!important}'
+        . 'body.sg-homepage.sg-portal-page>#sg-hero.sg-hero--minimal,body.sg-homepage.sg-portal-page>#sg-hero.sg-hero.sg-hero--compact.sg-hero--minimal{min-height:0!important;height:auto!important;max-height:none!important;padding-bottom:.75rem!important;overflow:visible!important}'
+        . 'body.sg-homepage.sg-portal-page #beranda-root{display:flex!important;flex-direction:column!important;visibility:visible!important;opacity:1!important;min-height:0!important;margin-top:0!important;background:#f4f7fb!important}'
+        . 'body.sg-homepage.sg-portal-page #beranda-root>.beranda-section,body.sg-homepage.sg-portal-page #beranda-root>section,body.sg-homepage.sg-portal-page #beranda-root>#beranda-team-targets{content-visibility:visible!important;contain-intrinsic-size:unset!important;visibility:visible!important;opacity:1!important}'
         . '</style>' . "\n";
 
     return $out;
@@ -233,7 +239,7 @@ function org_beranda_home_layout_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-home-layout.css?v=2');
+    return org_asset_stylesheet_link('assets/css/beranda-home-layout.css?v=3');
 }
 
 function org_beranda_lite_render_script_tag(): string

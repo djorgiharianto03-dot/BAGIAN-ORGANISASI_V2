@@ -670,6 +670,8 @@ function org_beranda_fetch_team_targets_bundle(?mysqli $db, int $requestedYear):
 
         && is_array($cached['grouped'])
 
+        && !empty($cached['visible'])
+
     ) {
 
         $result['tahun'] = (int) ($cached['tahun'] ?? $result['tahun']);
@@ -678,7 +680,7 @@ function org_beranda_fetch_team_targets_bundle(?mysqli $db, int $requestedYear):
 
         $result['grouped'] = $cached['grouped'];
 
-        $result['visible'] = !empty($cached['visible']);
+        $result['visible'] = true;
 
 
 

@@ -4,10 +4,11 @@
 /** @var array<string, array{selesai: list<array{id: string, nama_opd: string, alasan: string}>, belum: list<array{id: string, nama_opd: string, alasan: string}>, dalam_pengerjaan: list<array{id: string, nama_opd: string, alasan: string}>}> $berandaWidgetDetailsMap */
 $berandaDashboardWidgets = $berandaDashboardWidgets ?? [];
 $berandaWidgetDetailsMap = $berandaWidgetDetailsMap ?? [];
-if (count($berandaDashboardWidgets) === 0) {
+$widgetCount = count($berandaDashboardWidgets);
+$berandaDashboardForceShell = defined('ORG_BERANDA_PAGE') && ORG_BERANDA_PAGE === true;
+if ($widgetCount === 0 && !$berandaDashboardForceShell) {
     return;
 }
-$widgetCount = count($berandaDashboardWidgets);
 $govKpiModalPayload = [];
 foreach ($berandaDashboardWidgets as $wPayload) {
     $widPayload = (string) ($wPayload['id'] ?? '');
@@ -28,7 +29,7 @@ if ($govKpiModalJson === false) {
     $govKpiModalJson = '{}';
 }
 ?>
-        <section class="beranda-section gov-kpi-section" id="beranda-dashboard-widgets" aria-labelledby="beranda-dashboard-widgets-title">
+        <section class="beranda-section beranda-section--surface-white gov-kpi-section" id="beranda-dashboard-widgets" aria-labelledby="beranda-dashboard-widgets-title">
             <div class="gov-kpi-section__shell">
                 <header class="gov-kpi-section__header">
                     <div class="gov-kpi-section__heading">
@@ -41,6 +42,11 @@ if ($govKpiModalJson === false) {
                     </div>
                 </header>
 
+                <?php if ($widgetCount === 0): ?>
+                    <p class="gov-kpi-section__empty text-muted small mb-0">
+                        Indikator kinerja belum dikonfigurasi. Admin dapat menambahkannya di pengaturan dashboard.
+                    </p>
+                <?php else: ?>
                 <div class="row g-3 gov-kpi-grid row-cols-1<?php echo $widgetCount > 1 ? ' row-cols-lg-2' : ''; ?>">
                     <?php foreach ($berandaDashboardWidgets as $w): ?>
                         <?php
@@ -137,6 +143,7 @@ if ($govKpiModalJson === false) {
                         </div>
                     <?php endforeach; ?>
                 </div>
+                <?php endif; ?>
             </div>
 
             <script type="application/json" id="gov-kpi-details-data"><?php echo $govKpiModalJson; ?></script>

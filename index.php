@@ -103,7 +103,7 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'head
 echo '<main class="site-layout-main" id="main-content" role="main">';
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_smart_hero.php';
 ?>
-    <div class="container-global site-main" id="beranda-root">
+    <div class="container-global site-main beranda-page-flow" id="beranda-root" role="region" aria-label="Konten beranda">
         <?php if ($message !== ''): ?>
             <div class="alert alert-<?php echo htmlspecialchars($messageType, ENT_QUOTES, 'UTF-8'); ?> alert-dismissible fade show section-spacing" role="alert">
                 <?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?>
