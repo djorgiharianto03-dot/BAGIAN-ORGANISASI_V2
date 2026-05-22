@@ -97,7 +97,9 @@ if (str_contains($bodyClassAttr, 'sg-portal-page')) {
 if (str_contains($bodyClassAttr, 'sg-portal-page')) {
     echo '<style id="sg-portal-shell-critical">'
         . 'body.sg-portal-page .site-header--sg-portal{position:fixed!important;top:0;left:0;right:0;width:100%!important;max-width:100%!important;z-index:1100!important}'
-        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero{width:100%!important;max-width:min(1320px,100%)!important;margin-left:auto!important;margin-right:auto!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage.sg-portal-page .sg-portal-main.sg-dash-main{width:100%!important;max-width:min(1320px,100%)!important;margin-left:auto!important;margin-right:auto!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title{font-size:clamp(1.25rem,1rem+1vw,1.75rem)!important;line-height:1.2!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__tagline{font-size:clamp(.9rem,.85rem+.3vw,1.05rem)!important;line-height:1.5!important;max-width:100%!important}'
         . 'body.sg-portal-page .site-header__rail.header-inner{display:flex!important;flex-direction:column!important;align-items:stretch!important;width:100%!important}'
         . 'body.sg-portal-page .site-header__rail .navbar-wrapper{display:block!important;width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important}'
         . 'body.sg-portal-page .site-layout-main>.org-hero.sg-subhero,body.sg-portal-page .site-layout-main>.sg-subhero{padding-top:0!important;width:100%!important;max-width:none!important;margin-left:0!important;margin-right:0!important}'
