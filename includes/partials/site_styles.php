@@ -3018,20 +3018,28 @@
                 visibility: visible !important;
             }
 
-            .sg-portal-page .site-header__nav-panel.is-open,
-            .sg-portal-page .site-header__nav-collapse.show {
+            .site-header__nav-panel.is-open,
+            .site-header__nav-collapse.show {
                 position: fixed;
                 left: 0;
                 right: 0;
-                top: 0;
-                z-index: 1060;
-                max-height: 100vh;
+                top: var(--site-header-mobile-top, 120px);
+                bottom: auto;
+                z-index: 1080;
+                max-height: var(--site-header-mobile-max-height, calc(100vh - 120px));
                 overflow-y: auto;
+                overflow-x: hidden;
+                -webkit-overflow-scrolling: touch;
                 margin-top: 0;
-                border-radius: 0;
+                box-sizing: border-box;
+            }
+
+            .sg-portal-page .site-header__nav-panel.is-open,
+            .sg-portal-page .site-header__nav-collapse.show {
+                border-radius: 0 0 14px 14px;
                 border: 0;
-                border-bottom: 1px solid var(--header-nav-border);
-                padding: 1rem 1rem max(1rem, env(safe-area-inset-bottom));
+                border-top: 1px solid var(--header-nav-border);
+                padding: 0.65rem 1rem max(1rem, env(safe-area-inset-bottom));
                 background: var(--header-nav-surface);
                 background-color: #243f5f;
                 backdrop-filter: blur(var(--header-nav-glass-blur)) saturate(1.12);
