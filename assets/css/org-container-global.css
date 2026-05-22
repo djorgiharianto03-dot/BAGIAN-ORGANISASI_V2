@@ -8,6 +8,12 @@
     --layout-max-width: 1320px;
 }
 
+html.sg-portal-html-home,
+body.sg-homepage.sg-portal-page {
+    --container-max: 1280px;
+    --layout-max-width: 1280px;
+}
+
 html.sg-portal-html,
 html.sg-portal-html-home,
 html,
@@ -65,10 +71,18 @@ body.sg-portal-page {
 /* —— Satu rail konten (header, navbar, hero, main, footer) —— */
 .container-global {
     width: 100%;
-    max-width: 1320px;
+    max-width: var(--layout-max-width, 1320px);
     margin: 0 auto;
     padding: 0 32px;
     box-sizing: border-box;
+}
+
+body.sg-homepage.sg-portal-page .container-global,
+body.sg-homepage.sg-portal-page .header-inner.container-global,
+body.sg-homepage.sg-portal-page .navbar-wrapper.container-global,
+body.sg-homepage.sg-portal-page .container-global.hero-inner,
+body.sg-homepage.sg-portal-page .hero-inner.container-global {
+    max-width: 1280px;
 }
 
 /* Hero content box — sama dengan rail (timpa Tailwind .org-container / px-5) */
@@ -360,8 +374,13 @@ body.sg-portal-page .hero-inner.container-global {
     justify-self: end;
     margin: 0;
     padding: 0 clamp(0.75rem, 2vw, 1.5rem) 0 0;
-    transform: scale(0.94);
+    transform: none;
     transform-origin: center;
+}
+
+body.sg-homepage.sg-portal-page .hero-visual,
+body.sg-homepage.sg-portal-page .hero-inner > .sg-hero__visual-col {
+    transform: none;
 }
 
 .sg-portal-page .hero-visual .sg-hero__visual-frame {

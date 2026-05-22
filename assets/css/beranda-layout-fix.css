@@ -2,6 +2,11 @@
  * Beranda — ukuran layout, shell align, tipografi (tanpa scale/zoom/100vw).
  */
 
+html.sg-portal-html-home,
+body.sg-homepage.sg-portal-page {
+    zoom: 1;
+}
+
 body.sg-homepage.sg-portal-page {
     --container-max: 1280px;
     --layout-max-width: 1280px;
@@ -157,9 +162,10 @@ body.sg-homepage.sg-portal-page .container-global.hero-inner {
 }
 
 body.sg-homepage.sg-portal-page .hero-visual,
-body.sg-homepage.sg-portal-page .hero-inner > .sg-hero__visual-col {
+body.sg-homepage.sg-portal-page .hero-inner > .sg-hero__visual-col,
+body.sg-homepage .sg-hero__visual-col {
     transform: none !important;
-    max-width: 400px;
+    max-width: 420px;
 }
 
 /* Tipografi hero — clamp berbasis rem, bukan terlalu kecil di layar lebar */
@@ -187,6 +193,21 @@ body.sg-homepage .sg-hero__tagline {
     font-size: clamp(0.9375rem, 0.875rem + 0.2vw, 1.0625rem) !important;
     line-height: 1.55;
     max-width: 36rem;
+}
+
+body.sg-homepage .sg-hero.sg-hero--ultra .sg-hero__title {
+    font-size: clamp(1.875rem, 1.5rem + 1.1vw, 2.75rem) !important;
+    letter-spacing: -0.02em !important;
+    margin-bottom: 0.75rem !important;
+}
+
+body.sg-homepage .sg-hero.sg-hero--ultra .sg-hero__title-secondary {
+    font-size: clamp(0.8125rem, 0.75rem + 0.2vw, 0.9375rem) !important;
+    letter-spacing: 0.06em !important;
+}
+
+body.sg-homepage .sg-hero.sg-hero--ultra .sg-hero__tagline {
+    font-size: clamp(0.9375rem, 0.875rem + 0.2vw, 1.0625rem) !important;
 }
 
 body.sg-homepage .sg-hero__copy {
