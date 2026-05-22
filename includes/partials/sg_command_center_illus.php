@@ -75,8 +75,9 @@ if (empty($canAccessEOrganisasi)) {
         title="Pusat Governance"
     >
         <span class="sg-command-center__hub-ring" aria-hidden="true"></span>
-        <span class="sg-command-center__hub-core" aria-hidden="true">
+        <span class="sg-command-center__hub-core">
             <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
+            <span class="sg-command-center__hub-label">Pusat Governance</span>
         </span>
         <span class="sg-command-center__hub-tooltip" aria-hidden="true">Pusat Governance</span>
     </a>

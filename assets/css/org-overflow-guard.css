@@ -19,6 +19,16 @@ body.sg-homepage.sg-portal-page {
     overflow-x: hidden;
 }
 
+html.sg-portal-html,
+html.sg-portal-html-home {
+    overflow-y: auto;
+}
+
+body.sg-portal-page,
+body.sg-homepage.sg-portal-page {
+    overflow-y: visible;
+}
+
 .site-layout-main,
 .site-header--sg-portal,
 .site-header--sg-portal .site-header__gradient,
@@ -40,9 +50,12 @@ body.sg-homepage.sg-portal-page {
 }
 
 body.sg-homepage.sg-portal-page > #sg-hero,
-body.sg-homepage.sg-portal-page > section#sg-hero {
-    max-width: none;
+body.sg-homepage.sg-portal-page > section#sg-hero,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero,
+body.sg-homepage.sg-portal-page .site-layout-main > section#sg-hero {
+    max-width: 100%;
     width: 100%;
+    overflow-x: hidden;
 }
 
 .site-header--sg-portal .container-global,

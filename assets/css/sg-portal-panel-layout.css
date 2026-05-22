@@ -14,11 +14,12 @@ body.sg-homepage.sg-portal-page .site-layout-main > section#sg-hero.sg-hero {
     display: block;
     position: relative;
     width: 100%;
-    max-width: none;
+    max-width: 100%;
     min-height: min(760px, 92vh);
     margin: 0;
     isolation: isolate;
     box-sizing: border-box;
+    overflow-x: clip;
 }
 
 body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__bg,
@@ -40,9 +41,10 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-ambient-layer {
     position: absolute;
     inset: 0;
     width: 100%;
-    max-width: none;
+    max-width: 100%;
     margin: 0;
     transform: none;
+    overflow: hidden;
 }
 
 body.sg-homepage.sg-portal-page > #sg-hero.sg-hero--govtech .sg-hero__bg::before {

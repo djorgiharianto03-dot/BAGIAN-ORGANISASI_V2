@@ -106,6 +106,7 @@ $sgQuickLinks[] = $sgEOrgQuick;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    overflow: visible;
 }
 .sg-homepage .sg-hero__holo {
     position: relative;
@@ -114,6 +115,7 @@ $sgQuickLinks[] = $sgEOrgQuick;
     justify-content: center;
     min-height: min(300px, 42vw);
     padding: 0.25rem 0;
+    overflow: visible;
 }
 .sg-homepage .sg-command-center--interactive {
     position: relative;
@@ -121,6 +123,7 @@ $sgQuickLinks[] = $sgEOrgQuick;
     max-width: min(340px, 100%);
     aspect-ratio: 1;
     margin: 0 auto;
+    overflow: visible;
 }
 .sg-homepage .sg-command-center__mesh {
     position: absolute;
@@ -159,7 +162,7 @@ $sgQuickLinks[] = $sgEOrgQuick;
 }
 .sg-homepage .sg-command-center__hub-btn {
     position: absolute;
-    inset: 30%;
+    inset: 24%;
     z-index: 3;
     display: flex;
     align-items: center;
@@ -181,19 +184,43 @@ $sgQuickLinks[] = $sgEOrgQuick;
 .sg-homepage .sg-command-center__hub-core {
     position: relative;
     z-index: 2;
-    width: 68px;
-    height: 68px;
+    width: auto;
+    min-width: 5.75rem;
+    max-width: 6.5rem;
+    height: auto;
+    min-height: 5.75rem;
+    padding: 0.45rem 0.4rem 0.4rem;
     border-radius: 16px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 1.75rem;
+    gap: 0.2rem;
+    text-align: center;
+    box-sizing: border-box;
     color: #e0f2fe;
     background: linear-gradient(145deg, rgba(34, 211, 238, 0.4), rgba(37, 99, 235, 0.3));
     border: 1px solid rgba(255, 255, 255, 0.35);
     box-shadow: 0 10px 28px rgba(34, 211, 238, 0.25);
     pointer-events: none;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.sg-homepage .sg-command-center__hub-core i {
+    font-size: 1.35rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+.sg-homepage .sg-command-center__hub-label {
+    display: block;
+    font-size: 0.5625rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+    color: #f0f9ff;
+    max-width: 100%;
+    overflow: visible;
+    white-space: normal;
+    word-break: break-word;
 }
 .sg-homepage .sg-command-center__hub-btn:hover .sg-command-center__hub-core,
 .sg-homepage .sg-command-center__hub-btn:focus-visible .sg-command-center__hub-core {
@@ -239,6 +266,28 @@ $sgQuickLinks[] = $sgEOrgQuick;
     .sg-homepage .sg-command-center__hub-core {
         transition: none;
     }
+}
+
+/* Hero shell — cegah background/glow melebar ke kanan */
+.sg-homepage #sg-hero.hero-section,
+.sg-homepage #sg-hero.sg-hero--govtech {
+    overflow-x: hidden;
+    overflow-y: visible;
+    max-width: 100%;
+    width: 100%;
+}
+.sg-homepage #sg-hero .sg-hero__bg,
+.sg-homepage #sg-hero .sg-hero__grid-floor,
+.sg-homepage #sg-hero .sg-ambient-layer {
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+.sg-homepage #sg-hero .sg-ambient-glow--b {
+    right: 0;
+    left: auto;
 }
 
 </style>

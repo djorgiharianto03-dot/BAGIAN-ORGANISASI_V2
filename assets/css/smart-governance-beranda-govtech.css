@@ -119,10 +119,32 @@
 .sg-homepage .sg-hero--govtech .sg-hero__holo .sg-command-center {
     filter: drop-shadow(0 16px 40px rgba(0, 0, 0, 0.22));
     max-width: min(400px, 100%);
+    overflow: visible;
 }
 
 .sg-homepage .sg-hero--govtech .sg-command-center__hub-core {
+    min-width: 5.75rem;
+    max-width: 6.5rem;
+    height: auto;
+    min-height: 5.75rem;
+    padding: 0.45rem 0.4rem 0.4rem;
+    flex-direction: column;
+    gap: 0.2rem;
     box-shadow: 0 4px 20px rgba(15, 23, 42, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.sg-homepage .sg-hero--govtech .sg-command-center__hub-core i {
+    font-size: 1.35rem;
+}
+
+.sg-homepage .sg-hero--govtech .sg-command-center__hub-label {
+    display: block;
+    font-size: 0.5625rem;
+    font-weight: 700;
+    line-height: 1.15;
+    text-align: center;
+    color: #f0f9ff;
+    white-space: normal;
 }
 
 .sg-homepage .sg-hero--govtech .sg-command-center__hub-ring {

@@ -5,16 +5,17 @@
 
 html.sg-portal-html,
 html.sg-portal-html-home {
-    overflow-x: clip;
-    overflow-y: scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
     scrollbar-gutter: auto !important;
 }
 
 body.sg-portal-page {
     width: 100%;
-    max-width: none;
+    max-width: 100%;
     margin: 0;
-    overflow-x: clip;
+    overflow-x: hidden;
+    overflow-y: visible;
     box-sizing: border-box;
 }
 
@@ -24,8 +25,10 @@ body.sg-homepage.sg-portal-page {
 
 body.sg-portal-page .site-layout-main {
     width: 100%;
-    max-width: none;
+    max-width: 100%;
     padding-top: 0;
+    overflow-x: hidden;
+    overflow-y: visible;
 }
 
 body.sg-homepage.sg-portal-page .site-layout-main {
@@ -39,7 +42,7 @@ body.sg-portal-page .site-header--sg-portal {
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;
-    max-width: none !important;
+    max-width: 100% !important;
     margin: 0 !important;
     z-index: 1100 !important;
     box-sizing: border-box;
@@ -48,7 +51,7 @@ body.sg-portal-page .site-header--sg-portal {
 body.sg-portal-page .site-header--sg-portal .site-header__gradient {
     display: block;
     width: 100% !important;
-    max-width: none !important;
+    max-width: 100% !important;
     margin: 0 !important;
     box-sizing: border-box;
 }
@@ -62,9 +65,11 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section,
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero {
     display: block !important;
     width: 100% !important;
-    max-width: none !important;
+    max-width: 100% !important;
     margin: 0 !important;
     padding-top: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: visible !important;
     box-sizing: border-box;
 }
 
@@ -79,7 +84,7 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section::befor
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;
-    max-width: none !important;
+    max-width: 100% !important;
     margin: 0 !important;
 }
 
@@ -109,5 +114,6 @@ body.sg-portal-page .sg-subhero .sg-subhero__bg {
 body.sg-portal-page .sg-portal-main-inner,
 body.sg-portal-page .sg-portal-main {
     width: 100%;
-    max-width: none;
+    max-width: 100%;
+    overflow-x: hidden;
 }
