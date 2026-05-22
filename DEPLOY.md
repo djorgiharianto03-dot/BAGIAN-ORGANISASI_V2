@@ -35,6 +35,15 @@ chmod -R 775 uploads
 
 CloudPanel → Site → Vhost: tambahkan isi [deploy/nginx-vhost-snippet.conf](deploy/nginx-vhost-snippet.conf) (HTTPS, tanpa `/index.php`, keamanan `uploads/`).
 
+## Cache vs aset build
+
+| Lokasi | Isi | Boleh dihapus? |
+|--------|-----|----------------|
+| `uploads/.cache/` | JSON statistik beranda, flag schema (sementara) | Ya — halaman tetap jalan, data diambil ulang dari DB |
+| `assets/css/*.min.css` | CSS build permanen (`site-global`, `beranda.bundle`, `beranda-shell`) | Jangan di production; jika hilang, beranda membangun ulang dari sumber (atau jalankan skrip di bawah) |
+
+Pastikan `uploads/` writable (`chmod 775`). Kosongkan `.cache` untuk memaksa refresh data tanpa meruskin layout.
+
 ## Aset frontend (vendor lokal)
 
 Setelah `git pull`, folder `assets/vendor/` dan `assets/css/beranda.bundle.min.css` ikut dari repo.
@@ -44,6 +53,8 @@ Jika perlu unduh ulang CDN ke lokal:
 ```powershell
 .\deploy\download-vendor-assets.ps1
 php deploy\build-beranda-bundle.php
+php deploy\build-beranda-shell-bundle.php
+php deploy\build-site-global-css.php
 ```
 
 ## Update berikutnya

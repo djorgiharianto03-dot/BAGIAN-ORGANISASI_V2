@@ -3,10 +3,23 @@ declare(strict_types=1);
 
 /**
  * Aset halaman beranda — CSS non-blocking & skrip lazy.
+ * Build permanen: assets/css/*.min.css (bukan uploads/.cache).
  */
+
+function org_beranda_assets_prepare_builds(): void
+{
+    static $prepared = false;
+    if ($prepared) {
+        return;
+    }
+    $prepared = true;
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_build_assets.php';
+    org_build_assets_ensure_beranda();
+}
 
 function org_beranda_site_global_stylesheet_link(): string
 {
+    org_beranda_assets_prepare_builds();
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
     $fs = ORG_ROOT . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'site-global.min.css';
     if (!is_file($fs)) {
@@ -28,15 +41,27 @@ function org_beranda_site_styles_markup(): string
 
         return $cached;
     }
+    $partial = __DIR__ . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'site_styles.php';
+    if (!is_file($partial)) {
+        $cached = '';
+
+        return $cached;
+    }
     ob_start();
-    require __DIR__ . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'site_styles.php';
-    $cached = (string) ob_get_clean();
+    try {
+        require $partial;
+        $cached = (string) ob_get_clean();
+    } catch (Throwable) {
+        ob_end_clean();
+        $cached = '';
+    }
 
     return $cached;
 }
 
 function org_beranda_bundle_stylesheet_async_link(): string
 {
+    org_beranda_assets_prepare_builds();
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_vendor_assets.php';
     $fs = ORG_ROOT . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda.bundle.min.css';
     if (!is_file($fs)) {
@@ -64,6 +89,7 @@ function org_beranda_bundle_stylesheet_link_fallback(): string
 
 function org_beranda_shell_stylesheet_async_link(): string
 {
+    org_beranda_assets_prepare_builds();
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
     $fs = ORG_ROOT . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda-shell.bundle.min.css';
     if (!is_file($fs)) {

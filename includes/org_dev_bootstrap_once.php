@@ -10,11 +10,9 @@ function org_run_dev_database_bootstrap_once(): void
         return;
     }
 
-    $flagDir = ORG_ROOT . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . '.cache';
-    if (!is_dir($flagDir)) {
-        @mkdir($flagDir, 0755, true);
-    }
-    $flagFile = $flagDir . DIRECTORY_SEPARATOR . 'dev_users_schema_boot.ok';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_runtime_cache.php';
+    org_runtime_cache_ensure_dir();
+    $flagFile = org_runtime_cache_file_path('dev_users_schema_boot.ok');
     if (is_file($flagFile) && (time() - (int) filemtime($flagFile)) < 86400) {
         return;
     }
@@ -102,5 +100,7 @@ function org_run_dev_database_bootstrap_once(): void
         }
     }
     mysqli_close($__orgConn);
-    @touch($flagFile);
+    if (org_runtime_cache_is_writable()) {
+        @touch($flagFile);
+    }
 }

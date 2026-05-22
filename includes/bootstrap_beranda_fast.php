@@ -8,6 +8,12 @@ if (!defined('ORG_ROOT')) {
     define('ORG_ROOT', dirname(__DIR__));
 }
 
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_upload_dirs.php';
+org_ensure_upload_directories(ORG_ROOT);
+if (function_exists('org_runtime_cache_ensure_dir')) {
+    org_runtime_cache_ensure_dir();
+}
+
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_theme_hari_besar.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'staff_users_db.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'site_content_db.php';

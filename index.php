@@ -9,6 +9,7 @@ define('ORG_BERANDA_PAGE', true);
 define('ORG_BERANDA_LAZY_SECTIONS', true);
 define('ORG_BERANDA_LITE_FIRST', true);
 
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_runtime_cache.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_dev_bootstrap_once.php';
 org_run_dev_database_bootstrap_once();
 
