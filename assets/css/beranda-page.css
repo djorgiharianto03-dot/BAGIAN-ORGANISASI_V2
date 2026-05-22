@@ -1051,8 +1051,8 @@
 }
 #beranda-root #beranda-dashboard-widgets { order: 1; }
 #beranda-root #beranda-team-targets { order: 2; }
-#beranda-root #beranda-ringkasan-eksekutif { order: 3; }
-#beranda-root #beranda-pusat-informasi { order: 4; }
+#beranda-root #beranda-ringkasan-eksekutif { order: 4; }
+#beranda-root #beranda-pusat-informasi { order: 3; }
 #beranda-root #beranda-galeri-kegiatan { order: 5; }
 #beranda-root #beranda-kunjungan-web { order: 6; }
 /* —— Indikator & Statistik: gov digital KPI dashboard —— */

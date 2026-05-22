@@ -738,4 +738,85 @@ function org_beranda_fetch_team_targets_bundle(?mysqli $db, int $requestedYear):
 
 }
 
+/**
+ * Widget dashboard + target tim untuk beranda (cache bundle + fallback DB).
+ *
+ * @return array{
+ *   widgets: list<array<string, mixed>>,
+ *   details: array<string, mixed>,
+ *   teamTahun: int,
+ *   teamYears: list<int>,
+ *   teamGrouped: array<string, list<array<string, mixed>>>,
+ *   teamVisible: bool
+ * }
+ */
+function org_beranda_load_dashboard_and_team(mysqli $db, int $requestedTeamYear): array
+{
+    $dashBundle = org_beranda_fetch_dashboard_bundle($db);
+    $widgets = $dashBundle['widgets'];
+    $details = $dashBundle['details'];
+
+    if ($widgets === []) {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'dashboard_widgets_db.php';
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'widget_details_db.php';
+        org_beranda_ensure_table_once($db, 'dashboard_widgets', static function () use ($db): void {
+            org_dashboard_widgets_ensure_table($db);
+        });
+        $widgets = org_dashboard_widgets_fetch_all($db, true);
+        $widgetIds = [];
+        foreach ($widgets as $bw) {
+            $wid = (int) ($bw['id'] ?? 0);
+            if ($wid > 0) {
+                $widgetIds[] = $wid;
+            }
+        }
+        if ($widgetIds !== []) {
+            $details = org_widget_details_fetch_grouped_map($db, $widgetIds);
+        }
+    }
+
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'team_targets_db.php';
+    $teamBundle = org_beranda_fetch_team_targets_bundle($db, $requestedTeamYear);
+    $teamTahun = (int) $teamBundle['tahun'];
+    $teamYears = $teamBundle['years'];
+    $teamGrouped = $teamBundle['grouped'];
+    $teamVisible = (bool) $teamBundle['visible'];
+
+    if (!$teamVisible) {
+        org_beranda_ensure_table_once($db, 'team_targets', static function () use ($db): void {
+            org_team_targets_ensure_table($db);
+        });
+        $showYear = org_team_targets_resolve_beranda_year($db, $requestedTeamYear);
+        if ($showYear > 0) {
+            $teamTahun = $showYear;
+            $teamGrouped = org_team_targets_fetch_grouped_by_year($db, $showYear);
+            $teamYears = org_team_targets_fetch_beranda_years($db);
+            if ($teamYears === []) {
+                $teamYears = [$showYear];
+            }
+            if (!in_array($showYear, $teamYears, true)) {
+                array_unshift($teamYears, $showYear);
+            }
+            $teamVisible = true;
+        }
+    }
+
+    if (defined('ORG_BERANDA_PAGE') && ORG_BERANDA_PAGE === true) {
+        $teamVisible = true;
+        if ($teamYears === []) {
+            $teamTahun = org_team_targets_normalize_tahun($requestedTeamYear);
+            $teamYears = [$teamTahun];
+        }
+    }
+
+    return [
+        'widgets' => $widgets,
+        'details' => $details,
+        'teamTahun' => $teamTahun,
+        'teamYears' => $teamYears,
+        'teamGrouped' => $teamGrouped,
+        'teamVisible' => $teamVisible,
+    ];
+}
+
 

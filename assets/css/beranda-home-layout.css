@@ -386,6 +386,45 @@ body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__chart {
     min-height: 200px;
 }
 
+/* Hilangkan celah biru kosong: hero hanya setinggi konten */
+body.sg-homepage.sg-portal-page > #sg-hero.sg-hero.sg-hero--minimal,
+body.sg-homepage.sg-portal-page > #sg-hero.sg-hero.sg-hero--compact.sg-hero--minimal,
+body.sg-homepage.sg-portal-page > #sg-hero.hero-section.sg-hero--minimal {
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+body.sg-homepage.sg-portal-page > #sg-hero.sg-hero--minimal .sg-hero__bg {
+    position: absolute;
+    inset: 0;
+    height: 100% !important;
+    min-height: 100% !important;
+}
+
+/* Konten beranda langsung di bawah hero — tanpa placeholder tinggi */
+body.sg-homepage #beranda-root.site-main.container-global {
+    margin-top: 0 !important;
+    background: #f4f7fb !important;
+}
+
+body.sg-homepage #beranda-root > .beranda-section,
+body.sg-homepage #beranda-root > .beranda-ssr-section,
+body.sg-homepage #beranda-root > .beranda-lite-section,
+body.sg-homepage #beranda-root > section[id^="beranda-"],
+body.sg-homepage #beranda-root > #beranda-team-targets {
+    content-visibility: visible !important;
+    contain-intrinsic-size: unset !important;
+}
+
+body.sg-homepage #beranda-root #beranda-dashboard-widgets,
+body.sg-homepage #beranda-root #beranda-team-targets {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
 /* Skeleton / lazy — minimal, tidak mendominasi */
 body.sg-homepage .beranda-chunk-skeleton,
 body.sg-homepage .beranda-lazy-section__placeholder,

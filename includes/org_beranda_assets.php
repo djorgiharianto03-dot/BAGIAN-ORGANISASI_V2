@@ -233,7 +233,7 @@ function org_beranda_home_layout_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-home-layout.css');
+    return org_asset_stylesheet_link('assets/css/beranda-home-layout.css?v=2');
 }
 
 function org_beranda_lite_render_script_tag(): string

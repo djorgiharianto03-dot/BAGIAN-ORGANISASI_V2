@@ -4,8 +4,14 @@
 /** @var int $berandaTeamTargetsTahun */
 /** @var list<int> $berandaTeamTargetsYears */
 /** @var array{kelembagaan: list<array{id: string, kegiatan: string, status: string}>, rb: list<array{id: string, kegiatan: string, status: string}>, yanlik: list<array{id: string, kegiatan: string, status: string}>} $berandaTeamTargetsGrouped */
-if (empty($berandaTeamTargetsVisible)) {
+if (empty($berandaTeamTargetsVisible) && !(defined('ORG_BERANDA_PAGE') && ORG_BERANDA_PAGE === true)) {
     return;
+}
+if (empty($berandaTeamTargetsVisible)) {
+    $berandaTeamTargetsVisible = true;
+    if ($berandaTeamTargetsYears === []) {
+        $berandaTeamTargetsYears = [$berandaTeamTargetsTahun];
+    }
 }
 $berandaTeamTargetsTahun = org_team_targets_normalize_tahun($berandaTeamTargetsTahun ?? (int) date('Y'));
 $berandaTeamTargetsYears = $berandaTeamTargetsYears ?? [(int) date('Y')];
@@ -101,8 +107,8 @@ $baseUrl = strtok($_SERVER['REQUEST_URI'] ?? 'index.php', '?') ?: 'index.php';
                 </header>
 
                 <?php if ($totalTargets === 0): ?>
-                    <p class="gov-team-target-section__empty text-muted small mb-0">
-                        Belum ada target untuk tahun <?php echo (int) $berandaTeamTargetsTahun; ?>.
+                    <p class="gov-team-target-section__empty text-muted small mb-3">
+                        Belum ada target kegiatan untuk tahun <?php echo (int) $berandaTeamTargetsTahun; ?>. Grafik akumulasi tetap ditampilkan setelah data diisi di admin.
                     </p>
                 <?php else: ?>
 
@@ -191,22 +197,22 @@ $baseUrl = strtok($_SERVER['REQUEST_URI'] ?? 'index.php', '?') ?: 'index.php';
                         <span class="gov-team-target-status-badge gov-team-target-status-badge--berjalan">Berjalan</span>
                         <span class="gov-team-target-status-badge gov-team-target-status-badge--selesai">Selesai</span>
                     </footer>
+                <?php endif; ?>
 
-                    <div class="gov-team-target-overview-wrap">
-                        <article class="gov-team-target-overview-card" aria-labelledby="gov-team-target-overview-title">
-                            <header class="gov-team-target-overview-card__head">
-                                <p class="gov-team-target-overview-card__eyebrow">Akumulasi Capaian Bagian Organisasi</p>
-                                <h3 id="gov-team-target-overview-title" class="gov-team-target-overview-card__title">Rata-rata Capaian Tim Kerja</h3>
-                                <p class="gov-team-target-overview-card__meta mb-0">Perbandingan rata-rata progres ketiga tim berdasarkan target kegiatan tahun <?php echo (int) $berandaTeamTargetsTahun; ?>.</p>
-                            </header>
-                            <div id="govTeamTargetOverviewChart"
-                                 class="gov-team-target-overview-card__chart"
-                                 role="img"
-                                 aria-label="Grafik perbandingan rata-rata capaian tim kerja"></div>
-                        </article>
-                    </div>
+                <div class="gov-team-target-overview-wrap">
+                    <article class="gov-team-target-overview-card" aria-labelledby="gov-team-target-overview-title">
+                        <header class="gov-team-target-overview-card__head">
+                            <p class="gov-team-target-overview-card__eyebrow">Akumulasi Capaian Bagian Organisasi</p>
+                            <h3 id="gov-team-target-overview-title" class="gov-team-target-overview-card__title">Rata-rata Capaian Tim Kerja</h3>
+                            <p class="gov-team-target-overview-card__meta mb-0">Perbandingan rata-rata progres ketiga tim berdasarkan target kegiatan tahun <?php echo (int) $berandaTeamTargetsTahun; ?>.</p>
+                        </header>
+                        <div id="govTeamTargetOverviewChart"
+                             class="gov-team-target-overview-card__chart"
+                             role="img"
+                             aria-label="Grafik akumulasi capaian tim kerja"></div>
+                    </article>
+                </div>
 
                     <script type="application/json" id="gov-team-target-charts-data"><?php echo $govTeamTargetChartJson; ?></script>
-                <?php endif; ?>
             </div>
         </section>

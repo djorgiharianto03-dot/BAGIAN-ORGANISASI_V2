@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_session.php';
@@ -111,6 +111,10 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'part
             </div>
         <?php endif; ?>
 
+        <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_dashboard_widgets.php'; ?>
+
+        <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_team_targets.php'; ?>
+
         <section class="beranda-section beranda-section--surface-white beranda-lite-section" id="beranda-pusat-informasi" aria-labelledby="home-pusat-title">
             <div class="beranda-section__head-row d-flex flex-wrap justify-content-between align-items-end gap-2">
                 <div>
@@ -121,10 +125,6 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'part
             </div>
             <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_pusat_informasi.php'; ?>
         </section>
-
-        <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_dashboard_widgets.php'; ?>
-
-        <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_team_targets.php'; ?>
 
         <section class="beranda-section beranda-section--surface-muted beranda-ssr-section" id="beranda-ringkasan-eksekutif" aria-labelledby="beranda-exec-title">
             <header class="beranda-exec-section__head">
