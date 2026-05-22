@@ -600,9 +600,97 @@ body.sg-homepage .site-footer__cta-band .container-global {
     box-sizing: border-box;
 }
 
-body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero--minimal .sg-hero__bg {
-    position: absolute;
-    inset: 0;
-    height: 100% !important;
-    min-height: 0 !important;
+/* Hero minimal — latar pada section, bukan lapisan absolute setinggi viewport */
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero--minimal,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section.sg-hero--minimal {
+    background: linear-gradient(180deg, #0a3d6b 0%, #0c4a7a 100%) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero--minimal .sg-hero__bg,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__grid-floor,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-ambient-layer {
+    display: none !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .container-global.hero-inner,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .stats-grid.container-global {
+    position: relative;
+    z-index: 2;
+}
+
+/* Satu halaman: main + footer sama latar, tanpa pita navy terpisah (site_styles) */
+body.sg-homepage.sg-portal-page.page-index-redesign,
+body.sg-homepage.page-index-redesign.sg-portal-page {
+    background: #f4f7fb !important;
+}
+
+body.sg-homepage.page-index-redesign .site-footer.site-footer--modern,
+body.sg-homepage.page-index-redesign .org-footer.site-footer--modern {
+    background: #f4f7fb !important;
+    padding: 0 !important;
+    margin-top: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+body.sg-homepage.page-index-redesign .site-footer__cta-band,
+body.sg-homepage.page-index-redesign .org-footer__cta.site-footer__cta-band {
+    background: #f0f4f8 !important;
+    color: #0f2744 !important;
+    border-top: 1px solid #e2e8f0 !important;
+    box-shadow: none !important;
+    padding-top: clamp(1rem, 2vw, 1.35rem) !important;
+    padding-bottom: clamp(1rem, 2vw, 1.35rem) !important;
+}
+
+body.sg-homepage.page-index-redesign .site-footer__links-band,
+body.sg-homepage.page-index-redesign .org-footer__links.site-footer__links-band {
+    background: #eef2f6 !important;
+    border-top: 1px solid #e2e8f0 !important;
+    color: #334155 !important;
+}
+
+body.sg-homepage.page-index-redesign .site-footer__nav a,
+body.sg-homepage.page-index-redesign .org-footer__nav a {
+    color: #475569 !important;
+}
+
+body.sg-homepage.page-index-redesign .site-footer__nav a:hover,
+body.sg-homepage.page-index-redesign .org-footer__nav a:hover {
+    color: #0a57b7 !important;
+    border-bottom-color: rgba(10, 87, 183, 0.35) !important;
+}
+
+body.sg-homepage.page-index-redesign .site-footer__copyright-text,
+body.sg-homepage.page-index-redesign .org-footer__copyright {
+    color: #64748b !important;
+}
+
+body.sg-homepage.page-index-redesign .site-footer__cta-band .container-global,
+body.sg-homepage.page-index-redesign .site-footer__links-band .container-global,
+body.sg-homepage.page-index-redesign .org-footer .container-global {
+    width: 100% !important;
+    max-width: var(--beranda-rail-max, min(var(--layout-max-width, 1180px), 100%)) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: var(--beranda-gutter, clamp(1rem, 2vw, 1.25rem)) !important;
+    padding-right: var(--beranda-gutter, clamp(1rem, 2vw, 1.25rem)) !important;
+}
+
+body.sg-homepage.page-index-redesign .site-footer__cta-band .grid {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+}
+
+/* Konten beranda menyambung footer — tanpa celah biru kosong di antara */
+body.sg-homepage.page-index-redesign .site-layout-main + .site-footer,
+body.sg-homepage.page-index-redesign .site-layout-main + .org-footer {
+    margin-top: 0 !important;
+}
+
+body.sg-homepage.page-index-redesign #beranda-root + .site-footer,
+body.sg-homepage.page-index-redesign .site-layout-main {
+    background: #f4f7fb !important;
 }

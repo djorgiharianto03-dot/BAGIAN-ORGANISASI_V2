@@ -154,16 +154,25 @@ function org_beranda_header_vendor_markup(): string
         $out .= org_beranda_home_layout_stylesheet_link();
     }
 
+    $rail = 'max-width:1180px!important;width:100%!important;margin-left:auto!important;margin-right:auto!important;padding-left:clamp(1rem,2vw,1.25rem)!important;padding-right:clamp(1rem,2vw,1.25rem)!important;box-sizing:border-box!important';
     $out .= '<style id="sg-beranda-head-critical">'
         . 'html.sg-portal-html-home,body.sg-homepage.sg-portal-page{background:#f4f7fb!important}'
         . 'body.sg-homepage #sgPortalLoader{display:none!important}'
         . 'body.sg-homepage.sg-portal-page .site-header--sg-portal{position:fixed!important;top:0;left:0;right:0;z-index:1200;pointer-events:auto}'
         . 'body.sg-homepage.sg-portal-page .site-header__nav a{pointer-events:auto!important;cursor:pointer}'
+        . 'body.sg-homepage.sg-portal-page .header-inner.container-global,body.sg-homepage.sg-portal-page .navbar-wrapper.container-global,body.sg-homepage.sg-portal-page #beranda-root.container-global,body.sg-homepage.sg-portal-page .site-footer .container-global{' . $rail . '}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main{background:#f4f7fb!important;display:block!important;min-height:0!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage .sg-hero.sg-hero--minimal{min-height:0!important;height:auto!important;max-height:none!important;padding-bottom:.5rem!important;overflow:visible!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero.sg-hero--minimal .sg-hero__bg{display:none!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero.sg-hero--minimal{background:linear-gradient(180deg,#0a3d6b 0%,#0c4a7a 100%)!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .container-global.hero-inner,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .stats-grid{position:relative!important;z-index:2!important}'
         . 'body.sg-homepage .sg-hero:not(.sg-hero--ultra):not(.sg-hero--minimal){min-height:0!important}'
         . 'body.sg-homepage.sg-portal-page #beranda-root{display:flex!important;flex-direction:column!important;visibility:visible!important;opacity:1!important;min-height:0!important;margin-top:0!important;background:#f4f7fb!important}'
-        . 'body.sg-homepage.sg-portal-page #beranda-root>.beranda-section,body.sg-homepage.sg-portal-page #beranda-root>section,body.sg-homepage.sg-portal-page #beranda-root>#beranda-team-targets{content-visibility:visible!important;contain-intrinsic-size:unset!important;visibility:visible!important;opacity:1!important}'
+        . 'body.sg-homepage.sg-portal-page #beranda-root>.beranda-section,body.sg-homepage.sg-portal-page #beranda-root>section,body.sg-homepage.sg-portal-page #beranda-root>#beranda-team-targets{content-visibility:visible!important;contain-intrinsic-size:unset!important;visibility:visible!important;opacity:1!important;display:block!important}'
+        . 'body.sg-homepage.sg-portal-page .site-footer.site-footer--modern{background:#f4f7fb!important;margin-top:0!important}'
+        . 'body.sg-homepage.sg-portal-page .site-footer__cta-band,body.sg-homepage.sg-portal-page .org-footer__cta.site-footer__cta-band{background:#f0f4f8!important;color:#0f2744!important;border-top:1px solid #e2e8f0!important;box-shadow:none!important}'
+        . 'body.sg-homepage.sg-portal-page .site-footer__links-band{background:#eef2f6!important;border-top:1px solid #e2e8f0!important}'
+        . 'body.sg-homepage.sg-portal-page .site-footer__nav a{color:#475569!important}'
         . '</style>' . "\n";
 
     return $out;
@@ -239,7 +248,7 @@ function org_beranda_home_layout_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-home-layout.css?v=4');
+    return org_asset_stylesheet_link('assets/css/beranda-home-layout.css?v=5');
 }
 
 function org_beranda_lite_render_script_tag(): string
