@@ -317,7 +317,7 @@ body.sg-homepage.sg-portal-page > section#sg-hero.hero-section {
     margin-right: 0;
     background: linear-gradient(135deg, #07325a 0%, #0f4c81 100%);
     padding-bottom: 72px;
-    padding-top: 0;
+    padding-top: var(--sg-portal-header-offset, 7.5rem);
     overflow: hidden;
 }
 
@@ -434,6 +434,11 @@ body.sg-portal-page .hero-inner.container-global {
 }
 
 @media (max-width: 1024px) {
+    body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
+    body.sg-homepage.sg-portal-page > section#sg-hero.hero-section {
+        padding-top: var(--sg-portal-header-offset, 8rem);
+    }
+
     body.sg-portal-page .container-global.hero-inner,
     body.sg-portal-page .hero-inner.container-global {
         grid-template-columns: 1fr;
@@ -453,8 +458,8 @@ body.sg-portal-page .hero-inner.container-global {
     }
 }
 
-/* Mobile: hilangkan kotak nav kosong (min-height 88px) — menu lewat panel fixed .is-open */
-@media (max-width: 767.98px) {
+/* ≤991px: hamburger + hero offset (sama mobile) */
+@media (max-width: 991.98px) {
     .sg-portal-page .navbar-wrapper {
         margin-top: 0 !important;
     }

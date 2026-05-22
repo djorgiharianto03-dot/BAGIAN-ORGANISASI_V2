@@ -119,9 +119,14 @@ org_component('footer', ['prosesSaranUrlEsc' => $prosesSaranUrlEsc]);
         </div>
     <?php endif; ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<?php
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_vendor_assets.php';
+echo org_vendor_script(org_vendor_bootstrap_js());
+if (!defined('ORG_BERANDA_PAGE') || ORG_BERANDA_PAGE !== true) {
+    echo org_vendor_script(org_vendor_swiper_js());
+    echo org_vendor_script(org_vendor_aos_js());
+}
+?>
 <?php
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_motion_assets.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_theme_assets.php';

@@ -58,15 +58,21 @@ body.sg-portal-page .site-header--sg-portal .site-header__gradient {
     box-sizing: border-box;
 }
 
-/* Beranda — #sg-hero di bawah header */
+/* Beranda — hero tidak tertutup header fixed (tinggi dari JS: --sg-portal-header-offset) */
 body.sg-homepage.sg-portal-page > section#sg-hero.hero-section,
 body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
 body.sg-homepage.sg-portal-page > #sg-hero.sg-hero {
     width: 100% !important;
     max-width: none !important;
     margin: 0 !important;
-    padding-top: 0 !important;
+    padding-top: var(--sg-portal-header-offset, 7.5rem) !important;
+    scroll-margin-top: var(--sg-portal-header-offset, 7.5rem);
     box-sizing: border-box;
+}
+
+body.sg-homepage.sg-portal-page > #sg-hero .container-global.hero-inner,
+body.sg-homepage.sg-portal-page > #sg-hero .hero-inner.container-global {
+    padding-top: clamp(0.5rem, 1.5vw, 1.25rem);
 }
 
 body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__bg,
@@ -107,4 +113,25 @@ body.sg-portal-page .sg-portal-main-inner,
 body.sg-portal-page .sg-portal-main {
     width: 100%;
     max-width: none;
+}
+
+/* Desktop kecil / tablet landscape: menu wrap rapi (≥992 = bar penuh) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .sg-portal-page .site-header__nav-panel .site-header__nav-row {
+        gap: 0.4rem 0.55rem;
+    }
+
+    .sg-portal-page .site-header__nav {
+        flex-wrap: wrap;
+        row-gap: 0.2rem;
+    }
+
+    .sg-portal-page .site-header__nav a {
+        font-size: 0.8125rem;
+        padding: 0.42rem 0.62rem;
+    }
+
+    .sg-portal-page .navbar-wrapper {
+        margin-top: 10px !important;
+    }
 }

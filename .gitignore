@@ -15,6 +15,7 @@ site_settings.json
 !/uploads/**/.gitkeep
 
 # Cache/metadata upload lokal
+uploads/.cache/
 uploads/.arsip_chart_cache.json
 uploads/arsip_surat_meta.json
 

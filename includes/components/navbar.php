@@ -64,7 +64,7 @@ $headerClass = org_ui_class(
                     </div>
                 <?php endif; ?>
                 <button
-                    class="org-navbar__toggle site-header__nav-toggle d-md-none"
+                    class="org-navbar__toggle site-header__nav-toggle d-lg-none"
                     type="button"
                     aria-controls="siteHeaderNavPanel"
                     aria-expanded="false"
@@ -97,7 +97,7 @@ $headerClass = org_ui_class(
                     </div>
                 <?php endif; ?>
                 <div class="site-header__nav-panel" id="siteHeaderNavPanel">
-                    <div class="site-header__nav-close-wrap d-md-none">
+                    <div class="site-header__nav-close-wrap d-lg-none">
                         <button class="site-header__nav-close" type="button" aria-label="Tutup menu navigasi">
                             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
                             <span>Tutup</span>
@@ -178,7 +178,7 @@ $headerClass = org_ui_class(
                     </div>
                 <?php endif; ?>
                 <button
-                    class="org-navbar__toggle site-header__nav-toggle d-md-none"
+                    class="org-navbar__toggle site-header__nav-toggle d-lg-none"
                     type="button"
                     aria-controls="siteHeaderNavPanel"
                     aria-expanded="false"
@@ -194,7 +194,7 @@ $headerClass = org_ui_class(
             </div>
             <div class="org-navbar__nav-wrap site-header__nav-wrap">
                 <div class="site-header__nav-panel" id="siteHeaderNavPanel">
-                    <div class="site-header__nav-close-wrap d-md-none">
+                    <div class="site-header__nav-close-wrap d-lg-none">
                         <button class="site-header__nav-close" type="button" aria-label="Tutup menu navigasi">
                             <i class="fa-solid fa-xmark" aria-hidden="true"></i>
                             <span>Tutup</span>

@@ -12,6 +12,7 @@ if (!defined('ORG_ROOT')) {
 require_once ORG_ROOT . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
 require_once ORG_ROOT . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_app.php';
 require_once ORG_ROOT . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_layanan_integrasi_url.php';
+require_once ORG_ROOT . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_beranda_perf.php';
 
 org_force_https_redirect();
 
@@ -510,13 +511,9 @@ if (!file_exists($personnelFile)) {
 }
 
 $personnelData = [];
-$personnelRaw = file_get_contents($personnelFile);
-if ($personnelRaw !== false && $personnelRaw !== '') {
-    $decodedPersonnel = json_decode($personnelRaw, true);
-    if (is_array($decodedPersonnel)) {
-        $personnelData = $decodedPersonnel;
-    }
-}
+$personnelIds = [];
+$personnelSlugs = [];
+$berandaLibraryDocCount = null;
 
 $savePersonnelData = static function (string $personnelFilePath, array $items): bool {
     return file_put_contents(
@@ -524,6 +521,15 @@ $savePersonnelData = static function (string $personnelFilePath, array $items): 
         json_encode(array_values($items), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
     ) !== false;
 };
+
+if (!org_beranda_is_light_page()) {
+$personnelRaw = file_get_contents($personnelFile);
+if ($personnelRaw !== false && $personnelRaw !== '') {
+    $decodedPersonnel = json_decode($personnelRaw, true);
+    if (is_array($decodedPersonnel)) {
+        $personnelData = $decodedPersonnel;
+    }
+}
 
 $defaultProfileImage = "data:image/svg+xml;utf8," . rawurlencode(
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320">
@@ -563,6 +569,7 @@ $personnelSlugs = array_column($personnelData, 'slug');
 $personnelIds = array_column($personnelData, 'id');
 if ($personnelNeedsSave) {
     $savePersonnelData($personnelFile, $personnelData);
+}
 }
 
 if (isset($_SESSION['flash_message'], $_SESSION['flash_type'])) {
@@ -949,6 +956,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $uploadedFiles = [];
+$libraryDocumentFiles = [];
+$libraryDocumentStatsMap = [];
+$pengumumanCards = [];
+$pusatInformasiPostsAll = [];
+$pusatInformasiPosts = [];
+
+if (org_beranda_is_light_page()) {
+    $dbDokumenLight = org_db();
+    if ($dbDokumenLight instanceof mysqli) {
+        org_dokumen_ensure_table($dbDokumenLight);
+        $berandaLibraryDocCount = org_dokumen_count_library($dbDokumenLight);
+    } else {
+        $berandaLibraryDocCount = 0;
+    }
+    $dbPi = org_db();
+    if ($dbPi instanceof mysqli) {
+        org_pusat_informasi_ensure_table($dbPi);
+        $pusatInformasiPosts = org_pusat_informasi_fetch_for_beranda($dbPi, 4, 12);
+    }
+} else {
 if (is_dir($libraryUploadDir)) {
     $uploadedFiles = array_values(array_filter(scandir($libraryUploadDir), function ($item) use ($libraryUploadDir) {
         return $item !== '.' && $item !== '..' && is_file($libraryUploadDir . DIRECTORY_SEPARATOR . $item);
@@ -963,28 +990,25 @@ $libraryDocumentFiles = array_values(array_filter($uploadedFiles, static functio
 rsort($libraryDocumentFiles);
 
 $dbDokumenSync = org_db();
-$libraryDocumentStatsMap = [];
 if ($dbDokumenSync instanceof mysqli) {
     org_dokumen_ensure_table($dbDokumenSync);
     org_dokumen_sync_with_disk($dbDokumenSync, $libraryDocumentFiles);
     $libraryDocumentStatsMap = org_dokumen_fetch_stats_map($dbDokumenSync);
 }
 
-$pengumumanCards = [];
 $dbPeng = org_db();
 if ($dbPeng instanceof mysqli) {
     org_pengumuman_ensure_table($dbPeng);
     $pengumumanCards = org_pengumuman_fetch_all($dbPeng, 50);
 }
 
-$pusatInformasiPostsAll = [];
-$pusatInformasiPosts = [];
 $dbPi = org_db();
 if ($dbPi instanceof mysqli) {
     org_pusat_informasi_ensure_table($dbPi);
     $pusatInformasiPostsAll = org_pusat_informasi_fetch_all($dbPi, 100);
     /** Beranda: hingga 4 berita utama di urutan atas, lalu mengisi sampai 12 kartu */
     $pusatInformasiPosts = org_pusat_informasi_fetch_for_beranda($dbPi, 4, 12);
+}
 }
 
 $berandaGaleriKegiatan = [];

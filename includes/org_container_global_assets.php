@@ -15,9 +15,9 @@ function org_container_global_asset_base(): string
 function org_container_global_stylesheet_link(): string
 {
     $base = org_container_global_asset_base();
-    $global = $base . 'assets/css/org-container-global.css?v=34';
+    $global = $base . 'assets/css/org-container-global.css?v=35';
     $panel = $base . 'assets/css/sg-portal-panel-layout.css?v=6';
-    $align = $base . 'assets/css/sg-portal-shell-align.css?v=3';
+    $align = $base . 'assets/css/sg-portal-shell-align.css?v=4';
 
     return '<link rel="stylesheet" href="' . htmlspecialchars($global, ENT_QUOTES, 'UTF-8') . '">' . "\n"
         . '<link rel="stylesheet" href="' . htmlspecialchars($panel, ENT_QUOTES, 'UTF-8') . '">' . "\n"

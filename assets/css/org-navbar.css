@@ -1,10 +1,10 @@
 /**
  * Navbar — panel navigasi (tanpa Bootstrap Collapse)
- * Tablet/desktop (≥768px): menu selalu tampil · Mobile: drawer .is-open
+ * Desktop (≥992px): menu bar penuh · Tablet/HP (≤991px): hamburger + drawer .is-open
  */
 
 /* Baris menu: link kiri, aksi (tema/login/dashboard) kanan */
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     .site-header__nav-row {
         display: flex !important;
         flex-wrap: wrap;
@@ -61,7 +61,7 @@
 }
 
 /* Desktop/tablet — paksa menu selalu terlihat */
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     .site-header__nav-wrap {
         display: flex !important;
         flex-direction: column;
@@ -121,7 +121,7 @@
 }
 
 /* Mobile — panel tersembunyi kecuali .is-open */
-@media (max-width: 767.98px) {
+@media (max-width: 991.98px) {
     :root {
         --site-header-mobile-top: 120px;
         --site-header-mobile-max-height: calc(100vh - 120px);
@@ -319,7 +319,7 @@
 }
 
 /* Desktop: bar menu dalam header ikut fixed */
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     body.sg-portal-page .site-header--sg-portal {
         position: fixed !important;
         top: 0 !important;
@@ -333,14 +333,14 @@
     visibility: visible;
 }
 
-@media (max-width: 767.98px) {
+@media (max-width: 991.98px) {
     .site-header__nav-panel.collapse:not(.is-open),
     .site-header__nav-panel.collapsing:not(.is-open) {
         display: none;
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     .site-header__nav-panel.collapse,
     .site-header__nav-panel.collapsing {
         display: block !important;

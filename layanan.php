@@ -140,8 +140,9 @@ $layananSectionMeta = [
 ob_start();
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'layanan_premium_styles.php';
 $extraHeadMarkup = (string) ob_get_clean();
-$extraHeadMarkup .= '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">' . "\n";
-$extraFooterMarkup = '<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>' . "\n";
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_vendor_assets.php';
+$extraHeadMarkup .= org_vendor_stylesheet(org_vendor_fancybox_css());
+$extraFooterMarkup = org_vendor_script(org_vendor_fancybox_js(), false);
 ob_start();
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'layanan_premium_footer.php';
 $extraFooterMarkup .= (string) ob_get_clean();

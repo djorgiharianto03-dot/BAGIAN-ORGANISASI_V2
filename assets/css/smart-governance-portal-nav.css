@@ -43,7 +43,7 @@ body.sg-portal-page .site-header--sg-portal {
 body.sg-homepage.sg-portal-page > #sg-hero,
 .sg-portal-page.sg-homepage #sg-hero {
     margin-top: 0;
-    padding-top: 0;
+    padding-top: var(--sg-portal-header-offset, 7.5rem);
 }
 
 /* Gradient header + panel nav: org-container-global.css (--sg-header-gradient) */

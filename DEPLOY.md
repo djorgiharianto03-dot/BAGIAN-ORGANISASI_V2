@@ -35,6 +35,17 @@ chmod -R 775 uploads
 
 CloudPanel → Site → Vhost: tambahkan isi [deploy/nginx-vhost-snippet.conf](deploy/nginx-vhost-snippet.conf) (HTTPS, tanpa `/index.php`, keamanan `uploads/`).
 
+## Aset frontend (vendor lokal)
+
+Setelah `git pull`, folder `assets/vendor/` dan `assets/css/beranda.bundle.min.css` ikut dari repo.
+
+Jika perlu unduh ulang CDN ke lokal:
+
+```powershell
+.\deploy\download-vendor-assets.ps1
+php deploy\build-beranda-bundle.php
+```
+
 ## Update berikutnya
 
 ```bash

@@ -12,7 +12,7 @@
             return;
         }
 
-        var desktopMq = window.matchMedia('(min-width: 768px)');
+        var desktopMq = window.matchMedia('(min-width: 992px)');
 
         function syncMobileMenuGeometry() {
             if (desktopMq.matches) {

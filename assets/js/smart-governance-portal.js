@@ -23,12 +23,13 @@
                 if (loader.parentNode) loader.parentNode.removeChild(loader);
             }, 500);
         };
-        if (document.readyState === 'complete') {
-            setTimeout(hide, reducedMotion ? 0 : 400);
-        } else {
-            window.addEventListener('load', function () {
-                setTimeout(hide, reducedMotion ? 0 : 400);
+        var hideDelay = reducedMotion ? 0 : 80;
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function () {
+                setTimeout(hide, hideDelay);
             });
+        } else {
+            setTimeout(hide, hideDelay);
         }
     }
 
@@ -53,7 +54,11 @@
         }
         var hero = document.getElementById('sg-hero');
         if (hero) {
-            hero.style.paddingTop = '0';
+            if (isHome && h > 0) {
+                hero.style.paddingTop = h + 'px';
+            } else {
+                hero.style.removeProperty('padding-top');
+            }
         }
     }
 
