@@ -57,6 +57,10 @@ $bodyClassAttr = trim(implode(' ', $bodyClasses));
 <head>
     <meta charset="UTF-8">
 <?php
+if ($orgHeaderBeranda ?? (defined('ORG_BERANDA_PAGE') && ORG_BERANDA_PAGE === true)) {
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
+    echo org_beranda_lite_boot_script();
+}
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_theme_assets.php';
 echo org_theme_boot_script();
 ?>

@@ -1,0 +1,137 @@
+/**
+ * Mode ringan first paint beranda — is-lite-render / is-effects-off
+ */
+body.sg-homepage.is-lite-render .beranda-lazy-section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 320px;
+}
+
+body.sg-homepage .beranda-lazy-section:not(.is-section-revealed):not(.is-section-loaded) {
+    min-height: 12rem;
+}
+
+body.sg-homepage .beranda-lazy-section:not(.is-section-revealed) .beranda-lazy-section__inner {
+    visibility: hidden;
+    pointer-events: none;
+    max-height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    opacity: 0;
+}
+
+body.sg-homepage .beranda-lazy-section.is-section-revealed .beranda-lazy-section__inner {
+    visibility: visible;
+    pointer-events: auto;
+    max-height: none;
+    overflow: visible;
+    opacity: 1;
+}
+
+body.sg-homepage .beranda-lazy-section__placeholder {
+    display: block;
+    padding: 2rem 0 2.5rem;
+}
+
+body.sg-homepage .beranda-lazy-section.is-section-revealed .beranda-lazy-section__placeholder,
+body.sg-homepage .beranda-lazy-section.is-section-loaded .beranda-lazy-section__placeholder {
+    display: none;
+}
+
+/* Efek dekoratif dimatikan saat lite / low-end */
+body.sg-homepage.is-lite-render .sg-ambient-layer,
+body.sg-homepage.is-lite-render .sg-particles,
+body.sg-homepage.is-lite-render .sg-ambient-glow,
+body.sg-homepage.is-effects-off .sg-ambient-layer,
+body.sg-homepage.is-effects-off .sg-particles,
+body.sg-homepage.is-effects-off .sg-ambient-glow {
+    display: none !important;
+}
+
+body.sg-homepage.is-lite-render .sg-hero__grid-floor,
+body.sg-homepage.is-effects-off .sg-hero__grid-floor {
+    opacity: 0.35 !important;
+}
+
+body.sg-homepage.is-lite-render [data-aos],
+body.sg-homepage.is-effects-off [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* Kurangi blur / shadow / gradient saat lite */
+body.sg-homepage.is-lite-render .sg-stat-glass,
+body.sg-homepage.is-lite-render .beranda-float-panel,
+body.sg-homepage.is-lite-render .beranda-visit-card,
+body.sg-homepage.is-lite-render .gov-kpi-card,
+body.sg-homepage.is-lite-render .pi-portal-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: 0 4px 14px rgba(15, 39, 68, 0.08) !important;
+}
+
+body.sg-homepage.is-lite-render .sg-hero__bg {
+    filter: none !important;
+}
+
+body.sg-homepage.is-lite-render .sg-quick-menu__card:hover,
+body.sg-homepage.is-effects-off .sg-quick-menu__card:hover {
+    transform: none !important;
+}
+
+body.sg-homepage.is-lite-render .beranda-lazy-ai {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(12px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+body.sg-homepage.is-lite-ready .beranda-lazy-ai.is-ai-ready {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+}
+
+body.sg-homepage.is-lite-render .beranda-lite-section {
+    content-visibility: visible;
+}
+
+.beranda-lazy-section__placeholder-bar {
+    height: 1.25rem;
+    width: 38%;
+    max-width: 280px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg, #e2e8f0 0%, #f1f5f9 50%, #e2e8f0 100%);
+    background-size: 200% 100%;
+    animation: beranda-lite-shimmer 1.3s ease-in-out infinite;
+}
+
+.beranda-lazy-section__placeholder-block {
+    min-height: 140px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #e8edf4 0%, #f8fafc 50%, #e8edf4 100%);
+    background-size: 200% 100%;
+    animation: beranda-lite-shimmer 1.3s ease-in-out infinite;
+}
+
+@keyframes beranda-lite-shimmer {
+    0% { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
+}
+
+@media (max-width: 767.98px) {
+    body.sg-homepage.is-effects-off .sg-reveal,
+    body.sg-homepage.is-lite-render .sg-reveal {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.sg-homepage .sg-ambient-layer,
+    body.sg-homepage .sg-particles {
+        display: none !important;
+    }
+}

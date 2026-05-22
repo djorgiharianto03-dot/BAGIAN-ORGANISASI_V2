@@ -68,7 +68,7 @@ $sgQuickLinks[] = $sgEOrgQuick;
 
     <div class="sg-hero__grid-floor" aria-hidden="true"></div>
 
-    <?php $sgAmbientVariant = 'hero'; $sgParticleCount = 14; require __DIR__ . DIRECTORY_SEPARATOR . 'sg_ambient_layer.php'; ?>
+    <div id="beranda-hero-fx" class="beranda-hero-fx" data-beranda-fx="hero" aria-hidden="true"></div>
 
 
 

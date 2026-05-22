@@ -4,23 +4,17 @@
 (function () {
     'use strict';
 
-    var dataEl = document.getElementById('gov-team-target-charts-data');
-    if (!dataEl) {
-        return;
+    function readChartStore() {
+        var dataEl = document.getElementById('gov-team-target-charts-data');
+        if (!dataEl) {
+            return null;
+        }
+        try {
+            return JSON.parse(dataEl.textContent || '{}');
+        } catch (e) {
+            return {};
+        }
     }
-
-    var store = {};
-    try {
-        store = JSON.parse(dataEl.textContent || '{}');
-    } catch (e) {
-        store = {};
-    }
-
-    var teams = store.teams || {};
-    var overview = store.overview || [];
-    var teamKeys = Object.keys(teams);
-    var hasTeamCharts = teamKeys.length > 0;
-    var hasOverview = Array.isArray(overview) && overview.length > 0;
 
     function showEmpty(el, message) {
         if (!el || el.getAttribute('data-chart-ready') === '1') {
@@ -39,6 +33,17 @@
         if (typeof ApexCharts === 'undefined') {
             return false;
         }
+
+        var store = readChartStore();
+        if (!store) {
+            return false;
+        }
+
+        var teams = store.teams || {};
+        var overview = store.overview || [];
+        var teamKeys = Object.keys(teams);
+        var hasTeamCharts = teamKeys.length > 0;
+        var hasOverview = Array.isArray(overview) && overview.length > 0;
 
         var overviewEl = document.getElementById('govTeamTargetOverviewChart');
         if (overviewEl && overviewEl.getAttribute('data-chart-ready') !== '1') {
@@ -251,19 +256,20 @@
         }, 150);
     }
 
-    function tryStart() {
+    function onBootstrap() {
         if (typeof ApexCharts !== 'undefined') {
             startTeamCharts();
         }
     }
 
     document.addEventListener('beranda:apex-ready', startTeamCharts);
+    document.addEventListener('beranda:team-chunk-ready', startTeamCharts);
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', tryStart);
+        document.addEventListener('DOMContentLoaded', onBootstrap);
     } else {
-        tryStart();
+        onBootstrap();
     }
 
-    window.addEventListener('load', tryStart);
+    window.addEventListener('load', onBootstrap);
 })();

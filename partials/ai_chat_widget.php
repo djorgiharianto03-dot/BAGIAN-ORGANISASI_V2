@@ -594,7 +594,8 @@ $aiChatEndpointUrl = htmlspecialchars($aiChatAssetBase . '/ai_chat.php', ENT_QUO
     }
 </style>
 
-<div id="ai-chat-widget" class="ai-chat" data-ai-chat-root data-ai-chat-endpoint="<?php echo $aiChatEndpointUrl; ?>">
+<?php $aiChatWidgetClass = 'ai-chat' . ((defined('ORG_BERANDA_PAGE') && ORG_BERANDA_PAGE === true) ? ' beranda-lazy-ai' : ''); ?>
+<div id="ai-chat-widget" class="<?php echo htmlspecialchars($aiChatWidgetClass, ENT_QUOTES, 'UTF-8'); ?>" data-ai-chat-root data-ai-chat-endpoint="<?php echo $aiChatEndpointUrl; ?>">
     <button
         type="button"
         class="ai-chat__toggle"

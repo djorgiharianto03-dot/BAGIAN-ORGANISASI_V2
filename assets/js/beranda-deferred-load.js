@@ -1,5 +1,5 @@
 /**
- * Beranda — muat aset berat setelah konten utama (IO / idle).
+ * Beranda — muat section berat & aset setelah scroll / mode lite siap.
  */
 (function () {
     'use strict';
@@ -34,18 +34,30 @@
         apex: false,
         portal: false,
         kpi: false,
-        teamCharts: false,
-        ai: false
+        teamChartsScript: false
     };
 
-    var apexDispatchPending = false;
+    var sectionLoaded = {};
+
+    function webRoot() {
+        return (typeof window.ORG_WEB_ROOT === 'string') ? window.ORG_WEB_ROOT.replace(/\/$/, '') : '';
+    }
 
     function dispatchApexReady() {
-        if (apexDispatchPending) {
-            return;
+        if (typeof ApexCharts !== 'undefined') {
+            document.dispatchEvent(new Event('beranda:apex-ready'));
         }
-        apexDispatchPending = true;
-        document.dispatchEvent(new Event('beranda:apex-ready'));
+    }
+
+    function dispatchTeamChunkReady() {
+        document.dispatchEvent(new Event('beranda:team-chunk-ready'));
+    }
+
+    function notifySectionLoaded(sectionId, wrapper) {
+        document.dispatchEvent(new CustomEvent('beranda:section-loaded', {
+            bubbles: true,
+            detail: { section: sectionId, element: wrapper }
+        }));
     }
 
     function loadStylesheet(href) {
@@ -99,25 +111,6 @@
         }
     }
 
-    function observeLazy(target, fn, rootMargin) {
-        if (!target) {
-            return;
-        }
-        if (!('IntersectionObserver' in window)) {
-            whenIdle(fn, 1200);
-            return;
-        }
-        var io = new IntersectionObserver(function (entries) {
-            entries.forEach(function (en) {
-                if (en.isIntersecting) {
-                    io.disconnect();
-                    fn();
-                }
-            });
-        }, { rootMargin: rootMargin || '160px' });
-        io.observe(target);
-    }
-
     function loadChartJs() {
         if (loaded.chart) {
             document.dispatchEvent(new Event('beranda:chart-ready'));
@@ -129,22 +122,50 @@
         });
     }
 
-    function loadApexCharts() {
+    function loadApexCharts(done) {
+        if (typeof ApexCharts !== 'undefined') {
+            if (done) done();
+            else dispatchApexReady();
+            return;
+        }
         if (loaded.apex) {
-            dispatchApexReady();
+            var waitTag = document.querySelector('script[data-beranda-lazy-src="' + APEX_JS + '"]');
+            if (waitTag && done) {
+                waitTag.addEventListener('load', done, { once: true });
+            } else if (done) {
+                setTimeout(done, 80);
+            } else {
+                dispatchApexReady();
+            }
             return;
         }
         loaded.apex = true;
-        loadScript(APEX_JS, dispatchApexReady);
+        loadScript(APEX_JS, function () {
+            if (done) done();
+            else dispatchApexReady();
+        });
     }
 
-    function loadTeamTargetCharts() {
-        if (loaded.teamCharts) {
+    function ensureTeamTargetCharts() {
+        if (!document.getElementById('gov-team-target-charts-data')) {
             return;
         }
-        loaded.teamCharts = true;
-        loadApexCharts();
-        loadScript(assetUrl('js/beranda-team-target-charts.js'));
+
+        function fireChartInit() {
+            dispatchApexReady();
+            dispatchTeamChunkReady();
+        }
+
+        function loadTeamChartsScript() {
+            if (!loaded.teamChartsScript) {
+                loaded.teamChartsScript = true;
+                loadScript(assetUrl('js/beranda-team-target-charts.js'), fireChartInit);
+                return;
+            }
+            fireChartInit();
+        }
+
+        loadApexCharts(loadTeamChartsScript);
     }
 
     function initAos() {
@@ -157,7 +178,7 @@
                 return;
             }
             loaded.aos = true;
-            if (reduced) {
+            if (reduced || document.body.classList.contains('is-effects-off')) {
                 AOS.init({ disable: true });
             } else {
                 AOS.init({ once: true, duration: 700, easing: 'ease-out-cubic', offset: 48 });
@@ -213,13 +234,61 @@
         loadScript(assetBase + '/assets/js/smart-governance-portal.js?v=17');
     }
 
-    function scheduleAos() {
-        var aosTarget = document.querySelector('#beranda-root [data-aos], #beranda-pusat-informasi [data-aos]');
-        if (aosTarget) {
-            observeLazy(aosTarget, initAos, '200px');
-        } else {
-            whenIdle(initAos, 3000);
+    function injectChunkHtml(slot, html) {
+        var chunkScriptRe = /<script[^>]*\btype=["']application\/json["'][^>]*\bid=["']([^"']+)["'][^>]*>([\s\S]*?)<\/script>/gi;
+        var bodyHtml = html.replace(chunkScriptRe, '');
+        slot.innerHTML = bodyHtml.trim();
+
+        var match;
+        chunkScriptRe.lastIndex = 0;
+        while ((match = chunkScriptRe.exec(html)) !== null) {
+            var scriptId = match[1];
+            var jsonText = (match[2] || '').trim();
+            if (!scriptId || jsonText === '') {
+                continue;
+            }
+            var old = document.getElementById(scriptId);
+            if (old) {
+                old.remove();
+            }
+            var dataNode = document.createElement('script');
+            dataNode.type = 'application/json';
+            dataNode.id = scriptId;
+            dataNode.textContent = jsonText;
+            slot.appendChild(dataNode);
         }
+    }
+
+    function runExecutableScripts(container, html) {
+        var scriptRe = /<script(?![^>]*\btype=["']application\/json["'])(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi;
+        var match;
+        while ((match = scriptRe.exec(html)) !== null) {
+            var code = (match[1] || '').trim();
+            if (!code) {
+                continue;
+            }
+            var s = document.createElement('script');
+            s.textContent = code;
+            (container || document.body).appendChild(s);
+        }
+    }
+
+    function injectSectionHtml(host, html) {
+        var jsonRe = /<script[^>]*\btype=["']application\/json["'][^>]*\bid=["']([^"']+)["'][^>]*>([\s\S]*?)<\/script>/gi;
+        var bodyHtml = html.replace(jsonRe, '');
+        bodyHtml = bodyHtml.replace(/<script(?![^>]*\btype=["']application\/json["'])(?:\s[^>]*)?>[\s\S]*?<\/script>/gi, '');
+        host.innerHTML = bodyHtml.trim();
+
+        var m;
+        jsonRe.lastIndex = 0;
+        while ((m = jsonRe.exec(html)) !== null) {
+            var node = document.createElement('script');
+            node.type = 'application/json';
+            node.id = m[1];
+            node.textContent = (m[2] || '').trim();
+            host.appendChild(node);
+        }
+        runExecutableScripts(host, html);
     }
 
     function loadBerandaChunk(slot) {
@@ -230,8 +299,7 @@
         if (!section) {
             return;
         }
-        var root = (typeof window.ORG_WEB_ROOT === 'string') ? window.ORG_WEB_ROOT.replace(/\/$/, '') : '';
-        var url = root + '/beranda_chunk.php?section=' + encodeURIComponent(section);
+        var url = webRoot() + '/beranda_chunk.php?section=' + encodeURIComponent(section);
         if (section === 'team') {
             var tahun = slot.getAttribute('data-beranda-tahun');
             if (tahun) {
@@ -252,20 +320,18 @@
                     slot.remove();
                     return;
                 }
-                slot.innerHTML = trimmed;
+                injectChunkHtml(slot, trimmed);
                 slot.removeAttribute('aria-busy');
                 slot.classList.remove('beranda-chunk-slot');
                 if (section === 'dashboard') {
                     loadGovKpiModal();
                 }
                 if (section === 'team') {
-                    var teamEl = document.getElementById('beranda-team-targets')
-                        || document.getElementById('govTeamTargetOverviewChart');
-                    if (teamEl) {
-                        loadTeamTargetCharts();
-                    }
+                    requestAnimationFrame(function () {
+                        requestAnimationFrame(ensureTeamTargetCharts);
+                    });
                 }
-                scheduleAos();
+                initAos();
             })
             .catch(function () {
                 slot.removeAttribute('data-beranda-chunk-loaded');
@@ -274,54 +340,128 @@
             });
     }
 
-    function loadBerandaChunks() {
-        var slots = document.querySelectorAll('[data-beranda-chunk]');
-        if (!slots.length) {
+    function loadBerandaSection(sectionId, wrapper) {
+        if (sectionLoaded[sectionId]) {
             return;
         }
-        slots.forEach(function (slot) {
-            observeLazy(slot, function () {
-                loadBerandaChunk(slot);
-            }, '280px');
+        sectionLoaded[sectionId] = true;
+        var host = wrapper && wrapper.querySelector('[data-beranda-section-host="' + sectionId + '"]');
+        if (!host) {
+            return;
+        }
+
+        if (sectionId === 'smart-gov') {
+            wrapper.setAttribute('aria-busy', 'true');
+            var slots = host.querySelectorAll('[data-beranda-chunk]');
+            var pending = slots.length;
+            if (!pending) {
+                wrapper.removeAttribute('aria-busy');
+                notifySectionLoaded(sectionId, wrapper);
+                return;
+            }
+            slots.forEach(function (slot) {
+                var section = slot.getAttribute('data-beranda-chunk');
+                var url = webRoot() + '/beranda_chunk.php?section=' + encodeURIComponent(section || '');
+                if (section === 'team') {
+                    var tahun = slot.getAttribute('data-beranda-tahun');
+                    if (tahun) {
+                        url += '&tahun=' + encodeURIComponent(tahun);
+                    }
+                }
+                slot.setAttribute('data-beranda-chunk-loaded', '1');
+                fetch(url, { credentials: 'same-origin', headers: { Accept: 'text/html' } })
+                    .then(function (res) {
+                        if (!res.ok) {
+                            throw new Error('chunk');
+                        }
+                        return res.text();
+                    })
+                    .then(function (html) {
+                        var trimmed = (html || '').trim();
+                        if (trimmed !== '') {
+                            injectChunkHtml(slot, trimmed);
+                            slot.classList.remove('beranda-chunk-slot');
+                            if (section === 'dashboard') {
+                                loadGovKpiModal();
+                            }
+                            if (section === 'team') {
+                                ensureTeamTargetCharts();
+                            }
+                        } else {
+                            slot.remove();
+                        }
+                    })
+                    .catch(function () {
+                        slot.classList.add('beranda-chunk-slot--error');
+                    })
+                    .finally(function () {
+                        pending -= 1;
+                        if (pending <= 0) {
+                            wrapper.removeAttribute('aria-busy');
+                            initAos();
+                            notifySectionLoaded(sectionId, wrapper);
+                        }
+                    });
+            });
+            return;
+        }
+
+        var url = webRoot() + '/beranda_section.php?section=' + encodeURIComponent(sectionId);
+        wrapper.setAttribute('aria-busy', 'true');
+        fetch(url, { credentials: 'same-origin', headers: { Accept: 'text/html' } })
+            .then(function (res) {
+                if (!res.ok) {
+                    throw new Error('section');
+                }
+                return res.text();
+            })
+            .then(function (html) {
+                var trimmed = (html || '').trim();
+                if (trimmed === '') {
+                    return;
+                }
+                injectSectionHtml(host, trimmed);
+                if (sectionId === 'visit') {
+                    loadChartJs();
+                }
+                if (sectionId === 'galeri') {
+                    initFancybox();
+                }
+                if (sectionId === 'eksekutif') {
+                    initAos();
+                }
+            })
+            .catch(function () {
+                host.innerHTML = '<p class="text-muted small py-4">Konten belum dapat dimuat. Silakan muat ulang halaman.</p>';
+            })
+            .finally(function () {
+                wrapper.removeAttribute('aria-busy');
+                notifySectionLoaded(sectionId, wrapper);
+            });
+    }
+
+    function onSectionReveal(e) {
+        var detail = e.detail || {};
+        var sectionId = detail.section || '';
+        var wrapper = detail.element;
+        if (!sectionId || !wrapper) {
+            return;
+        }
+        loadBerandaSection(sectionId, wrapper);
+    }
+
+    document.addEventListener('beranda:section-reveal', onSectionReveal);
+
+    document.addEventListener('beranda:lite-ready', function () {
+        whenIdle(loadPortalEnhancements, 1200);
+    });
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+            if (document.body.classList.contains('is-lite-ready')) {
+                whenIdle(loadPortalEnhancements, 1200);
+            }
         });
     }
 
-    function boot() {
-        loadBerandaChunks();
-
-        var visitSection = document.getElementById('beranda-kunjungan-web');
-        if (visitSection) {
-            observeLazy(visitSection, loadChartJs, '180px');
-        }
-
-        var teamSection = document.getElementById('beranda-team-targets')
-            || document.getElementById('govTeamTargetOverviewChart');
-        if (teamSection) {
-            observeLazy(teamSection, loadTeamTargetCharts, '200px');
-        }
-
-        var dashSection = document.getElementById('beranda-dashboard-widgets');
-        if (dashSection) {
-            observeLazy(dashSection, loadGovKpiModal, '200px');
-        }
-
-        var galeri = document.getElementById('beranda-galeri-kegiatan');
-        if (galeri) {
-            observeLazy(galeri, initFancybox, '220px');
-        }
-
-        scheduleAos();
-
-        whenIdle(loadPortalEnhancements, 2800);
-
-        if (typeof window.orgBerandaLoadAiChat === 'function') {
-            whenIdle(window.orgBerandaLoadAiChat, 4500);
-        }
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', boot);
-    } else {
-        boot();
-    }
 })();

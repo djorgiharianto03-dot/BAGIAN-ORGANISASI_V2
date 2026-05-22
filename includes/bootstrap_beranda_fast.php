@@ -97,7 +97,9 @@ if ($dbApp instanceof mysqli) {
     });
     $pusatInformasiPosts = org_beranda_fetch_pusat_informasi_cached($dbApp, 4, 12);
 
-    $berandaGaleriKegiatan = org_beranda_fetch_galeri_cached($dbApp, 6);
+    if (!defined('ORG_BERANDA_LITE_FIRST') || ORG_BERANDA_LITE_FIRST !== true) {
+        $berandaGaleriKegiatan = org_beranda_fetch_galeri_cached($dbApp, 6);
+    }
 
     if (!$lazyHeavy) {
         $dashBundle = org_beranda_fetch_dashboard_bundle($dbApp);
