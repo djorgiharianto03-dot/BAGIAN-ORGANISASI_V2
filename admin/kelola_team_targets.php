@@ -15,6 +15,7 @@ require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'o
 require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'staff_users_db.php';
 require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'site_content_db.php';
 require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'team_targets_db.php';
+require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_beranda_perf.php';
 
 $roleNorm = org_staff_role_normalize((string) ($_SESSION['level'] ?? $_SESSION['admin_role'] ?? ''));
 if ($roleNorm === 'sub_admin_eorganisasi' || $roleNorm === 'sub_admin_publikasi') {
@@ -65,6 +66,7 @@ if ($isPost && !$csrfValid) {
     } else {
         $visLabel = $tampilBeranda ? 'ditampilkan' : 'disembunyikan';
         org_audit_log_insert($db, $idAdminSess, $namaAdminSess, 'Admin menyimpan target tim kerja tahun ' . $editTahun . ' (' . $visLabel . ' di beranda).');
+        org_beranda_invalidate_heavy_caches($editTahun);
         $flashOk = 'Target tahun ' . $editTahun . ' berhasil disimpan (' . $totalRows . ' kegiatan).'
             . ($tampilBeranda ? ' Tampil di beranda.' : ' Disembunyikan dari beranda — aktifkan «Tampilkan di beranda» lalu simpan lagi.');
     }

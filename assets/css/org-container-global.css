@@ -332,7 +332,9 @@ body.sg-portal-page .site-header--sg-portal .btn-header-dashboard:hover {
     box-shadow: 0 6px 22px rgba(56, 189, 248, 0.4) !important;
 }
 
-/* Hero beranda */
+/* Hero beranda (index: hero di dalam .site-layout-main) */
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section,
+body.sg-homepage.sg-portal-page .site-layout-main > section#sg-hero.hero-section,
 body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
 body.sg-homepage.sg-portal-page > section#sg-hero.hero-section {
     width: 100%;
@@ -340,9 +342,21 @@ body.sg-homepage.sg-portal-page > section#sg-hero.hero-section {
     margin-left: 0;
     margin-right: 0;
     background: linear-gradient(135deg, #07325a 0%, #0f4c81 100%);
-    padding-bottom: 72px;
     padding-top: var(--sg-portal-header-offset, 7.5rem);
     overflow: hidden;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero--minimal,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section.sg-hero--minimal,
+body.sg-homepage.sg-portal-page > #sg-hero.sg-hero--minimal {
+    padding-bottom: 0.65rem !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section:not(.sg-hero--minimal),
+body.sg-homepage.sg-portal-page > #sg-hero.hero-section:not(.sg-hero--minimal) {
+    padding-bottom: 72px;
 }
 
 body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__bg,

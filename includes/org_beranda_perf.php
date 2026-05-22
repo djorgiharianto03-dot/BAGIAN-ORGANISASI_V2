@@ -410,6 +410,32 @@ function org_beranda_dokumen_count_cached(?mysqli $db): int
 
  */
 
+/** Hapus cache beranda (widget + target tim) setelah admin menyimpan. */
+function org_beranda_invalidate_heavy_caches(?int $teamYear = null): void
+{
+    $dashPath = org_runtime_cache_file_path('beranda_dashboard_bundle.json');
+    if (is_file($dashPath)) {
+        @unlink($dashPath);
+    }
+    if ($teamYear !== null && $teamYear > 0) {
+        $teamPath = org_runtime_cache_file_path('beranda_team_targets_' . $teamYear . '.json');
+        if (is_file($teamPath)) {
+            @unlink($teamPath);
+        }
+
+        return;
+    }
+    $dir = org_runtime_cache_dir();
+    if (!is_dir($dir)) {
+        return;
+    }
+    foreach (glob($dir . DIRECTORY_SEPARATOR . 'beranda_team_targets_*.json') ?: [] as $file) {
+        if (is_file($file)) {
+            @unlink($file);
+        }
+    }
+}
+
 function org_beranda_fetch_dashboard_bundle(?mysqli $db): array
 
 {
@@ -420,13 +446,19 @@ function org_beranda_fetch_dashboard_bundle(?mysqli $db): array
 
     if (is_array($cached) && isset($cached['widgets'], $cached['details']) && is_array($cached['widgets'])) {
 
-        return [
+        $cachedWidgets = array_values($cached['widgets']);
 
-            'widgets' => array_values($cached['widgets']),
+        if ($cachedWidgets !== []) {
 
-            'details' => is_array($cached['details']) ? $cached['details'] : [],
+            return [
 
-        ];
+                'widgets' => $cachedWidgets,
+
+                'details' => is_array($cached['details']) ? $cached['details'] : [],
+
+            ];
+
+        }
 
     }
 
@@ -674,17 +706,37 @@ function org_beranda_fetch_team_targets_bundle(?mysqli $db, int $requestedYear):
 
     ) {
 
-        $result['tahun'] = (int) ($cached['tahun'] ?? $result['tahun']);
+        $cachedGrouped = $cached['grouped'];
 
-        $result['years'] = array_values(array_map('intval', (array) $cached['years']));
+        $cachedHasRows = false;
 
-        $result['grouped'] = $cached['grouped'];
+        foreach ($cachedGrouped as $items) {
 
-        $result['visible'] = true;
+            if (is_array($items) && $items !== []) {
+
+                $cachedHasRows = true;
+
+                break;
+
+            }
+
+        }
+
+        if ($cachedHasRows) {
+
+            $result['tahun'] = (int) ($cached['tahun'] ?? $result['tahun']);
+
+            $result['years'] = array_values(array_map('intval', (array) $cached['years']));
+
+            $result['grouped'] = $cachedGrouped;
+
+            $result['visible'] = true;
 
 
 
-        return $result;
+            return $result;
+
+        }
 
     }
 

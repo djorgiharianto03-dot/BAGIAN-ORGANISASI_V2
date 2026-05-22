@@ -60,7 +60,10 @@ body.sg-portal-page .site-header--sg-portal .site-header__gradient {
     box-sizing: border-box;
 }
 
-/* Beranda — hero tidak tertutup header fixed (tinggi dari JS: --sg-portal-header-offset) */
+/* Beranda — hero di .site-layout-main (index.php) + legacy body> */
+body.sg-homepage.sg-portal-page .site-layout-main > section#sg-hero.hero-section,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero,
 body.sg-homepage.sg-portal-page > section#sg-hero.hero-section,
 body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
 body.sg-homepage.sg-portal-page > #sg-hero.sg-hero {
@@ -72,11 +75,24 @@ body.sg-homepage.sg-portal-page > #sg-hero.sg-hero {
     box-sizing: border-box;
 }
 
-body.sg-homepage.sg-portal-page > #sg-hero .container-global.hero-inner,
-body.sg-homepage.sg-portal-page > #sg-hero .hero-inner.container-global {
-    padding-top: clamp(0.5rem, 1.5vw, 1.25rem);
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero--minimal,
+body.sg-homepage.sg-portal-page > #sg-hero.sg-hero--minimal {
+    min-height: 0 !important;
+    height: auto !important;
+    padding-bottom: 0.5rem !important;
 }
 
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .container-global.hero-inner,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .hero-inner.container-global,
+body.sg-homepage.sg-portal-page > #sg-hero .container-global.hero-inner,
+body.sg-homepage.sg-portal-page > #sg-hero .hero-inner.container-global {
+    padding-top: clamp(0.35rem, 1vw, 0.75rem);
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__bg,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__grid-floor,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-ambient-layer,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section::before,
 body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__bg,
 body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__grid-floor,
 body.sg-homepage.sg-portal-page > #sg-hero .sg-ambient-layer,

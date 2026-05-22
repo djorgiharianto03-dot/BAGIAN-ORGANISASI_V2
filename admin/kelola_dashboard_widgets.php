@@ -15,6 +15,7 @@ require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'o
 require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'staff_users_db.php';
 require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'site_content_db.php';
 require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'dashboard_widgets_db.php';
+require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_beranda_perf.php';
 
 $roleNorm = org_staff_role_normalize((string) ($_SESSION['level'] ?? $_SESSION['admin_role'] ?? ''));
 if ($roleNorm === 'sub_admin_eorganisasi' || $roleNorm === 'sub_admin_publikasi') {
@@ -102,6 +103,7 @@ if ($isPost && !$csrfValid) {
             } else {
                 $res = $saveWidgetWithDetails($db, $editId, $judul, $tipe, $nilaiKiri, $nilaiKanan, $warna, $urutan, $aktif, $editId > 0);
                 if ($res['ok']) {
+                    org_beranda_invalidate_heavy_caches();
                     $flashOk = $res['msg'];
                     if ($editId < 1 && isset($res['id'])) {
                         header('Location: kelola_dashboard_widgets.php?edit=' . (int) $res['id']);
@@ -114,6 +116,7 @@ if ($isPost && !$csrfValid) {
         } else {
             $res = $saveWidgetWithDetails($db, $editId, $judul, $tipe, $nilaiKiri, $nilaiKanan, $warna, $urutan, $aktif, $editId > 0);
             if ($res['ok']) {
+                org_beranda_invalidate_heavy_caches();
                 $flashOk = $res['msg'];
                 if ($editId < 1 && isset($res['id'])) {
                     header('Location: kelola_dashboard_widgets.php?edit=' . (int) $res['id']);
@@ -130,6 +133,7 @@ if ($isPost && !$csrfValid) {
             $flashErr = 'Widget tidak ditemukan.';
         } elseif (org_dashboard_widgets_delete_by_id($db, $hapusId)) {
             org_audit_log_insert($db, $idAdminSess, $namaAdminSess, 'Admin menghapus widget beranda id ' . (string) $hapusId . ' («' . org_sanitize_plain((string) ($rowH['judul'] ?? '')) . '»).');
+            org_beranda_invalidate_heavy_caches();
             $flashOk = 'Widget telah dihapus.';
         } else {
             $flashErr = 'Gagal menghapus widget.';

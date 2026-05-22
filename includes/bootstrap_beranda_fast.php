@@ -89,8 +89,6 @@ $berandaTeamTargetsYears = [];
 $berandaTeamTargetsGrouped = org_team_targets_empty_grouped();
 $berandaTeamTargetsVisible = false;
 
-$lazyHeavy = defined('ORG_BERANDA_LAZY_SECTIONS') && ORG_BERANDA_LAZY_SECTIONS === true;
-
 if ($dbApp instanceof mysqli) {
     org_beranda_ensure_table_once($dbApp, 'dokumen', static function () use ($dbApp): void {
         org_dokumen_ensure_table($dbApp);
@@ -106,17 +104,14 @@ if ($dbApp instanceof mysqli) {
         $berandaGaleriKegiatan = org_beranda_fetch_galeri_cached($dbApp, 6);
     }
 
-    if (!$lazyHeavy) {
-        $dashBundle = org_beranda_fetch_dashboard_bundle($dbApp);
-        $berandaDashboardWidgets = $dashBundle['widgets'];
-        $berandaWidgetDetailsMap = $dashBundle['details'];
-
-        $teamBundle = org_beranda_fetch_team_targets_bundle($dbApp, $berandaTeamTargetsTahun);
-        $berandaTeamTargetsTahun = (int) $teamBundle['tahun'];
-        $berandaTeamTargetsYears = $teamBundle['years'];
-        $berandaTeamTargetsGrouped = $teamBundle['grouped'];
-        $berandaTeamTargetsVisible = (bool) $teamBundle['visible'];
-    }
+    /* index.php SSR partial indikator + target tim — selalu muat (bukan hanya beranda_chunk.php) */
+    $berandaHeavy = org_beranda_load_dashboard_and_team($dbApp, $berandaTeamTargetsTahun);
+    $berandaDashboardWidgets = $berandaHeavy['widgets'];
+    $berandaWidgetDetailsMap = $berandaHeavy['details'];
+    $berandaTeamTargetsTahun = (int) $berandaHeavy['teamTahun'];
+    $berandaTeamTargetsYears = $berandaHeavy['teamYears'];
+    $berandaTeamTargetsGrouped = $berandaHeavy['teamGrouped'];
+    $berandaTeamTargetsVisible = (bool) $berandaHeavy['teamVisible'];
 }
 
 $uploadedFiles = [];

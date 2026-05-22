@@ -30,8 +30,8 @@
     --sg-dash-bg-alt: var(--sg-bg-soft);
 }
 
-/* —— Hero command deck (legacy; ultra overrides) —— */
-.sg-homepage .sg-hero:not(.sg-hero--ultra) {
+/* —— Hero command deck (legacy; minimal/ultra = compact) —— */
+.sg-homepage .sg-hero:not(.sg-hero--ultra):not(.sg-hero--minimal) {
     min-height: 85vh;
     max-height: none;
 }
@@ -65,7 +65,7 @@
 }
 .sg-homepage #beranda-root > .beranda-section,
 .sg-homepage #beranda-root > section {
-    padding: clamp(2.25rem, 4vw, 3rem) 0;
+    padding: clamp(1rem, 1.75vw, 1.5rem) 0;
 }
 .sg-homepage #beranda-root .beranda-section--surface-muted,
 .sg-homepage #beranda-root > .beranda-section:nth-child(odd) {
@@ -106,7 +106,7 @@
 }
 
 @media (max-width: 991.98px) {
-    .sg-homepage .sg-hero:not(.sg-hero--ultra) {
+    .sg-homepage .sg-hero:not(.sg-hero--ultra):not(.sg-hero--minimal) {
         min-height: min(85vh, 780px);
     }
     .sg-homepage .sg-hero.sg-hero--ultra {

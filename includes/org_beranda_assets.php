@@ -159,9 +159,9 @@ function org_beranda_header_vendor_markup(): string
         . 'body.sg-homepage #sgPortalLoader{display:none!important}'
         . 'body.sg-homepage.sg-portal-page .site-header--sg-portal{position:fixed!important;top:0;left:0;right:0;z-index:1200;pointer-events:auto}'
         . 'body.sg-homepage.sg-portal-page .site-header__nav a{pointer-events:auto!important;cursor:pointer}'
-        . 'body.sg-homepage.sg-portal-page>.site-layout-main{background:#f4f7fb!important;display:block!important}'
-        . 'body.sg-homepage.sg-portal-page>#sg-hero{padding-top:var(--sg-portal-header-offset,6.25rem)!important}'
-        . 'body.sg-homepage.sg-portal-page>#sg-hero.sg-hero--minimal,body.sg-homepage.sg-portal-page>#sg-hero.sg-hero.sg-hero--compact.sg-hero--minimal{min-height:0!important;height:auto!important;max-height:none!important;padding-bottom:.75rem!important;overflow:visible!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main{background:#f4f7fb!important;display:block!important;min-height:0!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage .sg-hero.sg-hero--minimal{min-height:0!important;height:auto!important;max-height:none!important;padding-bottom:.5rem!important;overflow:visible!important}'
+        . 'body.sg-homepage .sg-hero:not(.sg-hero--ultra):not(.sg-hero--minimal){min-height:0!important}'
         . 'body.sg-homepage.sg-portal-page #beranda-root{display:flex!important;flex-direction:column!important;visibility:visible!important;opacity:1!important;min-height:0!important;margin-top:0!important;background:#f4f7fb!important}'
         . 'body.sg-homepage.sg-portal-page #beranda-root>.beranda-section,body.sg-homepage.sg-portal-page #beranda-root>section,body.sg-homepage.sg-portal-page #beranda-root>#beranda-team-targets{content-visibility:visible!important;contain-intrinsic-size:unset!important;visibility:visible!important;opacity:1!important}'
         . '</style>' . "\n";
@@ -239,7 +239,7 @@ function org_beranda_home_layout_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-home-layout.css?v=3');
+    return org_asset_stylesheet_link('assets/css/beranda-home-layout.css?v=4');
 }
 
 function org_beranda_lite_render_script_tag(): string

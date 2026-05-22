@@ -510,8 +510,99 @@ body.sg-homepage .org-footer__links.site-footer__links-band .container-global.py
 }
 
 @media (max-width: 991.98px) {
+    body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section,
+    body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero,
     body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
     body.sg-homepage.sg-portal-page > #sg-hero.sg-hero {
         padding-top: var(--sg-portal-header-offset, 5.5rem) !important;
     }
+}
+
+/* ==========================================================================
+   Satu halaman — hero & konten di dalam .site-layout-main (index.php)
+   Menimpa 85vh/62vh, padding-bottom 72px, selector body> yang tidak cocok
+   ========================================================================== */
+
+body.sg-homepage.sg-portal-page .site-layout-main {
+    display: block;
+    min-height: 0 !important;
+    background: #f4f7fb !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero,
+body.sg-homepage.sg-portal-page .site-layout-main > section#sg-hero {
+    display: block;
+    position: relative;
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 0 0 !important;
+    padding-bottom: 0.5rem !important;
+    overflow: visible !important;
+    box-sizing: border-box;
+}
+
+body.sg-homepage .sg-hero.sg-hero--minimal,
+body.sg-homepage .sg-hero.sg-hero--compact.sg-hero--minimal {
+    min-height: 0 !important;
+    max-height: none !important;
+    height: auto !important;
+}
+
+body.sg-homepage .sg-hero:not(.sg-hero--ultra):not(.sg-hero--minimal) {
+    min-height: 0 !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero + #beranda-root {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+body.sg-homepage.page-index-redesign #beranda-root #beranda-pusat-informasi.beranda-section {
+    margin-top: 0 !important;
+    padding-top: var(--beranda-section-y) !important;
+}
+
+body.sg-homepage #beranda-root > .beranda-section,
+body.sg-homepage #beranda-root > section,
+body.sg-homepage #beranda-root > .beranda-ssr-section,
+body.sg-homepage #beranda-root > .beranda-lite-section {
+    padding-top: var(--beranda-section-y) !important;
+    padding-bottom: var(--beranda-section-y) !important;
+}
+
+body.sg-homepage .site-footer.site-footer--modern,
+body.sg-homepage .org-footer.site-footer--modern,
+body.sg-homepage .site-footer.mt-5,
+body.sg-homepage .org-footer.mt-5 {
+    margin-top: 0 !important;
+    border-top: none;
+}
+
+body.sg-homepage .site-footer__cta-band,
+body.sg-homepage .org-footer__cta.site-footer__cta-band {
+    background: var(--beranda-surface-alt, #f0f4f8) !important;
+    padding-top: clamp(1rem, 2vw, 1.35rem) !important;
+    padding-bottom: clamp(1rem, 2vw, 1.35rem) !important;
+}
+
+body.sg-homepage .site-footer .container-global,
+body.sg-homepage .org-footer .container-global,
+body.sg-homepage .site-footer__cta-band .container-global {
+    width: 100% !important;
+    max-width: var(--beranda-rail-max) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: var(--beranda-gutter) !important;
+    padding-right: var(--beranda-gutter) !important;
+    box-sizing: border-box;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero--minimal .sg-hero__bg {
+    position: absolute;
+    inset: 0;
+    height: 100% !important;
+    min-height: 0 !important;
 }

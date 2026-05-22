@@ -803,8 +803,8 @@ body.sg-homepage #beranda-root > section {
     font-size: 0.82rem;
 }
 .page-index-redesign #beranda-root #beranda-pusat-informasi.beranda-section {
-    margin-top: 34px;
-    padding-top: clamp(40px, 5vw, 58px);
+    margin-top: 0;
+    padding-top: clamp(1rem, 1.75vw, 1.5rem);
 }
 .page-index-redesign .site-footer__cta-band {
     background: #f4f7fc;
