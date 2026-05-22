@@ -75,6 +75,9 @@ $posts = $pusatInformasiPosts ?? [];
                         $tglFmtHover = $tgl !== '' ? date('d M Y', strtotime($tgl)) : '';
 
                         $piJudul = (string) ($pi['judul'] ?? '');
+                        $piImgAlt = $piJudul !== ''
+                            ? 'Ilustrasi: ' . $piJudul
+                            : ($isPeng ? 'Gambar pengumuman' : 'Gambar berita');
 
                         $cardHeadlineClass = $isFeatured ? ' pi-portal-card--headline' : '';
 
@@ -102,7 +105,7 @@ $posts = $pusatInformasiPosts ?? [];
 
                                         <?php if ($imgUrl !== ''): ?>
 
-                                            <img src="<?php echo htmlspecialchars($imgUrl, ENT_QUOTES, 'UTF-8'); ?>" class="pi-portal-card__img" alt="" width="640" height="360" loading="lazy">
+                                            <img src="<?php echo htmlspecialchars($imgUrl, ENT_QUOTES, 'UTF-8'); ?>" class="pi-portal-card__img" alt="<?php echo htmlspecialchars($piImgAlt, ENT_QUOTES, 'UTF-8'); ?>" width="640" height="360" loading="lazy" decoding="async">
 
                                         <?php else: ?>
 

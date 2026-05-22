@@ -17,8 +17,11 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-$pageTitle = 'Beranda — Bagian Organisasi';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_beranda_seo.php';
+
+$pageTitle = org_beranda_seo_page_title();
 $navActive = 'beranda';
+$siteLogoAlt = 'Logo Bagian Organisasi — Sekretariat Daerah Kabupaten Kepulauan Aru';
 $includePersonnelModals = false;
 $includeNewsModals = false;
 $bodyClass = 'page-index-redesign sg-portal-page sg-homepage is-lite-render is-perf-lite';
@@ -73,12 +76,16 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
 
 $sgAssetBase = org_asset_web_base();
+$pageSeoHeadMarkup = org_beranda_seo_head_markup((string) ($logoWebPath ?? ''));
 $extraHeadMarkup = org_portal_head_markup_beranda(org_beranda_bundle_stylesheet_async_link());
 $extraFooterMarkup = org_portal_footer_markup_beranda('');
 $orgWebRootJs = defined('ORG_WEB_ROOT') ? ORG_WEB_ROOT : '';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_production_assets.php';
+$orgUseMinJs = is_file(ORG_ROOT . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'beranda-deferred-load.min.js');
 $extraFooterMarkup .= '<script>window.ORG_VENDOR_BASE=' . json_encode(org_vendor_web_base(), JSON_UNESCAPED_SLASHES)
     . ';window.ORG_ASSET_BASE=' . json_encode($sgAssetBase, JSON_UNESCAPED_SLASHES)
-    . ';window.ORG_WEB_ROOT=' . json_encode($orgWebRootJs, JSON_UNESCAPED_SLASHES) . ';</script>' . "\n";
+    . ';window.ORG_WEB_ROOT=' . json_encode($orgWebRootJs, JSON_UNESCAPED_SLASHES)
+    . ';window.ORG_USE_MIN_JS=' . ($orgUseMinJs ? 'true' : 'false') . ';</script>' . "\n";
 $extraFooterMarkup .= org_beranda_lite_render_script_tag();
 $extraFooterMarkup .= org_beranda_deferred_script_tag();
 
@@ -87,15 +94,13 @@ $htmlClass = 'sg-portal-html-home';
 
 define('ORG_DEFER_LAYOUT_MAIN', true);
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'header.php';
+echo '<main class="site-layout-main" id="main-content" role="main">';
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_smart_hero.php';
 ?>
 <p class="beranda-scroll-hint mb-0" id="beranda-scroll-hint" aria-hidden="true">
     <i class="fa-solid fa-chevron-down me-1" aria-hidden="true"></i>
     Gulir ke bawah untuk informasi, dashboard, dan grafik kinerja
 </p>
-<?php
-echo '<main class="site-layout-main">';
-?>
 <div class="sg-portal-main sg-dash-main">
     <div class="container-global site-main" id="beranda-root">
         <?php if ($message !== ''): ?>
@@ -119,10 +124,13 @@ echo '<main class="site-layout-main">';
         <?php
         $berandaLazySectionId = 'smart-gov';
         $berandaLazySectionLabel = 'Memuat Smart Governance…';
+        $berandaLazySectionHiddenTitle = 'Dashboard Kinerja dan Capaian Tim Kerja';
         require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_lazy_section_shell.php';
+        unset($berandaLazySectionHiddenTitle);
         ?>
             <div id="beranda-chunk-dashboard" class="beranda-chunk-slot" data-beranda-chunk="dashboard" aria-busy="true" aria-live="polite">
                 <section class="beranda-section beranda-chunk-skeleton" id="beranda-dashboard-widgets" aria-labelledby="beranda-dashboard-widgets-title">
+                    <h2 id="beranda-dashboard-widgets-title" class="visually-hidden">Indikator dan Statistik</h2>
                     <div class="beranda-chunk-skeleton__bar" style="width:42%"></div>
                     <div class="beranda-chunk-skeleton__grid">
                         <div class="beranda-chunk-skeleton__card"></div>
@@ -133,6 +141,7 @@ echo '<main class="site-layout-main">';
             </div>
             <div id="beranda-chunk-team" class="beranda-chunk-slot" data-beranda-chunk="team" data-beranda-tahun="<?php echo (int) ($berandaTeamTargetsTahun ?? (int) date('Y')); ?>" aria-busy="true" aria-live="polite">
                 <section class="beranda-section beranda-chunk-skeleton" id="beranda-team-targets" aria-labelledby="beranda-team-targets-title">
+                    <h2 id="beranda-team-targets-title" class="visually-hidden">Capaian Target Tim Kerja</h2>
                     <div class="beranda-chunk-skeleton__bar" style="width:55%"></div>
                     <div class="beranda-chunk-skeleton__chart"></div>
                 </section>

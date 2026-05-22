@@ -16,6 +16,98 @@ function org_build_assets_css_minify(string $css): string
     return trim($css);
 }
 
+function org_build_assets_js_minify(string $js): string
+{
+    $js = preg_replace('#/\*[\s\S]*?\*/#', '', $js) ?? $js;
+    $lines = preg_split('/\R/', $js) ?: [];
+    $out = [];
+    foreach ($lines as $line) {
+        if (preg_match('#^\s*//.#', $line)) {
+            continue;
+        }
+        $trimmed = preg_replace('#\s*//.*$#', '', $line) ?? $line;
+        $trimmed = rtrim($trimmed);
+        if ($trimmed === '') {
+            continue;
+        }
+        $out[] = $trimmed;
+    }
+
+    return implode("\n", $out);
+}
+
+/**
+ * @param list<string> $sourceRelativePaths
+ */
+function org_build_assets_write_js_bundle(string $outRelativePath, array $sourceRelativePaths): bool
+{
+    $outFs = org_build_assets_fs_path($outRelativePath);
+    $outDir = dirname($outFs);
+    if (!is_dir($outDir) && !@mkdir($outDir, 0775, true) && !is_dir($outDir)) {
+        return false;
+    }
+
+    $combined = '';
+    foreach ($sourceRelativePaths as $rel) {
+        $path = org_build_assets_fs_path($rel);
+        if (!is_file($path)) {
+            continue;
+        }
+        $chunk = @file_get_contents($path);
+        if ($chunk === false || $chunk === '') {
+            continue;
+        }
+        $combined .= "\n;/* === " . basename($path) . " === */\n" . $chunk;
+    }
+
+    if (strlen($combined) < 40) {
+        return false;
+    }
+
+    $min = org_build_assets_js_minify($combined);
+
+    return @file_put_contents($outFs, $min, LOCK_EX) !== false && is_file($outFs);
+}
+
+/**
+ * Minify satu file JS → assets/js/{name}.min.js
+ */
+function org_build_assets_minify_js_file(string $sourceRelativePath): bool
+{
+    $path = org_build_assets_fs_path($sourceRelativePath);
+    if (!is_file($path)) {
+        return false;
+    }
+    $raw = @file_get_contents($path);
+    if ($raw === false || $raw === '') {
+        return false;
+    }
+    $base = basename($sourceRelativePath);
+    $base = preg_replace('/\.js$/i', '', $base) ?? $base;
+    $outRel = 'assets/js/' . $base . '.min.js';
+    $outFs = org_build_assets_fs_path($outRel);
+    $min = org_build_assets_js_minify($raw);
+
+    return @file_put_contents($outFs, $min, LOCK_EX) !== false;
+}
+
+function org_build_assets_generate_beranda_js_min(): void
+{
+    foreach ([
+        'assets/js/beranda-lite-render.js',
+        'assets/js/beranda-deferred-load.js',
+        'assets/js/beranda-gov-kpi-modal.js',
+        'assets/js/beranda-team-target-charts.js',
+        'assets/js/org-navbar.js',
+    ] as $rel) {
+        try {
+            org_build_assets_minify_js_file($rel);
+        } catch (Throwable) {
+            /* skip */
+        }
+    }
+}
+
 function org_build_assets_fs_path(string $relativePath): string
 {
     return ORG_ROOT . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, ltrim($relativePath, '/'));
@@ -97,6 +189,10 @@ function org_build_assets_generate_beranda_bundle(): bool
         'assets/css/smart-governance-homepage.css',
         'assets/css/beranda-layout-fix.css',
         'assets/css/beranda-lightweight.css',
+        'assets/css/beranda-mobile.css',
+        'assets/css/beranda-design-system.css',
+        'assets/css/beranda-nav-hero.css',
+        'assets/css/beranda-dashboard-cards.css',
     ]);
 }
 
@@ -127,6 +223,7 @@ function org_build_assets_ensure_beranda(): void
         org_build_assets_generate_site_global();
         org_build_assets_generate_beranda_bundle();
         org_build_assets_generate_beranda_shell_bundle();
+        org_build_assets_generate_beranda_js_min();
     } catch (Throwable) {
         /* fallback ke CSS sumber per-file di org_beranda_assets */
     }

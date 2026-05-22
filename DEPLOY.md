@@ -52,10 +52,19 @@ Jika perlu unduh ulang CDN ke lokal:
 
 ```powershell
 .\deploy\download-vendor-assets.ps1
-php deploy\build-beranda-bundle.php
-php deploy\build-beranda-shell-bundle.php
-php deploy\build-site-global-css.php
+php deploy\build-production-assets.php
 ```
+
+Skrip `build-production-assets.php` membangun:
+
+- `assets/css/site-global.min.css`
+- `assets/css/beranda.bundle.min.css` (gabungan + minify CSS beranda)
+- `assets/css/beranda-shell.bundle.min.css`
+- `assets/js/*.min.js` (beranda-lite-render, deferred-load, KPI modal, charts, navbar)
+
+**Beranda production:** bila bundle ada, halaman hanya memuat `beranda-lite.css` (kritis) + bundle async — tidak lagi 6+ file CSS duplikat.
+
+CSS tema lama yang tidak dipakai dipindah ke `assets/css/legacy/`.
 
 ## Update berikutnya
 

@@ -35,60 +35,8 @@
     min-height: 85vh;
     max-height: none;
 }
-.sg-homepage .sg-hero__bg {
-    background:
-        radial-gradient(ellipse 100% 80% at 50% -20%, rgba(56, 189, 248, 0.18), transparent 55%),
-        radial-gradient(ellipse 70% 50% at 100% 30%, rgba(37, 99, 235, 0.22), transparent 50%),
-        radial-gradient(ellipse 60% 45% at 0% 60%, rgba(18, 58, 109, 0.4), transparent 50%),
-        linear-gradient(165deg, #050f1f 0%, var(--sg-navy) 22%, var(--sg-deep) 48%, var(--sg-royal) 78%, #0d3a6e 100%);
-}
-.sg-homepage .sg-hero__bg::before {
-    background-image:
-        linear-gradient(rgba(56, 189, 248, 0.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(56, 189, 248, 0.07) 1px, transparent 1px);
-    background-size: 64px 64px;
-}
-.sg-homepage .sg-hero__eyebrow {
-    background: rgba(8, 28, 58, 0.55);
-    border: 1px solid rgba(56, 189, 248, 0.35);
-    color: #e0f2fe;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-}
-.sg-homepage .sg-hero__title {
-    font-size: clamp(2.25rem, 5.5vw, 3.75rem);
-    font-weight: 800;
-    letter-spacing: -0.045em;
-    line-height: 1.05;
-}
-.sg-homepage .sg-hero__title-primary {
-    color: #ffffff;
-    -webkit-text-fill-color: #ffffff;
-    background: none;
-    -webkit-background-clip: unset;
-    background-clip: unset;
-}
-
-.sg-homepage .sg-hero__title-secondary {
-    color: rgba(186, 230, 253, 0.65);
-    -webkit-text-fill-color: rgba(186, 230, 253, 0.65);
-    background: none;
-}
-.sg-homepage .sg-btn--primary {
-    background: linear-gradient(135deg, var(--sg-cyan) 0%, var(--sg-electric) 100%);
-    box-shadow: 0 4px 24px rgba(56, 189, 248, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.15);
-}
-.sg-homepage .sg-btn--primary:hover {
-    box-shadow: 0 8px 36px rgba(56, 189, 248, 0.55), 0 0 32px rgba(37, 99, 235, 0.25);
-}
-.sg-homepage .sg-hero__glass {
-    border-radius: 20px;
-    border: 1px solid rgba(56, 189, 248, 0.28);
-    box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.08),
-        0 24px 56px rgba(0, 0, 0, 0.28),
-        0 0 48px rgba(56, 189, 248, 0.12);
-}
+/* Hero & navbar beranda: beranda-nav-hero.css */
+/* Tombol hero & glass panel: beranda-design-system.css */
 .sg-homepage .sg-hero__stat-num {
     background: linear-gradient(180deg, #fff 0%, var(--sg-cyan) 100%);
     -webkit-background-clip: text;
@@ -117,7 +65,7 @@
 }
 .sg-homepage #beranda-root > .beranda-section,
 .sg-homepage #beranda-root > section {
-    padding: clamp(3rem, 6vw, 4.5rem) 0 !important;
+    padding: clamp(2.25rem, 4vw, 3rem) 0;
 }
 .sg-homepage #beranda-root .beranda-section--surface-muted,
 .sg-homepage #beranda-root > .beranda-section:nth-child(odd) {
@@ -128,161 +76,12 @@
     background: var(--sg-bg-main) !important;
 }
 
-/* Section headers */
-.sg-homepage .beranda-section__title,
-.sg-homepage .gov-kpi-section__title,
-.sg-homepage .gov-team-target-section__title {
-    font-family: var(--sg-font);
-    font-weight: 800;
-    font-size: clamp(1.45rem, 2.8vw, 2rem);
-    letter-spacing: -0.035em;
-    color: var(--sg-navy) !important;
-}
-.sg-homepage .beranda-section__desc,
-.sg-homepage .gov-kpi-section__subtitle {
-    color: var(--sg-muted) !important;
-    font-size: 0.9375rem;
-    line-height: 1.55;
-    max-width: 40rem;
-}
+/* Kartu, tipografi, tombol: beranda-design-system.css (cascade terakhir) */
 
-/* KPI shell — override index inline */
-.sg-homepage #beranda-root .gov-kpi-section__shell {
-    font-family: var(--sg-font) !important;
-    background: linear-gradient(165deg, rgba(255, 255, 255, 0.98) 0%, rgba(238, 243, 249, 0.95) 100%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.95) !important;
-    border-radius: 20px !important;
-    padding: clamp(1.5rem, 3vw, 2rem) !important;
-    box-shadow: var(--sg-shadow-lg) !important;
-    backdrop-filter: blur(16px);
-}
-.sg-homepage #beranda-root .gov-kpi-section__header {
-    border-bottom-color: rgba(8, 28, 58, 0.06) !important;
-    margin-bottom: 1.5rem !important;
-    padding-bottom: 1.25rem !important;
-}
-.sg-homepage #beranda-root .gov-kpi-section__title {
-    color: var(--sg-navy) !important;
-}
 .sg-homepage #beranda-root .gov-kpi-section__live {
-    background: rgba(16, 185, 129, 0.1) !important;
-    color: #047857 !important;
-    border-color: rgba(16, 185, 129, 0.25) !important;
-}
-
-/* KPI cards premium */
-.sg-homepage #beranda-root .gov-kpi-card {
-    border-radius: 20px !important;
-    border: 1px solid rgba(8, 28, 58, 0.06) !important;
-    background: #fff !important;
-    box-shadow: var(--sg-shadow) !important;
-    padding: 1.35rem 1.25rem !important;
-    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.35s ease !important;
-}
-.sg-homepage #beranda-root .gov-kpi-card:hover {
-    transform: translateY(-8px) !important;
-    border-color: rgba(56, 189, 248, 0.35) !important;
-    box-shadow: var(--sg-shadow-lg), 0 0 0 1px rgba(56, 189, 248, 0.15) !important;
-}
-.sg-homepage #beranda-root .gov-kpi-card__icon {
-    border-radius: 14px !important;
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.28) !important;
-}
-.sg-homepage #beranda-root .gov-kpi-card__pct {
-    color: var(--sg-electric) !important;
-    font-weight: 800;
-}
-.sg-homepage #beranda-root .gov-kpi-card .progress {
-    height: 8px !important;
-    border-radius: 999px !important;
-    background: var(--sg-bg-soft) !important;
-}
-.sg-homepage #beranda-root .gov-kpi-card .progress-bar {
-    background: linear-gradient(90deg, var(--sg-cyan), var(--sg-electric)) !important;
-    box-shadow: 0 0 14px rgba(56, 189, 248, 0.4);
-}
-
-/* Team targets / analytics */
-.sg-homepage #beranda-root .gov-team-target-section__shell--glass,
-.sg-homepage #beranda-root .gov-team-target-section__shell {
-    border-radius: 20px !important;
-    border: 1px solid rgba(8, 28, 58, 0.06) !important;
-    background: rgba(255, 255, 255, 0.96) !important;
-    box-shadow: var(--sg-shadow-lg) !important;
-    backdrop-filter: blur(12px);
-}
-.sg-homepage #beranda-root .gov-team-target-card,
-.sg-homepage #beranda-root .gov-team-target-chart-card {
-    border-radius: 16px !important;
-    border: 1px solid rgba(8, 28, 58, 0.05) !important;
-    box-shadow: var(--sg-shadow) !important;
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-.sg-homepage #beranda-root .gov-team-target-card:hover,
-.sg-homepage #beranda-root .gov-team-target-chart-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--sg-shadow-lg) !important;
-}
-
-/* Visit analytics */
-.sg-homepage #beranda-kunjungan-web .beranda-visit-card {
-    border-radius: 20px !important;
-    border: 1px solid rgba(8, 28, 58, 0.06) !important;
-    background: #fff !important;
-    box-shadow: var(--sg-shadow-lg) !important;
-}
-.sg-homepage #beranda-kunjungan-web .beranda-visit-card::before {
-    background: linear-gradient(90deg, var(--sg-cyan), var(--sg-electric), var(--sg-cyan)) !important;
-    background-size: 200% 100% !important;
-}
-.sg-homepage #beranda-kunjungan-web .beranda-visit-stat {
-    border-radius: 16px !important;
-    background: var(--sg-bg-soft) !important;
-    border: 1px solid rgba(8, 28, 58, 0.04) !important;
-}
-.sg-homepage #beranda-kunjungan-web .beranda-visit-stat__num {
-    color: var(--sg-navy) !important;
-    font-weight: 800;
-}
-.sg-homepage .beranda-visit-chart-shell {
-    border-radius: 16px;
-    padding: 1rem;
-    background: linear-gradient(180deg, var(--sg-bg-soft) 0%, #fff 100%);
-    border: 1px solid rgba(8, 28, 58, 0.05);
-}
-.sg-homepage .sg-chart-glow {
-    border-radius: 12px;
-    box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.08), 0 0 40px rgba(37, 99, 235, 0.06);
-}
-
-/* Content cards */
-.sg-homepage .pi-portal-card,
-.sg-homepage .beranda-galeri-item {
-    border-radius: 20px !important;
-    border: 1px solid rgba(8, 28, 58, 0.06) !important;
-    box-shadow: var(--sg-shadow) !important;
-    overflow: hidden;
-}
-.sg-homepage .pi-portal-card:hover,
-.sg-homepage .beranda-galeri-item:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--sg-shadow-lg) !important;
-    border-color: rgba(56, 189, 248, 0.25) !important;
-}
-.sg-homepage .beranda-section__link-all {
-    color: var(--sg-electric) !important;
-    background: rgba(37, 99, 235, 0.08) !important;
-    border-radius: 999px;
-    padding: 0.4rem 1rem !important;
-    font-weight: 600;
-}
-
-/* Executive summary */
-.sg-homepage #beranda-ringkasan-eksekutif .beranda-exec-card,
-.sg-homepage #beranda-ringkasan-eksekutif .card {
-    border-radius: 20px !important;
-    border: 1px solid rgba(8, 28, 58, 0.06) !important;
-    box-shadow: var(--sg-shadow) !important;
+    background: #ecfdf5 !important;
+    color: var(--ds-success, #047857) !important;
+    border: 1px solid #a7f3d0 !important;
 }
 
 /* Stagger float widgets */
@@ -307,8 +106,12 @@
 }
 
 @media (max-width: 991.98px) {
-    .sg-homepage .sg-hero {
+    .sg-homepage .sg-hero:not(.sg-hero--ultra) {
         min-height: min(85vh, 780px);
+    }
+    .sg-homepage .sg-hero.sg-hero--ultra {
+        min-height: 0;
+        max-height: none;
     }
     .sg-homepage .sg-hero__command-visual {
         display: none !important;

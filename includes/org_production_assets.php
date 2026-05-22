@@ -1,0 +1,110 @@
+<?php
+declare(strict_types=1);
+
+/**
+ * Helper aset production — bundle, preload, font ringan.
+ */
+
+function org_assets_beranda_css_bundle_available(): bool
+{
+    $fs = ORG_ROOT . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda.bundle.min.css';
+
+    return is_file($fs) && (int) filesize($fs) >= 256;
+}
+
+function org_assets_beranda_shell_bundle_available(): bool
+{
+    $fs = ORG_ROOT . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda-shell.bundle.min.css';
+
+    return is_file($fs) && (int) filesize($fs) >= 128;
+}
+
+/**
+ * Path JS beranda: pakai .min.js bila ada (production build).
+ */
+function org_assets_beranda_js_relpath(string $basename): string
+{
+    $base = preg_replace('/\.min\.js$/i', '', $basename);
+    $base = preg_replace('/\.js$/i', '', $base) ?? $basename;
+    $minRel = 'assets/js/' . $base . '.min.js';
+    $minFs = ORG_ROOT . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $minRel);
+    if (is_file($minFs) && (int) filesize($minFs) >= 32) {
+        return $minRel;
+    }
+
+    return 'assets/js/' . $base . '.js';
+}
+
+/**
+ * @param 'style'|'script'|'image'|'font' $as
+ */
+function org_asset_preload_link(string $relativeOrUrl, string $as = 'style', bool $isAbsolute = false): string
+{
+    if ($relativeOrUrl === '') {
+        return '';
+    }
+    if ($isAbsolute) {
+        $href = $relativeOrUrl;
+    } else {
+        $base = org_asset_web_base();
+        $href = $base . '/' . ltrim($relativeOrUrl, '/');
+        $fs = ORG_ROOT . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, ltrim(explode('?', $relativeOrUrl)[0], '/'));
+        if (is_file($fs) && !str_contains($relativeOrUrl, '?')) {
+            $href .= '?v=' . rawurlencode((string) filemtime($fs));
+        }
+    }
+    $esc = htmlspecialchars($href, ENT_QUOTES, 'UTF-8');
+    $attrs = 'rel="preload" href="' . $esc . '" as="' . htmlspecialchars($as, ENT_QUOTES, 'UTF-8') . '"';
+    if ($as === 'style') {
+        $attrs .= ' onload="this.onload=null;this.rel=\'stylesheet\'"';
+    }
+    if ($as === 'font') {
+        $attrs .= ' type="font/woff2" crossorigin';
+    }
+    if ($as === 'image') {
+        $attrs .= ' fetchpriority="high"';
+    }
+
+    return '<link ' . $attrs . '>' . "\n";
+}
+
+/** Font beranda: Inter saja, non-blocking. */
+function org_assets_fonts_beranda_markup(): string
+{
+    return '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n"
+        . '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n"
+        . org_asset_preload_link(
+            'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+            'style',
+            true
+        )
+        . '<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"></noscript>' . "\n";
+}
+
+/** Font halaman portal (non-beranda): Inter + Plus Jakarta Sans. */
+function org_assets_fonts_portal_markup(): string
+{
+    return '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n"
+        . '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n"
+        . org_asset_preload_link(
+            'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap',
+            'style',
+            true
+        )
+        . '<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700&amp;display=swap"></noscript>' . "\n";
+}
+
+/**
+ * Preload logo beranda (LCP).
+ */
+function org_assets_preload_logo_markup(string $logoWebPath): string
+{
+    $logoWebPath = trim($logoWebPath);
+    if ($logoWebPath === '') {
+        return '';
+    }
+    $base = org_asset_web_base();
+    $href = $base . '/' . ltrim($logoWebPath, '/');
+
+    return org_asset_preload_link($href, 'image', true);
+}

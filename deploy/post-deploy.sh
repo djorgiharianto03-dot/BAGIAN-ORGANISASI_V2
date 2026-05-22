@@ -19,6 +19,9 @@ fi
 
 if command -v php >/dev/null 2>&1; then
   php "$ROOT/deploy/ensure-upload-dirs.php"
+  if [[ -f "$ROOT/deploy/build-production-assets.php" ]]; then
+    php "$ROOT/deploy/build-production-assets.php" || echo "[!] build-production-assets gagal — pastikan assets/css/*.min.css ada di repo."
+  fi
 else
   echo "[!] PHP CLI tidak ditemukan — buat folder uploads/* manual atau buka beranda sekali."
 fi

@@ -13,6 +13,7 @@ function org_beranda_assets_prepare_builds(): void
         return;
     }
     $prepared = true;
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_build_assets.php';
     org_build_assets_ensure_beranda();
 }
@@ -72,7 +73,10 @@ function org_beranda_bundle_stylesheet_async_link(): string
     $rel = 'assets/css/beranda.bundle.min.css';
     $fsPath = ORG_ROOT . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $rel);
 
-    return org_asset_stylesheet_async($rel, is_file($fsPath));
+    $out = org_asset_preload_link($rel, 'style');
+    $out .= org_asset_stylesheet_async($rel, is_file($fsPath));
+
+    return $out;
 }
 
 function org_beranda_bundle_stylesheet_link_fallback(): string
@@ -98,7 +102,10 @@ function org_beranda_shell_stylesheet_async_link(): string
         return org_container_global_stylesheet_link_async();
     }
 
-    return org_asset_stylesheet_async('assets/css/beranda-shell.bundle.min.css');
+    $rel = 'assets/css/beranda-shell.bundle.min.css';
+    $out = org_asset_preload_link($rel, 'style');
+
+    return $out . org_asset_stylesheet_async($rel);
 }
 
 function org_container_global_stylesheet_link_async(): string
@@ -125,22 +132,32 @@ function org_beranda_header_vendor_markup(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_vendor_assets.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_theme_assets.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_navbar_assets.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_modal_layer_assets.php';
 
-    $out = org_vendor_stylesheet_preload(org_vendor_bootstrap_css());
+    $out = org_assets_fonts_beranda_markup();
+    $out .= org_vendor_stylesheet_preload(org_vendor_bootstrap_css());
     $out .= org_vendor_stylesheet_preload(org_vendor_fontawesome_css());
     $out .= org_asset_stylesheet_async('assets/css/org-dark-mode.css?v=1', true);
     $out .= org_asset_stylesheet_async('assets/css/org-navbar.css?v=10', true);
     $out .= org_asset_stylesheet_async('assets/css/org-modal-layer.css', true);
     $out .= org_beranda_lite_stylesheet_link();
-    $out .= org_beranda_layout_fix_stylesheet_link();
-    $out .= org_beranda_lightweight_stylesheet_link();
+
+    if (!org_assets_beranda_css_bundle_available()) {
+        $out .= org_beranda_layout_fix_stylesheet_link();
+        $out .= org_beranda_lightweight_stylesheet_link();
+        $out .= org_beranda_mobile_stylesheet_link();
+        $out .= org_beranda_design_system_stylesheet_link();
+        $out .= org_beranda_nav_hero_stylesheet_link();
+        $out .= org_beranda_dashboard_cards_stylesheet_link();
+    }
+
     $out .= '<style id="sg-beranda-head-critical">'
         . 'body.sg-homepage #sgPortalLoader{display:none!important}'
         . 'body.sg-homepage.sg-portal-page .site-header--sg-portal{position:fixed!important;top:0;left:0;right:0;z-index:1100}'
-        . 'body.sg-homepage.sg-portal-page>#sg-hero{padding-top:var(--sg-portal-header-offset,7.5rem)!important}'
+        . 'body.sg-homepage.sg-portal-page>#sg-hero{padding-top:var(--sg-portal-header-offset,6.25rem)!important}'
         . '</style>' . "\n";
 
     return $out;
@@ -179,18 +196,55 @@ function org_beranda_lightweight_stylesheet_link(): string
     return org_asset_stylesheet_link('assets/css/beranda-lightweight.css');
 }
 
-function org_beranda_lite_render_script_tag(): string
+/** Beranda — responsive mobile (sync, setelah lightweight). */
+function org_beranda_mobile_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_script_defer('assets/js/beranda-lite-render.js');
+    return org_asset_stylesheet_link('assets/css/beranda-mobile.css');
+}
+
+/** Beranda — design system UI (sync, cascade terakhir). */
+function org_beranda_design_system_stylesheet_link(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+
+    return org_asset_stylesheet_link('assets/css/beranda-design-system.css');
+}
+
+/** Beranda — navbar & hero premium ringan (sync, setelah design system). */
+function org_beranda_nav_hero_stylesheet_link(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+
+    return org_asset_stylesheet_link('assets/css/beranda-nav-hero.css');
+}
+
+/** Beranda — kartu statistik & dashboard enterprise (sync, cascade terakhir). */
+function org_beranda_dashboard_cards_stylesheet_link(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+
+    return org_asset_stylesheet_link('assets/css/beranda-dashboard-cards.css');
+}
+
+function org_beranda_lite_render_script_tag(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
+    $rel = org_assets_beranda_js_relpath('beranda-lite-render.js');
+    $out = org_asset_script_preload($rel);
+
+    return $out . org_asset_script_defer($rel);
 }
 
 function org_beranda_deferred_script_tag(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
+    $rel = org_assets_beranda_js_relpath('beranda-deferred-load.js');
 
-    return org_asset_script_defer('assets/js/beranda-deferred-load.js');
+    return org_asset_script_defer($rel);
 }
 
 function org_beranda_portal_header_offset_script(): string

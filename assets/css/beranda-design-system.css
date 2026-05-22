@@ -1,0 +1,525 @@
+/**
+ * Beranda — design system (enterprise gov, minimal, lightweight).
+ * Muat terakhir; menimpa variasi radius/shadow/tipografi dari bundle lama.
+ */
+
+body.sg-homepage.sg-portal-page {
+    --ds-font: 'Inter', system-ui, -apple-system, sans-serif;
+    --ds-navy: #0f2744;
+    --ds-navy-muted: #1e3a5f;
+    --ds-text: #1e293b;
+    --ds-text-muted: #64748b;
+    --ds-border: #e2e8f0;
+    --ds-border-strong: #cbd5e1;
+    --ds-surface: #ffffff;
+    --ds-surface-muted: #f4f7fb;
+    --ds-primary: #0a57b7;
+    --ds-primary-hover: #084a9c;
+    --ds-primary-soft: #eff6ff;
+    --ds-success: #047857;
+    --ds-radius: 12px;
+    --ds-radius-pill: 999px;
+    --ds-shadow: 0 1px 2px rgba(15, 39, 68, 0.05), 0 4px 14px rgba(15, 39, 68, 0.06);
+    --ds-shadow-hover: 0 2px 4px rgba(15, 39, 68, 0.06), 0 8px 20px rgba(15, 39, 68, 0.08);
+    --ds-space-2: 0.5rem;
+    --ds-space-3: 0.75rem;
+    --ds-space-4: 1rem;
+    --ds-space-5: 1.25rem;
+    --ds-space-6: 1.5rem;
+    --ds-card-pad: 1rem 1.125rem;
+    --ds-shell-pad: 1.125rem 1.25rem;
+    --ds-text-xs: 0.75rem;
+    --ds-text-sm: 0.875rem;
+    --ds-text-base: 1rem;
+    --ds-h2: 1.25rem;
+    --ds-h3: 0.9375rem;
+    --ds-label: 0.6875rem;
+    --ds-icon: 2.5rem;
+    --ds-icon-sm: 2.25rem;
+    --ds-btn-pad: 0.625rem 1.125rem;
+    --ds-transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+
+    --beranda-card-radius: var(--ds-radius);
+    --beranda-card-border: 1px solid var(--ds-border);
+    --beranda-shadow: var(--ds-shadow);
+    --beranda-shadow-hover: var(--ds-shadow-hover);
+    --beranda-surface: var(--ds-surface);
+    --beranda-surface-alt: var(--ds-surface-muted);
+}
+
+body.sg-homepage.sg-portal-page,
+body.sg-homepage #beranda-root {
+    font-family: var(--ds-font);
+    color: var(--ds-text);
+}
+
+/* —— Tipografi & hierarki —— */
+body.sg-homepage .sg-hero__eyebrow,
+body.sg-homepage .sg-hero__title-secondary {
+    margin: 0 0 var(--ds-space-2);
+    font-size: var(--ds-text-xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(226, 232, 240, 0.85);
+    line-height: 1.35;
+}
+
+body.sg-homepage .sg-hero__title {
+    margin: 0 0 var(--ds-space-3);
+    font-family: var(--ds-font);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: #fff;
+}
+
+body.sg-homepage .sg-hero__tagline {
+    margin: 0;
+    font-size: var(--ds-text-sm);
+    line-height: 1.55;
+    color: rgba(226, 232, 240, 0.92);
+}
+
+body.sg-homepage .beranda-section__title,
+body.sg-homepage .gov-kpi-section__title,
+body.sg-homepage .gov-team-target-section__title,
+body.sg-homepage .beranda-exec-section__head .beranda-section__title {
+    font-family: var(--ds-font) !important;
+    font-size: var(--ds-h2) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+    line-height: 1.3 !important;
+    color: var(--ds-navy) !important;
+    text-transform: none !important;
+}
+
+body.sg-homepage .beranda-section__desc,
+body.sg-homepage .gov-kpi-section__subtitle,
+body.sg-homepage .gov-team-target-section__subtitle,
+body.sg-homepage .beranda-exec-section__eyebrow {
+    font-family: var(--ds-font);
+    font-size: var(--ds-text-sm) !important;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--ds-text-muted) !important;
+}
+
+body.sg-homepage .beranda-exec-section__eyebrow {
+    font-size: var(--ds-label) !important;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+body.sg-homepage .pi-portal-card__title,
+body.sg-homepage .gov-kpi-card__title,
+body.sg-homepage .gov-team-target-dash-card__title,
+body.sg-homepage .beranda-exec-card__title,
+body.sg-homepage .pi-portal-card__hover-title {
+    font-family: var(--ds-font);
+    font-size: var(--ds-h3) !important;
+    font-weight: 600 !important;
+    line-height: 1.35 !important;
+    color: var(--ds-navy) !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+}
+
+body.sg-homepage .pi-portal-card__excerpt,
+body.sg-homepage .gov-kpi-card__info,
+body.sg-homepage .beranda-exec-card__text,
+body.sg-homepage .gov-team-target-section__subtitle {
+    font-size: var(--ds-text-sm);
+    line-height: 1.5;
+    color: var(--ds-text-muted);
+}
+
+body.sg-homepage .gov-kpi-card__pct {
+    font-family: var(--ds-font);
+    font-size: clamp(1.5rem, 2.5vw, 1.75rem) !important;
+    font-weight: 700 !important;
+    color: var(--ds-primary) !important;
+}
+
+/* —— Kartu & panel (radius, shadow, padding seragam) —— */
+body.sg-homepage .pi-portal-card,
+body.sg-homepage .beranda-galeri-item,
+body.sg-homepage .gov-kpi-card,
+body.sg-homepage .gov-team-target-dash-card,
+body.sg-homepage .beranda-exec-grid .beranda-exec-card,
+body.sg-homepage .beranda-visit-card,
+body.sg-homepage .beranda-visit-stat,
+body.sg-homepage .sg-quick-menu__card,
+body.sg-homepage .sg-hero-stats .sg-stat-glass,
+body.sg-homepage .sg-hero-stat-card,
+body.sg-homepage .card.section-card,
+body.sg-homepage #beranda-root > .alert {
+    border-radius: var(--ds-radius) !important;
+    border: 1px solid var(--ds-border) !important;
+    box-shadow: var(--ds-shadow) !important;
+    background: var(--ds-surface) !important;
+    transition: var(--ds-transition) !important;
+}
+
+body.sg-homepage .gov-kpi-section__shell,
+body.sg-homepage .gov-team-target-section__shell,
+body.sg-homepage .gov-team-target-section__shell--glass {
+    border-radius: var(--ds-radius) !important;
+    border: 1px solid var(--ds-border) !important;
+    box-shadow: var(--ds-shadow) !important;
+    background: var(--ds-surface) !important;
+    padding: var(--ds-shell-pad) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+body.sg-homepage .gov-kpi-section__shell {
+    background: var(--ds-surface-muted) !important;
+}
+
+body.sg-homepage .pi-portal-card,
+body.sg-homepage .gov-kpi-card,
+body.sg-homepage .gov-team-target-dash-card,
+body.sg-homepage .beranda-exec-grid .beranda-exec-card {
+    padding: var(--ds-card-pad) !important;
+}
+
+body.sg-homepage .pi-portal-card .card-body,
+body.sg-homepage .pi-portal-card__body {
+    padding: var(--ds-card-pad) !important;
+}
+
+body.sg-homepage .gov-kpi-card__row {
+    padding: 0 !important;
+    gap: var(--ds-space-3);
+}
+
+body.sg-homepage .beranda-visit-card .card-body {
+    padding: var(--ds-shell-pad) !important;
+}
+
+body.sg-homepage .beranda-visit-chart-shell {
+    border-radius: var(--ds-radius) !important;
+    border: 1px solid var(--ds-border) !important;
+    background: var(--ds-surface-muted) !important;
+    box-shadow: none !important;
+    padding: var(--ds-space-4) !important;
+}
+
+body.sg-homepage #beranda-kunjungan-web .beranda-visit-card::before {
+    display: none !important;
+}
+
+body.sg-homepage .pi-portal-card:hover,
+body.sg-homepage .beranda-galeri-item:hover,
+body.sg-homepage .gov-kpi-card:hover,
+body.sg-homepage .gov-team-target-dash-card:hover,
+body.sg-homepage .beranda-exec-grid .beranda-exec-card:hover,
+body.sg-homepage .beranda-visit-stat:hover,
+body.sg-homepage .sg-quick-menu__card:hover,
+body.sg-homepage .sg-hero-stats .sg-stat-display:hover {
+    transform: none !important;
+    box-shadow: var(--ds-shadow-hover) !important;
+    border-color: var(--ds-border-strong) !important;
+}
+
+/* Hero stat — tema gelap, ukuran konsisten */
+body.sg-homepage .sg-hero-stats .sg-stat-glass,
+body.sg-homepage .sg-hero-stat-card {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    padding: var(--ds-space-4) var(--ds-space-3) !important;
+    min-height: 5.5rem;
+}
+
+body.sg-homepage .sg-stat-glass__num {
+    font-size: clamp(1.35rem, 2.5vw, 1.5rem) !important;
+    font-weight: 700 !important;
+    line-height: 1.15;
+}
+
+body.sg-homepage .sg-stat-glass__label {
+    font-size: var(--ds-text-xs) !important;
+    font-weight: 500;
+    color: rgba(226, 232, 240, 0.88) !important;
+}
+
+/* —— Ikon —— */
+body.sg-homepage .sg-quick-menu__icon,
+body.sg-homepage .gov-kpi-card__icon,
+body.sg-homepage .gov-team-target-dash-card__icon,
+body.sg-homepage .beranda-exec-card__icon-wrap {
+    width: var(--ds-icon) !important;
+    height: var(--ds-icon) !important;
+    min-width: var(--ds-icon);
+    min-height: var(--ds-icon);
+    border-radius: 10px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.0625rem !important;
+    box-shadow: none !important;
+}
+
+body.sg-homepage .gov-kpi-card__icon {
+    border-radius: 10px !important;
+    background: var(--ds-primary) !important;
+    color: #fff !important;
+}
+
+body.sg-homepage .gov-kpi-card--success .gov-kpi-card__icon {
+    background: var(--ds-success) !important;
+}
+
+body.sg-homepage .gov-kpi-card--danger .gov-kpi-card__icon {
+    background: #b91c1c !important;
+}
+
+body.sg-homepage .sg-quick-menu__icon {
+    background: var(--ds-primary-soft) !important;
+    color: var(--ds-primary) !important;
+    border: 1px solid #bfdbfe !important;
+}
+
+body.sg-homepage .sg-quick-menu__arrow {
+    font-size: 0.875rem;
+    color: var(--ds-text-muted);
+    opacity: 0.85;
+}
+
+/* —— Tombol —— */
+body.sg-homepage .sg-btn {
+    font-family: var(--ds-font);
+    font-size: var(--ds-text-sm);
+    font-weight: 600;
+    line-height: 1.25;
+    border-radius: var(--ds-radius-pill);
+    padding: var(--ds-btn-pad);
+    min-height: 2.75rem;
+    transition: var(--ds-transition);
+    text-decoration: none;
+    border: 1px solid transparent;
+}
+
+body.sg-homepage .sg-btn:hover {
+    transform: none !important;
+}
+
+body.sg-homepage .sg-btn--hero-primary {
+    background: var(--ds-primary) !important;
+    color: #fff !important;
+    border-color: var(--ds-primary-hover) !important;
+    box-shadow: var(--ds-shadow) !important;
+    border-radius: 8px !important;
+}
+
+body.sg-homepage .sg-btn--hero-primary:hover {
+    background: var(--ds-primary-hover) !important;
+    box-shadow: var(--ds-shadow-hover) !important;
+}
+
+body.sg-homepage .sg-btn--hero-secondary {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    border-radius: 8px !important;
+}
+
+body.sg-homepage .sg-btn--hero-secondary:hover {
+    background: rgba(255, 255, 255, 0.16) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+body.sg-homepage .sg-btn--primary {
+    background: var(--ds-primary) !important;
+    color: #fff !important;
+    border: 1px solid var(--ds-primary-hover) !important;
+    box-shadow: var(--ds-shadow) !important;
+}
+
+body.sg-homepage .sg-btn--primary:hover {
+    background: var(--ds-primary-hover) !important;
+    box-shadow: var(--ds-shadow-hover) !important;
+    transform: none !important;
+}
+
+body.sg-homepage .beranda-section__link-all,
+body.sg-homepage .gov-kpi-card__detail-btn,
+body.sg-homepage .beranda-exec-ghost-btn,
+body.sg-homepage .gov-team-target-section__year-btn {
+    font-family: var(--ds-font);
+    font-size: var(--ds-text-xs);
+    font-weight: 600;
+    line-height: 1.3;
+    border-radius: var(--ds-radius-pill);
+    padding: 0.4rem 0.85rem;
+    transition: var(--ds-transition);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+}
+
+body.sg-homepage .beranda-section__link-all {
+    color: var(--ds-primary) !important;
+    background: var(--ds-primary-soft) !important;
+    border: 1px solid #bfdbfe !important;
+}
+
+body.sg-homepage .beranda-section__link-all:hover {
+    color: #fff !important;
+    background: var(--ds-primary) !important;
+    border-color: var(--ds-primary) !important;
+}
+
+body.sg-homepage .gov-kpi-card__detail-btn {
+    color: var(--ds-primary) !important;
+    background: var(--ds-surface) !important;
+    border: 1px solid var(--ds-border) !important;
+}
+
+body.sg-homepage .gov-kpi-card__detail-btn:hover {
+    color: #fff !important;
+    background: var(--ds-primary) !important;
+    border-color: var(--ds-primary) !important;
+}
+
+body.sg-homepage .beranda-exec-ghost-btn {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: var(--ds-text-sm);
+    border-radius: var(--ds-radius);
+}
+
+body.sg-homepage .beranda-exec-ghost-btn--visi,
+body.sg-homepage .beranda-exec-ghost-btn--misi,
+body.sg-homepage .beranda-exec-ghost-btn--struktur {
+    color: var(--ds-primary) !important;
+    background: var(--ds-surface) !important;
+    border: 1px solid var(--ds-border) !important;
+}
+
+body.sg-homepage .beranda-exec-ghost-btn--visi:hover,
+body.sg-homepage .beranda-exec-ghost-btn--misi:hover,
+body.sg-homepage .beranda-exec-ghost-btn--struktur:hover {
+    color: #fff !important;
+    background: var(--ds-primary) !important;
+    border-color: var(--ds-primary) !important;
+    box-shadow: var(--ds-shadow) !important;
+}
+
+body.sg-homepage .gov-team-target-section__year-btn {
+    color: var(--ds-text-muted);
+    background: var(--ds-surface);
+    border: 1px solid var(--ds-border);
+}
+
+body.sg-homepage .gov-team-target-section__year-btn:hover,
+body.sg-homepage .gov-team-target-section__year-btn.is-active {
+    color: #fff !important;
+    background: var(--ds-primary) !important;
+    border-color: var(--ds-primary) !important;
+}
+
+/* Quick menu card */
+body.sg-homepage .sg-quick-menu__card {
+    padding: var(--ds-space-3) var(--ds-space-4) !important;
+    min-height: 4.25rem;
+    background: var(--ds-surface) !important;
+    border: 1px solid var(--ds-border) !important;
+    gap: var(--ds-space-3);
+    text-decoration: none;
+    color: var(--ds-text);
+}
+
+body.sg-homepage .sg-quick-menu__label {
+    font-size: var(--ds-text-sm) !important;
+    font-weight: 600 !important;
+    color: var(--ds-navy) !important;
+}
+
+body.sg-homepage .sg-quick-menu__desc {
+    font-size: var(--ds-text-xs) !important;
+    color: var(--ds-text-muted) !important;
+}
+
+/* Progress & badge — datar */
+body.sg-homepage .gov-kpi-card__progress,
+body.sg-homepage .gov-kpi-card__progress-fill {
+    border-radius: var(--ds-radius-pill) !important;
+    box-shadow: none !important;
+    animation: none !important;
+}
+
+body.sg-homepage .gov-kpi-card .progress-bar {
+    background: var(--ds-primary) !important;
+    box-shadow: none !important;
+}
+
+body.sg-homepage .gov-kpi-card--success .progress-bar,
+body.sg-homepage .gov-kpi-card--success .gov-kpi-card__progress-fill {
+    background: var(--ds-success) !important;
+}
+
+body.sg-homepage .gov-kpi-card__badge,
+body.sg-homepage .gov-kpi-section__live,
+body.sg-homepage .gov-team-target-status-badge {
+    font-size: var(--ds-label);
+    font-weight: 600;
+    border-radius: var(--ds-radius-pill);
+    padding: 0.25rem 0.55rem;
+}
+
+body.sg-homepage .gov-kpi-section__header {
+    margin-bottom: var(--ds-space-5) !important;
+    padding-bottom: var(--ds-space-4) !important;
+    border-bottom: 1px solid var(--ds-border) !important;
+}
+
+body.sg-homepage .beranda-section__head-row,
+body.sg-homepage .beranda-exec-section__head,
+body.sg-homepage .gov-team-target-section__header {
+    margin-bottom: var(--ds-space-5) !important;
+}
+
+body.sg-homepage .beranda-exec-card__quote {
+    font-size: 3rem !important;
+    opacity: 0.06 !important;
+}
+
+/* Galeri thumbnail */
+body.sg-homepage .beranda-galeri-item {
+    overflow: hidden;
+}
+
+body.sg-homepage .beranda-galeri-item img {
+    border-radius: var(--ds-radius) var(--ds-radius) 0 0;
+}
+
+body.sg-homepage .sg-hero__glass {
+    border-radius: var(--ds-radius) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: var(--ds-shadow) !important;
+    backdrop-filter: none !important;
+}
+
+body.sg-homepage #beranda-kunjungan-web .beranda-visit-stat__num {
+    font-family: var(--ds-font);
+    font-weight: 700 !important;
+    color: var(--ds-navy) !important;
+}
+
+body.sg-homepage .pi-portal-card__meta,
+body.sg-homepage .pi-portal-card__date {
+    font-size: var(--ds-text-xs);
+    color: var(--ds-text-muted);
+}
+
+body.sg-homepage .sg-chart-glow {
+    border-radius: var(--ds-radius) !important;
+    box-shadow: none !important;
+}

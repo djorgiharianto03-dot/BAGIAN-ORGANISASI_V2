@@ -43,6 +43,12 @@ function org_asset_stylesheet_link(string $relativePath): string
 
 function org_asset_script_defer(string $relativePath): string
 {
+    if (str_starts_with(ltrim($relativePath, '/'), 'assets/js/')) {
+        if (!function_exists('org_assets_beranda_js_relpath')) {
+            require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
+        }
+        $relativePath = org_assets_beranda_js_relpath(basename($relativePath));
+    }
     $base = org_asset_web_base();
     $src = $base . '/' . ltrim($relativePath, '/');
     $fs = ORG_ROOT . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, ltrim(explode('?', $relativePath)[0], '/'));
@@ -51,4 +57,22 @@ function org_asset_script_defer(string $relativePath): string
     }
 
     return '<script src="' . htmlspecialchars($src, ENT_QUOTES, 'UTF-8') . '" defer></script>' . "\n";
+}
+
+function org_asset_script_preload(string $relativePath): string
+{
+    if (str_starts_with(ltrim($relativePath, '/'), 'assets/js/')) {
+        if (!function_exists('org_assets_beranda_js_relpath')) {
+            require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
+        }
+        $relativePath = org_assets_beranda_js_relpath(basename($relativePath));
+    }
+    $base = org_asset_web_base();
+    $src = $base . '/' . ltrim($relativePath, '/');
+    $fs = ORG_ROOT . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, ltrim(explode('?', $relativePath)[0], '/'));
+    if (is_file($fs) && !str_contains($relativePath, '?')) {
+        $src .= '?v=' . rawurlencode((string) filemtime($fs));
+    }
+
+    return '<link rel="preload" href="' . htmlspecialchars($src, ENT_QUOTES, 'UTF-8') . '" as="script">' . "\n";
 }

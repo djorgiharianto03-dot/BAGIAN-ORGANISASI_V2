@@ -62,7 +62,7 @@ $sgQuickLinks[] = $sgEOrgQuick;
 
 
 
-<section class="hero-section sg-hero sg-hero--ultra sg-hero--govtech" id="sg-hero" aria-label="Smart Governance Portal">
+<section class="hero-section sg-hero sg-hero--ultra sg-hero--govtech sg-hero--compact" id="sg-hero" aria-labelledby="beranda-hero-title">
 
     <div class="sg-hero__bg" aria-hidden="true"></div>
 
@@ -76,9 +76,9 @@ $sgQuickLinks[] = $sgEOrgQuick;
 
         <div class="sg-hero__copy hero-text sg-reveal">
 
-            <h1 class="sg-hero__title">
+            <p class="sg-hero__eyebrow sg-hero__title-secondary">Smart Governance Portal</p>
 
-                <span class="sg-hero__title-secondary">Smart Governance Portal</span>
+            <h1 class="sg-hero__title" id="beranda-hero-title">
 
                 <span class="sg-hero__title-primary">Bagian Organisasi</span>
 

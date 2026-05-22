@@ -10,7 +10,10 @@ body.sg-homepage.sg-portal-page {
 body.sg-homepage.sg-portal-page {
     --container-max: 1280px;
     --layout-max-width: 1280px;
-    --beranda-gutter: clamp(1rem, 2.5vw, 2rem);
+    --beranda-gutter: clamp(1rem, 2.5vw, 1.5rem);
+    --beranda-section-y: clamp(2.25rem, 4vw, 3rem);
+    --beranda-section-head-gap: 1.25rem;
+    --beranda-card-radius: 12px;
     --beranda-hero-bg: linear-gradient(135deg, #07325a 0%, #0f4c81 100%);
 }
 
@@ -144,20 +147,20 @@ body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
 body.sg-homepage.sg-portal-page > section#sg-hero.hero-section,
 body.sg-homepage.sg-portal-page > #sg-hero.sg-hero {
     min-height: 0 !important;
-    padding-bottom: clamp(0.85rem, 1.8vw, 1.25rem) !important;
+    padding-bottom: clamp(1rem, 2.2vw, 1.5rem) !important;
     padding-top: var(--sg-portal-header-offset, 7.5rem) !important;
 }
 
 body.sg-homepage .sg-hero.sg-hero--ultra {
     min-height: 0 !important;
     max-height: none !important;
-    padding-top: clamp(0.35rem, 1vw, 0.65rem);
-    padding-bottom: clamp(0.85rem, 1.8vw, 1.25rem) !important;
+    padding-top: clamp(0.5rem, 1.2vw, 0.85rem);
+    padding-bottom: clamp(1rem, 2.2vw, 1.5rem) !important;
 }
 
 body.sg-homepage.sg-portal-page .container-global.hero-inner {
-    grid-template-columns: minmax(0, 1fr) minmax(0, min(420px, 38vw));
-    gap: clamp(1.25rem, 3vw, 2.5rem);
+    grid-template-columns: minmax(0, 1fr) minmax(0, min(380px, 36vw));
+    gap: clamp(1rem, 2.5vw, 1.75rem);
     align-items: center;
 }
 
@@ -216,17 +219,21 @@ body.sg-homepage .sg-hero__copy {
 
 /* Quick access — tidak terlalu melebar & pipih */
 body.sg-homepage .shortcut-grid.container-global {
-    margin-top: clamp(1.25rem, 2.5vw, 2rem);
+    margin-top: clamp(1rem, 2vw, 1.35rem);
 }
 
 body.sg-homepage .sg-quick-menu {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: clamp(0.875rem, 1.5vw, 1.125rem);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+    width: 100%;
 }
 
 body.sg-homepage .sg-quick-menu__card {
-    padding: clamp(1rem, 1.5vw, 1.2rem) clamp(1rem, 2vw, 1.35rem);
-    min-height: 4.5rem;
+    padding: clamp(0.85rem, 1.5vw, 1rem) clamp(0.9rem, 1.5vw, 1.1rem);
+    min-height: 4.25rem;
+    height: 100%;
+    align-items: center;
 }
 
 body.sg-homepage .sg-quick-menu__label {
@@ -245,7 +252,8 @@ body.sg-homepage .sg-quick-menu__icon {
 
 /* Statistik hero — kartu lebih tinggi, angka terbaca */
 body.sg-homepage .stats-grid.container-global {
-    margin-top: clamp(1rem, 2vw, 1.5rem);
+    margin-top: clamp(0.75rem, 1.5vw, 1.1rem);
+    margin-bottom: 0;
 }
 
 body.sg-homepage .sg-hero-stats {

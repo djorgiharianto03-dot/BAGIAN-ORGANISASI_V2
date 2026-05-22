@@ -1,0 +1,609 @@
+/**
+ * Beranda — kartu statistik & dashboard (enterprise, putih bersih, ringan).
+ */
+
+body.sg-homepage {
+    --dash-card-radius: 12px;
+    --dash-card-border: 1px solid #e2e8f0;
+    --dash-card-shadow: 0 1px 2px rgba(15, 39, 68, 0.04), 0 4px 14px rgba(15, 39, 68, 0.06);
+    --dash-card-shadow-hover: 0 2px 6px rgba(15, 39, 68, 0.06), 0 10px 22px rgba(15, 39, 68, 0.08);
+    --dash-shell-bg: #ffffff;
+    --dash-shell-pad: clamp(1rem, 2vw, 1.25rem);
+    --dash-num: #0f2744;
+    --dash-muted: #64748b;
+    --dash-primary: #0a57b7;
+    --dash-success: #047857;
+    --dash-danger: #b91c1c;
+    --dash-warning: #b45309;
+}
+
+/* —— Panel shell (KPI & Tim Kerja) —— */
+body.sg-homepage #beranda-root .gov-kpi-section__shell,
+body.sg-homepage #beranda-root .gov-team-target-section__shell,
+body.sg-homepage #beranda-root .gov-team-target-section__shell--glass {
+    font-family: var(--ds-font, 'Inter', system-ui, sans-serif) !important;
+    background: var(--dash-shell-bg) !important;
+    border: var(--dash-card-border) !important;
+    border-radius: var(--dash-card-radius) !important;
+    box-shadow: var(--dash-card-shadow) !important;
+    padding: var(--dash-shell-pad) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-section__header,
+body.sg-homepage #beranda-root .gov-team-target-section__header {
+    align-items: flex-end;
+    gap: 0.75rem 1rem;
+    margin-bottom: 1rem !important;
+    padding-bottom: 0.75rem !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-section__title,
+body.sg-homepage #beranda-root .gov-team-target-section__title {
+    font-size: 1.125rem !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em;
+    color: var(--dash-num) !important;
+    text-transform: none !important;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-section__subtitle,
+body.sg-homepage #beranda-root .gov-team-target-section__subtitle {
+    font-size: 0.8125rem !important;
+    color: var(--dash-muted) !important;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-section__live {
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    background: #ecfdf5 !important;
+    color: var(--dash-success) !important;
+    border: 1px solid #a7f3d0 !important;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-section__live-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--dash-success) !important;
+    box-shadow: none !important;
+    animation: none !important;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-section__count {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--dash-muted);
+}
+
+/* —— Grid & kartu KPI —— */
+body.sg-homepage #beranda-root .gov-kpi-grid > .col {
+    display: flex;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background: #fff !important;
+    border: var(--dash-card-border) !important;
+    border-radius: var(--dash-card-radius) !important;
+    box-shadow: var(--dash-card-shadow) !important;
+    transition: box-shadow 0.15s ease, border-color 0.15s ease !important;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card:hover {
+    transform: none !important;
+    border-color: #cbd5e1 !important;
+    box-shadow: var(--dash-card-shadow-hover) !important;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card__row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.875rem;
+    padding: 1rem 1.125rem !important;
+    flex: 1;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card__icon {
+    flex: 0 0 2.75rem;
+    width: 2.75rem !important;
+    height: 2.75rem !important;
+    min-width: 2.75rem;
+    border-radius: 10px !important;
+    font-size: 1.0625rem !important;
+    color: var(--dash-primary) !important;
+    background: #eff6ff !important;
+    border: 1px solid #bfdbfe !important;
+    box-shadow: none !important;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card--success .gov-kpi-card__icon {
+    color: var(--dash-success) !important;
+    background: #ecfdf5 !important;
+    border-color: #a7f3d0 !important;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card--danger .gov-kpi-card__icon {
+    color: var(--dash-danger) !important;
+    background: #fef2f2 !important;
+    border-color: #fecaca !important;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card--warning .gov-kpi-card__icon {
+    color: var(--dash-warning) !important;
+    background: #fffbeb !important;
+    border-color: #fde68a !important;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.5rem 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card__title {
+    font-size: 0.8125rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+    color: var(--dash-num) !important;
+    line-height: 1.35;
+    margin: 0;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card__head-aside {
+    align-items: flex-end;
+    text-align: right;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card__pct {
+    font-family: var(--ds-font, 'Inter', system-ui, sans-serif);
+    font-size: clamp(1.75rem, 1.5rem + 0.6vw, 2.125rem) !important;
+    font-weight: 700 !important;
+    font-variant-numeric: tabular-nums;
+    line-height: 1 !important;
+    letter-spacing: -0.03em;
+    color: var(--dash-primary) !important;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card--success .gov-kpi-card__pct {
+    color: var(--dash-success) !important;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card--danger .gov-kpi-card__pct {
+    color: var(--dash-danger) !important;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card__pct-unit {
+    font-size: 0.5em;
+    font-weight: 600;
+    opacity: 0.75;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card__badge {
+    font-size: 0.625rem;
+    font-weight: 600;
+    padding: 0.2rem 0.45rem;
+    border-radius: 999px;
+    line-height: 1.2;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card__info {
+    font-size: 0.8125rem;
+    color: var(--dash-muted);
+    margin: 0 0 0.5rem;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card__progress {
+    height: 6px !important;
+    margin-bottom: 0.5rem;
+    background: #e8eef4 !important;
+    border-radius: 999px;
+    box-shadow: none !important;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card__progress-fill {
+    background: var(--dash-primary) !important;
+    box-shadow: none !important;
+    animation: none !important;
+    width: var(--gov-kpi-pct, 0%) !important;
+    transition: width 0.35s ease;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card--success .gov-kpi-card__progress-fill {
+    background: var(--dash-success) !important;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card--danger .gov-kpi-card__progress-fill {
+    background: var(--dash-danger) !important;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card__trend {
+    font-size: 0.6875rem;
+    font-weight: 600;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card__compare-from,
+body.sg-homepage #beranda-root .gov-kpi-card__compare-to {
+    font-variant-numeric: tabular-nums;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card__compare-to {
+    font-size: 1.125rem !important;
+    font-weight: 700 !important;
+    color: var(--dash-num) !important;
+}
+
+body.sg-homepage #beranda-root .gov-kpi-card__detail-btn {
+    font-size: 0.6875rem;
+    padding: 0.35rem 0.65rem;
+    border-radius: 8px;
+}
+
+/* —— Tim Kerja dashboard —— */
+body.sg-homepage #beranda-root .gov-team-target-dash-grid > [class*="col-"] {
+    display: flex;
+}
+
+body.sg-homepage #beranda-root .gov-team-target-dash-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: #fff !important;
+    border: var(--dash-card-border) !important;
+    border-radius: var(--dash-card-radius) !important;
+    box-shadow: var(--dash-card-shadow) !important;
+    padding: 1rem 1.125rem !important;
+    transition: box-shadow 0.15s ease, border-color 0.15s ease !important;
+}
+
+body.sg-homepage #beranda-root .gov-team-target-dash-card:hover {
+    transform: none !important;
+    border-color: #cbd5e1 !important;
+    box-shadow: var(--dash-card-shadow-hover) !important;
+}
+
+body.sg-homepage #beranda-root .gov-team-target-dash-card__head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+body.sg-homepage #beranda-root .gov-team-target-dash-card__icon {
+    flex: 0 0 2.75rem;
+    width: 2.75rem !important;
+    height: 2.75rem !important;
+    border-radius: 10px !important;
+    font-size: 1.0625rem !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    color: var(--dash-primary) !important;
+    background: #eff6ff !important;
+    border: 1px solid #bfdbfe !important;
+    box-shadow: none !important;
+}
+
+body.sg-homepage #beranda-root .gov-team-target-dash-card--status-direncanakan .gov-team-target-dash-card__icon {
+    color: var(--dash-muted) !important;
+    background: #f1f5f9 !important;
+    border-color: #e2e8f0 !important;
+}
+
+body.sg-homepage #beranda-root .gov-team-target-dash-card--status-berjalan .gov-team-target-dash-card__icon {
+    color: var(--dash-warning) !important;
+    background: #fffbeb !important;
+    border-color: #fde68a !important;
+}
+
+body.sg-homepage #beranda-root .gov-team-target-dash-card--status-selesai .gov-team-target-dash-card__icon {
+    color: var(--dash-success) !important;
+    background: #ecfdf5 !important;
+    border-color: #a7f3d0 !important;
+}
+
+body.sg-homepage #beranda-root .gov-team-target-dash-card__title {
+    font-size: 0.9375rem !important;
+    font-weight: 600 !important;
+    color: var(--dash-num) !important;
+    margin: 0;
+}
+
+body.sg-homepage #beranda-root .gov-team-target-dash-card__meta {
+    font-size: 0.75rem;
+    color: var(--dash-muted);
+}
+
+body.sg-homepage #beranda-root .gov-team-target-dash-card__chart-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 140px;
+    margin: 0.25rem 0 0.75rem;
+    padding: 0.5rem;
+    background: #f8fafc;
+    border: 1px solid #e8eef4;
+    border-radius: 10px;
+}
+
+body.sg-homepage #beranda-root .gov-team-target-overview-card {
+    background: #fff !important;
+    border: var(--dash-card-border) !important;
+    border-radius: var(--dash-card-radius) !important;
+    box-shadow: var(--dash-card-shadow) !important;
+}
+
+body.sg-homepage #beranda-root .gov-team-target-overview-card__chart {
+    background: #f8fafc !important;
+    border: 1px solid #e8eef4;
+    border-radius: 10px;
+}
+
+body.sg-homepage #beranda-root .gov-team-target-section__year-btn.is-active {
+    background: var(--dash-primary) !important;
+    border-color: var(--dash-primary) !important;
+}
+
+/* —— Kunjungan web —— */
+body.sg-homepage #beranda-root #beranda-kunjungan-web .beranda-visit-card {
+    background: #fff !important;
+    border: var(--dash-card-border) !important;
+    border-radius: var(--dash-card-radius) !important;
+    box-shadow: var(--dash-card-shadow) !important;
+    transition: box-shadow 0.15s ease, border-color 0.15s ease !important;
+}
+
+body.sg-homepage #beranda-root #beranda-kunjungan-web .beranda-visit-card:hover {
+    transform: none !important;
+    box-shadow: var(--dash-card-shadow-hover) !important;
+}
+
+body.sg-homepage #beranda-root #beranda-kunjungan-web .beranda-visit-stats {
+    --bs-gutter-x: 0.75rem;
+}
+
+body.sg-homepage #beranda-root #beranda-kunjungan-web .beranda-visit-stat {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 5.5rem;
+    padding: 1rem 1rem 0.9rem 1.125rem !important;
+    background: #fff !important;
+    border: var(--dash-card-border) !important;
+    border-radius: var(--dash-card-radius) !important;
+    box-shadow: var(--dash-card-shadow) !important;
+    transition: box-shadow 0.15s ease, border-color 0.15s ease !important;
+}
+
+body.sg-homepage #beranda-root #beranda-kunjungan-web .beranda-visit-stat::before {
+    width: 3px;
+    background: var(--dash-primary) !important;
+    border-radius: var(--dash-card-radius) 0 0 var(--dash-card-radius);
+    opacity: 1;
+}
+
+body.sg-homepage #beranda-root #beranda-kunjungan-web .beranda-visit-stat--week::before {
+    background: var(--dash-success) !important;
+}
+
+body.sg-homepage #beranda-root #beranda-kunjungan-web .beranda-visit-stat:hover {
+    transform: none !important;
+    border-color: #cbd5e1 !important;
+    box-shadow: var(--dash-card-shadow-hover) !important;
+}
+
+body.sg-homepage #beranda-root #beranda-kunjungan-web .beranda-visit-stat__icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    background: #eff6ff !important;
+    color: var(--dash-primary) !important;
+    border: 1px solid #bfdbfe;
+    box-shadow: none !important;
+    transition: none !important;
+}
+
+body.sg-homepage #beranda-root #beranda-kunjungan-web .beranda-visit-stat:hover .beranda-visit-stat__icon {
+    transform: none !important;
+}
+
+body.sg-homepage #beranda-root #beranda-kunjungan-web .beranda-visit-stat--week .beranda-visit-stat__icon {
+    background: #ecfdf5 !important;
+    color: var(--dash-success) !important;
+    border-color: #a7f3d0;
+}
+
+body.sg-homepage #beranda-root #beranda-kunjungan-web .beranda-visit-stat__label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--dash-muted);
+    padding-right: 3rem;
+}
+
+body.sg-homepage #beranda-root #beranda-kunjungan-web .beranda-visit-stat__num {
+    font-family: var(--ds-font, 'Inter', system-ui, sans-serif);
+    font-size: clamp(1.75rem, 1.4rem + 0.8vw, 2.25rem) !important;
+    font-weight: 700 !important;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+    color: var(--dash-num) !important;
+    margin-top: 0.25rem;
+}
+
+body.sg-homepage #beranda-root #beranda-kunjungan-web .beranda-visit-stat--week .beranda-visit-stat__num {
+    color: var(--dash-success) !important;
+}
+
+body.sg-homepage #beranda-root #beranda-kunjungan-web .beranda-visit-chart-shell {
+    background: #fff !important;
+    border: var(--dash-card-border) !important;
+    border-radius: var(--dash-card-radius) !important;
+    box-shadow: none !important;
+    padding: 0.75rem !important;
+}
+
+/* —— Ringkasan eksekutif —— */
+body.sg-homepage #beranda-root .beranda-exec-grid > .col {
+    display: flex;
+}
+
+body.sg-homepage #beranda-root .beranda-exec-grid .beranda-exec-card {
+    background: #fff !important;
+    border: var(--dash-card-border) !important;
+    border-radius: var(--dash-card-radius) !important;
+    box-shadow: var(--dash-card-shadow) !important;
+    padding: 1.125rem 1.25rem !important;
+    transition: box-shadow 0.15s ease, border-color 0.15s ease !important;
+}
+
+body.sg-homepage #beranda-root .beranda-exec-grid .beranda-exec-card::after {
+    display: none;
+}
+
+body.sg-homepage #beranda-root .beranda-exec-grid .beranda-exec-card:hover {
+    transform: none !important;
+    border-color: #cbd5e1 !important;
+    box-shadow: var(--dash-card-shadow-hover) !important;
+}
+
+body.sg-homepage #beranda-root .beranda-exec-card__icon-wrap {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    border-radius: 10px !important;
+    font-size: 1rem !important;
+    background: #eff6ff !important;
+    color: var(--dash-primary) !important;
+    border: 1px solid #bfdbfe;
+    box-shadow: none !important;
+}
+
+body.sg-homepage #beranda-root .beranda-exec-card--misi .beranda-exec-card__icon-wrap {
+    background: #f5f3ff !important;
+    color: #6d28d9 !important;
+    border-color: #ddd6fe;
+}
+
+body.sg-homepage #beranda-root .beranda-exec-card--struktur .beranda-exec-card__icon-wrap {
+    background: #ecfdf5 !important;
+    color: var(--dash-success) !important;
+    border-color: #a7f3d0;
+}
+
+body.sg-homepage #beranda-root .beranda-exec-card__title {
+    font-size: 0.9375rem !important;
+    font-weight: 600 !important;
+    color: var(--dash-num) !important;
+}
+
+body.sg-homepage #beranda-root .beranda-exec-card__quote {
+    display: none;
+}
+
+/* —— Stat hero (bawah hero) —— */
+body.sg-homepage .sg-hero-stats .sg-stat-glass,
+body.sg-homepage .sg-hero-stats .sg-hero-stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 10px !important;
+    min-height: 4.5rem !important;
+    padding: 0.75rem 0.85rem !important;
+    transition: background-color 0.15s ease, border-color 0.15s ease !important;
+}
+
+body.sg-homepage .sg-hero-stats .sg-stat-display:hover,
+body.sg-homepage .sg-hero-stats .sg-stat-glass:hover {
+    transform: none !important;
+    background: rgba(255, 255, 255, 0.16) !important;
+    border-color: rgba(255, 255, 255, 0.28) !important;
+    box-shadow: none !important;
+}
+
+body.sg-homepage .sg-hero-stats .sg-stat-glass__body {
+    width: 100%;
+}
+
+body.sg-homepage .sg-hero-stats .sg-stat-glass__num {
+    font-family: var(--ds-font, 'Inter', system-ui, sans-serif);
+    font-size: clamp(1.375rem, 1.2rem + 0.5vw, 1.625rem) !important;
+    font-weight: 700 !important;
+    font-variant-numeric: tabular-nums;
+    color: #fff !important;
+    line-height: 1.1;
+}
+
+body.sg-homepage .sg-hero-stats .sg-stat-glass__label {
+    font-size: 0.6875rem !important;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: rgba(226, 232, 240, 0.9) !important;
+    margin-top: 0.2rem;
+}
+
+/* —— Quick menu (stat strip di hero) —— */
+body.sg-homepage .sg-quick-menu__card {
+    background: #fff !important;
+    border: var(--dash-card-border) !important;
+    box-shadow: var(--dash-card-shadow) !important;
+}
+
+body.sg-homepage .sg-quick-menu__card:hover {
+    transform: none !important;
+    box-shadow: var(--dash-card-shadow-hover) !important;
+}
+
+@media (max-width: 767.98px) {
+    body.sg-homepage #beranda-root .gov-kpi-card__head {
+        flex-wrap: wrap;
+    }
+
+    body.sg-homepage #beranda-root .gov-kpi-card__head-aside {
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    body.sg-homepage #beranda-root #beranda-kunjungan-web .beranda-visit-stat__num {
+        font-size: 1.625rem !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.sg-homepage #beranda-root .gov-kpi-card__progress-fill {
+        transition: none !important;
+    }
+}

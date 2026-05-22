@@ -18,9 +18,14 @@ declare(strict_types=1);
  * @var string $holidayUcapanSub
  * @var string $holidayBadge
  * @var string $holidayDecoIcon
+ * @var string $siteLogoAlt
  */
 
 org_tailwind_bootstrap();
+
+$siteLogoAlt = isset($siteLogoAlt) && is_string($siteLogoAlt) && $siteLogoAlt !== ''
+    ? $siteLogoAlt
+    : 'Logo Bagian Organisasi — Sekretariat Daerah Kabupaten Kepulauan Aru';
 
 $smartPortalNav = !empty($smartPortalNav);
 $headerClass = org_ui_class(
@@ -37,7 +42,7 @@ $headerClass = org_ui_class(
                 <div class="org-navbar__brand site-header__brand-row">
                     <?php if (($logoWebPath ?? '') !== ''): ?>
                         <a href="<?php echo htmlspecialchars(function_exists('org_home_url') ? org_home_url() : 'index.php', ENT_QUOTES, 'UTF-8'); ?>" class="inline-flex no-underline">
-                            <img src="<?php echo htmlspecialchars($logoWebPath, ENT_QUOTES, 'UTF-8'); ?>" alt="Logo" class="org-navbar__logo site-header__logo" width="150" height="76" loading="eager">
+                            <img src="<?php echo htmlspecialchars($logoWebPath, ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($siteLogoAlt, ENT_QUOTES, 'UTF-8'); ?>" class="org-navbar__logo site-header__logo" width="112" height="56" loading="eager" decoding="async"<?php echo $smartPortalNav ? ' fetchpriority="high"' : ''; ?>>
                         </a>
                     <?php endif; ?>
                     <div class="min-w-0">
@@ -151,7 +156,7 @@ $headerClass = org_ui_class(
                 <div class="org-navbar__brand site-header__brand-row">
                     <?php if (($logoWebPath ?? '') !== ''): ?>
                         <a href="<?php echo htmlspecialchars(function_exists('org_home_url') ? org_home_url() : 'index.php', ENT_QUOTES, 'UTF-8'); ?>" class="inline-flex no-underline">
-                            <img src="<?php echo htmlspecialchars($logoWebPath, ENT_QUOTES, 'UTF-8'); ?>" alt="Logo" class="org-navbar__logo site-header__logo" width="150" height="76" loading="eager">
+                            <img src="<?php echo htmlspecialchars($logoWebPath, ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($siteLogoAlt, ENT_QUOTES, 'UTF-8'); ?>" class="org-navbar__logo site-header__logo" width="112" height="56" loading="eager" decoding="async"<?php echo $smartPortalNav ? ' fetchpriority="high"' : ''; ?>>
                         </a>
                     <?php endif; ?>
                     <div class="min-w-0">

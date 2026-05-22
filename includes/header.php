@@ -8,6 +8,11 @@ if (!function_exists('org_is_dev_environment')) {
 org_force_https_redirect();
 
 $pageTitle = $pageTitle ?? 'Bagian Organisasi — Sekretariat Daerah Kab. Kepulauan Aru';
+$pageMetaDescription = isset($pageMetaDescription) && is_string($pageMetaDescription) ? trim($pageMetaDescription) : '';
+$pageSeoHeadMarkup = isset($pageSeoHeadMarkup) && is_string($pageSeoHeadMarkup) ? $pageSeoHeadMarkup : '';
+$siteLogoAlt = isset($siteLogoAlt) && is_string($siteLogoAlt) && $siteLogoAlt !== ''
+    ? $siteLogoAlt
+    : 'Logo Bagian Organisasi — Sekretariat Daerah Kabupaten Kepulauan Aru';
 $navActive = $navActive ?? '';
 $bodyClass = isset($bodyClass) && is_string($bodyClass) ? trim($bodyClass) : '';
 $htmlClass = isset($htmlClass) && is_string($htmlClass) ? trim($htmlClass) : '';
@@ -68,6 +73,14 @@ echo org_theme_boot_script();
     <meta name="csrf-token" content="<?php echo htmlspecialchars(function_exists('org_csrf_token') ? org_csrf_token() : '', ENT_QUOTES, 'UTF-8'); ?>">
     <title><?php echo htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8'); ?></title>
 <?php
+if ($pageMetaDescription !== '') {
+    echo '    <meta name="description" content="' . htmlspecialchars($pageMetaDescription, ENT_QUOTES, 'UTF-8') . '">' . "\n";
+}
+if ($pageSeoHeadMarkup !== '') {
+    echo $pageSeoHeadMarkup;
+}
+?>
+<?php
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_vendor_assets.php';
 $orgHeaderBeranda = defined('ORG_BERANDA_PAGE') && ORG_BERANDA_PAGE === true;
 if ($orgHeaderBeranda) {
@@ -77,11 +90,10 @@ if ($orgHeaderBeranda) {
     echo org_vendor_stylesheet(org_vendor_bootstrap_css());
 }
 if (!$orgHeaderBeranda) {
-    echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
-    echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
-    echo '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Public+Sans:wght@400;500;600;700;800&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">' . "\n";
-    echo org_vendor_stylesheet(org_vendor_swiper_css());
-    echo org_vendor_stylesheet(org_vendor_aos_css());
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
+    echo org_assets_fonts_portal_markup();
+    echo org_vendor_stylesheet_preload(org_vendor_swiper_css());
+    echo org_vendor_stylesheet_preload(org_vendor_aos_css());
 }
 /* Beranda: AOS/Fancybox dimuat lazy via beranda-deferred-load.js */
 if (!$orgHeaderBeranda) {
@@ -171,6 +183,7 @@ org_component('navbar', [
     'holidayUcapanSub' => $holidayUcapanSub,
     'holidayBadge' => $holidayBadge,
     'holidayDecoIcon' => $holidayDecoIcon,
+    'siteLogoAlt' => $siteLogoAlt,
 ]);
 if (!defined('ORG_DEFER_LAYOUT_MAIN') || ORG_DEFER_LAYOUT_MAIN !== true) {
     echo '<main class="site-layout-main">';
