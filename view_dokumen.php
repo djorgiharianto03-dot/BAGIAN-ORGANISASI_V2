@@ -11,9 +11,9 @@ $file = (string) ($_GET['file'] ?? '');
 if ($file === '' || !org_dokumen_is_library_file($file)) {
     http_response_code(400);
     header('Content-Type: text/plain; charset=UTF-8');
-    echo 'Permintaan unduhan tidak valid.';
+    echo 'Permintaan pratinjau tidak valid.';
 
     exit;
 }
 
-org_dokumen_send_http($file, 'attachment');
+org_dokumen_send_http($file, 'inline');

@@ -36,7 +36,7 @@ $headerClass = org_ui_class(
             <div class="org-navbar__top site-header__topbar">
                 <div class="org-navbar__brand site-header__brand-row">
                     <?php if (($logoWebPath ?? '') !== ''): ?>
-                        <a href="index.php" class="inline-flex no-underline">
+                        <a href="<?php echo htmlspecialchars(function_exists('org_home_url') ? org_home_url() : 'index.php', ENT_QUOTES, 'UTF-8'); ?>" class="inline-flex no-underline">
                             <img src="<?php echo htmlspecialchars($logoWebPath, ENT_QUOTES, 'UTF-8'); ?>" alt="Logo" class="org-navbar__logo site-header__logo" width="150" height="76" loading="eager">
                         </a>
                     <?php endif; ?>
@@ -105,7 +105,7 @@ $headerClass = org_ui_class(
                     </div>
                     <div class="org-navbar__nav-row site-header__nav-row">
                         <ul class="org-navbar__nav site-header__nav">
-                            <li><a href="index.php" class="<?php echo ($navActive ?? '') === 'beranda' ? 'is-active' : ''; ?>">Beranda</a></li>
+                            <li><a href="<?php echo htmlspecialchars(function_exists('org_home_url') ? org_home_url() : 'index.php', ENT_QUOTES, 'UTF-8'); ?>" class="<?php echo ($navActive ?? '') === 'beranda' ? 'is-active' : ''; ?>">Beranda</a></li>
                             <li><a href="profil.php" class="<?php echo ($navActive ?? '') === 'profil' ? 'is-active' : ''; ?>">Profil</a></li>
                             <li><a href="layanan.php" class="<?php echo ($navActive ?? '') === 'layanan' ? 'is-active' : ''; ?>">Layanan</a></li>
                             <li><a href="dokumen.php" class="<?php echo ($navActive ?? '') === 'dokumen' ? 'is-active' : ''; ?>">Dokumen</a></li>
@@ -150,7 +150,7 @@ $headerClass = org_ui_class(
             <div class="org-navbar__top site-header__topbar">
                 <div class="org-navbar__brand site-header__brand-row">
                     <?php if (($logoWebPath ?? '') !== ''): ?>
-                        <a href="index.php" class="inline-flex no-underline">
+                        <a href="<?php echo htmlspecialchars(function_exists('org_home_url') ? org_home_url() : 'index.php', ENT_QUOTES, 'UTF-8'); ?>" class="inline-flex no-underline">
                             <img src="<?php echo htmlspecialchars($logoWebPath, ENT_QUOTES, 'UTF-8'); ?>" alt="Logo" class="org-navbar__logo site-header__logo" width="150" height="76" loading="eager">
                         </a>
                     <?php endif; ?>
@@ -202,7 +202,7 @@ $headerClass = org_ui_class(
                     </div>
                     <div class="org-navbar__nav-row site-header__nav-row">
                         <ul class="org-navbar__nav site-header__nav">
-                            <li><a href="index.php" class="<?php echo ($navActive ?? '') === 'beranda' ? 'is-active' : ''; ?>">Beranda</a></li>
+                            <li><a href="<?php echo htmlspecialchars(function_exists('org_home_url') ? org_home_url() : 'index.php', ENT_QUOTES, 'UTF-8'); ?>" class="<?php echo ($navActive ?? '') === 'beranda' ? 'is-active' : ''; ?>">Beranda</a></li>
                             <li><a href="profil.php" class="<?php echo ($navActive ?? '') === 'profil' ? 'is-active' : ''; ?>">Profil</a></li>
                             <li><a href="layanan.php" class="<?php echo ($navActive ?? '') === 'layanan' ? 'is-active' : ''; ?>">Layanan</a></li>
                             <li><a href="dokumen.php" class="<?php echo ($navActive ?? '') === 'dokumen' ? 'is-active' : ''; ?>">Dokumen</a></li>

@@ -71,8 +71,6 @@ function org_dokumen_process_upload(?array $file, string $kategoriRaw): array
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'image/jpeg',
         'image/png',
-        'image/gif',
-        'image/webp',
     ];
 
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -82,7 +80,7 @@ function org_dokumen_process_upload(?array $file, string $kategoriRaw): array
     }
 
     if (!in_array($mimeType, $allowedMimeTypes, true)) {
-        return $fail('Format file tidak didukung. Gunakan PDF/Word/Excel atau gambar (JPG, PNG, GIF, WebP).', 'warning');
+        return $fail('Format file tidak didukung. Gunakan PDF, DOCX, XLSX, JPG, atau PNG.', 'warning');
     }
 
     $safeName = preg_replace('/[^A-Za-z0-9._-]/', '_', basename((string) ($file['name'] ?? '')));
@@ -94,11 +92,11 @@ function org_dokumen_process_upload(?array $file, string $kategoriRaw): array
     $extRaw = isset($pathInfo['extension']) && $pathInfo['extension'] !== ''
         ? strtolower((string) $pathInfo['extension'])
         : '';
-    if (!in_array($extRaw, ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'jpg', 'jpeg', 'png', 'gif', 'webp'], true)) {
-        return $fail('Format tidak didukung. Gunakan PDF/Word/Excel atau gambar (JPG, PNG, GIF, WebP).', 'warning');
+    if (!in_array($extRaw, ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'jpg', 'jpeg', 'png'], true)) {
+        return $fail('Format tidak didukung. Gunakan PDF, DOCX, XLSX, JPG, atau PNG.', 'warning');
     }
 
-    $isImageUpload = in_array($extRaw, ['jpg', 'jpeg', 'png', 'gif', 'webp'], true);
+    $isImageUpload = in_array($extRaw, ['jpg', 'jpeg', 'png'], true);
     $maxBytesByType = $isImageUpload ? (int) ORG_DOKUMEN_MAX_UPLOAD_IMAGE_BYTES : (int) ORG_DOKUMEN_MAX_UPLOAD_BYTES;
     if ($fileSize > $maxBytesByType) {
         $jenis = $isImageUpload ? 'gambar' : 'dokumen';
@@ -113,7 +111,10 @@ function org_dokumen_process_upload(?array $file, string $kategoriRaw): array
     $targetName = $stem . $ext;
     $target_dir = org_dokumen_library_upload_dir_fs();
     if (!is_dir($target_dir)) {
-        mkdir($target_dir, 0777, true);
+        @mkdir($target_dir, 0775, true);
+    }
+    if (!is_dir($target_dir) || !is_writable($target_dir)) {
+        return $fail('Folder unggahan tidak dapat ditulis. Periksa permission folder uploads/perpustakaan_digital/ di server.', 'danger');
     }
     $n = 1;
     while (is_file($target_dir . DIRECTORY_SEPARATOR . $targetName)) {
@@ -320,6 +321,112 @@ function org_dokumen_is_library_file(string $namaFile): bool
     $ext = strtolower(pathinfo(basename($namaFile), PATHINFO_EXTENSION));
 
     return in_array($ext, ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'jpg', 'jpeg', 'png', 'gif', 'webp'], true);
+}
+
+/**
+ * Path absolut berkas perpustakaan yang valid (anti path traversal).
+ */
+function org_dokumen_resolve_realpath(string $namaFile): ?string
+{
+    $namaFile = basename($namaFile);
+    if ($namaFile === '' || $namaFile === '.' || $namaFile === '..' || !org_dokumen_is_library_file($namaFile)) {
+        return null;
+    }
+    $libraryDir = org_dokumen_library_upload_dir_fs();
+    $targetPath = $libraryDir . DIRECTORY_SEPARATOR . $namaFile;
+    $uploadDirReal = realpath($libraryDir);
+    $targetReal = realpath($targetPath);
+    if (
+        $uploadDirReal === false
+        || $targetReal === false
+        || !is_file($targetReal)
+        || dirname($targetReal) !== $uploadDirReal
+    ) {
+        return null;
+    }
+
+    return $targetReal;
+}
+
+function org_dokumen_can_preview_inline(string $namaFile): bool
+{
+    $ext = strtolower(pathinfo(basename($namaFile), PATHINFO_EXTENSION));
+
+    return in_array($ext, ['pdf', 'jpg', 'jpeg', 'png'], true);
+}
+
+function org_dokumen_download_url(string $namaFile): string
+{
+    if (!function_exists('org_page_url')) {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_app.php';
+    }
+
+    return org_page_url('download_dokumen.php') . '?file=' . rawurlencode(basename($namaFile));
+}
+
+function org_dokumen_view_url(string $namaFile): string
+{
+    if (!function_exists('org_page_url')) {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_app.php';
+    }
+
+    return org_page_url('view_dokumen.php') . '?file=' . rawurlencode(basename($namaFile));
+}
+
+/**
+ * Kirim berkas ke browser; mengakhiri skrip.
+ *
+ * @param 'inline'|'attachment' $disposition
+ */
+function org_dokumen_send_http(string $namaFile, string $disposition = 'attachment'): void
+{
+    $targetReal = org_dokumen_resolve_realpath($namaFile);
+    if ($targetReal === null) {
+        http_response_code(404);
+        header('Content-Type: text/html; charset=UTF-8');
+        echo '<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><title>Berkas tidak ditemukan</title></head><body>';
+        echo '<p style="font-family:system-ui,sans-serif;padding:1.5rem">Berkas dokumen tidak ditemukan di server. ';
+        echo 'Mungkin belum diunggah atau folder <code>uploads/perpustakaan_digital/</code> belum disalin saat deploy.</p>';
+        echo '<p><a href="javascript:history.back()">Kembali</a></p></body></html>';
+        exit;
+    }
+
+    if ($disposition === 'download' || $disposition === 'attachment') {
+        $db = org_db();
+        if ($db instanceof mysqli) {
+            org_dokumen_increment_download($db, basename($namaFile));
+        }
+    }
+
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mime = $finfo !== false ? (string) finfo_file($finfo, $targetReal) : 'application/octet-stream';
+    if ($finfo !== false) {
+        finfo_close($finfo);
+    }
+
+    $stored = basename($namaFile);
+    $downloadName = str_replace('_', ' ', pathinfo($stored, PATHINFO_FILENAME));
+    $ext = pathinfo($stored, PATHINFO_EXTENSION);
+    if ($ext !== '') {
+        $downloadName .= '.' . $ext;
+    }
+
+    $disp = $disposition === 'inline' ? 'inline' : 'attachment';
+    if ($disp === 'inline' && !org_dokumen_can_preview_inline($stored)) {
+        $disp = 'attachment';
+    }
+
+    header('Content-Type: ' . $mime);
+    header('Content-Length: ' . (string) filesize($targetReal));
+    header('Content-Disposition: ' . $disp . '; filename="' . str_replace('"', '', $downloadName) . '"');
+    header('X-Content-Type-Options: nosniff');
+    header('Cache-Control: private, max-age=120');
+    if ($disp === 'inline') {
+        header('X-Frame-Options: SAMEORIGIN');
+    }
+
+    readfile($targetReal);
+    exit;
 }
 
 function org_dokumen_kategori_from_filename(string $namaFile): string

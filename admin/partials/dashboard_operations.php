@@ -17,7 +17,7 @@ declare(strict_types=1);
         <div id="panel-manajemen-staf" class="card border-0 shadow-sm dash-section">
             <div class="card-body p-4">
                 <h2 class="h5 mb-2">Manajemen akun staf</h2>
-                <p class="text-muted small mb-3">Kelola email Google (Drive) dan reset password. Semua perubahan dicatat di audit trail.</p>
+                <p class="text-muted small mb-3">Kelola akun staf: tambah pegawai, edit profil, email Google, dan password. Semua perubahan dicatat di audit trail.</p>
                 <?php if ($db === null): ?>
                     <div class="alert alert-warning py-2 small mb-3">Koneksi database tidak tersedia. Periksa <code>config/database.php</code>.</div>
                 <?php elseif (!$staffUsersTableOk): ?>
@@ -54,13 +54,16 @@ declare(strict_types=1);
                                 <?php foreach ($staffUserRows as $idx => $su): ?>
                                     <?php
                                     $suid = (int) ($su['id'] ?? 0);
-                                    $suuser = htmlspecialchars((string) ($su['username'] ?? ''), ENT_QUOTES, 'UTF-8');
+                                    $suuserRaw = (string) ($su['username'] ?? '');
+                                    $suuser = htmlspecialchars($suuserRaw, ENT_QUOTES, 'UTF-8');
                                     $sunama = htmlspecialchars((string) ($su['nama'] ?? ''), ENT_QUOTES, 'UTF-8');
                                     $suemail = trim((string) ($su['email_google'] ?? ''));
                                     $suemailAttr = htmlspecialchars($suemail, ENT_QUOTES, 'UTF-8');
                                     $sunamaJs = htmlspecialchars((string) ($su['nama'] ?? $su['username'] ?? ''), ENT_QUOTES, 'UTF-8');
+                                    $suuserJs = htmlspecialchars($suuserRaw, ENT_QUOTES, 'UTF-8');
                                     $suroleRaw = (string) ($su['level'] ?? '');
                                     $suroleNorm = org_staff_role_normalize($suroleRaw);
+                                    $suroleNormAttr = htmlspecialchars($suroleNorm, ENT_QUOTES, 'UTF-8');
                                     if ($suroleNorm === 'super_admin') {
                                         continue;
                                     }
@@ -90,6 +93,18 @@ declare(strict_types=1);
                                         </td>
                                         <td><span class="badge <?php echo $suroleBadge; ?>"><?php echo $suroleLabel; ?></span></td>
                                         <td class="text-end text-nowrap">
+                                            <button
+                                                type="button"
+                                                class="btn btn-sm btn-primary js-staff-edit-user"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modalEditStaff"
+                                                data-staff-id="<?php echo $suid; ?>"
+                                                data-staff-username="<?php echo $suuserJs; ?>"
+                                                data-staff-nama="<?php echo $sunamaJs; ?>"
+                                                data-staff-email="<?php echo $suemailAttr; ?>"
+                                                data-staff-level="<?php echo $suroleNormAttr; ?>"
+                                                title="Edit data staf"
+                                            ><i class="fa-solid fa-pen-to-square me-1" aria-hidden="true"></i>Edit</button>
                                             <?php if ($showStaffDelete): ?>
                                                 <form method="post" action="dashboard.php#panel-manajemen-staf" class="d-inline mb-0" onsubmit="return confirm('Hapus akun staf ini secara permanen? Tindakan ini tidak dapat dibatalkan.');">
                                                     <input type="hidden" name="action" value="staff_delete_user">

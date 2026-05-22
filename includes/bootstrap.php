@@ -10,7 +10,10 @@ if (!defined('ORG_ROOT')) {
 }
 
 require_once ORG_ROOT . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
+require_once ORG_ROOT . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_app.php';
 require_once ORG_ROOT . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_layanan_integrasi_url.php';
+
+org_force_https_redirect();
 
 if (!defined('ORG_WEB_ROOT')) {
     define('ORG_WEB_ROOT', org_site_web_root());
@@ -19,7 +22,13 @@ if (!defined('ORG_PROSES_SARAN_URL')) {
     define('ORG_PROSES_SARAN_URL', org_proses_saran_url());
 }
 if (!defined('ORG_DOWNLOAD_DOKUMEN_URL')) {
-    define('ORG_DOWNLOAD_DOKUMEN_URL', (ORG_WEB_ROOT === '' ? '' : ORG_WEB_ROOT) . '/download_dokumen.php');
+    define('ORG_DOWNLOAD_DOKUMEN_URL', org_page_url('download_dokumen.php'));
+}
+if (!defined('ORG_VIEW_DOKUMEN_URL')) {
+    define('ORG_VIEW_DOKUMEN_URL', org_page_url('view_dokumen.php'));
+}
+if (!defined('ORG_DOWNLOAD_ARSIP_URL')) {
+    define('ORG_DOWNLOAD_ARSIP_URL', org_page_url('download_arsip.php'));
 }
 if (!defined('ORG_DOWNLOAD_TUGAS_URL')) {
     define('ORG_DOWNLOAD_TUGAS_URL', (ORG_WEB_ROOT === '' ? '' : ORG_WEB_ROOT) . '/download_tugas.php');
@@ -583,7 +592,7 @@ if (!function_exists('org_require_level_access')) {
         if (empty($_SESSION['is_admin'])) {
             $_SESSION['flash_message'] = 'Silakan login terlebih dahulu.';
             $_SESSION['flash_type'] = 'warning';
-            header('Location: index.php');
+            header('Location: ' . (function_exists('org_home_url') ? org_home_url() : 'index.php'));
             exit;
         }
         $_SESSION['flash_message'] = 'Akses Ditolak';
@@ -627,7 +636,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             org_csrf_invalidate();
             $_SESSION['flash_message'] = 'Sesi keamanan tidak valid. Muat ulang halaman lalu coba lagi.';
             $_SESSION['flash_type'] = 'danger';
-            $loginRedirect = function_exists('org_login_post_url') ? org_login_post_url() : 'index.php';
+            $loginRedirect = function_exists('org_login_post_url') ? org_login_post_url() : (function_exists('org_home_url') ? org_home_url() : 'index.php');
             header('Location: ' . $loginRedirect, true, 303);
             exit;
         } else {

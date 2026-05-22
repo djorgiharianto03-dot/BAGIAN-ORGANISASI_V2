@@ -19,6 +19,7 @@ if (!is_dir($galeriImgDir)) {
     @mkdir($galeriImgDir, 0777, true);
 }
 require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
+require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_app.php';
 require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_layanan_integrasi_url.php';
 require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'staff_users_db.php';
 require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'site_content_db.php';
@@ -700,6 +701,72 @@ if ($isPost && $csrfValid && $postedAction === 'staff_delete_user') {
     }
 }
 
+if ($isPost && $csrfValid && $postedAction === 'staff_edit_user') {
+    if ($isSubAdminActor) {
+        $flashErr = 'Akses ditolak. Sub-Admin tidak dapat mengelola akun pengguna.';
+    } elseif ($db === null || !org_staff_users_table_exists($db)) {
+        $flashErr = 'Tabel users belum tersedia. Impor berkas install/users_staff.sql di phpMyAdmin.';
+    } else {
+        $sid = (int) ($_POST['staff_user_id'] ?? 0);
+        $namaEdit = org_sanitize_plain((string) ($_POST['nama_lengkap'] ?? ''));
+        $userEdit = trim((string) ($_POST['username'] ?? ''));
+        $emailEdit = trim((string) ($_POST['email_google'] ?? ''));
+        $pwdEdit = (string) ($_POST['password'] ?? '');
+        $levelEditRaw = trim((string) ($_POST['level'] ?? $_POST['role'] ?? ''));
+        $levelEditNorm = org_staff_role_normalize($levelEditRaw);
+        if (!in_array($levelEditNorm, ['super_admin', 'admin', 'sub_admin_eorganisasi', 'sub_admin_publikasi', 'staf_disposisi'], true)) {
+            $flashErr = 'Level/role akses tidak valid.';
+        } elseif ($sid < 1) {
+            $flashErr = 'Data staf tidak valid.';
+        } elseif ($namaEdit === '') {
+            $flashErr = 'Nama lengkap wajib diisi.';
+        } else {
+            $usernameErr = org_staff_users_validate_username($userEdit);
+            if ($usernameErr !== null) {
+                $flashErr = $usernameErr;
+            } elseif ($emailEdit !== '' && filter_var($emailEdit, FILTER_VALIDATE_EMAIL) === false) {
+                $flashErr = 'Format email Google tidak valid.';
+            } elseif ($pwdEdit !== '' && strlen($pwdEdit) < 8) {
+                $flashErr = 'Password baru minimal 8 karakter (kosongkan jika tidak ingin mengubah password).';
+            } elseif (!$isSuperAdminActor && $levelEditNorm === 'super_admin') {
+                $flashErr = 'Hanya Super Admin yang dapat menetapkan peran Super Admin.';
+            } elseif (str_starts_with($sessionRoleNorm, 'sub_admin_') && $levelEditNorm !== $sessionRoleNorm) {
+                $flashErr = 'Anda hanya dapat mengubah akun dengan level yang sama.';
+            } elseif (org_staff_users_username_taken($db, $userEdit, $sid)) {
+                $flashErr = 'Username sudah dipakai oleh akun lain. Pilih username lain.';
+            } else {
+                $urowEdit = org_staff_users_fetch_by_id($db, $sid);
+                if ($urowEdit === null) {
+                    $flashErr = 'Staf tidak ditemukan.';
+                } elseif (org_staff_role_normalize((string) ($urowEdit['level'] ?? '')) === 'super_admin' && !$isSuperAdminActor) {
+                    $flashErr = 'Hanya Super Admin yang dapat mengubah akun Super Admin.';
+                } else {
+                    $pwdHashEdit = null;
+                    if ($pwdEdit !== '') {
+                        $pwdHashEdit = password_hash($pwdEdit, PASSWORD_DEFAULT);
+                        if ($pwdHashEdit === false) {
+                            $flashErr = 'Gagal membuat hash password.';
+                            $pwdHashEdit = null;
+                        }
+                    }
+                    if ($flashErr === '' && org_staff_users_update($db, $sid, $userEdit, $namaEdit, $emailEdit, $levelEditNorm, $pwdHashEdit)) {
+                        $namaAudit = org_sanitize_plain((string) ($urowEdit['nama'] ?? $urowEdit['username'] ?? 'staf'));
+                        $auditDetail = 'Admin memperbarui akun staf «' . $namaAudit . '» (username: ' . $userEdit . ', level: ' . $levelEditNorm . ')';
+                        if ($pwdHashEdit !== null) {
+                            $auditDetail .= ', termasuk password baru';
+                        }
+                        $auditDetail .= '.';
+                        org_audit_log_insert($db, $idAdminSess, $namaAdminSess, $auditDetail);
+                        $flashOk = 'Data staf berhasil diperbarui.';
+                    } elseif ($flashErr === '') {
+                        $flashErr = 'Gagal menyimpan perubahan akun staf. Periksa struktur tabel users (kolom level/role).';
+                    }
+                }
+            }
+        }
+    }
+}
+
 if ($isPost && $csrfValid && $postedAction === 'staff_add_pegawai') {
     if ($isSubAdminActor) {
         $flashErr = 'Akses ditolak. Sub-Admin tidak dapat menambah akun pengguna.';
@@ -725,24 +792,27 @@ if ($isPost && $csrfValid && $postedAction === 'staff_add_pegawai') {
             $flashErr = 'Hanya Super Admin yang dapat menetapkan peran Super Admin.';
         } elseif (str_starts_with($sessionRoleNorm, 'sub_admin_') && $levelNormAdd !== $sessionRoleNorm) {
             $flashErr = 'Anda hanya dapat menambahkan akun Sub Admin.';
-        } elseif (!preg_match('/^[A-Za-z0-9._-]{3,64}$/', $userBaru)) {
-            $flashErr = 'Username 3–64 karakter: huruf, angka, titik, garis bawah, atau tanda hubung.';
-        } elseif (org_staff_users_username_exists($db, $userBaru)) {
-            $flashErr = 'Username sudah dipakai. Pilih username lain.';
         } else {
-            $hashBaru = password_hash($pwdBaru, PASSWORD_DEFAULT);
-            if ($hashBaru === false) {
-                $flashErr = 'Gagal membuat hash password.';
-            } elseif (org_staff_users_insert($db, $userBaru, $namaBaru, $emailBaru, $levelNormAdd, $hashBaru)) {
-                org_audit_log_insert(
-                    $db,
-                    $idAdminSess,
-                    $namaAdminSess,
-                    'Admin menambah pegawai baru: «' . $namaBaru . '» (username: ' . $userBaru . ', level: ' . $levelNormAdd . ').'
-                );
-                $flashOk = 'Pegawai baru berhasil ditambahkan dan tampil di tabel.';
+            $usernameErrAdd = org_staff_users_validate_username($userBaru);
+            if ($usernameErrAdd !== null) {
+                $flashErr = $usernameErrAdd;
+            } elseif (org_staff_users_username_taken($db, $userBaru, 0)) {
+                $flashErr = 'Username sudah dipakai. Pilih username lain.';
             } else {
-                $flashErr = 'Gagal menyimpan pegawai. Akun User (disposisi) membutuhkan kolom `role` VARCHAR di tabel users jika `level` bertipe ENUM tanpa nilai staf_disposisi. Coba lagi (sistem akan mencoba menambah kolom otomatis); jika tetap gagal, jalankan skrip install/users_add_role_column.sql di phpMyAdmin atau beri hak ALTER pada user database.';
+                $hashBaru = password_hash($pwdBaru, PASSWORD_DEFAULT);
+                if ($hashBaru === false) {
+                    $flashErr = 'Gagal membuat hash password.';
+                } elseif (org_staff_users_insert($db, $userBaru, $namaBaru, $emailBaru, $levelNormAdd, $hashBaru)) {
+                    org_audit_log_insert(
+                        $db,
+                        $idAdminSess,
+                        $namaAdminSess,
+                        'Admin menambah pegawai baru: «' . $namaBaru . '» (username: ' . $userBaru . ', level: ' . $levelNormAdd . ').'
+                    );
+                    $flashOk = 'Pegawai baru berhasil ditambahkan dan tampil di tabel.';
+                } else {
+                    $flashErr = 'Gagal menyimpan pegawai. Akun User (disposisi) membutuhkan kolom `role` VARCHAR di tabel users jika `level` bertipe ENUM tanpa nilai staf_disposisi. Coba lagi (sistem akan mencoba menambah kolom otomatis); jika tetap gagal, jalankan skrip install/users_add_role_column.sql di phpMyAdmin atau beri hak ALTER pada user database.';
+                }
             }
         }
     }
@@ -1238,6 +1308,61 @@ $dashMetrics['kepuasan_publik'] = (int) min(100, max(0, round(
         </div>
     </div>
 
+    <div class="modal fade" id="modalEditStaff" tabindex="-1" aria-labelledby="modalEditStaffLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form method="post" action="dashboard.php#panel-manajemen-staf" autocomplete="off">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalEditStaffLabel">Edit pegawai / staf</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="action" value="staff_edit_user">
+                        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
+                        <input type="hidden" name="staff_user_id" id="modal_edit_staff_id" value="">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="edit_pegawai_nama" class="form-label">Nama lengkap</label>
+                                <input type="text" class="form-control" name="nama_lengkap" id="edit_pegawai_nama" required maxlength="191">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="edit_pegawai_username" class="form-label">Username</label>
+                                <input type="text" class="form-control" name="username" id="edit_pegawai_username" required minlength="3" maxlength="64" pattern="[A-Za-z0-9._-]+" title="3–64 karakter: huruf, angka, titik, garis bawah, tanda hubung">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="edit_pegawai_email_google" class="form-label">Email Google (untuk Drive)</label>
+                                <input type="email" class="form-control" name="email_google" id="edit_pegawai_email_google" maxlength="255" placeholder="nama@gmail.com (opsional)">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="edit_pegawai_level" class="form-label">Level / role akses</label>
+                                <select class="form-select" name="level" id="edit_pegawai_level" required>
+                                    <?php if ($isSuperAdminActor): ?>
+                                        <option value="super_admin">Super Admin</option>
+                                    <?php endif; ?>
+                                    <?php if ($isSuperAdminActor || $sessionRoleNorm === 'admin'): ?>
+                                        <option value="admin">Admin</option>
+                                    <?php endif; ?>
+                                    <option value="sub_admin_eorganisasi">Sub Admin E-Organisasi</option>
+                                    <option value="sub_admin_publikasi">Sub Admin Publikasi</option>
+                                    <option value="staf_disposisi">User</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label for="edit_pegawai_password" class="form-label">Password baru <span class="text-muted fw-normal">(opsional)</span></label>
+                                <input type="password" class="form-control" name="password" id="edit_pegawai_password" minlength="8" maxlength="128" autocomplete="new-password" placeholder="Kosongkan jika tidak mengubah password">
+                                <div class="form-text small">Jika diisi, disimpan dengan <code>password_hash()</code>. Minimal 8 karakter.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan perubahan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="modalTambahPegawai" tabindex="-1" aria-labelledby="modalTambahPegawaiLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -1496,6 +1621,31 @@ $dashMetrics['kepuasan_publik'] = (int) min(100, max(0, round(
                 modalAdd.addEventListener('hidden.bs.modal', function () {
                     var f = modalAdd.querySelector('form');
                     if (f) f.reset();
+                });
+            }
+            var modalEditStaff = document.getElementById('modalEditStaff');
+            if (modalEditStaff) {
+                modalEditStaff.addEventListener('show.bs.modal', function (ev) {
+                    var btn = ev.relatedTarget;
+                    if (!btn || !btn.classList.contains('js-staff-edit-user')) return;
+                    document.getElementById('modal_edit_staff_id').value = btn.getAttribute('data-staff-id') || '';
+                    document.getElementById('edit_pegawai_nama').value = btn.getAttribute('data-staff-nama') || '';
+                    document.getElementById('edit_pegawai_username').value = btn.getAttribute('data-staff-username') || '';
+                    document.getElementById('edit_pegawai_email_google').value = btn.getAttribute('data-staff-email') || '';
+                    var pwdInp = document.getElementById('edit_pegawai_password');
+                    if (pwdInp) pwdInp.value = '';
+                    var lvlSel = document.getElementById('edit_pegawai_level');
+                    var lvl = btn.getAttribute('data-staff-level') || '';
+                    if (lvlSel && lvl) {
+                        lvlSel.value = lvl;
+                        if (lvlSel.value !== lvl) {
+                            var opt = document.createElement('option');
+                            opt.value = lvl;
+                            opt.textContent = lvl;
+                            opt.selected = true;
+                            lvlSel.appendChild(opt);
+                        }
+                    }
                 });
             }
         }());

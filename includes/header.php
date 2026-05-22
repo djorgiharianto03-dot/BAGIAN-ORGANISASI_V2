@@ -1,5 +1,12 @@
 <?php
 declare(strict_types=1);
+
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_app.php';
+if (!function_exists('org_is_dev_environment')) {
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_database.php';
+}
+org_force_https_redirect();
+
 $pageTitle = $pageTitle ?? 'Bagian Organisasi — Sekretariat Daerah Kab. Kepulauan Aru';
 $navActive = $navActive ?? '';
 $bodyClass = isset($bodyClass) && is_string($bodyClass) ? trim($bodyClass) : '';

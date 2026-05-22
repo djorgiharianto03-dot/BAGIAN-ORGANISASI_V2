@@ -1,0 +1,29 @@
+# Apache / Laragon — HTTPS, beranda tanpa /index.php, keamanan uploads
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # HTTP → HTTPS (production; Laragon HTTP lokal tetap jalan)
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+    RewriteCond %{HTTP_HOST} !^localhost(:\d+)?$ [NC]
+    RewriteCond %{HTTP_HOST} !^127\.0\.0\.1(:\d+)?$ [NC]
+    RewriteCond %{HTTP_HOST} !\.test$ [NC]
+    RewriteCond %{HTTP_HOST} !\.local$ [NC]
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
+
+    # /index.php → /
+    RewriteCond %{THE_REQUEST} \s/+index\.php[\s?] [NC]
+    RewriteRule ^index\.php$ / [R=301,L,NE]
+</IfModule>
+
+DirectoryIndex index.php
+
+# Cegah eksekusi PHP di folder unggahan
+<IfModule mod_authz_core.c>
+    <Directory "uploads">
+        <FilesMatch "\.ph(p[3-8]?|tml)$">
+            Require all denied
+        </FilesMatch>
+    </Directory>
+</IfModule>

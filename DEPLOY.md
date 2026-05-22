@@ -33,7 +33,7 @@ chown -R clp:clp uploads
 chmod -R 775 uploads
 ```
 
-CloudPanel → Site → Vhost: tambahkan isi [deploy/nginx-uploads-snippet.conf](deploy/nginx-uploads-snippet.conf) jika perlu.
+CloudPanel → Site → Vhost: tambahkan isi [deploy/nginx-vhost-snippet.conf](deploy/nginx-vhost-snippet.conf) (HTTPS, tanpa `/index.php`, keamanan `uploads/`).
 
 ## Update berikutnya
 

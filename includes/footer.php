@@ -15,12 +15,7 @@ org_component('footer', ['prosesSaranUrlEsc' => $prosesSaranUrlEsc]);
         <div class="modal-dialog">
             <div class="modal-content">
                 <form method="post" action="<?php
-                    $loginAction = 'index.php';
-                    if (defined('ORG_WEB_ROOT') && ORG_WEB_ROOT !== '') {
-                        $loginAction = rtrim(ORG_WEB_ROOT, '/') . '/index.php';
-                    } elseif (function_exists('org_site_web_root') && org_site_web_root() !== '') {
-                        $loginAction = rtrim(org_site_web_root(), '/') . '/index.php';
-                    }
+                    $loginAction = function_exists('org_home_url') ? org_home_url() : 'index.php';
                     echo htmlspecialchars($loginAction, ENT_QUOTES, 'UTF-8');
                 ?>">
                     <div class="modal-header">

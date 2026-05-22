@@ -39,7 +39,7 @@ $portalHeroAriaLabel = $portalHeroTitle !== '' ? $portalHeroTitle : ($portalHero
                 <?php endif; ?>
                 <?php if ($portalHeroBreadcrumb !== ''): ?>
                 <nav class="org-hero__breadcrumb sg-subhero__breadcrumb" aria-label="Breadcrumb">
-                    <a href="index.php">Beranda</a>
+                    <a href="<?php echo htmlspecialchars(function_exists('org_home_url') ? org_home_url() : 'index.php', ENT_QUOTES, 'UTF-8'); ?>">Beranda</a>
                     <span class="sg-subhero__breadcrumb-sep" aria-hidden="true">/</span>
                     <span class="sg-subhero__breadcrumb-current"><?php echo htmlspecialchars($portalHeroBreadcrumb, ENT_QUOTES, 'UTF-8'); ?></span>
                 </nav>

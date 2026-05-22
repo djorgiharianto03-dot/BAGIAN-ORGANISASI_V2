@@ -1141,7 +1141,11 @@ foreach ($arsipRows as $rrCount) {
                                                 $tgl = (int) ($row['tgl_upload'] ?? 0);
                                                 $tglDateStr = $tgl > 0 ? date('d-m-Y', $tgl) : '-';
                                                 $tglTimeStr = $tgl > 0 ? date('H:i', $tgl) : '';
-                                                $docPath = 'uploads/' . ($jenis === 'masuk' ? 'surat_masuk' : 'surat_keluar') . '/' . rawurlencode((string) ($row['nama_file'] ?? ''));
+                                                $arsipJenis = $jenis === 'masuk' ? 'masuk' : 'keluar';
+                                                $arsipFile = (string) ($row['nama_file'] ?? '');
+                                                $docPath = function_exists('org_page_url')
+                                                    ? org_page_url('download_arsip.php') . '?jenis=' . rawurlencode($arsipJenis) . '&file=' . rawurlencode($arsipFile)
+                                                    : 'download_arsip.php?jenis=' . rawurlencode($arsipJenis) . '&file=' . rawurlencode($arsipFile);
                                                 ?>
                                                 <tr data-jenis="<?php echo htmlspecialchars($jenis, ENT_QUOTES, 'UTF-8'); ?>" data-arsip-cat="<?php echo htmlspecialchars($catFilter, ENT_QUOTES, 'UTF-8'); ?>" data-arsip-bagian="<?php echo htmlspecialchars($kbSlugRow, ENT_QUOTES, 'UTF-8'); ?>">
                                                     <td class="arsip-tbl__cell--jenis"><?php echo htmlspecialchars($jenisLabel, ENT_QUOTES, 'UTF-8'); ?></td>

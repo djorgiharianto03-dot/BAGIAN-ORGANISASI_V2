@@ -256,6 +256,9 @@ if (!function_exists('org_login_post_url')) {
 
         $root = defined('ORG_WEB_ROOT') ? (string) ORG_WEB_ROOT : org_site_web_root();
 
+        if (function_exists('org_home_url')) {
+            return org_home_url();
+        }
         $path = ($root === '' ? '' : rtrim($root, '/')) . '/index.php';
 
         $segments = explode('/', trim(str_replace('\\', '/', $path), '/'));

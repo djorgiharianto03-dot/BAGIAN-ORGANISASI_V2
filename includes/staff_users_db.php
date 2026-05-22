@@ -475,21 +475,157 @@ function org_staff_users_update_password_hash(mysqli $db, int $id, string $passw
     return $ok;
 }
 
-function org_staff_users_username_exists(mysqli $db, string $username): bool
+/**
+ * Validasi format username. Mengembalikan pesan error atau null jika valid.
+ */
+function org_staff_users_validate_username(string $username): ?string
+{
+    $username = trim($username);
+    if ($username === '') {
+        return 'Username wajib diisi.';
+    }
+    $len = strlen($username);
+    if ($len < 3 || $len > 64) {
+        return 'Username harus 3–64 karakter.';
+    }
+    if (!preg_match('/^[A-Za-z0-9._-]+$/', $username)) {
+        return 'Username hanya boleh huruf, angka, titik, garis bawah, dan tanda hubung.';
+    }
+
+    return null;
+}
+
+/**
+ * Cek username sudah dipakai (case-insensitive). $excludeUserId = 0 untuk pendaftaran baru.
+ */
+function org_staff_users_username_taken(mysqli $db, string $username, int $excludeUserId = 0): bool
 {
     if (!org_staff_users_table_exists($db)) {
         return false;
     }
-    $st = $db->prepare('SELECT 1 FROM users WHERE username = ? LIMIT 1');
-    if ($st === false) {
-        return false;
+    if ($excludeUserId > 0) {
+        $st = $db->prepare('SELECT 1 FROM users WHERE LOWER(TRIM(`username`)) = LOWER(TRIM(?)) AND id <> ? LIMIT 1');
+        if ($st === false) {
+            return false;
+        }
+        $st->bind_param('si', $username, $excludeUserId);
+    } else {
+        $st = $db->prepare('SELECT 1 FROM users WHERE LOWER(TRIM(`username`)) = LOWER(TRIM(?)) LIMIT 1');
+        if ($st === false) {
+            return false;
+        }
+        $st->bind_param('s', $username);
     }
-    $st->bind_param('s', $username);
     $st->execute();
     $res = $st->get_result();
     $ok = $res && $res->num_rows > 0;
     $st->close();
+
     return $ok;
+}
+
+/** @deprecated Gunakan org_staff_users_username_taken() */
+function org_staff_users_username_exists(mysqli $db, string $username): bool
+{
+    return org_staff_users_username_taken($db, $username, 0);
+}
+
+/**
+ * Perbarui profil staf. Password hanya diubah jika $passwordHash tidak null.
+ */
+function org_staff_users_update(
+    mysqli $db,
+    int $id,
+    string $username,
+    string $nama,
+    string $emailGoogle,
+    string $level,
+    ?string $passwordHash = null
+): bool {
+    if (!org_staff_users_table_exists($db) || $id < 1) {
+        return false;
+    }
+    if ($level === 'staf_disposisi') {
+        $preFlags = org_staff_users_role_storage_flags($db);
+        if ($preFlags['level'] && !$preFlags['role'] && org_staff_users_try_add_role_column($db)) {
+            org_staff_users_schema_cache_invalidate();
+        }
+    }
+    $flags = org_staff_users_role_storage_flags($db);
+    $hasL = $flags['level'];
+    $hasR = $flags['role'];
+
+    $setPwd = $passwordHash !== null && $passwordHash !== '';
+    $pwdClause = $setPwd ? ', `password` = ?' : '';
+
+    if ($hasL && $hasR) {
+        $sql = 'UPDATE `users` SET `username` = ?, `nama` = ?, `email_google` = ?, `level` = ?, `role` = ?' . $pwdClause . ' WHERE `id` = ?';
+        $st = $db->prepare($sql);
+        if ($st !== false) {
+            if ($setPwd) {
+                $st->bind_param('ssssssi', $username, $nama, $emailGoogle, $level, $level, $passwordHash, $id);
+            } else {
+                $st->bind_param('sssssi', $username, $nama, $emailGoogle, $level, $level, $id);
+            }
+            if ($st->execute()) {
+                $st->close();
+
+                return true;
+            }
+            $st->close();
+        }
+        $sql2 = 'UPDATE `users` SET `username` = ?, `nama` = ?, `email_google` = ?, `level` = NULL, `role` = ?' . $pwdClause . ' WHERE `id` = ?';
+        $st2 = $db->prepare($sql2);
+        if ($st2 !== false) {
+            if ($setPwd) {
+                $st2->bind_param('sssssi', $username, $nama, $emailGoogle, $level, $passwordHash, $id);
+            } else {
+                $st2->bind_param('ssssi', $username, $nama, $emailGoogle, $level, $id);
+            }
+            if ($st2->execute()) {
+                $st2->close();
+
+                return true;
+            }
+            $st2->close();
+        }
+    }
+
+    if ($hasL) {
+        $sql = 'UPDATE `users` SET `username` = ?, `nama` = ?, `email_google` = ?, `level` = ?' . $pwdClause . ' WHERE `id` = ?';
+        $st = $db->prepare($sql);
+        if ($st === false) {
+            return false;
+        }
+        if ($setPwd) {
+            $st->bind_param('sssssi', $username, $nama, $emailGoogle, $level, $passwordHash, $id);
+        } else {
+            $st->bind_param('ssssi', $username, $nama, $emailGoogle, $level, $id);
+        }
+        $ok = $st->execute();
+        $st->close();
+
+        return $ok;
+    }
+
+    if ($hasR) {
+        $sql = 'UPDATE `users` SET `username` = ?, `nama` = ?, `email_google` = ?, `role` = ?' . $pwdClause . ' WHERE `id` = ?';
+        $st = $db->prepare($sql);
+        if ($st === false) {
+            return false;
+        }
+        if ($setPwd) {
+            $st->bind_param('sssssi', $username, $nama, $emailGoogle, $level, $passwordHash, $id);
+        } else {
+            $st->bind_param('ssssi', $username, $nama, $emailGoogle, $level, $id);
+        }
+        $ok = $st->execute();
+        $st->close();
+
+        return $ok;
+    }
+
+    return false;
 }
 
 function org_staff_users_insert(

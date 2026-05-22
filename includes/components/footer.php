@@ -76,7 +76,7 @@ org_tailwind_bootstrap();
             <div class="container-global py-6">
                 <nav aria-label="Menu footer" class="site-footer__nav-wrap">
                     <ul class="org-footer__nav site-footer__nav">
-                        <li><a href="index.php">Beranda</a></li>
+                        <li><a href="<?php echo htmlspecialchars(function_exists('org_home_url') ? org_home_url() : 'index.php', ENT_QUOTES, 'UTF-8'); ?>">Beranda</a></li>
                         <li><a href="profil.php">Profil</a></li>
                         <li><a href="layanan.php">Layanan</a></li>
                         <li><a href="dokumen.php">Dokumen</a></li>

@@ -12,7 +12,9 @@ $libRows = array_values(array_filter($libRowsRaw, static function ($f) use ($doc
     return !org_dokumen_is_visual_kategori($kat);
 }));
 $uploadFsBase = ORG_ROOT . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'perpustakaan_digital';
-$downloadPageUrl = defined('ORG_DOWNLOAD_DOKUMEN_URL') ? ORG_DOWNLOAD_DOKUMEN_URL : 'download_dokumen.php';
+if (!function_exists('org_dokumen_download_url')) {
+    require_once ORG_ROOT . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'dokumen_db.php';
+}
 $sectionIdAttr = '';
 if (isset($digitalLibrarySectionId) && is_string($digitalLibrarySectionId) && $digitalLibrarySectionId !== '') {
     $sectionIdAttr = ' id="' . htmlspecialchars($digitalLibrarySectionId, ENT_QUOTES, 'UTF-8') . '"';
@@ -198,7 +200,7 @@ foreach ($libRows as $countFile) {
                                 $rowNo = 0;
                                 foreach ($libRows as $uploadedFile):
                                     $rowNo++;
-                                    $fileUrl = 'uploads/perpustakaan_digital/' . rawurlencode($uploadedFile);
+                                    $fileOnDisk = org_dokumen_resolve_realpath($uploadedFile) !== null;
                                     $nama_file = $storedDocumentBasename($uploadedFile);
                                     $nama_tampilan = str_replace('_', ' ', $nama_file);
                                     $statRow = $docMap[$uploadedFile] ?? null;
@@ -226,11 +228,12 @@ foreach ($libRows as $countFile) {
                                     $judulDb = $statRow !== null ? trim((string) ($statRow['judul'] ?? '')) : '';
                                     $deskDb = $statRow !== null ? trim((string) ($statRow['deskripsi'] ?? '')) : '';
                                     $judulTampilan = $judulDb !== '' ? $judulDb : $nama_tampilan;
-                                    $fsPath = $uploadFsBase . DIRECTORY_SEPARATOR . $uploadedFile;
-                                    $bytes = is_file($fsPath) ? (int) filesize($fsPath) : 0;
+                                    $fsPath = org_dokumen_resolve_realpath($uploadedFile);
+                                    $bytes = $fsPath !== null ? (int) filesize($fsPath) : 0;
                                     $unduhCount = $statRow !== null ? (int) ($statRow['jumlah_unduh'] ?? 0) : 0;
                                     [$faIcon, $faColor] = org_dokumen_icon_for_extension($uploadedFile);
-                                    $dlHref = htmlspecialchars($downloadPageUrl, ENT_QUOTES, 'UTF-8') . '?file=' . rawurlencode($uploadedFile);
+                                    $viewHref = htmlspecialchars(org_dokumen_view_url($uploadedFile), ENT_QUOTES, 'UTF-8');
+                                    $dlHref = htmlspecialchars(org_dokumen_download_url($uploadedFile), ENT_QUOTES, 'UTF-8');
                                     $rowHay = [
                                         'nama_file' => $uploadedFile,
                                         'kategori' => $kategori,
@@ -291,14 +294,18 @@ foreach ($libRows as $countFile) {
                                         </td>
                                         <td class="doc-center-table__td doc-center-table__td--actions text-end" data-label="Aksi">
                                             <div class="doc-center-actions">
-                                                <a class="doc-center-btn doc-center-btn--preview" href="<?php echo htmlspecialchars($fileUrl, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener">
-                                                    <i class="fa-regular fa-eye" aria-hidden="true"></i>
-                                                    <span>Pratinjau</span>
-                                                </a>
-                                                <a class="doc-center-btn doc-center-btn--download js-digital-lib-download" href="<?php echo $dlHref; ?>">
-                                                    <i class="fa-solid fa-arrow-down-to-line" aria-hidden="true"></i>
-                                                    <span>Unduh</span>
-                                                </a>
+                                                <?php if ($fileOnDisk): ?>
+                                                    <a class="doc-center-btn doc-center-btn--preview" href="<?php echo $viewHref; ?>" target="_blank" rel="noopener">
+                                                        <i class="fa-regular fa-eye" aria-hidden="true"></i>
+                                                        <span>Pratinjau</span>
+                                                    </a>
+                                                    <a class="doc-center-btn doc-center-btn--download js-digital-lib-download" href="<?php echo $dlHref; ?>">
+                                                        <i class="fa-solid fa-arrow-down-to-line" aria-hidden="true"></i>
+                                                        <span>Unduh</span>
+                                                    </a>
+                                                <?php else: ?>
+                                                    <span class="badge text-bg-warning">Berkas tidak ditemukan</span>
+                                                <?php endif; ?>
                                             </div>
                                         </td>
                                     </tr>

@@ -37,7 +37,19 @@ declare(strict_types=1);
                             <tbody id="adminDocumentTableBody">
                                 <?php foreach ($dashLibraryFiles as $dashLibFile): ?>
                                     <?php
-                                    $fileUrl = '../uploads/perpustakaan_digital/' . rawurlencode($dashLibFile);
+                                    $dashLibOnDisk = function_exists('org_dokumen_resolve_realpath')
+                                        ? org_dokumen_resolve_realpath($dashLibFile)
+                                        : null;
+                                    if ($dashLibOnDisk === null) {
+                                        $legacyPath = $dashLibraryDir . DIRECTORY_SEPARATOR . $dashLibFile;
+                                        $dashLibOnDisk = is_file($legacyPath) ? $legacyPath : null;
+                                    }
+                                    $viewUrl = function_exists('org_dokumen_view_url')
+                                        ? org_dokumen_view_url($dashLibFile)
+                                        : '../view_dokumen.php?file=' . rawurlencode($dashLibFile);
+                                    $dlUrl = function_exists('org_dokumen_download_url')
+                                        ? org_dokumen_download_url($dashLibFile)
+                                        : '../download_dokumen.php?file=' . rawurlencode($dashLibFile);
                                     $namaFileDash = org_dokumen_stored_basename($dashLibFile);
                                     $namaTampilanDash = str_replace('_', ' ', $namaFileDash);
                                     $filterHaystackDash = strtolower($dashLibFile . ' ' . $namaTampilanDash);
@@ -49,8 +61,7 @@ declare(strict_types=1);
                                     $badgeClassDash = $isVisualDash ? 'text-bg-success' : 'text-bg-primary';
                                     $badgeIconDash = $isVisualDash ? 'fa-image' : 'fa-file-lines';
                                     $dlCntDash = $statRowDash !== null ? (int) ($statRowDash['jumlah_unduh'] ?? 0) : 0;
-                                    $fsDash = $dashLibraryDir . DIRECTORY_SEPARATOR . $dashLibFile;
-                                    $bytesDash = is_file($fsDash) ? (int) filesize($fsDash) : 0;
+                                    $bytesDash = $dashLibOnDisk !== null ? (int) filesize($dashLibOnDisk) : 0;
                                     ?>
                                     <tr data-file-name="<?php echo htmlspecialchars($filterHaystackDash, ENT_QUOTES, 'UTF-8'); ?>" data-file-type="<?php echo htmlspecialchars($typeFilterDash, ENT_QUOTES, 'UTF-8'); ?>">
                                         <td><?php echo htmlspecialchars($namaTampilanDash, ENT_QUOTES, 'UTF-8'); ?></td>
@@ -58,7 +69,12 @@ declare(strict_types=1);
                                         <td class="text-muted small"><?php echo htmlspecialchars(org_format_file_size($bytesDash), ENT_QUOTES, 'UTF-8'); ?></td>
                                         <td class="text-center small"><?php echo (int) $dlCntDash; ?></td>
                                         <td class="text-center">
-                                            <a class="btn btn-sm btn-outline-primary me-1" href="<?php echo htmlspecialchars($fileUrl, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener">Buka</a>
+                                            <?php if ($dashLibOnDisk !== null): ?>
+                                                <a class="btn btn-sm btn-outline-secondary me-1" href="<?php echo htmlspecialchars($viewUrl, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener" title="Pratinjau">Lihat</a>
+                                                <a class="btn btn-sm btn-outline-primary me-1" href="<?php echo htmlspecialchars($dlUrl, ENT_QUOTES, 'UTF-8'); ?>" title="Unduh">Unduh</a>
+                                            <?php else: ?>
+                                                <span class="badge text-bg-warning me-1">Berkas hilang</span>
+                                            <?php endif; ?>
                                             <form method="post" class="d-inline" action="dashboard.php#panel-kelola-dokumen">
                                                 <input type="hidden" name="action" value="delete_file">
                                                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
