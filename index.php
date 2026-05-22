@@ -2119,8 +2119,8 @@ $htmlClass = 'sg-portal-html-home';
 
 define('ORG_DEFER_LAYOUT_MAIN', true);
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'header.php';
-require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_smart_hero.php';
 echo '<main class="site-layout-main">';
+require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_smart_hero.php';
 ?>
 <div class="sg-portal-main sg-dash-main">
     <?php $sgAmbientVariant = 'floor'; $sgParticleCount = 18; require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'sg_ambient_layer.php'; ?>

@@ -41,7 +41,11 @@ body.sg-portal-page .site-header--sg-portal {
 }
 
 body.sg-homepage.sg-portal-page > #sg-hero,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero,
 .sg-portal-page.sg-homepage #sg-hero {
+    display: block;
+    width: 100%;
+    max-width: none;
     margin-top: 0;
     padding-top: 0;
 }

@@ -197,12 +197,27 @@ body.sg-portal-page .site-header--sg-portal {
 
 body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
 body.sg-homepage.sg-portal-page > section#sg-hero.hero-section,
-body.sg-homepage.sg-portal-page > #sg-hero.sg-hero {
+body.sg-homepage.sg-portal-page > #sg-hero.sg-hero,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section,
+body.sg-homepage.sg-portal-page .site-layout-main > section#sg-hero.hero-section,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero {
     display: block;
     position: relative;
     left: 0;
     right: 0;
+    width: 100%;
+    max-width: none;
     transform: none;
+    box-sizing: border-box;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main {
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 /* Header portal: sticky — lihat sg-portal-shell-align.css */
@@ -370,7 +385,9 @@ body.sg-portal-page .site-header--sg-portal .btn-header-dashboard:hover {
 
 /* Hero beranda */
 body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
-body.sg-homepage.sg-portal-page > section#sg-hero.hero-section {
+body.sg-homepage.sg-portal-page > section#sg-hero.hero-section,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section,
+body.sg-homepage.sg-portal-page .site-layout-main > section#sg-hero.hero-section {
     width: 100%;
     max-width: none;
     margin-left: 0;
@@ -383,7 +400,10 @@ body.sg-homepage.sg-portal-page > section#sg-hero.hero-section {
 
 body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__bg,
 body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__grid-floor,
-body.sg-homepage.sg-portal-page > #sg-hero .sg-ambient-layer {
+body.sg-homepage.sg-portal-page > #sg-hero .sg-ambient-layer,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__bg,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__grid-floor,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-ambient-layer {
     left: 0;
     right: 0;
     width: 100%;

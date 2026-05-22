@@ -53,10 +53,14 @@ body.sg-portal-page .site-header--sg-portal .site-header__gradient {
     box-sizing: border-box;
 }
 
-/* Beranda — #sg-hero di bawah header */
+/* Beranda — #sg-hero di dalam .site-layout-main (index.php) */
 body.sg-homepage.sg-portal-page > section#sg-hero.hero-section,
 body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
-body.sg-homepage.sg-portal-page > #sg-hero.sg-hero {
+body.sg-homepage.sg-portal-page > #sg-hero.sg-hero,
+body.sg-homepage.sg-portal-page .site-layout-main > section#sg-hero.hero-section,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero {
+    display: block !important;
     width: 100% !important;
     max-width: none !important;
     margin: 0 !important;
@@ -67,7 +71,11 @@ body.sg-homepage.sg-portal-page > #sg-hero.sg-hero {
 body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__bg,
 body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__grid-floor,
 body.sg-homepage.sg-portal-page > #sg-hero .sg-ambient-layer,
-body.sg-homepage.sg-portal-page > #sg-hero.hero-section::before {
+body.sg-homepage.sg-portal-page > #sg-hero.hero-section::before,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__bg,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__grid-floor,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-ambient-layer,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section::before {
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;

@@ -8,7 +8,9 @@ html.sg-portal-html-home body.sg-homepage.sg-portal-page {
 }
 
 body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
-body.sg-homepage.sg-portal-page > section#sg-hero.sg-hero {
+body.sg-homepage.sg-portal-page > section#sg-hero.sg-hero,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section,
+body.sg-homepage.sg-portal-page .site-layout-main > section#sg-hero.sg-hero {
     display: block;
     position: relative;
     width: 100%;
@@ -19,7 +21,8 @@ body.sg-homepage.sg-portal-page > section#sg-hero.sg-hero {
     box-sizing: border-box;
 }
 
-body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__bg {
+body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__bg,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__bg {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -31,7 +34,9 @@ body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__bg {
 }
 
 body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__grid-floor,
-body.sg-homepage.sg-portal-page > #sg-hero .sg-ambient-layer {
+body.sg-homepage.sg-portal-page > #sg-hero .sg-ambient-layer,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__grid-floor,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-ambient-layer {
     position: absolute;
     inset: 0;
     width: 100%;

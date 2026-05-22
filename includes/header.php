@@ -100,7 +100,8 @@ if (str_contains($bodyClassAttr, 'sg-portal-page')) {
         . 'body.sg-portal-page .site-header__rail.header-inner{display:flex!important;flex-direction:column!important;align-items:stretch!important;width:100%!important}'
         . 'body.sg-portal-page .site-header__rail .navbar-wrapper{display:block!important;width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important}'
         . 'body.sg-portal-page .site-layout-main>.org-hero.sg-subhero,body.sg-portal-page .site-layout-main>.sg-subhero{padding-top:0!important;width:100%!important;max-width:none!important;margin-left:0!important;margin-right:0!important}'
-        . 'body.sg-homepage.sg-portal-page>#sg-hero{padding-top:0!important;width:100%!important;max-width:none!important;margin:0!important}'
+        . 'body.sg-homepage.sg-portal-page>#sg-hero,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero{display:block!important;width:100%!important;max-width:none!important;margin:0!important;box-sizing:border-box!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__bg,body.sg-homepage.sg-portal-page>#sg-hero .sg-hero__bg{position:absolute!important;inset:0!important;left:0!important;right:0!important;width:100%!important;max-width:none!important}'
         . '</style>' . "\n";
 }
 ?>
