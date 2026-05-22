@@ -64,7 +64,7 @@ body.sg-homepage.sg-portal-page .site-layout-main {
 }
 
 body.sg-homepage.sg-portal-page .sg-portal-main.sg-dash-main {
-    background: transparent;
+    background: linear-gradient(180deg, #f4f7fb 0%, #eef2f7 100%);
 }
 
 /* —— Subhalaman —— */

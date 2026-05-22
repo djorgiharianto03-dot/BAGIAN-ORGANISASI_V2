@@ -1,14 +1,14 @@
 <?php
+declare(strict_types=1);
 
 /** @var list<array{id: string, judul: string, tipe_data: string, nilai_kiri: string, nilai_kanan: string, warna_tema: string, urutan: int, aktif: int}> $berandaDashboardWidgets */
 /** @var array<string, array{selesai: list<array{id: string, nama_opd: string, alasan: string}>, belum: list<array{id: string, nama_opd: string, alasan: string}>, dalam_pengerjaan: list<array{id: string, nama_opd: string, alasan: string}>}> $berandaWidgetDetailsMap */
 $berandaDashboardWidgets = $berandaDashboardWidgets ?? [];
 $berandaWidgetDetailsMap = $berandaWidgetDetailsMap ?? [];
-$widgetCount = count($berandaDashboardWidgets);
-$berandaDashboardForceShell = defined('ORG_BERANDA_PAGE') && ORG_BERANDA_PAGE === true;
-if ($widgetCount === 0 && !$berandaDashboardForceShell) {
+if (count($berandaDashboardWidgets) === 0) {
     return;
 }
+$widgetCount = count($berandaDashboardWidgets);
 $govKpiModalPayload = [];
 foreach ($berandaDashboardWidgets as $wPayload) {
     $widPayload = (string) ($wPayload['id'] ?? '');
@@ -29,7 +29,7 @@ if ($govKpiModalJson === false) {
     $govKpiModalJson = '{}';
 }
 ?>
-        <section class="beranda-section beranda-section--surface-white gov-kpi-section" id="beranda-dashboard-widgets" aria-labelledby="beranda-dashboard-widgets-title">
+        <section class="beranda-section gov-kpi-section" id="beranda-dashboard-widgets" aria-labelledby="beranda-dashboard-widgets-title">
             <div class="gov-kpi-section__shell">
                 <header class="gov-kpi-section__header">
                     <div class="gov-kpi-section__heading">
@@ -42,11 +42,6 @@ if ($govKpiModalJson === false) {
                     </div>
                 </header>
 
-                <?php if ($widgetCount === 0): ?>
-                    <p class="gov-kpi-section__empty text-muted small mb-0">
-                        Indikator kinerja belum dikonfigurasi. Admin dapat menambahkannya di pengaturan dashboard.
-                    </p>
-                <?php else: ?>
                 <div class="row g-3 gov-kpi-grid row-cols-1<?php echo $widgetCount > 1 ? ' row-cols-lg-2' : ''; ?>">
                     <?php foreach ($berandaDashboardWidgets as $w): ?>
                         <?php
@@ -143,7 +138,6 @@ if ($govKpiModalJson === false) {
                         </div>
                     <?php endforeach; ?>
                 </div>
-                <?php endif; ?>
             </div>
 
             <script type="application/json" id="gov-kpi-details-data"><?php echo $govKpiModalJson; ?></script>
@@ -200,3 +194,64 @@ if ($govKpiModalJson === false) {
                 </div>
             </div>
         </section>
+        <script>
+        (function () {
+            var dataEl = document.getElementById('gov-kpi-details-data');
+            var modalEl = document.getElementById('govKpiDetailModal');
+            if (!dataEl || !modalEl) return;
+            var store = {};
+            try { store = JSON.parse(dataEl.textContent || '{}'); } catch (e) { store = {}; }
+            var titleEl = document.getElementById('govKpiDetailModalTitle');
+            var listSelesai = document.getElementById('govKpiDetailListSelesai');
+            var listProses = document.getElementById('govKpiDetailListProses');
+            var listBelum = document.getElementById('govKpiDetailListBelum');
+            var countSelesai = document.getElementById('govKpiDetailCountSelesai');
+            var countProses = document.getElementById('govKpiDetailCountProses');
+            var countBelum = document.getElementById('govKpiDetailCountBelum');
+            var emptyEl = document.getElementById('govKpiDetailEmpty');
+            function esc(s) {
+                var d = document.createElement('div');
+                d.textContent = s;
+                return d.innerHTML;
+            }
+            function renderList(ul, items, showAlasan) {
+                ul.innerHTML = '';
+                if (!items.length) {
+                    var li = document.createElement('li');
+                    li.className = 'gov-kpi-modal__list-empty';
+                    li.textContent = '— Tidak ada data —';
+                    ul.appendChild(li);
+                    return;
+                }
+                items.forEach(function (item) {
+                    var li = document.createElement('li');
+                    li.className = 'gov-kpi-modal__list-item';
+                    var html = '<span class="gov-kpi-modal__opd-name">' + esc(item.nama_opd || '') + '</span>';
+                    if (showAlasan && item.alasan) {
+                        html += '<span class="gov-kpi-modal__alasan">' + esc(item.alasan) + '</span>';
+                    }
+                    li.innerHTML = html;
+                    ul.appendChild(li);
+                });
+            }
+            document.querySelectorAll('[data-gov-kpi-detail]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var id = btn.getAttribute('data-gov-kpi-detail');
+                    var pack = store[id] || { judul: '', selesai: [], dalam_pengerjaan: [], belum: [] };
+                    if (titleEl) titleEl.textContent = pack.judul || 'Detail Indikator';
+                    var selesai = pack.selesai || pack.sudah || [];
+                    var proses = pack.dalam_pengerjaan || [];
+                    var belum = pack.belum || [];
+                    if (countSelesai) countSelesai.textContent = String(selesai.length);
+                    if (countProses) countProses.textContent = String(proses.length);
+                    if (countBelum) countBelum.textContent = String(belum.length);
+                    renderList(listSelesai, selesai, false);
+                    renderList(listProses, proses, true);
+                    renderList(listBelum, belum, true);
+                    if (emptyEl) {
+                        emptyEl.classList.toggle('d-none', selesai.length + proses.length + belum.length > 0);
+                    }
+                });
+            });
+        }());
+        </script>

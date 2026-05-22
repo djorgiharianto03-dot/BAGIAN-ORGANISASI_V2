@@ -1,0 +1,261 @@
+/**
+ * Beranda — final premium visual polish (tanpa mengubah layout/grid/container)
+ */
+
+/* —— 1. Hero ambient: gradient + blur halus —— */
+.sg-homepage #sg-hero.hero-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse 52% 42% at 14% 48%, rgba(56, 189, 248, 0.16), transparent 72%),
+        radial-gradient(ellipse 48% 38% at 88% 22%, rgba(99, 102, 241, 0.11), transparent 70%),
+        radial-gradient(ellipse 44% 36% at 72% 78%, rgba(14, 165, 233, 0.1), transparent 74%);
+    filter: blur(48px);
+    opacity: 0.92;
+    animation: sgHeroAmbientDrift 20s ease-in-out infinite;
+}
+
+.sg-homepage .sg-hero--govtech .sg-hero__bg::before {
+    opacity: 0.48;
+    filter: blur(1px);
+}
+
+.sg-homepage .sg-hero--govtech .sg-ambient-layer {
+    z-index: 2;
+}
+
+.sg-homepage .sg-hero--govtech .sg-ambient-glow {
+    opacity: 0.42;
+    filter: blur(36px);
+    transition: opacity 1.2s ease;
+}
+
+.sg-homepage .sg-hero--govtech .sg-particles {
+    opacity: 0.42;
+}
+
+/* —— 2. Hero typography hierarchy —— */
+.sg-homepage #sg-hero .sg-hero__title {
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    margin: 0 0 0.65rem;
+}
+
+.sg-homepage #sg-hero .sg-hero__title-secondary {
+    margin: 0 0 0.65rem;
+    font-size: clamp(0.72rem, 1.1vw, 0.8125rem);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    line-height: 1.35;
+    color: rgba(186, 230, 253, 0.78);
+    -webkit-text-fill-color: rgba(186, 230, 253, 0.78);
+}
+
+.sg-homepage #sg-hero .sg-hero__title-primary {
+    font-size: clamp(52px, 5vw, 72px);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    font-weight: 800;
+    margin: 0 0 0.55rem;
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+    text-shadow:
+        0 2px 24px rgba(0, 0, 0, 0.24),
+        0 0 40px rgba(255, 255, 255, 0.06);
+}
+
+.sg-homepage #sg-hero .sg-hero__title-org {
+    margin: 0 0 0.35rem;
+    font-size: clamp(1rem, 1.35vw, 1.125rem);
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -0.015em;
+    color: rgba(226, 232, 240, 0.9);
+    -webkit-text-fill-color: rgba(226, 232, 240, 0.9);
+}
+
+.sg-homepage #sg-hero .sg-hero__tagline {
+    margin: 0 0 1.75rem;
+    font-size: clamp(0.9375rem, 1.15vw, 1.0625rem);
+    line-height: 1.65;
+    color: rgba(203, 213, 225, 0.88);
+}
+
+/* —— 3. Statistic cards: depth + hover —— */
+.sg-homepage #sg-hero .sg-hero-stats .sg-stat-glass,
+.sg-homepage #sg-hero .sg-hero-stat-card {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: linear-gradient(155deg, rgba(255, 255, 255, 0.11) 0%, rgba(255, 255, 255, 0.05) 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.16),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.06),
+        0 10px 28px rgba(4, 18, 42, 0.24);
+    transition:
+        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.45s ease,
+        border-color 0.45s ease,
+        background 0.45s ease;
+}
+
+.sg-homepage #sg-hero .sg-hero-stats .sg-stat-glass::before,
+.sg-homepage #sg-hero .sg-hero-stat-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.14) 0%,
+        rgba(255, 255, 255, 0.04) 38%,
+        transparent 62%
+    );
+    z-index: 0;
+}
+
+.sg-homepage #sg-hero .sg-hero-stats .sg-stat-glass > *,
+.sg-homepage #sg-hero .sg-hero-stat-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.sg-homepage #sg-hero .sg-hero-stats .sg-stat-glass:not(.sg-stat-display):hover,
+.sg-homepage #sg-hero .sg-hero-stat-card:not(.sg-stat-display):hover {
+    transform: translateY(-3px);
+    border-color: rgba(186, 230, 253, 0.32);
+    background: linear-gradient(155deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.07) 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.22),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.04),
+        0 16px 40px rgba(4, 18, 42, 0.32);
+}
+
+.sg-homepage #sg-hero .sg-hero-stats .sg-stat-display:hover {
+    transform: none;
+}
+
+.sg-homepage #sg-hero .sg-hero-stats .sg-stat-glass__icon {
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
+}
+
+.sg-homepage #sg-hero .sg-hero-stats .sg-stat-glass:not(.sg-stat-display):hover .sg-stat-glass__icon {
+    transform: scale(1.04);
+    box-shadow: 0 4px 14px rgba(29, 155, 240, 0.2);
+}
+
+/* —— 4. Navbar kanan: login lebih balance —— */
+.sg-homepage.sg-portal-page .site-header__actions--end,
+.sg-homepage.sg-portal-page .site-header__actions.site-header__actions--end {
+    margin-left: auto;
+    padding-right: 0;
+}
+
+.sg-homepage.sg-portal-page .site-header__actions-end {
+    gap: 0.4rem;
+}
+
+.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-login,
+.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-logout {
+    min-height: 42px;
+    padding: 0.5rem 1.12rem;
+    font-size: 0.875rem;
+    border-radius: 12px;
+    transition:
+        transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.4s ease,
+        background 0.4s ease;
+}
+
+.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-login:hover,
+.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-logout:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.14);
+}
+
+.sg-homepage.sg-portal-page .site-header__actions-end .org-theme-toggle {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+}
+
+.sg-homepage.sg-portal-page .site-header__actions-end .org-theme-toggle:hover {
+    transform: translateY(-1px);
+}
+
+/* —— 5. Subtle motion & hover halus —— */
+.sg-homepage .sg-btn--hero-primary,
+.sg-homepage .sg-btn--hero-secondary {
+    transition:
+        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.45s ease,
+        background 0.45s ease,
+        border-color 0.45s ease;
+}
+
+.sg-homepage .sg-btn--hero-primary:hover,
+.sg-homepage .sg-btn--hero-secondary:hover {
+    transform: translateY(-2px);
+}
+
+.sg-homepage .sg-quick-menu__card {
+    transition:
+        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.45s ease,
+        border-color 0.45s ease,
+        background 0.45s ease;
+}
+
+.sg-homepage .sg-quick-menu__card:hover {
+    transform: translateY(-2px);
+}
+
+.sg-homepage .hero-visual .sg-hero__visual-frame {
+    transition:
+        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.55s ease,
+        border-color 0.55s ease;
+}
+
+.sg-homepage .hero-visual:hover .sg-hero__visual-frame {
+    transform: translateY(-2px);
+    box-shadow:
+        0 12px 36px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+@keyframes sgHeroAmbientDrift {
+    0%,
+    100% {
+        opacity: 0.88;
+        transform: scale(1) translate3d(0, 0, 0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.03) translate3d(1%, -0.5%, 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sg-homepage #sg-hero.hero-section::before {
+        animation: none;
+    }
+
+    .sg-homepage .sg-btn--hero-primary:hover,
+    .sg-homepage .sg-btn--hero-secondary:hover,
+    .sg-homepage .sg-quick-menu__card:hover,
+    .sg-homepage #sg-hero .sg-hero-stats .sg-stat-glass:hover,
+    .sg-homepage #sg-hero .sg-hero-stat-card:hover,
+    .sg-homepage .hero-visual:hover .sg-hero__visual-frame,
+    .sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-login:hover,
+    .sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-logout:hover {
+        transform: none;
+    }
+
+    .sg-homepage #sg-hero .sg-hero-stats .sg-stat-glass:hover .sg-stat-glass__icon {
+        transform: none;
+    }
+}

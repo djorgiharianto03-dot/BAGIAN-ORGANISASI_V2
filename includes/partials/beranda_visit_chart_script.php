@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /** @var list<string> $berandaVisitLabels @var list<int> $berandaVisitValues */
 $labelsJson = json_encode($berandaVisitLabels ?? [], JSON_UNESCAPED_UNICODE);
@@ -239,43 +240,21 @@ if ($valuesJson === false) {
         });
     };
 
-    const runWhenVisible = function (fn) {
-        const host = chartEl.closest('.beranda-visit-chart-wrap') || chartEl;
-        if (!('IntersectionObserver' in window)) {
-            fn();
-            return;
-        }
-        const io = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (!entry.isIntersecting) return;
-                io.disconnect();
-                fn();
-            });
-        }, { rootMargin: '100px 0px', threshold: 0.06 });
-        io.observe(host);
-    };
-
-    document.addEventListener('beranda:chart-ready', function () {
-        schedule();
-    }, { once: true });
-
-    if (document.getElementById('beranda-root')) {
-        runWhenVisible(function () {
-            if (typeof Chart !== 'undefined') {
-                schedule();
-            }
-        });
-        window.setTimeout(function () {
-            if (!rendered) {
-                tryRender();
-            }
-        }, 800);
+    document.addEventListener('beranda:chart-ready', schedule, { once: true });
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', schedule);
     } else {
-        runWhenVisible(function () {
-            if (typeof Chart !== 'undefined') {
-                schedule();
-            }
-        });
+        schedule();
     }
+    window.addEventListener('load', schedule);
+    window.setTimeout(function () {
+        if (!rendered) schedule();
+    }, 400);
+    window.setTimeout(function () {
+        if (!rendered && chartErrorEl) {
+            chartErrorEl.textContent = 'Grafik statistik sementara belum dapat dimuat. Periksa koneksi internet (Chart.js) atau refresh halaman.';
+            chartErrorEl.classList.add('is-visible');
+        }
+    }, 5000);
 }());
 </script>

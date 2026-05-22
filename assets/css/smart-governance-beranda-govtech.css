@@ -1,0 +1,361 @@
+/**
+ * Beranda — GovTech premium homepage layer
+ * Loads last on index: calm depth, focal hero visual, enterprise CTAs & stats.
+ */
+
+/* —— Hero: layered depth, no cyber noise —— */
+.sg-homepage .sg-hero.sg-hero--govtech {
+    position: relative;
+    overflow: hidden;
+}
+
+.sg-homepage .sg-hero--govtech .sg-hero__bg {
+    background:
+        radial-gradient(ellipse 90% 55% at 78% 8%, rgba(29, 155, 240, 0.14), transparent 52%),
+        radial-gradient(ellipse 70% 50% at 12% 92%, rgba(15, 76, 129, 0.45), transparent 55%),
+        radial-gradient(ellipse 50% 40% at 50% 100%, rgba(8, 47, 79, 0.5), transparent 60%),
+        linear-gradient(168deg, #062a47 0%, #0f4c81 42%, #0b3a63 100%);
+}
+
+.sg-homepage .sg-hero--govtech .sg-hero__bg::before {
+    opacity: 0.4;
+}
+
+.sg-homepage .sg-hero--govtech .sg-hero__grid-floor {
+    opacity: 0.45;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, transparent 92%);
+}
+
+.sg-homepage .sg-hero--govtech .sg-ambient-glow {
+    opacity: 0.35;
+}
+
+.sg-homepage .sg-hero--govtech .sg-particles {
+    opacity: 0.55;
+}
+
+.sg-homepage .sg-hero--govtech .sg-hero__eyebrow {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: rgba(248, 250, 252, 0.95);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    font-size: 0.8125rem;
+    border-radius: 999px;
+    padding: 0.35rem 0.9rem;
+}
+
+.sg-homepage .sg-hero--govtech .sg-hero__title {
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.12;
+    margin-bottom: 0.75rem;
+}
+
+/* Atas: Smart Governance Portal · bawah: Bagian Organisasi (kontras utama) */
+.sg-homepage .sg-hero--govtech .sg-hero__title-secondary {
+    display: block;
+    margin: 0 0 0.45rem;
+    font-size: clamp(0.8rem, 1.65vw, 1rem);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(186, 230, 253, 0.72);
+    -webkit-text-fill-color: rgba(186, 230, 253, 0.72);
+    background: none;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    line-height: 1.3;
+}
+
+.sg-homepage .sg-hero--govtech .sg-hero__title-primary {
+    display: block;
+    font-size: 1em;
+    font-weight: 800;
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+    background: none;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    text-shadow:
+        0 2px 20px rgba(0, 0, 0, 0.28),
+        0 0 48px rgba(255, 255, 255, 0.12);
+    letter-spacing: -0.035em;
+    line-height: 1.08;
+}
+
+/* Single focal visual */
+.sg-homepage .sg-hero__visual-frame {
+    position: relative;
+    border-radius: 20px;
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.sg-homepage .sg-hero__visual-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.sg-homepage .sg-hero--govtech .sg-hero__holo {
+    min-height: min(300px, 40vw);
+}
+
+.sg-homepage .sg-hero--govtech .sg-hero__holo .sg-command-center {
+    filter: drop-shadow(0 16px 40px rgba(0, 0, 0, 0.22));
+    max-width: min(400px, 100%);
+}
+
+.sg-homepage .sg-hero--govtech .sg-command-center__hub-core {
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.sg-homepage .sg-hero--govtech .sg-command-center__hub-ring {
+    animation: none;
+    opacity: 0.85;
+}
+
+/* Primary / secondary CTAs */
+.sg-homepage .sg-btn--hero-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.35rem;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1.3;
+    border-radius: 0.75rem;
+    color: #fff !important;
+    text-decoration: none;
+    background: #0f4c81;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.sg-homepage .sg-btn--hero-primary:hover {
+    transform: translateY(-2px);
+    background: #135892;
+    box-shadow: 0 8px 28px rgba(15, 23, 42, 0.2);
+    color: #fff !important;
+}
+
+.sg-homepage .sg-btn--hero-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.35rem;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1.3;
+    border-radius: 0.75rem;
+    color: #fff !important;
+    text-decoration: none;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    box-shadow: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.sg-homepage .sg-btn--hero-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.55);
+    transform: translateY(-1px);
+    color: #fff !important;
+}
+
+.sg-homepage .sg-hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    align-items: center;
+}
+
+/* Quick access — cleaner cards */
+.sg-homepage .sg-quick-menu {
+    gap: 1rem;
+    margin-top: clamp(1.5rem, 3vw, 2rem);
+}
+
+@media (min-width: 768px) {
+    .sg-homepage .sg-quick-menu {
+        gap: 1.25rem;
+    }
+}
+
+.sg-homepage .sg-quick-menu__card {
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 1rem 1.15rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.sg-homepage .sg-quick-menu__card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(29, 155, 240, 0.35);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+}
+
+.sg-homepage .sg-quick-menu__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(15, 76, 129, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #e0f2fe;
+    box-shadow: none;
+}
+
+.sg-homepage .sg-quick-menu__label {
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.sg-homepage .sg-quick-menu__desc {
+    font-size: 0.8125rem;
+    opacity: 0.82;
+}
+
+/* Hero statistics — lihat smart-governance-beranda-premium.css (glass) */
+.sg-homepage .sg-hero-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Main dashboard floor */
+.sg-homepage .sg-dash-main {
+    background: linear-gradient(180deg, #f4f7fb 0%, #eef2f7 100%);
+}
+
+/* Section headers — clearer hierarchy */
+.sg-homepage #beranda-root > .beranda-section,
+.sg-homepage #beranda-root > .gov-kpi-section {
+    padding-top: clamp(2.5rem, 5vw, 4rem);
+    padding-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.sg-homepage #beranda-root .beranda-section__title,
+.sg-homepage #beranda-root .gov-kpi-section__title {
+    font-size: clamp(1.35rem, 1.1rem + 1vw, 1.65rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #0f2f4d;
+}
+
+.sg-homepage #beranda-root .beranda-section__desc,
+.sg-homepage #beranda-root .gov-kpi-section__subtitle {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: #64748b;
+    max-width: 42rem;
+}
+
+.sg-homepage #beranda-root .beranda-section__head-row {
+    margin-bottom: 1.25rem;
+}
+
+/* KPI shell — calmer card */
+.sg-homepage #beranda-root .gov-kpi-section__shell {
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+    background: #fff;
+}
+
+.sg-homepage #beranda-root .gov-kpi-section__shell::before {
+    opacity: 0;
+}
+
+.sg-homepage #beranda-root .gov-kpi-card {
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 12px rgba(15, 23, 42, 0.05);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.sg-homepage #beranda-root .gov-kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(15, 23, 42, 0.08);
+}
+
+.sg-homepage #beranda-root .gov-kpi-card::after {
+    opacity: 0;
+}
+
+.sg-homepage #beranda-root .gov-kpi-card:hover::after {
+    opacity: 0;
+}
+
+/* Team targets shell */
+.sg-homepage .gov-team-target-section__shell--glass {
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+    background: #fff;
+}
+
+.sg-homepage .gov-team-target-dash-card {
+    border-radius: 16px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.sg-homepage .gov-team-target-dash-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(15, 23, 42, 0.08);
+}
+
+/* Visit stats card */
+.sg-homepage .beranda-visit-card {
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+}
+
+/* Navbar beranda: timpa smart-governance-homepage.css (muat sebelum govtech) */
+/* Navbar beranda: sg-portal-panel-layout.css */
+.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__title,
+.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__subtitle {
+    color: #fff !important;
+}
+
+.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .btn-header-login,
+.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .btn-header-login span,
+.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .btn-header-login i {
+    color: #0f4c81 !important;
+}
+
+/* Layout lebar penuh: lihat smart-governance-beranda-layout-fix.css */
+
+/* Layout lebar: org-container-global.css */
+
+@media (prefers-reduced-motion: reduce) {
+    .sg-homepage .sg-btn--hero-primary:hover,
+    .sg-homepage .sg-btn--hero-secondary:hover,
+    .sg-homepage .sg-quick-menu__card:hover,
+    .sg-homepage .sg-command-center__node-btn,
+    .sg-homepage .sg-hero-stats .sg-stat-glass:hover,
+    .sg-homepage #beranda-root .gov-kpi-card:hover,
+    .sg-homepage .gov-team-target-dash-card:hover {
+        transform: none;
+    }
+}

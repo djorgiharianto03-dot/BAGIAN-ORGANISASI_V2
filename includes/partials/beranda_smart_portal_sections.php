@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /** @var list<string> $berandaVisitLabels @var list<int> $berandaVisitValues */
 /** @var int $berandaTotalToday @var int $berandaTotalWeek */
