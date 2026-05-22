@@ -132,6 +132,7 @@ if (str_contains($bodyClassAttr, 'sg-portal-page')) {
         require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
         echo org_beranda_shell_stylesheet_async_link();
         echo org_beranda_rail_unify_stylesheet_link();
+        echo org_beranda_hero_fix_active_stylesheet_link();
     } else {
         require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_container_global_assets.php';
         echo org_container_global_stylesheet_link();
@@ -143,7 +144,8 @@ if (str_contains($bodyClassAttr, 'sg-portal-page')) {
         . 'body.sg-portal-page .site-header__nav a{pointer-events:auto!important;cursor:pointer;position:relative;z-index:3}'
         . 'body.sg-portal-page:not(.sg-homepage) .site-layout-main{padding-top:var(--sg-portal-header-offset,6.5rem)}'
         . 'body.sg-portal-page .site-layout-main>.org-hero.sg-subhero,body.sg-portal-page .site-layout-main>.sg-subhero{padding-top:0!important;width:100%!important;max-width:none!important;margin-left:0!important;margin-right:0!important}'
-        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage.sg-portal-page>#sg-hero{padding-top:var(--sg-portal-header-offset,7.5rem)!important;width:100%!important;max-width:none!important;margin:0!important;padding-left:0!important;padding-right:0!important;min-height:0!important;height:auto!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero.sg-hero--minimal,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero.hero-section.sg-hero--minimal{padding-top:calc(var(--sg-portal-header-offset,5.25rem) + .3rem)!important;padding-bottom:.35rem!important;min-height:0!important;height:auto!important;overflow:visible!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage.sg-portal-page>#sg-hero{width:100%!important;max-width:none!important;margin:0!important;padding-left:0!important;padding-right:0!important;min-height:0!important;height:auto!important}'
         . 'body.sg-homepage.sg-portal-page .site-header--sg-portal{left:0!important;right:0!important;width:auto!important;max-width:none!important}'
         . 'body.sg-homepage.sg-portal-page .site-header__gradient{width:100%!important;max-width:none!important}'
         . '</style>' . "\n";

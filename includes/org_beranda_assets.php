@@ -112,7 +112,7 @@ function org_container_global_stylesheet_link_async(): string
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
     $links = '';
     foreach ([
-        'assets/css/org-container-global.css?v=37',
+        'assets/css/org-container-global.css?v=39',
         'assets/css/sg-portal-panel-layout.css?v=6',
         'assets/css/sg-portal-shell-align.css?v=5',
         'assets/css/org-overflow-guard.css?v=1',
@@ -163,7 +163,7 @@ function org_beranda_header_vendor_markup(): string
         . 'body.sg-homepage.sg-portal-page .site-header__nav a{pointer-events:auto!important;cursor:pointer}'
         . 'body.sg-homepage.sg-portal-page :is(.header-inner.container-global,.navbar-wrapper.container-global,.site-layout-main>#sg-hero .container-global,#beranda-root.container-global,.site-footer .container-global){' . $rail . '}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main{width:100%!important;max-width:100%!important;background:#f4f7fb!important;display:block!important;min-height:0!important}'
-        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero{width:100%!important;max-width:100%!important;margin:0!important;padding-left:0!important;padding-right:0!important;min-height:0!important;height:auto!important;overflow:visible!important;background:linear-gradient(180deg,#0a3d6b,#0c4a7a)!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero{width:100%!important;max-width:100%!important;margin:0!important;padding-left:0!important;padding-right:0!important;min-height:0!important;height:auto!important;overflow:visible!important;padding-top:calc(var(--sg-portal-header-offset,5.25rem) + .3rem)!important;padding-bottom:.35rem!important;background:linear-gradient(180deg,#0a3d6b,#0c4a7a)!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__bg{display:none!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .hero-inner--stacked{display:flex!important;flex-direction:column!important;grid-template-columns:unset!important}'
         . 'body.sg-homepage .sg-hero:not(.sg-hero--ultra):not(.sg-hero--minimal){min-height:0!important}'
@@ -243,16 +243,28 @@ function org_beranda_home_layout_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-home-layout.css?v=6')
-        . org_beranda_rail_unify_stylesheet_link();
+    return org_asset_stylesheet_link('assets/css/beranda-home-layout.css?v=7')
+        . org_beranda_rail_unify_stylesheet_link()
+        . org_beranda_hero_fix_active_stylesheet_link();
 }
 
-/** Rail 1180px — muat paling akhir, menimpa site_styles (1200px) & org-container-global. */
+/** Rail 1180px — menimpa site_styles (1200px) & org-container-global. */
 function org_beranda_rail_unify_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-rail-unify.css?v=1');
+    return org_asset_stylesheet_link('assets/css/beranda-rail-unify.css?v=2');
+}
+
+/**
+ * Hero beranda — SYNC paling akhir (setelah shell async) di header.php.
+ * Cari di production: beranda-hero-fix-active.css + komentar HERO FIX ACTIVE
+ */
+function org_beranda_hero_fix_active_stylesheet_link(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+
+    return org_asset_stylesheet_link('assets/css/beranda-hero-fix-active.css?v=1');
 }
 
 function org_beranda_lite_render_script_tag(): string

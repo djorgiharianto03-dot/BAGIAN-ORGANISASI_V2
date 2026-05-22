@@ -28,7 +28,7 @@ $steps = [
     },
     'beranda-shell.bundle.min.css' => static function (): bool {
         return org_build_assets_write_bundle('assets/css/beranda-shell.bundle.min.css', [
-            'assets/css/org-container-global.css', /* v38 — hero stacked flex */
+            'assets/css/org-container-global.css', /* v39 — hero minimal compact */
             'assets/css/sg-portal-panel-layout.css',
             'assets/css/sg-portal-shell-align.css',
             'assets/css/org-overflow-guard.css',

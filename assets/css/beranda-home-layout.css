@@ -529,6 +529,7 @@ body.sg-homepage.sg-portal-page .site-layout-main {
     background: #f4f7fb !important;
 }
 
+/* HERO FIX ACTIVE — selector DOM aktif: .site-layout-main > #sg-hero */
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero,
 body.sg-homepage.sg-portal-page .site-layout-main > section#sg-hero {
     display: block;
@@ -539,7 +540,8 @@ body.sg-homepage.sg-portal-page .site-layout-main > section#sg-hero {
     height: auto !important;
     max-height: none !important;
     margin: 0 0 0 !important;
-    padding-bottom: 0.5rem !important;
+    padding-top: calc(var(--sg-portal-header-offset, 5.25rem) + 0.3rem) !important;
+    padding-bottom: 0.35rem !important;
     overflow: visible !important;
     box-sizing: border-box;
 }

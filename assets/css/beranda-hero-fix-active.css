@@ -1,0 +1,74 @@
+/**
+ * Beranda homepage — hero fix (SYNC, muat paling akhir di header.php).
+ * Menimpa beranda.bundle + beranda-shell.bundle (async) dan inline shell-critical.
+ *
+ * DOM aktif (index.php): main.site-layout-main > section#sg-hero.sg-hero--minimal
+ * Cari di View Source: beranda-hero-fix-active.css
+ */
+
+/* HERO FIX ACTIVE — section: tinggi mengikuti konten, bukan viewport */
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section,
+body.sg-homepage.sg-portal-page .site-layout-main > section#sg-hero.hero-section,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero.sg-hero--compact.sg-hero--minimal,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section.sg-hero--minimal {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    height: auto !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+    padding-top: calc(var(--sg-portal-header-offset, 5.25rem) + 0.3rem) !important;
+    padding-bottom: 0.35rem !important;
+    background: linear-gradient(180deg, #0a3d6b 0%, #0c4a7a 100%) !important;
+}
+
+/* HERO FIX ACTIVE — batalkan 62vh / 85vh / 92vh dari bundle & portal CSS */
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero--compact,
+body.sg-homepage.sg-portal-page .sg-hero.sg-hero--minimal,
+body.sg-homepage.sg-portal-page .sg-hero.sg-hero--compact.sg-hero--minimal {
+    min-height: 0 !important;
+    height: auto !important;
+}
+
+/* HERO FIX ACTIVE — lapisan biru absolute (penyebab band kosong setinggi layar) */
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__bg,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__grid-floor,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-ambient-layer,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .beranda-hero-fx,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section::before {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+}
+
+/* HERO FIX ACTIVE — inner & stats: rapat, satu kolom */
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .container-global.hero-inner.hero-inner--stacked,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .hero-inner.hero-inner--stacked {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: unset !important;
+    gap: 0.45rem !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .stats-grid.container-global {
+    margin-top: 0.2rem !important;
+    padding-top: 0 !important;
+    padding-bottom: 0.25rem !important;
+}
+
+/* HERO FIX ACTIVE — konten beranda menempel hero (tanpa celah biru) */
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero + #beranda-root {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}

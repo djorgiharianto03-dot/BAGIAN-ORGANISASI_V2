@@ -28,13 +28,16 @@ body.sg-homepage.sg-portal-page .site-footer.site-footer--modern {
     box-sizing: border-box;
 }
 
+/* HERO FIX ACTIVE — shell hero biru lebar penuh, tinggi = konten */
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section,
-body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero {
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero.sg-hero--minimal {
     padding-left: 0 !important;
     padding-right: 0 !important;
     min-height: 0 !important;
     height: auto !important;
     overflow: visible !important;
+    padding-top: calc(var(--sg-portal-header-offset, 5.25rem) + 0.3rem) !important;
+    padding-bottom: 0.35rem !important;
     background: linear-gradient(180deg, #0a3d6b 0%, #0c4a7a 100%) !important;
 }
 

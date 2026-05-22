@@ -30,8 +30,8 @@
     --sg-dash-bg-alt: var(--sg-bg-soft);
 }
 
-/* —— Hero command deck (legacy; minimal/ultra = compact) —— */
-.sg-homepage .sg-hero:not(.sg-hero--ultra):not(.sg-hero--minimal) {
+/* —— Hero command deck (legacy; beranda aktif = --minimal/--compact) —— */
+.sg-homepage .sg-hero:not(.sg-hero--ultra):not(.sg-hero--minimal):not(.sg-hero--compact) {
     min-height: 85vh;
     max-height: none;
 }
@@ -106,7 +106,7 @@
 }
 
 @media (max-width: 991.98px) {
-    .sg-homepage .sg-hero:not(.sg-hero--ultra):not(.sg-hero--minimal) {
+    .sg-homepage .sg-hero:not(.sg-hero--ultra):not(.sg-hero--minimal):not(.sg-hero--compact) {
         min-height: min(85vh, 780px);
     }
     .sg-homepage .sg-hero.sg-hero--ultra {
