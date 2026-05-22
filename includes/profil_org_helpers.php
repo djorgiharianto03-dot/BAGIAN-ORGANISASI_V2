@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Ubah HTML Misi menjadi daftar poin untuk tampilan profil.

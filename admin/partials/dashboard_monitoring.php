@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /** @var string $adminName @var string $adminRoleLabel */
 /** @var array<string, mixed> $dashMetrics */

@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Premium dark mode — boot script, stylesheet, switcher JS.

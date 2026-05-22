@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Memastikan struktur folder uploads ada (deploy CloudPanel / clone Git baru).

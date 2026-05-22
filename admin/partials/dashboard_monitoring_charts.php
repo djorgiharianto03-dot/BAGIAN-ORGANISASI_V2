@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 /** @var array<string, mixed> $dashMetrics @var bool $isSubAdminPublikasiActor */
 
 $chartTamuLabels = json_encode($dashMetrics['tamu_labels'] ?? [], JSON_UNESCAPED_UNICODE);

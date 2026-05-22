@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 if (!defined('ORG_WEB_ROOT')) {
     require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';

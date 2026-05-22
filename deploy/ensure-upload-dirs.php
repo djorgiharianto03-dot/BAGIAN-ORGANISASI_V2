@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * CLI: php deploy/ensure-upload-dirs.php

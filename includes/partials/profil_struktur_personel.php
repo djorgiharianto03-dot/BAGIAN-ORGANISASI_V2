@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /** @var string $profilStrukturImgWeb */
 /** @var array<string, mixed> $siteSettings */
@@ -12,7 +11,7 @@ $personnelKepalaList = $personnelKepalaList ?? [];
 $personnelLainList = $personnelLainList ?? [];
 
 $profilPersonPhotoIsPlaceholder = static function (string $photoUrl): bool {
-    $u = strtolower($photoUrl);
+    $u = strtolower(trim($photoUrl));
 
     return $u === ''
         || str_starts_with($u, 'data:image')
@@ -22,9 +21,24 @@ $profilPersonPhotoIsPlaceholder = static function (string $photoUrl): bool {
         || str_contains($u, 'avatar');
 };
 
-$profilPersonRenderPhoto = static function (string $name, string $photoUrl) use ($profilPersonPhotoIsPlaceholder): void {
+$profilPersonResolvePhotoUrl = static function (string $photoUrl): string {
+    $photoUrl = trim($photoUrl);
+    if ($photoUrl === '' || str_starts_with(strtolower($photoUrl), 'data:image')) {
+        return $photoUrl;
+    }
+    if (preg_match('#^(https?:)?//#i', $photoUrl)) {
+        return $photoUrl;
+    }
+    $path = ltrim($photoUrl, '/');
+    $root = defined('ORG_WEB_ROOT') ? rtrim((string) ORG_WEB_ROOT, '/') : '';
+
+    return ($root !== '' ? $root . '/' : '') . $path;
+};
+
+$profilPersonRenderPhoto = static function (string $name, string $photoUrl) use ($profilPersonPhotoIsPlaceholder, $profilPersonResolvePhotoUrl): void {
     $alt = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
-  if ($profilPersonPhotoIsPlaceholder($photoUrl)) {
+    $photoUrl = $profilPersonResolvePhotoUrl($photoUrl);
+    if ($profilPersonPhotoIsPlaceholder($photoUrl)) {
         echo '<div class="profil-person-exec__photo-placeholder" aria-hidden="true">';
         echo '<svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" fill="none" stroke-width="1.5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
         echo '</div>';

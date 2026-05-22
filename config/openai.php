@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Konfigurasi OpenAI — API key dari env OPENAI_API_KEY atau config/openai.local.php (gitignored).

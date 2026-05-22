@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 $includePersonnelModals = $includePersonnelModals ?? false;
 if (!function_exists('org_proses_saran_url')) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_database.php';

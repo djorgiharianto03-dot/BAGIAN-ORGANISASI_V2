@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /** @var list<string> $libraryDocumentFiles */
 $libRowsRaw = isset($filteredLibraryDocuments) && is_array($filteredLibraryDocuments) ? $filteredLibraryDocuments : $libraryDocumentFiles;

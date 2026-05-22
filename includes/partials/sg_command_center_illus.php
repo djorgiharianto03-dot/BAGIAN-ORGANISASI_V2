@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Governance command center — node interaktif (4 sudut + hub tengah).

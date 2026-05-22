@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 /** @var string $adminName @var string $adminRoleLabel @var string $csrfToken */
 /** @var bool $isSubAdminEorgActor @var bool $isSubAdminPublikasiActor @var bool $isSubAdminActor @var bool $auditRiwayatVisible */
 $sgInitials = htmlspecialchars(mb_strtoupper(mb_substr(strip_tags($adminName), 0, 2, 'UTF-8')), ENT_QUOTES, 'UTF-8');

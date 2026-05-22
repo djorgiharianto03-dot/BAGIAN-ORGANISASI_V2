@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 /** @var list<array{key: string, user_id: int, label: string, username: string, rows: list<array<string, mixed>>}> $tugasGrouped */
 /** @var bool $isKabag */

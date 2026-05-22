@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 /** Panel operasional — ditampilkan via sidebar module, bukan di halaman monitoring. */
 ?>
 <div id="sgWorkspace" class="sg-view" hidden>

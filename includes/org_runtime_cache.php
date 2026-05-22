@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Cache sementara (JSON / flag) — hanya di uploads/.cache.

@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 ?>
     /* Profil Organisasi — Premium Government Digital UI */
     .page-profil-org {

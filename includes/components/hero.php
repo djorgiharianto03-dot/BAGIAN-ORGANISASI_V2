@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Hero section — portal sub-page variant.

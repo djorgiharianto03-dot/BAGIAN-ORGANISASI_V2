@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 if (!headers_sent()) {
     $qs = isset($_SERVER['QUERY_STRING']) && (string) $_SERVER['QUERY_STRING'] !== ''
         ? ('?' . (string) $_SERVER['QUERY_STRING'])

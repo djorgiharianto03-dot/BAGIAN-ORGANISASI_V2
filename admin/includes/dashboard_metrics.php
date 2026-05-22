@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Metrik ringkas untuk overview dashboard admin (data nyata dari DB).

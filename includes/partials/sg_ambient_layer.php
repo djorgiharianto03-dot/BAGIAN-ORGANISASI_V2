@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 /** Lapisan ambient: glow + partikel (dekorasi). */
 $sgAmbientVariant = $sgAmbientVariant ?? 'hero';
 $sgParticleCount = (int) ($sgParticleCount ?? ($sgAmbientVariant === 'hero' ? 36 : 20));

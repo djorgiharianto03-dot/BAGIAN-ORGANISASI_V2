@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 ?>
     /* Bagan Organisasi & Personel — Smart Governance (ringan, institusional) */
     .page-profil-org .profil-structure {
@@ -474,12 +473,14 @@ declare(strict_types=1);
     }
     .profil-person-exec__photo img,
     .profil-person-exec__photo-img {
+        position: absolute;
+        inset: 0;
         width: 100%;
         height: 100%;
         max-width: 100%;
         max-height: 100%;
-        object-fit: contain;
-        object-position: center center;
+        object-fit: cover;
+        object-position: center top;
         display: block;
     }
     .profil-person-exec__photo-placeholder {

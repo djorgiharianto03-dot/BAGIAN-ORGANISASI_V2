@@ -1,9 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-
-
 /**
 
  * Kinerja halaman beranda: cache JSON sementara (uploads/.cache) & kurangi query berulang.

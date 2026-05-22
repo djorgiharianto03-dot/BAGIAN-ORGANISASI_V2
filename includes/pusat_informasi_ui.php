@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 if (!function_exists('beranda_pi_badge_meta')) {
     /**

@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Bootstrap ringan GET beranda — hindari ratusan baris bootstrap penuh.

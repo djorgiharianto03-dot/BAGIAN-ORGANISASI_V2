@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * @deprecated Gunakan proses_saran.php di akar situs. Berkas ini tetap ada agar URL lama tidak putus.

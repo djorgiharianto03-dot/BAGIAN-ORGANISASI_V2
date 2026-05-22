@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /** @var array<string, mixed> $layananItem */
 /** @var array{slug: string, card_mod: string} $layananTheme */

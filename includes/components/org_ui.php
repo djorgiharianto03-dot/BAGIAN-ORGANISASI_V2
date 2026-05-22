@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * UI helpers — semantic Tailwind component class names (no duplicated utilities in PHP).

@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Data table wrapper — pass headers + rows from parent.

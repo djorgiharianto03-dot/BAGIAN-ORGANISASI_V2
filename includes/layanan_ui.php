@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * @return array{slug: string, card_mod: string, glow: string, accent: string}

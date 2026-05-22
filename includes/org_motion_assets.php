@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Micro-interactions & motion (CSS + JS) — situs publik.

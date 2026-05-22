@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Gabung + minify CSS beranda → assets/css/beranda.bundle.min.css

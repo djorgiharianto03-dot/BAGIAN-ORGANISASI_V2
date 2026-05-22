@@ -1,9 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-
-
 /** @var bool $isSubAdminActor */
 
 /** @var bool $auditRiwayatVisible */

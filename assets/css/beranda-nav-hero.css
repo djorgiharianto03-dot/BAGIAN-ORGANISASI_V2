@@ -161,8 +161,8 @@ body.sg-homepage.sg-portal-page .site-header__nav-toggle {
 }
 
 /* —— Hero: compact, tipografi modern —— */
-body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
-body.sg-homepage.sg-portal-page > #sg-hero.sg-hero--compact {
+body.sg-homepage.sg-portal-page > #sg-hero.hero-section:not(.sg-hero--minimal),
+body.sg-homepage.sg-portal-page > #sg-hero.sg-hero--compact:not(.sg-hero--minimal) {
     background: var(--nav-hero-hero-bg) !important;
     padding-bottom: 0.55rem !important;
     padding-top: var(--sg-portal-header-offset, 5.75rem) !important;
@@ -182,7 +182,7 @@ body.sg-homepage .sg-hero.sg-hero--ultra.sg-hero--compact {
     padding-bottom: 0.5rem !important;
 }
 
-body.sg-homepage.sg-portal-page .container-global.hero-inner {
+body.sg-homepage.sg-portal-page .container-global.hero-inner:not(.hero-inner--stacked) {
     grid-template-columns: minmax(0, 1fr) minmax(0, min(320px, 34vw)) !important;
     gap: clamp(0.75rem, 2vw, 1.25rem) !important;
     align-items: center;

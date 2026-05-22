@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Ekspor CSS dari includes/partials/site_styles.php → assets/css/site-global.min.css

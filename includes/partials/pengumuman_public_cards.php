@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 /** @var list<array{id: string, judul: string, teks: string, nama_gambar: string, created_at: string}> $pengumumanCards */
 $pengumumanCards = $pengumumanCards ?? [];
 $imgPrefix = org_pengumuman_upload_web_prefix();

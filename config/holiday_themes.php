@@ -1,9 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-
-
 /**
 
  * Konfigurasi kalender tema hari besar.

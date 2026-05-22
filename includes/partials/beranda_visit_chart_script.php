@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /** @var list<string> $berandaVisitLabels @var list<int> $berandaVisitValues */
 $labelsJson = json_encode($berandaVisitLabels ?? [], JSON_UNESCAPED_UNICODE);
@@ -257,13 +256,26 @@ if ($valuesJson === false) {
     };
 
     document.addEventListener('beranda:chart-ready', function () {
-        runWhenVisible(schedule);
+        schedule();
     }, { once: true });
 
-    runWhenVisible(function () {
-        if (typeof Chart !== 'undefined') {
-            schedule();
-        }
-    });
+    if (document.getElementById('beranda-root')) {
+        runWhenVisible(function () {
+            if (typeof Chart !== 'undefined') {
+                schedule();
+            }
+        });
+        window.setTimeout(function () {
+            if (!rendered) {
+                tryRender();
+            }
+        }, 800);
+    } else {
+        runWhenVisible(function () {
+            if (typeof Chart !== 'undefined') {
+                schedule();
+            }
+        });
+    }
 }());
 </script>

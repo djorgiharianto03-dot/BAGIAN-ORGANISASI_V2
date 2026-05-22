@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * URL situs, HTTPS, dan path aset — kompatibel subfolder (VPS / Laragon).

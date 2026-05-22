@@ -1,9 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-
-
 /**
 
  * Sesi & CSRF terpusat (path cookie selaras subfolder Laragon / produksi).

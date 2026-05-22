@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Site footer — semantic org-footer structure.

@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Gabung CSS shell portal beranda → assets/css/beranda-shell.bundle.min.css

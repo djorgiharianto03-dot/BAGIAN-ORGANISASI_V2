@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Kategori bagian untuk arsip surat masuk & keluar (nilai disimpan = kunci slug).
  *

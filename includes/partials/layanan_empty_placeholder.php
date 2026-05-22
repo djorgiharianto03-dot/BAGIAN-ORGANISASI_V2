@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 ?>
             <div class="layanan-premium-empty" role="status">
                 <svg class="layanan-premium-empty__svg" viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'bootstrap.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'eorg_hub_metrics.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
@@ -103,15 +101,15 @@ if (defined('ORG_WEB_ROOT') && ORG_WEB_ROOT !== '') {
 }
 
 ob_start();
-?>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-<?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'eorg_premium_styles.php'; ?>
-</style>
-<?php
-$extraHeadMarkup = (string) ob_get_clean();
+require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'eorg_premium_styles.php';
+$eorgCss = trim((string) ob_get_clean());
+
+$extraHeadMarkup = '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n"
+    . '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n"
+    . '<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">' . "\n"
+    . '<style id="eorg-premium-styles">' . "\n"
+    . $eorgCss . "\n"
+    . '</style>' . "\n";
 
 $extraFooterMarkup = '<script src="' . htmlspecialchars($chartJs, ENT_QUOTES, 'UTF-8') . '"></script>' . "\n";
 $extraFooterMarkup .= '<script>window.EORG_HUB_CHART = ' . $chartJson . ';</script>' . "\n";

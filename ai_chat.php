@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * AI Smart Search — pencarian dokumen sederhana (tanpa OpenAI).

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 if (!defined('ORG_ROOT')) {
     define('ORG_ROOT', dirname(__DIR__));

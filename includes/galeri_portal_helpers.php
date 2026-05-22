@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 if (!function_exists('org_galeri_portal_year_categories')) {
     /**

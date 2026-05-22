@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_app.php';
 if (!function_exists('org_is_dev_environment')) {

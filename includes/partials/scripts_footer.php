@@ -1,3 +1,8 @@
+<?php
+
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'org_partial.php';
+org_partial_deny_direct();
+?>
     <script>
         (function () {
             const adminSearchInput = document.getElementById('adminDocumentSearch');

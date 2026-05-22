@@ -1,5 +1,7 @@
 <?php
-declare(strict_types=1);
+
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'org_partial.php';
+org_partial_deny_direct();
 ?>
     /* E-Organisasi — Premium Government Workspace */
     body.page-eorg-hub {

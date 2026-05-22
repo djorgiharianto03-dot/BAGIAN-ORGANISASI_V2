@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * SEO dasar halaman beranda (meta, favicon, JSON-LD ringan).

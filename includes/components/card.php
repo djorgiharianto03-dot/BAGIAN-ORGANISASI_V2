@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Generic content card — set $cardSlot for body HTML before including, or use helpers.

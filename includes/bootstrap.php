@@ -3,8 +3,6 @@
  * Bootstrap aplikasi: sesi, data, dan penanganan POST.
  * Wajib dipanggil dari setiap halaman publik sebelum header.
  */
-declare(strict_types=1);
-
 if (!defined('ORG_ROOT')) {
     define('ORG_ROOT', dirname(__DIR__));
 }
@@ -260,54 +258,16 @@ $savePersonnelData = static function (string $personnelFilePath, array $items): 
     ) !== false;
 };
 
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_personnel_sync.php';
+
+$orgPersonnelRegistryApply = static function (array $registry) use (&$personnelData, &$personnelIds, &$personnelSlugs): void {
+    $personnelData = $registry['data'];
+    $personnelIds = $registry['ids'];
+    $personnelSlugs = $registry['slugs'];
+};
+
 if (!org_beranda_is_light_page()) {
-$personnelRaw = file_get_contents($personnelFile);
-if ($personnelRaw !== false && $personnelRaw !== '') {
-    $decodedPersonnel = json_decode($personnelRaw, true);
-    if (is_array($decodedPersonnel)) {
-        $personnelData = $decodedPersonnel;
-    }
-}
-
-$defaultProfileImage = "data:image/svg+xml;utf8," . rawurlencode(
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320">
-        <rect width="400" height="320" fill="#e5edf8"/>
-        <circle cx="200" cy="125" r="55" fill="#9db4d5"/>
-        <rect x="95" y="195" width="210" height="85" rx="42" fill="#9db4d5"/>
-    </svg>'
-);
-
-$personnelNeedsSave = false;
-foreach ($personnelData as $idx => $person) {
-    $slug = $slugify((string) ($person['name'] ?? ''));
-    if (!isset($person['id']) || (string) $person['id'] === '') {
-        $personnelData[$idx]['id'] = uniqid('staff_', true);
-        $personnelNeedsSave = true;
-    } else {
-        $personnelData[$idx]['id'] = (string) $person['id'];
-    }
-    $personnelData[$idx]['slug'] = $slug;
-    if (!array_key_exists('nip', $personnelData[$idx])) {
-        $personnelData[$idx]['nip'] = '';
-        $personnelNeedsSave = true;
-    } else {
-        $personnelData[$idx]['nip'] = substr(preg_replace('/\s+/u', '', trim((string) $personnelData[$idx]['nip'])), 0, 20);
-    }
-    $availablePhoto = '';
-    foreach (['png', 'jpg', 'jpeg'] as $ext) {
-        $candidateFile = $slug . '.' . $ext;
-        if (is_file($fotoStrukturDir . DIRECTORY_SEPARATOR . $candidateFile)) {
-            $availablePhoto = $candidateFile;
-            break;
-        }
-    }
-    $personnelData[$idx]['photo'] = $availablePhoto !== '' ? 'uploads/foto_struktur/' . rawurlencode($availablePhoto) : $defaultProfileImage;
-}
-$personnelSlugs = array_column($personnelData, 'slug');
-$personnelIds = array_column($personnelData, 'id');
-if ($personnelNeedsSave) {
-    $savePersonnelData($personnelFile, $personnelData);
-}
+    $orgPersonnelRegistryApply(org_personnel_sync_from_disk($personnelFile, $fotoStrukturDir, $slugify, $savePersonnelData));
 }
 
 if (isset($_SESSION['flash_message'], $_SESSION['flash_type'])) {
@@ -321,30 +281,6 @@ $currentLevel = org_staff_role_normalize((string) ($_SESSION['level'] ?? $_SESSI
 if ($currentLevel !== '' && (!isset($_SESSION['level']) || $_SESSION['level'] !== $currentLevel)) {
     $_SESSION['level'] = $currentLevel;
     $_SESSION['admin_role'] = $currentLevel;
-}
-
-if (!function_exists('org_require_level_access')) {
-    /**
-     * @param list<string> $allowedLevels
-     */
-    function org_require_level_access(array $allowedLevels): void
-    {
-        $lvl = org_staff_role_normalize((string) ($_SESSION['level'] ?? $_SESSION['admin_role'] ?? ''));
-        $ok = !empty($_SESSION['is_admin']) && in_array($lvl, $allowedLevels, true);
-        if ($ok) {
-            return;
-        }
-        if (empty($_SESSION['is_admin'])) {
-            $_SESSION['flash_message'] = 'Silakan login terlebih dahulu.';
-            $_SESSION['flash_type'] = 'warning';
-            header('Location: ' . (function_exists('org_home_url') ? org_home_url() : 'index.php'));
-            exit;
-        }
-        $_SESSION['flash_message'] = 'Akses Ditolak';
-        $_SESSION['flash_type'] = 'danger';
-        header('Location: dashboard.php');
-        exit;
-    }
 }
 
 if ($isAdmin && !isset($_SESSION['admin_role'])) {
@@ -375,6 +311,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
     $shouldRedirect = false;
     $redirectPage = 'struktur.php';
+
+    if (in_array($action, ['add_personnel', 'edit_personnel', 'delete_personnel'], true) && $personnelData === []) {
+        $orgPersonnelRegistryApply(org_personnel_sync_from_disk($personnelFile, $fotoStrukturDir, $slugify, $savePersonnelData));
+    }
 
     if ($action === 'login') {
         if (!org_csrf_validate()) {
@@ -586,7 +526,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = trim((string) ($_POST['person_name'] ?? ''));
             $position = trim((string) ($_POST['person_position'] ?? ''));
             $nip = substr(preg_replace('/\s+/u', '', trim((string) ($_POST['person_nip'] ?? ''))), 0, 20);
-            $rowIndex = array_search($personId, $personnelIds, true);
+            $rowIndex = org_personnel_find_index_by_id($personnelData, trim($personId));
 
             if ($rowIndex === false || $name === '' || $position === '') {
                 $_SESSION['flash_message'] = 'Data personel tidak valid.';
@@ -658,8 +598,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['flash_message'] = 'Akses ditolak. Silakan login sebagai Admin terlebih dahulu.';
             $_SESSION['flash_type'] = 'danger';
         } else {
-            $personId = (string) ($_POST['person_id'] ?? '');
-            $rowIndex = array_search($personId, $personnelIds, true);
+            $personId = trim((string) ($_POST['person_id'] ?? ''));
+            $rowIndex = org_personnel_find_index_by_id($personnelData, $personId);
             if ($rowIndex === false) {
                 $_SESSION['flash_message'] = 'Data personel tidak ditemukan.';
                 $_SESSION['flash_type'] = 'warning';
@@ -685,8 +625,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($shouldRedirect) {
         $redirectUrl = $redirectPage;
+        if ($action === 'delete_personnel' && $redirectPage === 'profil.php') {
+            $redirectUrl = 'profil.php#profil-struktur-organisasi';
+        }
         if ($searchQuery !== '') {
-            $redirectUrl .= '?q=' . rawurlencode($searchQuery);
+            $redirectUrl .= (str_contains($redirectUrl, '?') ? '&' : '?') . 'q=' . rawurlencode($searchQuery);
         }
         header('Location: ' . $redirectUrl);
         exit;

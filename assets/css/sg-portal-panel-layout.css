@@ -4,7 +4,7 @@
 
 html.sg-portal-html-home,
 html.sg-portal-html-home body.sg-homepage.sg-portal-page {
-    background-color: #07325a;
+    background-color: #f4f7fb;
 }
 
 body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
@@ -13,7 +13,7 @@ body.sg-homepage.sg-portal-page > section#sg-hero.sg-hero {
     position: relative;
     width: 100%;
     max-width: none;
-    min-height: min(760px, 92vh);
+    min-height: 0;
     margin: 0;
     isolation: isolate;
     box-sizing: border-box;

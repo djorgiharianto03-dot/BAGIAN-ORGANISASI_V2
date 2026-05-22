@@ -1,16 +1,55 @@
 /**
- * Beranda — satu rail layout (header, hero, main, footer).
- * Muat terakhir; menimpa token/override layout-fix & bundle.
+ * Beranda — satu halaman: satu main, satu rail, alur vertikal menyatu.
+ * Muat terakhir; menimpa panel-layout (92vh), shell (bg biru body), spacing legacy.
  */
 
 html.sg-portal-html-home,
+html.sg-portal-html-home body.sg-homepage.sg-portal-page {
+    background-color: #f4f7fb !important;
+}
+
 body.sg-homepage.sg-portal-page {
     --container-max: 1180px;
     --layout-max-width: 1180px;
     --beranda-gutter: clamp(1rem, 2vw, 1.25rem);
-    --beranda-section-y: clamp(1.35rem, 2.5vw, 2rem);
-    --beranda-section-head-gap: 0.875rem;
+    --beranda-section-y: clamp(1rem, 1.75vw, 1.5rem);
+    --beranda-section-head-gap: 0.75rem;
     --beranda-rail-max: min(var(--layout-max-width), 100%);
+    --beranda-surface: #ffffff;
+    --beranda-surface-alt: #f0f4f8;
+}
+
+/* Satu main — tanpa min-height viewport, tanpa lapis background kedua */
+body.sg-homepage.sg-portal-page .site-layout-main {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-height: 0 !important;
+    margin: 0;
+    padding: 0;
+    background: #f4f7fb;
+    overflow-x: hidden;
+}
+
+body.sg-homepage.sg-portal-page .sg-portal-main,
+body.sg-homepage.sg-portal-page .sg-dash-main,
+body.sg-homepage.sg-portal-page .sg-portal-main.sg-dash-main {
+    background: transparent !important;
+    min-height: 0 !important;
+    margin: 0;
+    padding: 0;
+}
+
+/* Hero — konten ringkas, tidak memaksa tinggi layar (zoom 80–100% aman) */
+body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
+body.sg-homepage.sg-portal-page > section#sg-hero.hero-section,
+body.sg-homepage.sg-portal-page > #sg-hero.sg-hero,
+body.sg-homepage.sg-portal-page > #sg-hero.sg-hero--ultra,
+body.sg-homepage.sg-portal-page > #sg-hero.sg-hero--compact,
+body.sg-homepage.sg-portal-page .sg-hero.sg-hero--ultra {
+    min-height: 0 !important;
+    max-height: none !important;
+    height: auto !important;
 }
 
 /* —— Satu rail: navbar, hero, konten, footer —— */
@@ -41,16 +80,113 @@ body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel {
     margin-right: 0;
 }
 
-/* Shell full-width; konten di dalam rail */
-body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
-body.sg-homepage.sg-portal-page > #sg-hero.sg-hero--compact {
-    padding-top: var(--sg-portal-header-offset, 5.75rem) !important;
-    padding-bottom: 0.5rem !important;
+/* Hero minimal — compact, tanpa dekorasi / area biru kosong */
+body.sg-homepage.sg-portal-page > #sg-hero.sg-hero--minimal,
+body.sg-homepage.sg-portal-page > #sg-hero.hero-section.sg-hero--minimal {
+    padding-top: calc(var(--sg-portal-header-offset, 5.5rem) + 0.35rem) !important;
+    padding-bottom: 0.35rem !important;
+    background: linear-gradient(180deg, #0a3d6b 0%, #0c4a7a 100%) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-body.sg-homepage .sg-hero.sg-hero--compact {
-    padding-top: 0.2rem !important;
-    padding-bottom: 0.45rem !important;
+body.sg-homepage #sg-hero.sg-hero--minimal .sg-hero__bg {
+    background: linear-gradient(180deg, #0a3d6b 0%, #0c4a7a 100%) !important;
+    animation: none !important;
+    filter: none !important;
+}
+
+body.sg-homepage #sg-hero.sg-hero--minimal .sg-hero__bg::before,
+body.sg-homepage #sg-hero.sg-hero--minimal .sg-hero__bg::after,
+body.sg-homepage #sg-hero .sg-hero__grid-floor,
+body.sg-homepage #sg-hero .beranda-hero-fx,
+body.sg-homepage #sg-hero .sg-ambient-layer,
+body.sg-homepage #sgPortalLoader {
+    display: none !important;
+}
+
+body.sg-homepage.sg-portal-page .container-global.hero-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+}
+
+body.sg-homepage .sg-hero--minimal .sg-hero__copy {
+    max-width: 42rem;
+}
+
+body.sg-homepage .sg-hero--minimal .sg-hero__title-primary {
+    font-size: clamp(1.375rem, 1.15rem + 0.65vw, 1.75rem) !important;
+}
+
+body.sg-homepage .sg-hero--minimal .sg-hero__title-org {
+    font-size: clamp(0.8125rem, 0.78rem + 0.2vw, 0.9375rem) !important;
+}
+
+body.sg-homepage .sg-hero--minimal .sg-hero__tagline {
+    font-size: 0.8125rem !important;
+    line-height: 1.45 !important;
+    margin-top: 0.25rem !important;
+    max-width: 36rem;
+}
+
+body.sg-homepage .sg-hero--minimal .sg-hero__cta {
+    margin-top: 0.5rem !important;
+    flex-wrap: wrap;
+}
+
+body.sg-homepage .sg-hero--minimal .sg-hero__cta .sg-btn {
+    min-height: 2.25rem;
+    padding: 0.4rem 0.85rem !important;
+    font-size: 0.8125rem;
+}
+
+body.sg-homepage .sg-hero__quick.sg-quick-menu {
+    margin-top: 0.15rem;
+}
+
+body.sg-homepage .shortcut-grid.container-global {
+    display: none !important;
+}
+
+body.sg-homepage .sg-hero--minimal .sg-hero__quick .sg-quick-menu__card {
+    min-height: 3.25rem;
+    padding: 0.5rem 0.65rem !important;
+}
+
+body.sg-homepage .sg-hero--minimal .sg-hero__quick .sg-quick-menu__desc {
+    display: none;
+}
+
+@media (min-width: 640px) {
+    body.sg-homepage .sg-hero--minimal .sg-hero__quick .sg-quick-menu__desc {
+        display: block;
+        font-size: 0.6875rem;
+        line-height: 1.3;
+    }
+}
+
+body.sg-homepage .stats-grid.container-global {
+    margin-top: 0.35rem !important;
+    padding-top: 0 !important;
+}
+
+body.sg-homepage .sg-hero--minimal .sg-hero-stats .sg-stat-glass,
+body.sg-homepage .sg-hero--minimal .sg-hero-stat-card {
+    min-height: 4.25rem;
+    padding: 0.55rem 0.7rem !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+}
+
+body.sg-homepage .sg-hero--minimal .sg-hero-stats .sg-stat-glass__num {
+    font-size: clamp(1.125rem, 1rem + 0.3vw, 1.375rem) !important;
+}
+
+body.sg-homepage .sg-hero--minimal .sg-hero-stats .sg-stat-glass__label {
+    font-size: 0.6875rem !important;
 }
 
 body.sg-homepage .beranda-scroll-hint {
@@ -61,9 +197,10 @@ body.sg-homepage .sg-hero__visual-col {
     display: none !important;
 }
 
-body.sg-homepage.sg-portal-page .container-global.hero-inner {
-    grid-template-columns: 1fr !important;
-    gap: 0.75rem !important;
+body.sg-homepage.sg-portal-page .container-global.hero-inner.hero-inner--stacked {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: none !important;
 }
 
 body.sg-homepage .sg-hero__copy {
@@ -74,14 +211,8 @@ body.sg-homepage .sg-hero__tagline {
     max-width: 36rem;
 }
 
-/* Quick access & stat hero — selaras rail */
-body.sg-homepage .shortcut-grid.container-global {
-    margin-top: 0.5rem !important;
-}
-
 body.sg-homepage .stats-grid.container-global {
-    margin-top: 0.4rem !important;
-    margin-bottom: 0.15rem !important;
+    margin-bottom: 0 !important;
 }
 
 body.sg-homepage .sg-quick-menu {
@@ -131,21 +262,29 @@ body.sg-homepage .sg-hero-stats .sg-stat-glass__num {
     font-size: clamp(1.25rem, 1.1rem + 0.35vw, 1.625rem) !important;
 }
 
-/* Main shell — tanpa padding horizontal tambahan */
-body.sg-homepage .sg-portal-main,
-body.sg-homepage .sg-dash-main {
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
 body.sg-homepage #beranda-root.site-main.container-global {
     display: flex;
     flex-direction: column;
     gap: 0;
-    padding-top: 0;
-    padding-bottom: 0.75rem;
+    width: 100%;
+    max-width: var(--beranda-rail-max) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-top: 0 !important;
+    padding-bottom: 0.5rem !important;
+    background: transparent;
+    min-height: 0 !important;
+}
+
+/* Legacy .site-main / .section-spacing — jangan menambah jarak ekstra */
+body.sg-homepage #beranda-root.site-main,
+body.sg-homepage #beranda-root .section-spacing {
+    margin-bottom: 0 !important;
+}
+
+body.sg-homepage.page-index-redesign #beranda-root #beranda-pusat-informasi.beranda-section {
+    margin-top: 0 !important;
+    padding-top: var(--beranda-section-y) !important;
 }
 
 /* Section — lebar penuh di dalam rail, spacing vertikal seragam */
@@ -164,7 +303,18 @@ body.sg-homepage #beranda-root > section[id^="beranda-"] {
 
 body.sg-homepage #beranda-root > .beranda-section:first-child,
 body.sg-homepage #beranda-root > .beranda-lite-section:first-child {
-    padding-top: clamp(1.15rem, 2vw, 1.65rem) !important;
+    padding-top: clamp(0.85rem, 1.5vw, 1.25rem) !important;
+    border-top: none !important;
+}
+
+/* Transisi hero → konten: tanpa celah warna biru di antara */
+body.sg-homepage.sg-portal-page > #sg-hero.hero-section {
+    margin-bottom: 0 !important;
+}
+
+body.sg-homepage .stats-grid.container-global {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
 }
 
 body.sg-homepage #beranda-root .beranda-section__head-row,
@@ -216,6 +366,26 @@ body.sg-homepage .beranda-ssr-section {
     min-height: 0 !important;
 }
 
+/* Grafik beranda — area terlihat saat Chart.js / fallback dimuat */
+body.sg-homepage #beranda-kunjungan-web .beranda-visit-chart-shell {
+    min-height: 240px;
+}
+
+body.sg-homepage #beranda-kunjungan-web .beranda-visit-chart-wrap {
+    min-height: 220px;
+}
+
+body.sg-homepage #beranda-kunjungan-web .beranda-visit-chart-wrap canvas {
+    min-height: 220px;
+    width: 100% !important;
+    display: block;
+}
+
+body.sg-homepage #beranda-team-targets .gov-team-target-overview-card__chart,
+body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__chart {
+    min-height: 200px;
+}
+
 /* Skeleton / lazy — minimal, tidak mendominasi */
 body.sg-homepage .beranda-chunk-skeleton,
 body.sg-homepage .beranda-lazy-section__placeholder,
@@ -245,8 +415,39 @@ body.sg-homepage .beranda-lazy-section__placeholder-block {
     overflow: hidden !important;
 }
 
+/* Footer — lanjutan alur konten, bukan halaman kedua */
+body.sg-homepage .site-footer.site-footer--modern {
+    margin-top: 0 !important;
+}
+
+body.sg-homepage .site-footer__cta-band {
+    background: var(--beranda-surface-alt) !important;
+    color: #0f2744;
+    padding-top: clamp(1.25rem, 2.5vw, 1.75rem) !important;
+    padding-bottom: clamp(1.25rem, 2.5vw, 1.75rem) !important;
+    border-top: 1px solid #e2e8f0;
+    box-shadow: none !important;
+}
+
+body.sg-homepage .site-footer__links-band {
+    padding-top: 1.25rem !important;
+    padding-bottom: 1.25rem !important;
+}
+
+body.sg-homepage .org-footer__links.site-footer__links-band .container-global.py-6 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+}
+
 @media (max-width: 575.98px) {
     body.sg-homepage .sg-quick-menu {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 991.98px) {
+    body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
+    body.sg-homepage.sg-portal-page > #sg-hero.sg-hero {
+        padding-top: var(--sg-portal-header-offset, 5.5rem) !important;
     }
 }

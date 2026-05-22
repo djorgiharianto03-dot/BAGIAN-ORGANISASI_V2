@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 /** @var list<string> $dashLibraryFiles */
 /** @var array<string, array<string, mixed>> $dashLibraryStatsMap */
 /** @var string $dashLibraryDir */

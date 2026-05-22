@@ -175,6 +175,12 @@
         });
     }
 
+    function isBerandaSsrChartsPage() {
+        return !!document.getElementById('beranda-root')
+            && (!!document.getElementById('berandaVisitChart')
+                || !!document.getElementById('gov-team-target-charts-data'));
+    }
+
     function ensureTeamTargetCharts() {
         if (!document.getElementById('gov-team-target-charts-data')) {
             return;
@@ -192,6 +198,11 @@
                 return;
             }
             fireChartInit();
+        }
+
+        if (isBerandaSsrChartsPage()) {
+            loadApexCharts(loadTeamChartsScript);
+            return;
         }
 
         var chartsHost = document.getElementById('beranda-team-targets')
@@ -513,11 +524,15 @@
             ensureTeamTargetCharts();
         }
         if (document.getElementById('berandaVisitChart')) {
-            whenChartHostVisible(function () {
-                whenIdle(function () {
+            if (isBerandaSsrChartsPage()) {
+                requestAnimationFrame(function () {
                     loadChartJs();
-                }, 500);
-            });
+                });
+            } else {
+                whenChartHostVisible(function () {
+                    loadChartJs();
+                });
+            }
         }
         var galeriLink = document.querySelector('[data-fancybox="beranda-galeri-kegiatan"]');
         if (!galeriLink) {

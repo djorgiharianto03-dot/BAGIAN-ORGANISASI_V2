@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /** @var list<array<string, mixed>> $pusatCarouselPosts */
 /** @var callable(string, string): string|null $pusatHighlightSearch */

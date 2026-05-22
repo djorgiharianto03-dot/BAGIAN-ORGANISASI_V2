@@ -354,3 +354,67 @@
         height: auto !important;
     }
 }
+
+/* Portal: semua item menu + aksi muat proporsional di bar navigasi */
+@media (min-width: 992px) {
+    .site-header--sg-portal .site-header__nav-row {
+        gap: 0.4rem 0.65rem;
+    }
+
+    .site-header--sg-portal .site-header__nav {
+        flex: 1 1 auto;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.15rem 0.25rem;
+        row-gap: 0.2rem;
+        max-width: 100%;
+    }
+
+    .site-header--sg-portal .site-header__nav li {
+        flex: 0 0 auto;
+    }
+
+    .site-header--sg-portal .site-header__nav a {
+        font-size: clamp(0.72rem, 0.78vw, 0.8125rem);
+        font-weight: 600;
+        line-height: 1.25;
+        padding: 0.38rem 0.55rem;
+        white-space: nowrap;
+        letter-spacing: 0.01em;
+    }
+
+    .site-header--sg-portal .site-header__holiday-ucapan--inline {
+        flex: 0 1 auto;
+        max-width: min(200px, 24vw);
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    .site-header--sg-portal .site-header__holiday-ucapan--inline .site-header__holiday-ucapan-title {
+        font-size: 0.7rem;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .site-header--sg-portal .site-header__actions-end {
+        flex-wrap: nowrap;
+        gap: 0.4rem;
+    }
+
+    .site-header--sg-portal .site-header__actions-end .btn,
+    .site-header--sg-portal .site-header__actions-end .org-btn {
+        font-size: 0.78rem;
+        padding: 0.35rem 0.65rem;
+        white-space: nowrap;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1280px) {
+    .site-header--sg-portal .site-header__nav a {
+        font-size: 0.72rem;
+        padding: 0.32rem 0.45rem;
+    }
+}

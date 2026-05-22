@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Navbar — semantic org-navbar + legacy site-header hooks for JS.
@@ -115,7 +114,7 @@ $headerClass = org_ui_class(
                             <li><a href="layanan.php" class="<?php echo ($navActive ?? '') === 'layanan' ? 'is-active' : ''; ?>">Layanan</a></li>
                             <li><a href="dokumen.php" class="<?php echo ($navActive ?? '') === 'dokumen' ? 'is-active' : ''; ?>">Dokumen</a></li>
                             <?php if (empty($isAdmin) || !empty($canAccessPublikasi)): ?>
-                                <li><a href="berita.php" class="<?php echo ($navActive ?? '') === 'berita' ? 'is-active' : ''; ?>">Pusat Informasi &amp; Pengumuman</a></li>
+                                <li><a href="berita.php" class="<?php echo ($navActive ?? '') === 'berita' ? 'is-active' : ''; ?>" title="Pusat Informasi &amp; Pengumuman">Informasi</a></li>
                                 <li><a href="galeri.php" class="<?php echo ($navActive ?? '') === 'galeri' ? 'is-active' : ''; ?>">Galeri</a></li>
                             <?php endif; ?>
                             <?php if (!empty($isAdmin) && !empty($canAccessEOrganisasi)): ?>
@@ -212,7 +211,7 @@ $headerClass = org_ui_class(
                             <li><a href="layanan.php" class="<?php echo ($navActive ?? '') === 'layanan' ? 'is-active' : ''; ?>">Layanan</a></li>
                             <li><a href="dokumen.php" class="<?php echo ($navActive ?? '') === 'dokumen' ? 'is-active' : ''; ?>">Dokumen</a></li>
                             <?php if (empty($isAdmin) || !empty($canAccessPublikasi)): ?>
-                                <li><a href="berita.php" class="<?php echo ($navActive ?? '') === 'berita' ? 'is-active' : ''; ?>">Pusat Informasi &amp; Pengumuman</a></li>
+                                <li><a href="berita.php" class="<?php echo ($navActive ?? '') === 'berita' ? 'is-active' : ''; ?>" title="Pusat Informasi &amp; Pengumuman">Informasi</a></li>
                                 <li><a href="galeri.php" class="<?php echo ($navActive ?? '') === 'galeri' ? 'is-active' : ''; ?>">Galeri</a></li>
                             <?php endif; ?>
                             <?php if (!empty($isAdmin) && !empty($canAccessEOrganisasi)): ?>

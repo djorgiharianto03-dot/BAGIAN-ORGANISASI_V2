@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Saran & kritik (footer) — simpan ke tabel saran_kritik.

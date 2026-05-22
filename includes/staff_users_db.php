@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 function org_staff_role_normalize(?string $role): string
 {
@@ -68,6 +68,30 @@ function org_staff_role_label(string $normalized): string
 function org_eorg_hub_page_roles(): array
 {
     return ['super_admin', 'admin', 'sub_admin_eorganisasi', 'staf_disposisi', 'kabag_organisasi'];
+}
+
+if (!function_exists('org_require_level_access')) {
+    /**
+     * @param list<string> $allowedLevels
+     */
+    function org_require_level_access(array $allowedLevels): void
+    {
+        $lvl = org_staff_role_normalize((string) ($_SESSION['level'] ?? $_SESSION['admin_role'] ?? ''));
+        $ok = !empty($_SESSION['is_admin']) && in_array($lvl, $allowedLevels, true);
+        if ($ok) {
+            return;
+        }
+        if (empty($_SESSION['is_admin'])) {
+            $_SESSION['flash_message'] = 'Silakan login terlebih dahulu.';
+            $_SESSION['flash_type'] = 'warning';
+            header('Location: ' . (function_exists('org_home_url') ? org_home_url() : 'index.php'));
+            exit;
+        }
+        $_SESSION['flash_message'] = 'Akses Ditolak';
+        $_SESSION['flash_type'] = 'danger';
+        header('Location: dashboard.php');
+        exit;
+    }
 }
 
 function org_eorg_session_can_access_hub(): bool

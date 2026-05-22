@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Fragment HTML beranda (dashboard / target tim) — dimuat lazy dari JS.

@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /** @var list<array{id: string, judul: string, tipe_data: string, nilai_kiri: string, nilai_kanan: string, warna_tema: string, urutan: int, aktif: int}> $berandaDashboardWidgets */
 /** @var array<string, array{selesai: list<array{id: string, nama_opd: string, alasan: string}>, belum: list<array{id: string, nama_opd: string, alasan: string}>, dalam_pengerjaan: list<array{id: string, nama_opd: string, alasan: string}>}> $berandaWidgetDetailsMap */

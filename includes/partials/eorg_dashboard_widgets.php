@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /** @var array<string, mixed> $eorgHubMetrics */
 /** @var array{labels: list<string>, tamu: list<int>, disposisi: list<int>} $eorgChart */

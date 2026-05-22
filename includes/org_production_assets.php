@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Helper aset production — bundle, preload, font ringan.

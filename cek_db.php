@@ -12,8 +12,6 @@
  *           atau batasi akses (htaccess / firewall), karena skrip ini
  *           memakai kredensial dari config.
  */
-declare(strict_types=1);
-
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
 
 if (!org_is_dev_environment()) {

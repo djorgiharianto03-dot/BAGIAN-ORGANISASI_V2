@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Build semua aset production (CSS bundle, JS minify, site-global).

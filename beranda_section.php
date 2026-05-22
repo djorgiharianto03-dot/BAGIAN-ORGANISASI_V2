@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Fragment HTML section beranda (dimuat saat scroll).

@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Bootstrap schema dev (Laragon) — maksimal sekali per 24 jam, bukan tiap request.

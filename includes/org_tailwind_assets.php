@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 function org_tailwind_asset_base(): string
 {

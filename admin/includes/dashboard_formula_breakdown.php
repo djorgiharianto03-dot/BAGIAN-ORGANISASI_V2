@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Breakdown angka untuk penjelasan rumus di dashboard monitoring.

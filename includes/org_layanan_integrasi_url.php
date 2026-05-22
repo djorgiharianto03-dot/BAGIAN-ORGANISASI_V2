@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 if (!function_exists('org_layanan_integrasi_url_normalize')) {
     /**

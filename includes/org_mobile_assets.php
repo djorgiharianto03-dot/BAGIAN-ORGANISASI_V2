@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Stylesheet mobile-first situs (semua halaman publik & admin).

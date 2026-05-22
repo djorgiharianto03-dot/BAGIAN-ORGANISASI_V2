@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Aset halaman beranda — CSS non-blocking & skrip lazy.
@@ -141,7 +140,7 @@ function org_beranda_header_vendor_markup(): string
     $out .= org_vendor_stylesheet_preload(org_vendor_bootstrap_css());
     $out .= org_vendor_stylesheet_preload(org_vendor_fontawesome_css());
     $out .= org_asset_stylesheet_async('assets/css/org-dark-mode.css?v=1', true);
-    $out .= org_asset_stylesheet_async('assets/css/org-navbar.css?v=10', true);
+    $out .= org_asset_stylesheet_async('assets/css/org-navbar.css?v=11', true);
     $out .= org_asset_stylesheet_async('assets/css/org-modal-layer.css', true);
     $out .= org_beranda_lite_stylesheet_link();
 

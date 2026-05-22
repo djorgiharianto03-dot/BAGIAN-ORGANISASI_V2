@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /** @var int $berandaTotalToday @var int $berandaTotalWeek @var list<string> $berandaVisitLabels @var list<int> $berandaVisitValues */
 $dbVisit = ($dbApp ?? null) instanceof mysqli ? $dbApp : (function_exists('org_db') ? org_db() : null);

@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Aset build permanen di assets/css/ — tidak di uploads/.cache.

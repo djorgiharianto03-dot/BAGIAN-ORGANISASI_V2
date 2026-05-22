@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 ?>
 <div id="cursor-follower" class="cursor-follower" aria-hidden="true" hidden>
     <div class="cursor-follower__ring-slot">

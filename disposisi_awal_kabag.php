@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Sub Admin E-Organisasi: input disposisi awal ke Kabag (satu kali per arsip) dan pantau status / tanda terima Kabag.

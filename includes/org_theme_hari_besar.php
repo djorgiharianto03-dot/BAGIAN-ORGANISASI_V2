@@ -1,5 +1,4 @@
-﻿<?php
-declare(strict_types=1);
+<?php
 
 if (!function_exists('org_theme_hari_besar_class')) {
     /**

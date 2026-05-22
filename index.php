@@ -1,5 +1,4 @@
-﻿<?php
-declare(strict_types=1);
+<?php
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_session.php';
@@ -104,11 +103,6 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'head
 echo '<main class="site-layout-main" id="main-content" role="main">';
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_smart_hero.php';
 ?>
-<p class="beranda-scroll-hint mb-0" id="beranda-scroll-hint" aria-hidden="true">
-    <i class="fa-solid fa-chevron-down me-1" aria-hidden="true"></i>
-    Gulir ke bawah untuk informasi, dashboard, dan grafik kinerja
-</p>
-<div class="sg-portal-main sg-dash-main">
     <div class="container-global site-main" id="beranda-root">
         <?php if ($message !== ''): ?>
             <div class="alert alert-<?php echo htmlspecialchars($messageType, ENT_QUOTES, 'UTF-8'); ?> alert-dismissible fade show section-spacing" role="alert">
@@ -117,7 +111,7 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'part
             </div>
         <?php endif; ?>
 
-        <section class="section-spacing beranda-section beranda-section--surface-white beranda-lite-section" id="beranda-pusat-informasi" aria-labelledby="home-pusat-title">
+        <section class="beranda-section beranda-section--surface-white beranda-lite-section" id="beranda-pusat-informasi" aria-labelledby="home-pusat-title">
             <div class="beranda-section__head-row d-flex flex-wrap justify-content-between align-items-end gap-2">
                 <div>
                     <h2 id="home-pusat-title" class="beranda-section__title mb-0">Pusat Informasi &amp; Pengumuman</h2>
@@ -156,7 +150,6 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'part
         </section>
 
     </div>
-</div>
 <?php
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'footer.php';
 ?>

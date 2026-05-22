@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /** @var list<array{nama_opd: string, status: string, alasan: string}> $editDetailRows */
 $editDetailRows = $editDetailRows ?? [];

@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Aset vendor lokal (Bootstrap, Font Awesome, Chart.js, ApexCharts, AOS, Swiper, Fancybox).

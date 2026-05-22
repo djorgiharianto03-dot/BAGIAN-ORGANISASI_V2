@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * Aset & helper halaman dalam Smart Governance Portal (profil, layanan, dokumen, dll.).
