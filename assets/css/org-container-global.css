@@ -6,6 +6,7 @@
 :root {
     --container-max: 1320px;
     --layout-max-width: 1320px;
+    --portal-content-gutter: clamp(1rem, 2.5vw, 32px);
 }
 
 html.sg-portal-html,
@@ -64,9 +65,50 @@ body.sg-portal-page {
 /* —— Satu rail konten (header, navbar, hero, main, footer) —— */
 .container-global {
     width: 100%;
-    max-width: 1320px;
-    margin: 0 auto;
-    padding: 0 32px;
+    max-width: var(--layout-max-width, 1320px);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--portal-content-gutter, clamp(1rem, 2.5vw, 32px));
+    padding-right: var(--portal-content-gutter, clamp(1rem, 2.5vw, 32px));
+    box-sizing: border-box;
+}
+
+/* Header tetap di atas saat scroll + logo & navbar satu rail (zoom aman) */
+body.sg-portal-page .site-header--sg-portal {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: none;
+    z-index: 1100;
+    box-sizing: border-box;
+}
+
+.sg-portal-page .site-header--sg-portal .site-header__gradient {
+    width: 100%;
+    max-width: none;
+}
+
+.sg-portal-page .site-header__rail.container-global,
+.sg-portal-page .site-header--sg-portal .header-inner.container-global {
+    width: 100%;
+    max-width: var(--layout-max-width, 1320px);
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: var(--portal-content-gutter) !important;
+    padding-right: var(--portal-content-gutter) !important;
+    box-sizing: border-box;
+}
+
+.sg-portal-page .site-header__rail .navbar-wrapper,
+.sg-portal-page .site-header--sg-portal .navbar-wrapper {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
     box-sizing: border-box;
 }
 
@@ -186,8 +228,9 @@ body.sg-homepage.sg-portal-page > #sg-hero.sg-hero {
     padding-left: 0;
 }
 
+.sg-portal-page .site-header__rail .navbar-wrapper,
 .sg-portal-page .navbar-wrapper {
-    margin-top: 18px;
+    margin-top: clamp(0.5rem, 1.2vw, 1.125rem);
     padding-top: 0;
     padding-bottom: 0;
 }

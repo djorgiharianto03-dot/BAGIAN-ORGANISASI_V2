@@ -32,16 +32,16 @@ body.sg-homepage.sg-portal-page .site-layout-main {
     background: transparent;
 }
 
-/* Header navbar: sticky (semua item menu portal) */
+/* Header navbar: fixed — Beranda & menu tetap saat scroll */
 body.sg-portal-page .site-header--sg-portal {
-    position: sticky !important;
+    position: fixed !important;
     top: 0 !important;
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;
     max-width: none !important;
     margin: 0 !important;
-    z-index: 200;
+    z-index: 1100 !important;
     box-sizing: border-box;
 }
 

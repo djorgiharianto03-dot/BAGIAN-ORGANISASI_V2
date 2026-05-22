@@ -36,7 +36,7 @@ $headerClass = org_ui_class(
 <header class="<?php echo $headerClass; ?>">
     <div class="org-navbar__gradient site-header__gradient">
 <?php if ($smartPortalNav): ?>
-        <div class="container-global header-inner">
+        <div class="container-global site-header__rail header-inner">
             <div class="org-navbar__top site-header__topbar">
                 <div class="org-navbar__brand site-header__brand-row">
                     <?php if (($logoWebPath ?? '') !== ''): ?>
@@ -82,8 +82,7 @@ $headerClass = org_ui_class(
                     <span class="site-header__nav-toggle-label">Menu</span>
                 </button>
             </div>
-        </div>
-        <div class="container-global navbar-wrapper">
+            <div class="navbar-wrapper org-navbar__nav-shell">
             <nav class="navbar-panel org-navbar__nav-wrap site-header__nav-wrap" aria-label="Navigasi utama">
                 <?php if (($holidayUcapan ?? '') !== ''): ?>
                     <div class="site-header__holiday-ucapan site-header__holiday-ucapan--inline" role="complementary" aria-label="Ucapan hari besar">
@@ -148,6 +147,7 @@ $headerClass = org_ui_class(
                     </div>
                 </div>
             </nav>
+            </div>
         </div>
 <?php else: ?>
         <div class="org-navbar__inner org-container site-header__inner container">

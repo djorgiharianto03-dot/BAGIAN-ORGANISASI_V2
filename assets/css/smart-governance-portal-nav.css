@@ -14,15 +14,15 @@
     --sg-nav-tap: 40px;
 }
 
-/* Header portal: sticky (semua item navbar) — lihat sg-portal-shell-align.css */
+/* Header portal: fixed — menu tetap saat scroll (offset: smart-governance-portal.js) */
 body.sg-portal-page .site-header--sg-portal {
-    position: sticky !important;
+    position: fixed !important;
     top: 0;
     left: 0;
     right: 0;
     width: 100%;
     max-width: none;
-    z-index: 200;
+    z-index: 1100;
     transition: box-shadow 0.35s ease;
 }
 
