@@ -29,22 +29,32 @@ body.sg-homepage.sg-portal-page {
 .site-header__nav-row,
 .beranda-portal-strip,
 .beranda-portal-strip__inner,
-#sg-hero,
 #sg-hero .hero-inner,
 #sg-hero .container-global,
 #beranda-root,
 #beranda-root > section,
 #beranda-root > .container,
-.sg-portal-page .container-global,
 .sg-portal-page .site-main.container-global {
     max-width: 100%;
     box-sizing: border-box;
+}
+
+body.sg-homepage.sg-portal-page > #sg-hero,
+body.sg-homepage.sg-portal-page > section#sg-hero {
+    max-width: none;
+    width: 100%;
 }
 
 .site-header--sg-portal .container-global,
 .site-header--sg-portal .header-inner.container-global {
     width: 100%;
     max-width: min(1320px, 100%);
+}
+
+body.sg-homepage.sg-portal-page .site-header--sg-portal .container-global,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-wrapper.container-global {
+    max-width: min(1280px, 100%);
 }
 
 .site-header__topbar,

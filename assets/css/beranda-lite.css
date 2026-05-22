@@ -1,13 +1,37 @@
 /**
  * Mode ringan first paint beranda — is-lite-render / is-effects-off
  */
-body.sg-homepage.is-lite-render .beranda-lazy-section {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 320px;
+
+/* Hero first paint — tinggi diatur beranda-layout-fix.css */
+body.sg-homepage.is-lite-render #sg-hero.sg-hero--ultra {
+    padding-bottom: 1.25rem;
+}
+
+body.sg-homepage.is-lite-render .sg-hero__visual-col {
+    display: none !important;
+}
+
+body.sg-homepage.is-lite-ready .sg-hero__visual-col {
+    display: block !important;
+}
+
+body.sg-homepage.is-lite-render .stats-grid {
+    margin-top: 0.5rem;
+}
+
+body.sg-homepage .beranda-scroll-hint {
+    text-align: center;
+    padding: 0.75rem 1rem 1.25rem;
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+body.sg-homepage.is-lite-ready .beranda-scroll-hint {
+    display: none;
 }
 
 body.sg-homepage .beranda-lazy-section:not(.is-section-revealed):not(.is-section-loaded) {
-    min-height: 12rem;
+    min-height: 10rem;
 }
 
 body.sg-homepage .beranda-lazy-section:not(.is-section-revealed) .beranda-lazy-section__inner {
@@ -93,7 +117,7 @@ body.sg-homepage.is-lite-ready .beranda-lazy-ai.is-ai-ready {
     transform: none;
 }
 
-body.sg-homepage.is-lite-render .beranda-lite-section {
+body.sg-homepage .beranda-lite-section {
     content-visibility: visible;
 }
 

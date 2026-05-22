@@ -454,6 +454,12 @@
 
     document.addEventListener('beranda:lite-ready', function () {
         whenIdle(loadPortalEnhancements, 1200);
+        document.querySelectorAll('[data-beranda-lazy-section].is-section-revealed').forEach(function (el) {
+            var id = el.getAttribute('data-beranda-lazy-section') || '';
+            if (id && !sectionLoaded[id]) {
+                loadBerandaSection(id, el);
+            }
+        });
     });
 
     if (document.readyState === 'loading') {

@@ -78,6 +78,7 @@ $orgWebRootJs = defined('ORG_WEB_ROOT') ? ORG_WEB_ROOT : '';
 $extraFooterMarkup .= '<script>window.ORG_VENDOR_BASE=' . json_encode(org_vendor_web_base(), JSON_UNESCAPED_SLASHES)
     . ';window.ORG_ASSET_BASE=' . json_encode($sgAssetBase, JSON_UNESCAPED_SLASHES)
     . ';window.ORG_WEB_ROOT=' . json_encode($orgWebRootJs, JSON_UNESCAPED_SLASHES) . ';</script>' . "\n";
+$extraFooterMarkup .= org_beranda_layout_fix_stylesheet_link();
 $extraFooterMarkup .= org_beranda_lite_render_script_tag();
 $extraFooterMarkup .= org_beranda_deferred_script_tag();
 
@@ -87,6 +88,12 @@ $htmlClass = 'sg-portal-html-home';
 define('ORG_DEFER_LAYOUT_MAIN', true);
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'header.php';
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_smart_hero.php';
+?>
+<p class="beranda-scroll-hint mb-0" id="beranda-scroll-hint" aria-hidden="true">
+    <i class="fa-solid fa-chevron-down me-1" aria-hidden="true"></i>
+    Gulir ke bawah untuk informasi, dashboard, dan grafik kinerja
+</p>
+<?php
 echo '<main class="site-layout-main">';
 ?>
 <div class="sg-portal-main sg-dash-main">

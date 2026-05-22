@@ -18,7 +18,10 @@ $sources = [
     $root . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'smart-governance-beranda-polish.css',
     $root . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'sg-command-center-interactive.css',
     $root . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'fancybox' . DIRECTORY_SEPARATOR . '5.0' . DIRECTORY_SEPARATOR . 'fancybox.css',
+    $root . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda-layout-fix.css',
 ];
+
+/* beranda-layout-fix must stay last in bundle for cascade */
 
 function org_minify_css_string(string $css): string
 {
