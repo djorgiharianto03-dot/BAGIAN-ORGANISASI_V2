@@ -42,7 +42,7 @@ function org_beranda_fetch_visit_stats(?mysqli $db): array
     };
 
     $cacheFile = org_beranda_cache_dir() . DIRECTORY_SEPARATOR . 'beranda_visit_stats.json';
-    $ttl = 120;
+    $ttl = 300;
     if (is_file($cacheFile)) {
         $age = time() - (int) filemtime($cacheFile);
         if ($age >= 0 && $age < $ttl) {
@@ -300,6 +300,25 @@ function org_beranda_fetch_galeri_cached(?mysqli $db, int $limit = 6): array
  * @param array<string, mixed> $defaults
  * @return array<string, mixed>
  */
+/**
+ * @return list<array<string, mixed>>
+ */
+function org_beranda_fetch_pusat_informasi_cached(?mysqli $db, int $maxFeatured = 4, int $maxTotal = 12): array
+{
+    $cached = org_beranda_cache_read_json('beranda_pusat_informasi.json', 300);
+    if (is_array($cached) && isset($cached['items']) && is_array($cached['items'])) {
+        return array_values($cached['items']);
+    }
+    if (!$db instanceof mysqli) {
+        return [];
+    }
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'pusat_informasi_db.php';
+    $items = org_pusat_informasi_fetch_for_beranda($db, $maxFeatured, $maxTotal);
+    org_beranda_cache_write_json('beranda_pusat_informasi.json', ['items' => $items]);
+
+    return $items;
+}
+
 function org_beranda_merge_site_settings(array $defaults, ?mysqli $db): array
 {
     $settings = $defaults;

@@ -34,13 +34,7 @@ function org_portal_head_markup_beranda(string $existing = ''): string
     }
     require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
     $assetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
-    $fonts = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Inter:wght@400;600;700&amp;display=swap';
-
-    $base = '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n"
-        . '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n"
-        . '<link rel="stylesheet" href="' . htmlspecialchars($fonts, ENT_QUOTES, 'UTF-8') . '" media="print" onload="this.media=\'all\'">' . "\n"
-        . '<noscript><link rel="stylesheet" href="' . htmlspecialchars($fonts, ENT_QUOTES, 'UTF-8') . '"></noscript>' . "\n"
-        . org_asset_stylesheet_async('assets/css/smart-governance-portal.css')
+    $base = org_asset_stylesheet_async('assets/css/smart-governance-portal.css')
         . org_asset_stylesheet_async('assets/css/smart-governance-portal-nav.css?v=4');
 
     return $base . $existing;

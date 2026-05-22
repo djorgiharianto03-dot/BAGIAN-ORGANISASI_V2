@@ -48,54 +48,6 @@ $sgQuickLinks[] = $sgEOrgQuick;
 
 ?>
 
-<style id="sg-beranda-layout-fix">
-
-.sg-homepage #sg-hero .sg-hero__title,
-
-.sg-homepage #sg-hero .sg-hero__tagline,
-
-.sg-homepage #sg-hero .sg-reveal,
-
-.sg-homepage #sg-hero .sg-quick-menu,
-
-.sg-homepage #sg-hero .sg-hero-stats {
-
-    opacity: 1 !important;
-
-    visibility: visible !important;
-
-    transform: none !important;
-
-}
-
-/* Statistik: hanya angka + label, bukan kartu navigasi */
-.sg-homepage #sg-hero .sg-hero-stats .sg-stat-display {
-    display: block;
-    cursor: default;
-    pointer-events: none;
-    text-align: center;
-    padding: 1rem 0.85rem;
-}
-
-.sg-homepage #sg-hero .sg-hero-stats .sg-stat-display:hover,
-.sg-homepage #sg-hero .sg-hero-stats .sg-stat-display:focus {
-    transform: none !important;
-    border-color: rgba(255, 255, 255, 0.12) !important;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12) !important;
-}
-
-.sg-homepage #sg-hero .sg-hero-stats .sg-stat-display .sg-stat-glass__body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.35rem;
-    width: 100%;
-    text-align: center;
-}
-
-</style>
-
 <div id="sgPortalLoader" class="sg-portal-loader" aria-hidden="true">
 
     <div class="sg-portal-loader__inner">

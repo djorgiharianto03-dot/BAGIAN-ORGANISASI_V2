@@ -62,6 +62,61 @@ function org_beranda_bundle_stylesheet_link_fallback(): string
     return org_asset_stylesheet_async('assets/css/beranda-page.css');
 }
 
+function org_beranda_shell_stylesheet_async_link(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+    $fs = ORG_ROOT . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda-shell.bundle.min.css';
+    if (!is_file($fs)) {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_container_global_assets.php';
+
+        return org_container_global_stylesheet_link_async();
+    }
+
+    return org_asset_stylesheet_async('assets/css/beranda-shell.bundle.min.css');
+}
+
+function org_container_global_stylesheet_link_async(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+    $links = '';
+    foreach ([
+        'assets/css/org-container-global.css?v=36',
+        'assets/css/sg-portal-panel-layout.css?v=6',
+        'assets/css/sg-portal-shell-align.css?v=5',
+        'assets/css/org-overflow-guard.css?v=1',
+        'assets/css/smart-governance-portal-layout-fix.css?v=19',
+    ] as $rel) {
+        $links .= org_asset_stylesheet_async($rel, str_contains($rel, '?'));
+    }
+
+    return $links;
+}
+
+/**
+ * Head beranda: vendor non-blocking + critical layout kecil.
+ */
+function org_beranda_header_vendor_markup(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_vendor_assets.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_theme_assets.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_navbar_assets.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_modal_layer_assets.php';
+
+    $out = org_vendor_stylesheet_preload(org_vendor_bootstrap_css());
+    $out .= org_vendor_stylesheet_preload(org_vendor_fontawesome_css());
+    $out .= org_asset_stylesheet_async('assets/css/org-dark-mode.css?v=1', true);
+    $out .= org_asset_stylesheet_async('assets/css/org-navbar.css?v=10', true);
+    $out .= org_asset_stylesheet_async('assets/css/org-modal-layer.css', true);
+    $out .= '<style id="sg-beranda-head-critical">'
+        . 'body.sg-homepage #sgPortalLoader{display:none!important}'
+        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal{position:fixed!important;top:0;left:0;right:0;z-index:1100}'
+        . 'body.sg-homepage.sg-portal-page>#sg-hero{padding-top:var(--sg-portal-header-offset,7.5rem)!important}'
+        . '</style>' . "\n";
+
+    return $out;
+}
+
 function org_beranda_deferred_script_tag(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';

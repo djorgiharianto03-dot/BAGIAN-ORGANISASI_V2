@@ -66,7 +66,12 @@ echo org_theme_boot_script();
 <?php
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_vendor_assets.php';
 $orgHeaderBeranda = defined('ORG_BERANDA_PAGE') && ORG_BERANDA_PAGE === true;
-echo org_vendor_stylesheet(org_vendor_bootstrap_css());
+if ($orgHeaderBeranda) {
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
+    echo org_beranda_header_vendor_markup();
+} else {
+    echo org_vendor_stylesheet(org_vendor_bootstrap_css());
+}
 if (!$orgHeaderBeranda) {
     echo '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n";
     echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n";
@@ -75,9 +80,10 @@ if (!$orgHeaderBeranda) {
     echo org_vendor_stylesheet(org_vendor_aos_css());
 }
 /* Beranda: AOS/Fancybox dimuat lazy via beranda-deferred-load.js */
-echo org_vendor_stylesheet_preload(org_vendor_fontawesome_css());
+if (!$orgHeaderBeranda) {
+    echo org_vendor_stylesheet_preload(org_vendor_fontawesome_css());
+}
 if ($orgHeaderBeranda) {
-    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
     echo org_beranda_site_styles_markup();
 } else {
     require __DIR__ . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'site_styles.php';
@@ -92,12 +98,14 @@ if (!$orgHeaderBeranda) {
     echo org_motion_stylesheet_link();
     echo org_tailwind_stylesheet_link();
 }
-echo org_theme_stylesheet_link();
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_navbar_assets.php';
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_modal_layer_assets.php';
-echo org_navbar_stylesheet_link();
-echo org_modal_layer_stylesheet_link();
-if (str_contains($bodyClassAttr, 'sg-portal-page')) {
+if (!$orgHeaderBeranda) {
+    echo org_theme_stylesheet_link();
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_navbar_assets.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_modal_layer_assets.php';
+    echo org_navbar_stylesheet_link();
+    echo org_modal_layer_stylesheet_link();
+}
+if (str_contains($bodyClassAttr, 'sg-portal-page') && !$orgHeaderBeranda) {
     $sgPortalLayoutBase = defined('ORG_WEB_ROOT') && ORG_WEB_ROOT !== '' ? rtrim(ORG_WEB_ROOT, '/') : '';
     echo '<link rel="stylesheet" href="' . htmlspecialchars($sgPortalLayoutBase . '/assets/css/smart-governance-portal-layout-fix.css?v=19', ENT_QUOTES, 'UTF-8') . '">' . "\n";
 }
@@ -105,8 +113,13 @@ if (!empty($extraHeadMarkup) && is_string($extraHeadMarkup)) {
     echo $extraHeadMarkup;
 }
 if (str_contains($bodyClassAttr, 'sg-portal-page')) {
-    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_container_global_assets.php';
-    echo org_container_global_stylesheet_link();
+    if ($orgHeaderBeranda) {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
+        echo org_beranda_shell_stylesheet_async_link();
+    } else {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_container_global_assets.php';
+        echo org_container_global_stylesheet_link();
+    }
 }
 if (str_contains($bodyClassAttr, 'sg-portal-page')) {
     echo '<style id="sg-portal-shell-critical">'
@@ -125,7 +138,9 @@ if (str_contains($bodyClassAttr, 'sg-portal-page')) {
         — hapus <code>?theme_preview=...</code> dari URL untuk kembali normal.
     </div>
 <?php endif; ?>
-<?php require __DIR__ . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'cursor_follower_markup.php'; ?>
+<?php if (!$orgHeaderBeranda) {
+    require __DIR__ . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'cursor_follower_markup.php';
+} ?>
 <?php
 /* Pencarian dokumen hanya di halaman Perpustakaan Digital, bukan di header */
 $hideHeaderDocSearch = true;

@@ -6,6 +6,7 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 
 org_session_start();
 
 define('ORG_BERANDA_PAGE', true);
+define('ORG_BERANDA_LAZY_SECTIONS', true);
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_dev_bootstrap_once.php';
 org_run_dev_database_bootstrap_once();
@@ -75,8 +76,10 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 
 $sgAssetBase = org_asset_web_base();
 $extraHeadMarkup = org_portal_head_markup_beranda(org_beranda_bundle_stylesheet_async_link());
 $extraFooterMarkup = org_portal_footer_markup_beranda('');
+$orgWebRootJs = defined('ORG_WEB_ROOT') ? ORG_WEB_ROOT : '';
 $extraFooterMarkup .= '<script>window.ORG_VENDOR_BASE=' . json_encode(org_vendor_web_base(), JSON_UNESCAPED_SLASHES)
-    . ';window.ORG_ASSET_BASE=' . json_encode($sgAssetBase, JSON_UNESCAPED_SLASHES) . ';</script>' . "\n";
+    . ';window.ORG_ASSET_BASE=' . json_encode($sgAssetBase, JSON_UNESCAPED_SLASHES)
+    . ';window.ORG_WEB_ROOT=' . json_encode($orgWebRootJs, JSON_UNESCAPED_SLASHES) . ';</script>' . "\n";
 $extraFooterMarkup .= org_beranda_deferred_script_tag();
 
 /** Portal beranda: lebar shell header/hero — org-container-global.css */
@@ -97,9 +100,23 @@ echo '<main class="site-layout-main">';
             </div>
         <?php endif; ?>
 
-        <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_dashboard_widgets.php'; ?>
+        <div id="beranda-chunk-dashboard" class="beranda-chunk-slot" data-beranda-chunk="dashboard" aria-busy="true" aria-live="polite">
+            <section class="beranda-section beranda-chunk-skeleton" id="beranda-dashboard-widgets" aria-labelledby="beranda-dashboard-widgets-title">
+                <div class="beranda-chunk-skeleton__bar" style="width:42%"></div>
+                <div class="beranda-chunk-skeleton__grid">
+                    <div class="beranda-chunk-skeleton__card"></div>
+                    <div class="beranda-chunk-skeleton__card"></div>
+                    <div class="beranda-chunk-skeleton__card"></div>
+                </div>
+            </section>
+        </div>
 
-        <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_team_targets.php'; ?>
+        <div id="beranda-chunk-team" class="beranda-chunk-slot" data-beranda-chunk="team" data-beranda-tahun="<?php echo (int) ($berandaTeamTargetsTahun ?? (int) date('Y')); ?>" aria-busy="true" aria-live="polite">
+            <section class="beranda-section beranda-chunk-skeleton" id="beranda-team-targets" aria-labelledby="beranda-team-targets-title">
+                <div class="beranda-chunk-skeleton__bar" style="width:55%"></div>
+                <div class="beranda-chunk-skeleton__chart"></div>
+            </section>
+        </div>
 
         <section class="section-spacing beranda-section beranda-section--surface-muted sg-reveal-section" id="beranda-kunjungan-web" aria-labelledby="beranda-kunjungan-web-title">
             <div class="beranda-section__head-row d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">

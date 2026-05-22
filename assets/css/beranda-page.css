@@ -1,4 +1,70 @@
 ﻿/** Beranda index.php — dipindah untuk cache & non-blocking parse */
+
+/* Hero first paint — sebelum bundle async selesai */
+.sg-homepage #sg-hero .sg-hero__title,
+.sg-homepage #sg-hero .sg-hero__tagline,
+.sg-homepage #sg-hero .sg-reveal,
+.sg-homepage #sg-hero .sg-quick-menu,
+.sg-homepage #sg-hero .sg-hero-stats {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+}
+.sg-homepage #sg-hero .sg-hero-stats .sg-stat-display {
+    display: block;
+    cursor: default;
+    pointer-events: none;
+    text-align: center;
+    padding: 1rem 0.85rem;
+}
+.sg-homepage #sg-hero .sg-hero-stats .sg-stat-display:hover,
+.sg-homepage #sg-hero .sg-hero-stats .sg-stat-display:focus {
+    transform: none !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12) !important;
+}
+.sg-homepage #sg-hero .sg-hero-stats .sg-stat-display .sg-stat-glass__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    width: 100%;
+    text-align: center;
+}
+
+.beranda-chunk-skeleton__bar {
+    height: 1.35rem;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #e2e8f0 0%, #f1f5f9 50%, #e2e8f0 100%);
+    background-size: 200% 100%;
+    animation: beranda-chunk-shimmer 1.2s ease-in-out infinite;
+    margin-bottom: 1.25rem;
+}
+.beranda-chunk-skeleton__grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+.beranda-chunk-skeleton__card {
+    min-height: 120px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #e2e8f0 0%, #f8fafc 50%, #e2e8f0 100%);
+    background-size: 200% 100%;
+    animation: beranda-chunk-shimmer 1.2s ease-in-out infinite;
+}
+.beranda-chunk-skeleton__chart {
+    min-height: 220px;
+    border-radius: 14px;
+    background: linear-gradient(90deg, #e2e8f0 0%, #f8fafc 50%, #e2e8f0 100%);
+    background-size: 200% 100%;
+    animation: beranda-chunk-shimmer 1.2s ease-in-out infinite;
+}
+@keyframes beranda-chunk-shimmer {
+    0% { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
+}
+
 #beranda-root {
     width: 100%;
     max-width: 100%;
