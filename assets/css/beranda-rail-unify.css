@@ -1,0 +1,165 @@
+/**
+ * Beranda — SATU rail lebar untuk navbar, hero (konten), main, footer.
+ * Muat terakhir (setelah site_styles + bundle + shell) agar menimpa semua konflik.
+ *
+ * Shell = lebar viewport 100% (latar header, hero biru, pita footer).
+ * Rail  = kotak konten 1180px + gutter sama di semua .container-global beranda.
+ */
+
+body.sg-homepage.sg-portal-page {
+    --sg-rail-width: 1180px;
+    --sg-rail-pad: clamp(1rem, 2vw, 1.25rem);
+    --layout-max-width: 1180px;
+    --container-max: 1180px;
+    --beranda-gutter: var(--sg-rail-pad);
+    --portal-content-gutter: var(--sg-rail-pad);
+}
+
+/* —— Shell full-width (background = lebar section) —— */
+body.sg-homepage.sg-portal-page .site-header--sg-portal,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient,
+body.sg-homepage.sg-portal-page .site-layout-main,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero,
+body.sg-homepage.sg-portal-page .site-footer.site-footer--modern {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+    background: linear-gradient(180deg, #0a3d6b 0%, #0c4a7a 100%) !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__bg,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__grid-floor,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-ambient-layer {
+    display: none !important;
+}
+
+/* —— Satu rail: semua konten sejajar (kiri/kanan sama dengan menu navbar) —— */
+body.sg-homepage.sg-portal-page :is(
+    .header-inner.container-global,
+    .navbar-wrapper.container-global,
+    .site-layout-main > #sg-hero .container-global,
+    #beranda-root.container-global,
+    .site-footer .container-global,
+    .org-footer .container-global
+) {
+    width: 100% !important;
+    max-width: var(--sg-rail-width) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: var(--sg-rail-pad) !important;
+    padding-right: var(--sg-rail-pad) !important;
+    box-sizing: border-box !important;
+}
+
+/* Panel nav mengisi lebar navbar-wrapper (bukan lebih sempit/lebar) */
+body.sg-homepage.sg-portal-page .navbar-wrapper.container-global {
+    margin-top: 0.5rem !important;
+}
+
+body.sg-homepage.sg-portal-page .navbar-panel,
+body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box;
+}
+
+/* Hero dalam — satu kolom, sama lebar dengan stats di bawahnya */
+body.sg-homepage.sg-portal-page .container-global.hero-inner.hero-inner--stacked,
+body.sg-homepage.sg-portal-page .hero-inner.hero-inner--stacked.container-global {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    grid-template-columns: unset !important;
+    gap: 0.5rem !important;
+    align-items: stretch !important;
+    position: relative !important;
+    z-index: 2 !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .stats-grid.container-global {
+    position: relative !important;
+    z-index: 2 !important;
+    margin-top: 0.35rem !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+body.sg-homepage.sg-portal-page .sg-hero__copy,
+body.sg-homepage.sg-portal-page .sg-hero__quick.sg-quick-menu,
+body.sg-homepage.sg-portal-page .sg-hero-stats {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Main konten menyatu dengan hero & footer */
+body.sg-homepage.sg-portal-page .site-layout-main {
+    background: #f4f7fb !important;
+}
+
+body.sg-homepage.sg-portal-page #beranda-root.container-global {
+    background: #f4f7fb !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero + #beranda-root {
+    margin-top: 0 !important;
+}
+
+/* Footer — satu halaman, rail sama, latar terang */
+body.sg-homepage.sg-portal-page .site-footer.site-footer--modern,
+body.sg-homepage.sg-portal-page .org-footer.site-footer--modern {
+    background: #f4f7fb !important;
+    margin-top: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+body.sg-homepage.sg-portal-page .site-footer__cta-band,
+body.sg-homepage.sg-portal-page .org-footer__cta.site-footer__cta-band {
+    background: #f0f4f8 !important;
+    color: #0f2744 !important;
+    border-top: 1px solid #e2e8f0 !important;
+    box-shadow: none !important;
+}
+
+body.sg-homepage.sg-portal-page .site-footer__links-band,
+body.sg-homepage.sg-portal-page .org-footer__links.site-footer__links-band {
+    background: #eef2f6 !important;
+    border-top: 1px solid #e2e8f0 !important;
+}
+
+body.sg-homepage.sg-portal-page .site-footer__nav a {
+    color: #475569 !important;
+}
+
+body.sg-homepage.sg-portal-page .site-footer__cta-band .grid {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+}
+
+@media (max-width: 1212px) {
+    body.sg-homepage.sg-portal-page :is(
+        .header-inner.container-global,
+        .navbar-wrapper.container-global,
+        .site-layout-main > #sg-hero .container-global,
+        #beranda-root.container-global,
+        .site-footer .container-global
+    ) {
+        max-width: 100% !important;
+    }
+}

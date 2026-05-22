@@ -131,6 +131,7 @@ if (str_contains($bodyClassAttr, 'sg-portal-page')) {
     if ($orgHeaderBeranda) {
         require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
         echo org_beranda_shell_stylesheet_async_link();
+        echo org_beranda_rail_unify_stylesheet_link();
     } else {
         require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_container_global_assets.php';
         echo org_container_global_stylesheet_link();

@@ -378,6 +378,17 @@ body.sg-portal-page .hero-inner.container-global {
     z-index: 5;
 }
 
+/* Beranda minimal — satu kolom (bukan grid 2 kolom subhalaman) */
+body.sg-homepage.sg-portal-page .container-global.hero-inner.hero-inner--stacked,
+body.sg-homepage.sg-portal-page .hero-inner.hero-inner--stacked.container-global {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    grid-template-columns: unset;
+    gap: 0.5rem;
+    align-items: stretch;
+}
+
 .sg-portal-page .hero-text,
 .sg-portal-page .hero-inner > .sg-hero__copy {
     margin: 0;

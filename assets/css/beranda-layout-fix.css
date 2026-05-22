@@ -158,10 +158,12 @@ body.sg-homepage .sg-hero.sg-hero--ultra {
     padding-bottom: clamp(1rem, 2.2vw, 1.5rem) !important;
 }
 
-body.sg-homepage.sg-portal-page .container-global.hero-inner {
-    grid-template-columns: minmax(0, 1fr) minmax(0, min(380px, 36vw));
-    gap: clamp(1rem, 2.5vw, 1.75rem);
-    align-items: center;
+body.sg-homepage.sg-portal-page .container-global.hero-inner.hero-inner--stacked {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: unset !important;
+    gap: 0.5rem !important;
+    align-items: stretch !important;
 }
 
 body.sg-homepage.sg-portal-page .hero-visual,
