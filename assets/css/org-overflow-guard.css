@@ -1,0 +1,125 @@
+/**
+ * Portal — cegah scroll horizontal & celah putih kanan (muat terakhir).
+ */
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+html.sg-portal-html,
+html.sg-portal-html-home,
+body.sg-portal-page,
+body.sg-homepage.sg-portal-page {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.site-layout-main,
+.site-header--sg-portal,
+.site-header--sg-portal .site-header__gradient,
+.site-header--sg-portal .site-header__inner,
+.site-header--sg-portal .header-inner,
+.site-header__topbar,
+.site-header__brand-row,
+.site-header__nav-row,
+.beranda-portal-strip,
+.beranda-portal-strip__inner,
+#sg-hero,
+#sg-hero .hero-inner,
+#sg-hero .container-global,
+#beranda-root,
+#beranda-root > section,
+#beranda-root > .container,
+.sg-portal-page .container-global,
+.sg-portal-page .site-main.container-global {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.site-header--sg-portal .container-global,
+.site-header--sg-portal .header-inner.container-global {
+    width: 100%;
+    max-width: min(1320px, 100%);
+}
+
+.site-header__topbar,
+.site-header__brand-row,
+.site-header__nav-row {
+    min-width: 0;
+}
+
+.site-header__actions-end {
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+body.sg-homepage.sg-portal-page > #sg-hero,
+body.sg-homepage.sg-portal-page > section#sg-hero {
+    overflow-x: hidden;
+}
+
+#beranda-root .row,
+#beranda-root .beranda-exec-grid,
+.sg-portal-page .hero-inner,
+.sg-portal-page .shortcut-grid,
+.sg-portal-page .stats-grid {
+    min-width: 0;
+    max-width: 100%;
+}
+
+#beranda-root .swiper,
+#beranda-root .swiper-wrapper {
+    max-width: 100%;
+}
+
+#beranda-root #beranda-ringkasan-eksekutif,
+#beranda-root .gov-team-target-section,
+#beranda-root .beranda-section {
+    overflow-x: hidden;
+}
+
+.site-header__nav-panel.is-open,
+.site-header__nav-panel.is-open.site-header__nav-collapse.show {
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.site-header__holiday-ucapan {
+    overflow-x: hidden;
+}
+
+.sg-portal-page .sg-command-center,
+.sg-portal-page .sg-hero__holo,
+.sg-portal-page .sg-hero__visual-frame {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+@media (max-width: 991.98px) {
+    .site-header__topbar {
+        flex-wrap: wrap;
+    }
+
+    .site-header__actions-end .btn-header-dashboard,
+    .site-header__actions-end .btn-header-logout,
+    .site-header__actions-end .btn-header-login {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .sg-portal-page .container-global,
+    .sg-portal-page .container-global.hero-inner,
+    .container-global.hero-inner {
+        padding-left: clamp(12px, 4vw, 20px);
+        padding-right: clamp(12px, 4vw, 20px);
+    }
+}

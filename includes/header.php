@@ -73,20 +73,26 @@ if (!$orgHeaderBeranda) {
     echo '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Public+Sans:wght@400;500;600;700;800&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">' . "\n";
     echo org_vendor_stylesheet(org_vendor_swiper_css());
     echo org_vendor_stylesheet(org_vendor_aos_css());
-} else {
-    echo org_vendor_stylesheet_preload(org_vendor_aos_css());
 }
+/* Beranda: AOS/Fancybox dimuat lazy via beranda-deferred-load.js */
 echo org_vendor_stylesheet_preload(org_vendor_fontawesome_css());
+if ($orgHeaderBeranda) {
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
+    echo org_beranda_site_styles_markup();
+} else {
+    require __DIR__ . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'site_styles.php';
+}
 ?>
-<?php require __DIR__ . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'site_styles.php'; ?>
 <?php
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_mobile_assets.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_motion_assets.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_tailwind_assets.php';
-echo org_mobile_stylesheet_link();
-echo org_motion_stylesheet_link();
+if (!$orgHeaderBeranda) {
+    echo org_mobile_stylesheet_link();
+    echo org_motion_stylesheet_link();
+    echo org_tailwind_stylesheet_link();
+}
 echo org_theme_stylesheet_link();
-echo org_tailwind_stylesheet_link();
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_navbar_assets.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_modal_layer_assets.php';
 echo org_navbar_stylesheet_link();

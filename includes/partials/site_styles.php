@@ -92,9 +92,13 @@
         }
         html,
         body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
             overflow-y: scroll;
             /* auto: stable mempersempit body vs header position:fixed → celah putih kanan beranda */
             scrollbar-gutter: auto;
+            box-sizing: border-box;
         }
         * {
             box-sizing: border-box;
@@ -343,6 +347,10 @@
             align-items: center;
             justify-content: flex-start;
             gap: 0.85rem 1.25rem;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
         }
         .site-header__search-wrap {
             flex: 0 1 auto;
@@ -1138,10 +1146,11 @@
         .site-header__actions-end {
             display: flex;
             align-items: center;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             gap: 0.5rem;
-            flex-shrink: 0;
+            flex-shrink: 1;
             min-width: 0;
+            max-width: 100%;
             justify-content: flex-end;
         }
         .site-header__actions-end .btn-header-dashboard,
@@ -3241,15 +3250,20 @@
             }
             .site-header__topbar {
                 display: flex;
-                flex-wrap: nowrap;
+                flex-wrap: wrap;
                 justify-content: space-between;
                 align-items: center;
                 gap: 0.2rem;
                 min-height: 42px;
+                width: 100%;
+                max-width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
             }
             .site-header__brand-row {
-                flex: 1 1 0;
+                flex: 1 1 auto;
                 min-width: 0;
+                max-width: 100%;
                 flex-wrap: nowrap;
                 gap: 0.35rem;
                 align-items: center;

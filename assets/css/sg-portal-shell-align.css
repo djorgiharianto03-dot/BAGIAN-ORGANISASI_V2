@@ -5,16 +5,18 @@
 
 html.sg-portal-html,
 html.sg-portal-html-home {
-    overflow-x: clip;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
     overflow-y: scroll;
     scrollbar-gutter: auto !important;
 }
 
 body.sg-portal-page {
     width: 100%;
-    max-width: none;
+    max-width: 100%;
     margin: 0;
-    overflow-x: clip;
+    overflow-x: hidden;
     box-sizing: border-box;
 }
 

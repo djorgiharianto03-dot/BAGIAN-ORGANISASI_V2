@@ -673,4 +673,27 @@ $aiChatEndpointUrl = htmlspecialchars($aiChatAssetBase . '/ai_chat.php', ENT_QUO
         </form>
     </section>
 </div>
+<?php if (defined('ORG_BERANDA_PAGE') && ORG_BERANDA_PAGE === true): ?>
+<script>
+(function () {
+    'use strict';
+    var aiUrl = <?php echo json_encode($aiChatAssetBase . '/assets/js/ai-chat.js?v=11', JSON_UNESCAPED_SLASHES); ?>;
+    var loaded = false;
+    window.orgBerandaLoadAiChat = function () {
+        if (loaded) return;
+        loaded = true;
+        var s = document.createElement('script');
+        s.src = aiUrl;
+        s.defer = true;
+        document.head.appendChild(s);
+    };
+    var toggle = document.getElementById('ai-chat-toggle');
+    if (toggle) {
+        toggle.addEventListener('click', window.orgBerandaLoadAiChat, { once: true, passive: true });
+        toggle.addEventListener('focus', window.orgBerandaLoadAiChat, { once: true, passive: true });
+    }
+})();
+</script>
+<?php else: ?>
 <script src="<?php echo $aiChatScriptUrl; ?>" defer></script>
+<?php endif; ?>

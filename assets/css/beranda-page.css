@@ -1,5 +1,9 @@
-﻿/** Beranda index.php — dipindah untuk cache & non-blocking parse */\n<style>
+﻿/** Beranda index.php — dipindah untuk cache & non-blocking parse */
 #beranda-root {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
     --beranda-radius: 10px;
     --beranda-navy: #003366;
     --beranda-royal: #1e3a8a;
@@ -80,10 +84,18 @@
     padding-top: 0;
     padding-bottom: 0;
 }
-#beranda-root > .beranda-section {
+#beranda-root > .beranda-section,
+#beranda-root > section {
     margin-bottom: 0;
     padding-top: clamp(80px, 11vw, 120px);
     padding-bottom: clamp(80px, 11vw, 120px);
+    content-visibility: auto;
+    contain-intrinsic-size: auto 420px;
+}
+
+#beranda-root > .beranda-section:first-of-type,
+#beranda-root > section:first-of-type {
+    content-visibility: visible;
 }
 #beranda-root .beranda-section--surface-white {
     background: #ffffff;

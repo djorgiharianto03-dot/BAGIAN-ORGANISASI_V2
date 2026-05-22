@@ -16,6 +16,7 @@ body,
 main,
 .site-layout-main {
     width: 100%;
+    max-width: 100%;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
@@ -33,12 +34,12 @@ html.sg-portal-html-home {
     overflow-x: hidden;
     scrollbar-gutter: auto !important;
     width: 100%;
-    max-width: none;
+    max-width: 100%;
 }
 
 body.sg-portal-page {
     width: 100%;
-    max-width: none;
+    max-width: 100%;
     overflow-x: hidden;
     --sg-header-gradient: linear-gradient(
         90deg,
@@ -333,8 +334,8 @@ body.sg-homepage.sg-portal-page > #sg-hero .sg-ambient-layer {
 body.sg-portal-page .container-global.hero-inner,
 body.sg-portal-page .hero-inner.container-global {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 460px;
-    gap: 88px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, min(460px, 42vw));
+    gap: clamp(1.5rem, 5vw, 88px);
     align-items: center;
     position: relative;
     z-index: 5;

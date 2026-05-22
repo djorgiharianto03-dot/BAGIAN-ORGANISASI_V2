@@ -6,8 +6,11 @@ if (!function_exists('org_proses_saran_url')) {
 }
 $prosesSaranUrl = defined('ORG_PROSES_SARAN_URL') ? ORG_PROSES_SARAN_URL : org_proses_saran_url();
 $prosesSaranUrlEsc = htmlspecialchars($prosesSaranUrl, ENT_QUOTES, 'UTF-8');
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_tailwind_assets.php';
-org_tailwind_bootstrap();
+$orgFooterBerandaEarly = defined('ORG_BERANDA_PAGE') && ORG_BERANDA_PAGE === true;
+if (!$orgFooterBerandaEarly) {
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_tailwind_assets.php';
+    org_tailwind_bootstrap();
+}
 org_component('footer', ['prosesSaranUrlEsc' => $prosesSaranUrlEsc]);
 ?>
 
@@ -131,7 +134,10 @@ if (!defined('ORG_BERANDA_PAGE') || ORG_BERANDA_PAGE !== true) {
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_motion_assets.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_theme_assets.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_navbar_assets.php';
-echo org_motion_script_tag();
+$orgFooterBeranda = defined('ORG_BERANDA_PAGE') && ORG_BERANDA_PAGE === true;
+if (!$orgFooterBeranda) {
+    echo org_motion_script_tag();
+}
 echo org_theme_script_tag();
 echo org_navbar_script_tag();
 ?>

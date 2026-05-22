@@ -1,5 +1,5 @@
 /**
- * Beranda — muat AOS, Fancybox, dan ApexCharts lokal hanya saat dibutuhkan.
+ * Beranda — muat AOS, Fancybox, dan ApexCharts lokal.
  */
 (function () {
     'use strict';
@@ -16,6 +16,16 @@
     var FANCY_JS = vendorUrl('fancybox/5.0/fancybox.umd.js');
     var APEX_JS = vendorUrl('apexcharts/3.49.1/apexcharts.min.js');
 
+    var apexDispatchPending = false;
+
+    function dispatchApexReady() {
+        if (apexDispatchPending) {
+            return;
+        }
+        apexDispatchPending = true;
+        document.dispatchEvent(new Event('beranda:apex-ready'));
+    }
+
     function loadScript(src, cb) {
         var s = document.createElement('script');
         s.src = src;
@@ -23,6 +33,18 @@
         s.onload = function () { if (cb) cb(); };
         s.onerror = function () { if (cb) cb(); };
         document.head.appendChild(s);
+    }
+
+    function loadApexCharts(cb) {
+        if (typeof ApexCharts !== 'undefined') {
+            if (cb) cb();
+            dispatchApexReady();
+            return;
+        }
+        loadScript(APEX_JS, function () {
+            if (cb) cb();
+            dispatchApexReady();
+        });
     }
 
     function whenIdle(fn) {
@@ -63,6 +85,7 @@
 
     function observeLazy(target, fn) {
         if (!target) {
+            fn();
             return;
         }
         if (!('IntersectionObserver' in window)) {
@@ -76,7 +99,7 @@
                     fn();
                 }
             });
-        }, { rootMargin: '100px' });
+        }, { rootMargin: '120px' });
         io.observe(target);
     }
 
@@ -88,17 +111,10 @@
             observeLazy(galeri, initFancybox);
         }
 
-        var apexData = document.getElementById('gov-team-target-charts-data');
-        if (apexData) {
-            observeLazy(apexData, function () {
-                if (typeof ApexCharts !== 'undefined') {
-                    document.dispatchEvent(new Event('beranda:apex-ready'));
-                    return;
-                }
-                loadScript(APEX_JS, function () {
-                    document.dispatchEvent(new Event('beranda:apex-ready'));
-                });
-            });
+        var teamData = document.getElementById('gov-team-target-charts-data');
+        if (teamData) {
+            /* Muat Apex segera — jangan observe <script> (tinggi 0, IO tidak pernah trigger) */
+            loadApexCharts();
         }
     }
 

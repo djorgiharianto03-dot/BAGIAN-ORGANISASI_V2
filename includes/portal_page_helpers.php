@@ -32,15 +32,16 @@ function org_portal_head_markup_beranda(string $existing = ''): string
         require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
         define('ORG_WEB_ROOT', org_site_web_root());
     }
+    require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
     $assetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
     $fonts = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Inter:wght@400;600;700&amp;display=swap';
 
     $base = '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n"
         . '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n"
-        . '<link rel="preload" href="' . htmlspecialchars($fonts, ENT_QUOTES, 'UTF-8') . '" as="style" onload="this.onload=null;this.rel=\'stylesheet\'">' . "\n"
+        . '<link rel="stylesheet" href="' . htmlspecialchars($fonts, ENT_QUOTES, 'UTF-8') . '" media="print" onload="this.media=\'all\'">' . "\n"
         . '<noscript><link rel="stylesheet" href="' . htmlspecialchars($fonts, ENT_QUOTES, 'UTF-8') . '"></noscript>' . "\n"
-        . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal.css', ENT_QUOTES, 'UTF-8') . '">' . "\n"
-        . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal-nav.css?v=4', ENT_QUOTES, 'UTF-8') . '">' . "\n";
+        . org_asset_stylesheet_async('assets/css/smart-governance-portal.css')
+        . org_asset_stylesheet_async('assets/css/smart-governance-portal-nav.css?v=4');
 
     return $base . $existing;
 }
@@ -52,9 +53,17 @@ function org_portal_footer_markup(string $existing = ''): string
         define('ORG_WEB_ROOT', org_site_web_root());
     }
     $assetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
-    $script = '<script src="' . htmlspecialchars($assetBase . '/assets/js/smart-governance-portal.js?v=16', ENT_QUOTES, 'UTF-8') . '" defer></script>' . "\n";
+    $script = '<script src="' . htmlspecialchars($assetBase . '/assets/js/smart-governance-portal.js?v=17', ENT_QUOTES, 'UTF-8') . '" defer></script>' . "\n";
 
     return $existing . $script;
+}
+
+/** Footer beranda: offset header segera; portal.js dimuat via beranda-deferred-load.js */
+function org_portal_footer_markup_beranda(string $existing = ''): string
+{
+    require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
+
+    return $existing . org_beranda_portal_header_offset_script();
 }
 
 /**

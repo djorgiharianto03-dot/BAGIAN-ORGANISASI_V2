@@ -3,6 +3,13 @@
  * Desktop (≥992px): menu bar penuh · Tablet/HP (≤991px): hamburger + drawer .is-open
  */
 
+.sg-portal-page .site-header--sg-portal .navbar-wrapper,
+.sg-portal-page .site-header--sg-portal .site-header__nav-wrap {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
 /* Baris menu: link kiri, aksi (tema/login/dashboard) kanan */
 @media (min-width: 992px) {
     .site-header__nav-row {
