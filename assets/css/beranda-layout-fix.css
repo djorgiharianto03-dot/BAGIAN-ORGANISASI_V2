@@ -144,15 +144,15 @@ body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
 body.sg-homepage.sg-portal-page > section#sg-hero.hero-section,
 body.sg-homepage.sg-portal-page > #sg-hero.sg-hero {
     min-height: 0 !important;
-    padding-bottom: clamp(1.75rem, 3vw, 2.75rem) !important;
+    padding-bottom: clamp(0.85rem, 1.8vw, 1.25rem) !important;
     padding-top: var(--sg-portal-header-offset, 7.5rem) !important;
 }
 
 body.sg-homepage .sg-hero.sg-hero--ultra {
     min-height: 0 !important;
     max-height: none !important;
-    padding-top: clamp(1rem, 2vw, 1.5rem);
-    padding-bottom: clamp(1.75rem, 3vw, 2.5rem) !important;
+    padding-top: clamp(0.35rem, 1vw, 0.65rem);
+    padding-bottom: clamp(0.85rem, 1.8vw, 1.25rem) !important;
 }
 
 body.sg-homepage.sg-portal-page .container-global.hero-inner {

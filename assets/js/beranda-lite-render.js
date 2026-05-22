@@ -12,6 +12,10 @@
 
     body.classList.add('is-lite-render');
 
+    document.querySelectorAll('#sg-hero .sg-reveal').forEach(function (el) {
+        el.classList.add('is-visible');
+    });
+
     function isLowEndDevice() {
         if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             return true;
@@ -89,22 +93,7 @@
     }
 
     function injectHeroAmbient() {
-        if (body.classList.contains('is-effects-off')) {
-            return;
-        }
-        var host = document.getElementById('beranda-hero-fx');
-        if (!host || host.getAttribute('data-fx-loaded') === '1') {
-            return;
-        }
-        host.setAttribute('data-fx-loaded', '1');
-        host.innerHTML = ''
-            + '<div class="sg-ambient-layer sg-ambient-layer--hero" aria-hidden="true">'
-            + '<span class="sg-ambient-glow sg-ambient-glow--a"></span>'
-            + '<span class="sg-ambient-glow sg-ambient-glow--b"></span>'
-            + '<span class="sg-ambient-glow sg-ambient-glow--c"></span>'
-            + '<div class="sg-particles" data-sg-particles="10"></div>'
-            + '</div>';
-        document.dispatchEvent(new Event('beranda:hero-fx-ready'));
+        /* Partikel/glow hero dimatikan — hemat GPU & repaint */
     }
 
     function markSectionLoaded(el) {
@@ -123,15 +112,6 @@
         body.classList.remove('is-lite-render');
         body.classList.add('is-lite-ready');
         docEl.classList.add('is-lite-ready');
-
-        if (!body.classList.contains('is-effects-off')) {
-            if (typeof requestIdleCallback === 'function') {
-                requestIdleCallback(injectHeroAmbient, { timeout: 2200 });
-            } else {
-                setTimeout(injectHeroAmbient, 600);
-            }
-        }
-
         document.dispatchEvent(new Event('beranda:lite-ready'));
         revealSectionsInView();
     }
@@ -173,11 +153,18 @@
 
     function onReady() {
         observeLazySections();
-        window.addEventListener('load', function () {
-            requestAnimationFrame(function () {
-                requestAnimationFrame(stabilizePage);
-            });
-        }, { once: true });
+        var runStabilize = function () {
+            if (typeof requestIdleCallback === 'function') {
+                requestIdleCallback(stabilizePage, { timeout: 1200 });
+            } else {
+                setTimeout(stabilizePage, 80);
+            }
+        };
+        if (document.readyState === 'complete') {
+            runStabilize();
+        } else {
+            window.addEventListener('load', runStabilize, { once: true });
+        }
         scheduleAi();
     }
 

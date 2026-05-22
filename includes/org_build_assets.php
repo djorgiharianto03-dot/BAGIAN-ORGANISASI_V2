@@ -95,13 +95,8 @@ function org_build_assets_generate_beranda_bundle(): bool
     return org_build_assets_write_bundle('assets/css/beranda.bundle.min.css', [
         'assets/css/beranda-page.css',
         'assets/css/smart-governance-homepage.css',
-        'assets/css/smart-governance-beranda-ultra.css',
-        'assets/css/smart-governance-beranda-premium.css',
-        'assets/css/smart-governance-beranda-govtech.css',
-        'assets/css/smart-governance-beranda-polish.css',
-        'assets/css/sg-command-center-interactive.css',
-        'assets/vendor/fancybox/5.0/fancybox.css',
         'assets/css/beranda-layout-fix.css',
+        'assets/css/beranda-lightweight.css',
     ]);
 }
 

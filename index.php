@@ -21,7 +21,7 @@ $pageTitle = 'Beranda — Bagian Organisasi';
 $navActive = 'beranda';
 $includePersonnelModals = false;
 $includeNewsModals = false;
-$bodyClass = 'page-index-redesign sg-portal-page sg-homepage is-lite-render';
+$bodyClass = 'page-index-redesign sg-portal-page sg-homepage is-lite-render is-perf-lite';
 $smartPortalNav = true;
 
 /** Satu kalimat inti untuk kartu Visi beranda (dari HTML ke plain). */
@@ -79,7 +79,6 @@ $orgWebRootJs = defined('ORG_WEB_ROOT') ? ORG_WEB_ROOT : '';
 $extraFooterMarkup .= '<script>window.ORG_VENDOR_BASE=' . json_encode(org_vendor_web_base(), JSON_UNESCAPED_SLASHES)
     . ';window.ORG_ASSET_BASE=' . json_encode($sgAssetBase, JSON_UNESCAPED_SLASHES)
     . ';window.ORG_WEB_ROOT=' . json_encode($orgWebRootJs, JSON_UNESCAPED_SLASHES) . ';</script>' . "\n";
-$extraFooterMarkup .= org_beranda_layout_fix_stylesheet_link();
 $extraFooterMarkup .= org_beranda_lite_render_script_tag();
 $extraFooterMarkup .= org_beranda_deferred_script_tag();
 

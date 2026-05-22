@@ -111,15 +111,40 @@
         }
     }
 
-    function loadChartJs() {
+    function loadChartJs(cb) {
         if (loaded.chart) {
             document.dispatchEvent(new Event('beranda:chart-ready'));
+            if (cb) {
+                cb();
+            }
             return;
         }
         loaded.chart = true;
         loadScript(CHART_JS, function () {
             document.dispatchEvent(new Event('beranda:chart-ready'));
+            if (cb) {
+                cb();
+            }
         });
+    }
+
+    function whenChartHostVisible(run) {
+        var canvas = document.getElementById('berandaVisitChart');
+        var host = canvas && (canvas.closest('.beranda-visit-chart-wrap') || canvas);
+        if (!host || !('IntersectionObserver' in window)) {
+            run();
+            return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+                io.disconnect();
+                run();
+            });
+        }, { rootMargin: '120px 0px', threshold: 0.05 });
+        io.observe(host);
     }
 
     function loadApexCharts(done) {
@@ -165,31 +190,28 @@
             fireChartInit();
         }
 
+        var chartsHost = document.getElementById('beranda-team-targets')
+            || document.querySelector('[data-beranda-chunk="team"]');
+        if (chartsHost && 'IntersectionObserver' in window) {
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
+                    io.disconnect();
+                    loadApexCharts(loadTeamChartsScript);
+                });
+            }, { rootMargin: '160px 0px', threshold: 0.04 });
+            io.observe(chartsHost);
+            return;
+        }
+
         loadApexCharts(loadTeamChartsScript);
     }
 
     function initAos() {
-        if (loaded.aos) {
-            return;
-        }
-        var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        var run = function () {
-            if (typeof AOS === 'undefined') {
-                return;
-            }
-            loaded.aos = true;
-            if (reduced || document.body.classList.contains('is-effects-off')) {
-                AOS.init({ disable: true });
-            } else {
-                AOS.init({ once: true, duration: 700, easing: 'ease-out-cubic', offset: 48 });
-            }
-        };
-        loadStylesheet(AOS_CSS);
-        if (typeof AOS !== 'undefined') {
-            run();
-            return;
-        }
-        loadScript(AOS_JS, run);
+        /* AOS tidak dipakai di beranda — hemat JS & layout thrashing */
+        loaded.aos = true;
     }
 
     function initFancybox() {
@@ -422,7 +444,11 @@
                 }
                 injectSectionHtml(host, trimmed);
                 if (sectionId === 'visit') {
-                    loadChartJs();
+                    whenChartHostVisible(function () {
+                        whenIdle(function () {
+                            loadChartJs();
+                        }, 800);
+                    });
                 }
                 if (sectionId === 'galeri') {
                     initFancybox();
@@ -452,8 +478,21 @@
 
     document.addEventListener('beranda:section-reveal', onSectionReveal);
 
+    function deferPortalEnhancements() {
+        var fired = false;
+        function run() {
+            if (fired) {
+                return;
+            }
+            fired = true;
+            loadPortalEnhancements();
+        }
+        window.addEventListener('scroll', run, { once: true, passive: true });
+        whenIdle(run, 5000);
+    }
+
     document.addEventListener('beranda:lite-ready', function () {
-        whenIdle(loadPortalEnhancements, 1200);
+        deferPortalEnhancements();
         document.querySelectorAll('[data-beranda-lazy-section].is-section-revealed').forEach(function (el) {
             var id = el.getAttribute('data-beranda-lazy-section') || '';
             if (id && !sectionLoaded[id]) {
@@ -465,7 +504,7 @@
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function () {
             if (document.body.classList.contains('is-lite-ready')) {
-                whenIdle(loadPortalEnhancements, 1200);
+                deferPortalEnhancements();
             }
         });
     }

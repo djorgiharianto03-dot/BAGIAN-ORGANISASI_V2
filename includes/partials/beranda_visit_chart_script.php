@@ -240,21 +240,30 @@ if ($valuesJson === false) {
         });
     };
 
-    document.addEventListener('beranda:chart-ready', schedule, { once: true });
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', schedule);
-    } else {
-        schedule();
-    }
-    window.addEventListener('load', schedule);
-    window.setTimeout(function () {
-        if (!rendered) schedule();
-    }, 400);
-    window.setTimeout(function () {
-        if (!rendered && chartErrorEl) {
-            chartErrorEl.textContent = 'Grafik statistik sementara belum dapat dimuat. Periksa koneksi internet (Chart.js) atau refresh halaman.';
-            chartErrorEl.classList.add('is-visible');
+    const runWhenVisible = function (fn) {
+        const host = chartEl.closest('.beranda-visit-chart-wrap') || chartEl;
+        if (!('IntersectionObserver' in window)) {
+            fn();
+            return;
         }
-    }, 5000);
+        const io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                io.disconnect();
+                fn();
+            });
+        }, { rootMargin: '100px 0px', threshold: 0.06 });
+        io.observe(host);
+    };
+
+    document.addEventListener('beranda:chart-ready', function () {
+        runWhenVisible(schedule);
+    }, { once: true });
+
+    runWhenVisible(function () {
+        if (typeof Chart !== 'undefined') {
+            schedule();
+        }
+    });
 }());
 </script>

@@ -136,6 +136,7 @@ function org_beranda_header_vendor_markup(): string
     $out .= org_asset_stylesheet_async('assets/css/org-modal-layer.css', true);
     $out .= org_beranda_lite_stylesheet_link();
     $out .= org_beranda_layout_fix_stylesheet_link();
+    $out .= org_beranda_lightweight_stylesheet_link();
     $out .= '<style id="sg-beranda-head-critical">'
         . 'body.sg-homepage #sgPortalLoader{display:none!important}'
         . 'body.sg-homepage.sg-portal-page .site-header--sg-portal{position:fixed!important;top:0;left:0;right:0;z-index:1100}'
@@ -149,7 +150,7 @@ function org_beranda_lite_boot_script(): string
 {
     return <<<'HTML'
 <script>
-(function(){try{var d=document.documentElement,b=document.body;if(!b||!b.classList.contains('sg-homepage'))return;b.classList.add('is-lite-render');var m=window.matchMedia;var low=(m&&m('(max-width:767.98px)').matches&&m('(pointer:coarse)').matches)||(navigator.connection&&(navigator.connection.saveData||/2g/.test(navigator.connection.effectiveType||'')))||(navigator.deviceMemory&&navigator.deviceMemory<=4);if(low||m&&m('(prefers-reduced-motion:reduce)').matches){b.classList.add('is-effects-off');d.classList.add('is-effects-off');}}catch(e){}})();
+(function(){try{var d=document.documentElement,b=document.body;if(!b||!b.classList.contains('sg-homepage'))return;b.classList.add('is-lite-render','is-perf-lite');var m=window.matchMedia;var low=(m&&m('(max-width:767.98px)').matches&&m('(pointer:coarse)').matches)||(navigator.connection&&(navigator.connection.saveData||/2g/.test(navigator.connection.effectiveType||'')))||(navigator.deviceMemory&&navigator.deviceMemory<=4);if(low||m&&m('(prefers-reduced-motion:reduce)').matches){b.classList.add('is-effects-off');d.classList.add('is-effects-off');}}catch(e){}})();
 </script>
 
 HTML;
@@ -168,6 +169,14 @@ function org_beranda_layout_fix_stylesheet_link(): string
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
     return org_asset_stylesheet_link('assets/css/beranda-layout-fix.css');
+}
+
+/** Beranda — override ringan (sync, setelah layout-fix). */
+function org_beranda_lightweight_stylesheet_link(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+
+    return org_asset_stylesheet_link('assets/css/beranda-lightweight.css');
 }
 
 function org_beranda_lite_render_script_tag(): string
