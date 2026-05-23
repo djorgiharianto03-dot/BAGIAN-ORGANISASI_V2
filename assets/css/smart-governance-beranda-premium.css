@@ -401,23 +401,7 @@
     box-shadow: var(--sg-shadow-elevated);
 }
 
-.sg-homepage.sg-portal-page .site-header__nav a {
-    border-radius: 10px;
-    padding: 0.42rem 0.7rem !important;
-    transition: background var(--sg-ease), color var(--sg-ease);
-}
-
-/* Menu aktif header: org-container-global.css (semua sg-portal-page) */
-
-.sg-homepage.sg-portal-page .site-header__actions-end .btn {
-    border-radius: 12px !important;
-    font-weight: 600;
-    transition: transform var(--sg-ease), box-shadow var(--sg-ease);
-}
-
-.sg-homepage.sg-portal-page .site-header__actions-end .btn:hover {
-    transform: translateY(-1px);
-}
+/* Navbar panel/menu: portal-nav + beranda-header-nav-unify.css (sama Profil) */
 
 /* —— Reveal: jangan sembunyikan teks hero —— */
 .sg-homepage #sg-hero .sg-reveal {

@@ -88,7 +88,7 @@
     }
 
     body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper {
-        margin-top: 0.4rem !important;
+        margin-top: clamp(0.5rem, 1.2vw, 1.125rem) !important;
     }
 
     body.sg-homepage.sg-portal-page .site-header__nav-panel.is-open {
