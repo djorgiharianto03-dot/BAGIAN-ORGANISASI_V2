@@ -98,6 +98,7 @@ if ($orgHeaderBerandaPage) {
         echo '<link rel="stylesheet" href="' . htmlspecialchars($sgPortalLayoutBase . '/assets/css/smart-governance-portal-layout-fix.css?v=19', ENT_QUOTES, 'UTF-8') . '">' . "\n";
     }
 }
+
 if (!empty($extraHeadMarkup) && is_string($extraHeadMarkup)) {
     echo $extraHeadMarkup;
 }
@@ -146,23 +147,50 @@ $publikasiAllowedRoles = ['super_admin', 'admin', 'sub_admin_publikasi'];
 $currentAdminRole = org_staff_role_normalize((string) ($_SESSION['level'] ?? $_SESSION['admin_role'] ?? ''));
 $canAccessEOrganisasi = ($isAdmin ?? false) && org_eorg_session_can_access_hub();
 $canAccessPublikasi = ($isAdmin ?? false) && in_array($currentAdminRole, $publikasiAllowedRoles, true);
-org_tailwind_bootstrap();
-org_component('navbar', [
-    'navActive' => $navActive,
-    'logoWebPath' => $logoWebPath ?? '',
-    'searchQuery' => $searchQuery ?? '',
-    'hideHeaderDocSearch' => $hideHeaderDocSearch,
-    'hideHeaderSubtitle' => $hideHeaderSubtitle,
-    'isAdmin' => $isAdmin ?? false,
-    'canAccessPublikasi' => $canAccessPublikasi,
-    'canAccessEOrganisasi' => $canAccessEOrganisasi,
-    'smartPortalNav' => !empty($smartPortalNav),
-    'holidayUcapan' => $holidayUcapan,
-    'holidayUcapanMain' => $holidayUcapanMain,
-    'holidayUcapanSub' => $holidayUcapanSub,
-    'holidayBadge' => $holidayBadge,
-    'holidayDecoIcon' => $holidayDecoIcon,
-]);
+
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_tailwind_assets.php';
+if (function_exists('org_tailwind_bootstrap')) {
+    org_tailwind_bootstrap();
+}
+if (function_exists('org_component')) {
+    org_component('navbar', [
+        'navActive' => $navActive,
+        'logoWebPath' => $logoWebPath ?? '',
+        'searchQuery' => $searchQuery ?? '',
+        'hideHeaderDocSearch' => $hideHeaderDocSearch,
+        'hideHeaderSubtitle' => $hideHeaderSubtitle,
+        'isAdmin' => $isAdmin ?? false,
+        'canAccessPublikasi' => $canAccessPublikasi,
+        'canAccessEOrganisasi' => $canAccessEOrganisasi,
+        'smartPortalNav' => !empty($smartPortalNav),
+        'holidayUcapan' => $holidayUcapan,
+        'holidayUcapanMain' => $holidayUcapanMain,
+        'holidayUcapanSub' => $holidayUcapanSub,
+        'holidayBadge' => $holidayBadge,
+        'holidayDecoIcon' => $holidayDecoIcon,
+    ]);
+} else {
+    $navbarPartial = __DIR__ . DIRECTORY_SEPARATOR . 'components' . DIRECTORY_SEPARATOR . 'navbar.php';
+    if (is_file($navbarPartial)) {
+        extract([
+            'navActive' => $navActive,
+            'logoWebPath' => $logoWebPath ?? '',
+            'searchQuery' => $searchQuery ?? '',
+            'hideHeaderDocSearch' => $hideHeaderDocSearch,
+            'hideHeaderSubtitle' => $hideHeaderSubtitle,
+            'isAdmin' => $isAdmin ?? false,
+            'canAccessPublikasi' => $canAccessPublikasi,
+            'canAccessEOrganisasi' => $canAccessEOrganisasi,
+            'smartPortalNav' => !empty($smartPortalNav),
+            'holidayUcapan' => $holidayUcapan,
+            'holidayUcapanMain' => $holidayUcapanMain,
+            'holidayUcapanSub' => $holidayUcapanSub,
+            'holidayBadge' => $holidayBadge,
+            'holidayDecoIcon' => $holidayDecoIcon,
+        ], EXTR_SKIP);
+        require $navbarPartial;
+    }
+}
 if (!defined('ORG_DEFER_LAYOUT_MAIN') || ORG_DEFER_LAYOUT_MAIN !== true) {
     echo '<main class="site-layout-main">';
 }
