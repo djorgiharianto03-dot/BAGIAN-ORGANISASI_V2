@@ -4,16 +4,84 @@
  * Helper aset production — bundle, preload, font ringan.
  */
 
+/** Naikkan saat deploy bundle agar browser tidak pakai cache lama (meski filemtime sama). */
+const ORG_ASSETS_BERANDA_CSS_BUNDLE_MANUAL_VERSION = 14;
+
+const ORG_ASSETS_BERANDA_SHELL_CSS_BUNDLE_MANUAL_VERSION = 5;
+
+function org_assets_beranda_css_bundle_rel(): string
+{
+    return 'assets/css/beranda.bundle.min.css';
+}
+
+function org_assets_beranda_css_bundle_fs(): string
+{
+    return ORG_ROOT . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, org_assets_beranda_css_bundle_rel());
+}
+
+function org_assets_beranda_css_bundle_version(): string
+{
+    $fs = org_assets_beranda_css_bundle_fs();
+    if (!is_file($fs)) {
+        return (string) ORG_ASSETS_BERANDA_CSS_BUNDLE_MANUAL_VERSION;
+    }
+
+    return (string) (int) filemtime($fs) . '-' . ORG_ASSETS_BERANDA_CSS_BUNDLE_MANUAL_VERSION;
+}
+
+/**
+ * URL penuh beranda.bundle.min.css dengan ?v=filemtime-manual.
+ */
+function org_assets_beranda_css_bundle_href(): string
+{
+    if (!function_exists('org_asset_web_base')) {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+    }
+    $base = org_asset_web_base();
+
+    return $base . '/' . org_assets_beranda_css_bundle_rel() . '?v=' . rawurlencode(org_assets_beranda_css_bundle_version());
+}
+
+function org_assets_beranda_shell_css_bundle_rel(): string
+{
+    return 'assets/css/beranda-shell.bundle.min.css';
+}
+
+function org_assets_beranda_shell_css_bundle_fs(): string
+{
+    return ORG_ROOT . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, org_assets_beranda_shell_css_bundle_rel());
+}
+
+function org_assets_beranda_shell_css_bundle_version(): string
+{
+    $fs = org_assets_beranda_shell_css_bundle_fs();
+    if (!is_file($fs)) {
+        return (string) ORG_ASSETS_BERANDA_SHELL_CSS_BUNDLE_MANUAL_VERSION;
+    }
+
+    return (string) (int) filemtime($fs) . '-' . ORG_ASSETS_BERANDA_SHELL_CSS_BUNDLE_MANUAL_VERSION;
+}
+
+function org_assets_beranda_shell_css_bundle_href(): string
+{
+    if (!function_exists('org_asset_web_base')) {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+    }
+    $base = org_asset_web_base();
+
+    return $base . '/' . org_assets_beranda_shell_css_bundle_rel() . '?v=' . rawurlencode(org_assets_beranda_shell_css_bundle_version());
+}
+
 function org_assets_beranda_css_bundle_available(): bool
 {
-    $fs = ORG_ROOT . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda.bundle.min.css';
+    $fs = org_assets_beranda_css_bundle_fs();
 
     return is_file($fs) && (int) filesize($fs) >= 256;
 }
 
 function org_assets_beranda_shell_bundle_available(): bool
 {
-    $fs = ORG_ROOT . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda-shell.bundle.min.css';
+    $fs = org_assets_beranda_shell_css_bundle_fs();
 
     return is_file($fs) && (int) filesize($fs) >= 128;
 }

@@ -62,20 +62,18 @@ function org_beranda_site_styles_markup(): string
 function org_beranda_bundle_stylesheet_async_link(): string
 {
     org_beranda_assets_prepare_builds();
-    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_vendor_assets.php';
-    $fs = ORG_ROOT . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda.bundle.min.css';
-    if (!is_file($fs)) {
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
+    if (!org_assets_beranda_css_bundle_available()) {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_vendor_assets.php';
+
         return org_beranda_bundle_stylesheet_link_fallback();
     }
 
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
-    $rel = 'assets/css/beranda.bundle.min.css';
-    $fsPath = ORG_ROOT . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $rel);
+    $rel = org_assets_beranda_css_bundle_rel() . '?v=' . org_assets_beranda_css_bundle_version();
 
-    $out = org_asset_preload_link($rel, 'style');
-    $out .= org_asset_stylesheet_async($rel, is_file($fsPath));
-
-    return $out;
+    return org_asset_preload_link($rel, 'style')
+        . org_asset_stylesheet_async($rel, false);
 }
 
 function org_beranda_bundle_stylesheet_link_fallback(): string
@@ -93,18 +91,18 @@ function org_beranda_bundle_stylesheet_link_fallback(): string
 function org_beranda_shell_stylesheet_async_link(): string
 {
     org_beranda_assets_prepare_builds();
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
-    $fs = ORG_ROOT . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda-shell.bundle.min.css';
-    if (!is_file($fs)) {
+    if (!org_assets_beranda_shell_bundle_available()) {
         require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_container_global_assets.php';
 
         return org_container_global_stylesheet_link_async();
     }
 
-    $rel = 'assets/css/beranda-shell.bundle.min.css';
-    $out = org_asset_preload_link($rel, 'style');
+    $rel = org_assets_beranda_shell_css_bundle_rel() . '?v=' . org_assets_beranda_shell_css_bundle_version();
 
-    return $out . org_asset_stylesheet_async($rel);
+    return org_asset_preload_link($rel, 'style')
+        . org_asset_stylesheet_async($rel, false);
 }
 
 function org_container_global_stylesheet_link_async(): string

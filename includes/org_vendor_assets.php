@@ -118,30 +118,22 @@ function org_vendor_fancybox_js(): string
 
 function org_beranda_bundle_css_rel(): string
 {
-    return 'css/beranda.bundle.min.css';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
+
+    return org_assets_beranda_css_bundle_rel();
 }
 
 function org_beranda_bundle_css_url(): string
 {
-    if (!defined('ORG_WEB_ROOT')) {
-        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_database.php';
-        define('ORG_WEB_ROOT', org_site_web_root());
-    }
-    $base = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
-    $rel = org_beranda_bundle_css_rel();
-    $fs = ORG_ROOT . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $rel);
-    $url = $base . '/assets/' . $rel;
-    if (is_file($fs)) {
-        $url .= '?v=' . rawurlencode((string) filemtime($fs));
-    }
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
 
-    return $url;
+    return org_assets_beranda_css_bundle_href();
 }
 
 function org_beranda_bundle_stylesheet_link(): string
 {
-    $fs = ORG_ROOT . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda.bundle.min.css';
-    if (!is_file($fs)) {
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
+    if (!org_assets_beranda_css_bundle_available()) {
         return '';
     }
 
