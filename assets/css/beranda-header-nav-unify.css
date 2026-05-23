@@ -43,84 +43,7 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient {
     }
 }
 
-/* Topbar — smart-governance-portal-nav.css */
-body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__topbar,
-body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__top.site-header__topbar {
-    align-items: center !important;
-    gap: 0.5rem 1rem !important;
-    padding: 0.2rem 0 0.15rem !important;
-}
-
-/*
- * Branding (logo + judul) — 1:1 Profil (smart-governance-portal-nav.css).
- * !important menang atas beranda-mobile di bundle.
- */
-body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__brand.site-header__brand-row,
-body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row {
-    display: flex;
-    align-items: center;
-    flex: 1 1 auto;
-    min-width: 0;
-    max-width: none;
-    flex-wrap: nowrap;
-    box-sizing: border-box;
-}
-
-body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__brand .min-w-0,
-body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .min-w-0 {
-    min-width: 0;
-    flex: 1 1 auto;
-}
-
-body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__logo.site-header__logo,
-body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .site-header__logo {
-    max-height: 48px !important;
-    width: auto !important;
-    height: auto;
-    max-width: none !important;
-    object-fit: contain;
-    flex-shrink: 0;
-}
-
-@media (min-width: 992px) {
-    body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__logo.site-header__logo,
-    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .site-header__logo {
-        max-height: 52px !important;
-    }
-}
-
-body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__title.site-header__title,
-body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .site-header__title {
-    font-family: var(--sg-nav-font) !important;
-    font-size: clamp(0.8rem, 0.5vw + 0.7rem, 0.95rem) !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.02em !important;
-    line-height: normal !important;
-    margin: 0;
-}
-
-body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__title .site-header__title-full,
-body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__title .site-header__title-mobile {
-    color: inherit;
-}
-
-body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__subtitle.site-header__subtitle,
-body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .site-header__subtitle {
-    font-family: var(--sg-nav-font) !important;
-    font-size: 0.75rem !important;
-    font-weight: 400 !important;
-    line-height: normal !important;
-    opacity: 0.92 !important;
-    margin: 0;
-}
-
-body.sg-homepage.sg-portal-page .site-header--sg-portal:not(.is-scrolled) .site-header__title,
-body.sg-homepage.sg-portal-page .site-header--sg-portal:not(.is-scrolled) .site-header__subtitle,
-body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__title,
-body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__subtitle {
-    color: #fff !important;
-    text-shadow: none !important;
-}
+/* Branding (logo, BAGIAN ORGANISASI, subjudul): stack CSS sama Profil — org_beranda_portal_header_stylesheet_links() */
 
 /*
  * Navbar panel — identik Profil (org-container-global.css + smart-governance-portal-nav.css).
@@ -357,13 +280,5 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__actions-end
     body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__actions-end .btn,
     body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__actions-end form {
         width: 100% !important;
-    }
-}
-
-@media (max-width: 575.98px) {
-    body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__logo.site-header__logo,
-    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .site-header__logo {
-        max-height: 48px !important;
-        max-width: 36vw !important;
     }
 }

@@ -68,7 +68,6 @@ $orgHeaderBerandaPage = defined('ORG_BERANDA_PAGE') && ORG_BERANDA_PAGE === true
 if ($orgHeaderBerandaPage) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
     echo org_beranda_header_vendor_markup();
-    echo org_beranda_site_global_stylesheet_link();
     echo org_beranda_shell_stylesheet_async_link();
     echo org_beranda_bundle_stylesheet_async_link();
 } else {

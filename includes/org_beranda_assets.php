@@ -26,7 +26,20 @@ function org_beranda_site_global_stylesheet_link(): string
         return '';
     }
 
-    return org_asset_stylesheet_async('assets/css/site-global.min.css');
+    /* Sync — urutan cascade sama Profil (site_styles → portal-nav) */
+    return org_asset_stylesheet_link('assets/css/site-global.min.css');
+}
+
+/** CSS header portal yang sama dengan halaman Profil (mobile-first, navbar, enterprise). */
+function org_beranda_portal_header_stylesheet_links(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_mobile_assets.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_navbar_assets.php';
+
+    return org_mobile_stylesheet_link()
+        . org_navbar_stylesheet_link()
+        . org_asset_stylesheet_link('assets/css/smart-governance-enterprise.css?v=3');
 }
 
 function org_beranda_site_styles_markup(): string
@@ -140,6 +153,8 @@ function org_beranda_header_vendor_markup(): string
     $out .= org_asset_stylesheet_async('assets/css/org-dark-mode.css?v=1', true);
     $out .= org_asset_stylesheet_async('assets/css/org-modal-layer.css', true);
     $out .= org_beranda_lite_stylesheet_link();
+    $out .= org_beranda_site_global_stylesheet_link();
+    $out .= org_beranda_portal_header_stylesheet_links();
 
     if (!org_assets_beranda_css_bundle_available()) {
         $out .= org_beranda_layout_fix_stylesheet_link();
@@ -280,7 +295,7 @@ function org_beranda_header_nav_unify_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css?v=5');
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css?v=6');
 }
 
 /** Beranda — kartu statistik & dashboard enterprise (sync, cascade terakhir). */

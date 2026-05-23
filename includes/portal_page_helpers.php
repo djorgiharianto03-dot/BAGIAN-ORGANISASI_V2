@@ -53,7 +53,7 @@ function org_portal_head_markup_beranda(string $existing = ''): string
     /* Navbar: portal-nav (selaras Profil); bundle sudah berisi CSS beranda */
     $base = org_assets_fonts_portal_markup()
         . org_asset_stylesheet_async('assets/css/smart-governance-portal.css')
-        . org_asset_stylesheet_link('assets/css/smart-governance-portal-nav.css?v=14');
+        . org_asset_stylesheet_link('assets/css/smart-governance-portal-nav.css?v=11');
 
     if (org_assets_beranda_css_bundle_available()) {
         /* Sync paling akhir — menimpa portal.css / portal-nav (bundle async dimuat lebih dulu) */
