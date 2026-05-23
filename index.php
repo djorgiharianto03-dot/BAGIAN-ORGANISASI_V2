@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 declare(strict_types=1);
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
@@ -13,8 +13,10 @@ define('ORG_BERANDA_PAGE', true);
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'bootstrap.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_beranda_seo.php';
 
-$pageTitle = 'Beranda — Bagian Organisasi';
+$pageTitle = org_beranda_seo_page_title();
+$siteLogoAlt = org_beranda_seo_logo_alt();
 $navActive = 'beranda';
 $includePersonnelModals = false;
 $includeNewsModals = false;
@@ -143,9 +145,10 @@ if (!defined('ORG_BERANDA_NEED_APEX')) {
     define('ORG_BERANDA_NEED_APEX', $orgBerandaHasTeamChartData);
 }
 
-$extraHeadMarkup = org_beranda_index_extra_head_markup(
-    count($berandaDashboardWidgets) > 0 || !empty($berandaTeamTargetsVisible)
-);
+$extraHeadMarkup = org_beranda_seo_head_markup((string) ($logoWebPath ?? ''))
+    . org_beranda_index_extra_head_markup(
+        count($berandaDashboardWidgets) > 0 || !empty($berandaTeamTargetsVisible)
+    );
 
 /** Chart / Fancybox / Apex: dimuat lazy oleh beranda-deferred-load.js (saat section terlihat). */
 $extraFooterMarkup = org_portal_footer_markup('');

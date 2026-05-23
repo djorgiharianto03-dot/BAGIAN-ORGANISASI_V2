@@ -333,11 +333,11 @@ $sgQuickLinks[] = $sgEOrgQuick;
 
             <h1 class="sg-hero__title">
 
-                <span class="sg-hero__title-secondary">Smart Governance Portal</span>
+                <span class="sg-hero__title-secondary" aria-hidden="true">Smart Governance Portal</span>
 
-                <span class="sg-hero__title-primary">Bagian Organisasi</span>
+                <span class="sg-hero__title-primary">Bagian Organisasi Setda</span>
 
-                <span class="sg-hero__title-org">Sekretariat Daerah Kabupaten Kepulauan Aru</span>
+                <span class="sg-hero__title-org">Kabupaten Kepulauan Aru</span>
 
             </h1>
 

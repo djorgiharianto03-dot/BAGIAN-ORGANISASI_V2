@@ -118,7 +118,8 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero,
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 0.06rem;
+    align-items: flex-start;
+    gap: 0.125rem;
 }
 
 .sg-portal-page .site-header__logo {

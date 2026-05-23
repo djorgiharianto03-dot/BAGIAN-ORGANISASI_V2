@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Bootstrap aplikasi: sesi, data, dan penanganan POST.
  * Wajib dipanggil dari setiap halaman publik sebelum header.
@@ -790,11 +790,7 @@ if ($searchQuery !== '') {
     }));
 }
 
-$logoWebPath = '';
-foreach (['png', 'jpg', 'jpeg', 'webp', 'svg'] as $logoExt) {
-    $logoFs = ORG_ROOT . DIRECTORY_SEPARATOR . 'logo.' . $logoExt;
-    if (is_file($logoFs)) {
-        $logoWebPath = 'logo.' . $logoExt . '?v=' . rawurlencode((string) filemtime($logoFs));
-        break;
-    }
+if (!function_exists('org_site_logo_web_path')) {
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_app.php';
 }
+$logoWebPath = org_site_logo_web_path();

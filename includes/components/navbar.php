@@ -24,7 +24,7 @@ org_tailwind_bootstrap();
 
 $siteLogoAlt = isset($siteLogoAlt) && is_string($siteLogoAlt) && $siteLogoAlt !== ''
     ? $siteLogoAlt
-    : 'Logo Bagian Organisasi — Sekretariat Daerah Kabupaten Kepulauan Aru';
+    : 'Logo Bagian Organisasi Setda Kabupaten Kepulauan Aru';
 
 $smartPortalNav = !empty($smartPortalNav);
 $headerClass = org_ui_class(

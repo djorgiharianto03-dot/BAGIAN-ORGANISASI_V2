@@ -92,3 +92,21 @@ function org_asset_url(string $relativePath): string
 
     return ($prefix === '' ? '' : $prefix) . '/' . $relativePath;
 }
+
+/**
+ * Path web logo utama (navbar/beranda), mis. logo.png?v=… — kosong jika berkas tidak ada.
+ */
+function org_site_logo_web_path(): string
+{
+    if (!defined('ORG_ROOT')) {
+        return '';
+    }
+    foreach (['png', 'jpg', 'jpeg', 'webp', 'svg'] as $logoExt) {
+        $logoFs = ORG_ROOT . DIRECTORY_SEPARATOR . 'logo.' . $logoExt;
+        if (is_file($logoFs)) {
+            return 'logo.' . $logoExt . '?v=' . rawurlencode((string) filemtime($logoFs));
+        }
+    }
+
+    return '';
+}
