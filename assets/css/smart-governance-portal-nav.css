@@ -103,16 +103,26 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero,
 }
 
 .sg-portal-page .site-header__title {
-    font-family: var(--sg-nav-font);
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    font-size: clamp(0.8rem, 0.5vw + 0.7rem, 0.95rem);
+    font-family: var(--sg-nav-font) !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em !important;
+    font-size: clamp(0.8rem, 0.5vw + 0.7rem, 0.95rem) !important;
+    line-height: 1.12 !important;
+    text-transform: uppercase !important;
+    text-shadow: none !important;
+    margin: 0 !important;
 }
 
 .sg-portal-page .site-header__subtitle {
-    font-family: var(--sg-nav-font);
-    font-size: 0.75rem;
-    opacity: 0.92;
+    font-family: var(--sg-nav-font) !important;
+    font-size: 0.75rem !important;
+    font-weight: 400 !important;
+    line-height: 1.45 !important;
+    letter-spacing: 0.02em !important;
+    opacity: 0.92 !important;
+    margin: 0.4rem 0 0 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    text-shadow: none !important;
 }
 
 .sg-portal-page .site-header--sg-portal:not(.is-scrolled) .site-header__title,

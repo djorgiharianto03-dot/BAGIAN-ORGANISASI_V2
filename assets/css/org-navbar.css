@@ -214,9 +214,9 @@
     }
 
     .sg-portal-page .site-header__subtitle {
-        font-size: 0.65rem;
-        line-height: 1.2;
-        margin-top: 0.05rem;
+        font-size: 0.65rem !important;
+        line-height: 1.2 !important;
+        margin-top: 0.05rem !important;
     }
 
     .site-header__search-wrap {

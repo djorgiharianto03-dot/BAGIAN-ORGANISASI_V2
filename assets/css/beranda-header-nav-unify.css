@@ -45,6 +45,42 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient {
 
 /* Branding (logo, BAGIAN ORGANISASI, subjudul): stack CSS sama Profil — org_beranda_portal_header_stylesheet_links() */
 
+/* Cadangan beranda — timpa site-global async / bundle jika perlu */
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__title.site-header__title,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .site-header__title {
+    font-family: var(--sg-nav-font) !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em !important;
+    font-size: clamp(0.8rem, 0.5vw + 0.7rem, 0.95rem) !important;
+    line-height: 1.12 !important;
+    text-transform: uppercase !important;
+    text-shadow: none !important;
+    margin: 0 !important;
+    color: #fff !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__subtitle.site-header__subtitle,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .site-header__subtitle {
+    font-family: var(--sg-nav-font) !important;
+    font-size: 0.75rem !important;
+    font-weight: 400 !important;
+    line-height: 1.45 !important;
+    letter-spacing: 0.02em !important;
+    opacity: 0.92 !important;
+    margin: 0.4rem 0 0 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    text-shadow: none !important;
+}
+
+@media (max-width: 991.98px) {
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__subtitle.site-header__subtitle,
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .site-header__subtitle {
+        font-size: 0.65rem !important;
+        line-height: 1.2 !important;
+        margin-top: 0.05rem !important;
+    }
+}
+
 /*
  * Navbar panel — identik Profil (org-container-global.css + smart-governance-portal-nav.css).
  * !important menang atas beranda-premium / beranda-mobile di bundle.

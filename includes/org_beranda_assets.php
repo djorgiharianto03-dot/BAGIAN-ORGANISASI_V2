@@ -147,8 +147,9 @@ function org_beranda_header_vendor_markup(): string
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_navbar_assets.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_modal_layer_assets.php';
 
-    /* Font: org_portal_head_markup_beranda() — Inter + Plus Jakarta (tanpa duplikat) */
-    $out = org_vendor_stylesheet_preload(org_vendor_bootstrap_css());
+    /* Font portal — muat sebelum site-global (sama urutan Profil) */
+    $out = org_assets_fonts_portal_markup();
+    $out .= org_vendor_stylesheet_preload(org_vendor_bootstrap_css());
     $out .= org_vendor_stylesheet_preload(org_vendor_fontawesome_css());
     $out .= org_asset_stylesheet_async('assets/css/org-dark-mode.css?v=1', true);
     $out .= org_asset_stylesheet_async('assets/css/org-modal-layer.css', true);
@@ -295,7 +296,7 @@ function org_beranda_header_nav_unify_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css?v=6');
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css?v=7');
 }
 
 /** Beranda — kartu statistik & dashboard enterprise (sync, cascade terakhir). */
