@@ -372,6 +372,11 @@
     .profil-org__admin-hint a:hover {
         text-decoration: underline;
     }
+    @media (max-width: 991.98px) {
+        .page-profil-org .profil-org--premium {
+            overflow: visible;
+        }
+    }
     @media (max-width: 575.98px) {
         .profil-org--premium {
             margin-left: 0;

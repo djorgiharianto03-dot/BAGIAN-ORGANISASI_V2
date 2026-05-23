@@ -15,11 +15,10 @@
         margin-left: calc(-1 * var(--bs-gutter-x, 0.75rem));
         margin-right: calc(-1 * var(--bs-gutter-x, 0.75rem));
         padding: clamp(2.5rem, 2rem + 2.5vw, 4rem) clamp(0.85rem, 2vw, 1.5rem);
-        overflow: hidden;
+        overflow: visible;
         border-radius: var(--ps-radius);
         border: 1px solid var(--sg-border, rgba(8, 28, 58, 0.08));
         background: linear-gradient(180deg, #f8fafc 0%, var(--sg-surface, #f4f7fb) 48%, #ffffff 100%);
-        contain: layout style;
     }
     .profil-structure__ambient {
         position: absolute;
@@ -104,8 +103,6 @@
         background: #ffffff;
         border: 1px solid rgba(8, 28, 58, 0.1);
         box-shadow: var(--ps-shadow);
-        content-visibility: auto;
-        contain-intrinsic-size: auto 320px;
     }
     .profil-org-chart::before {
         content: "";
@@ -616,40 +613,103 @@
         color: var(--ps-muted);
         font-size: 0.92rem;
     }
-    @media (max-width: 767.98px) {
-        .profil-org-chart__branches {
-            grid-template-columns: 1fr;
+    /* Mobile — struktur & personel selalu terlihat (tanpa clip AOS/content-visibility) */
+    @media (max-width: 991.98px) {
+        .page-profil-org .profil-org--premium.profil-org--institutional {
+            overflow: visible;
+            margin-left: 0;
+            margin-right: 0;
         }
-        .profil-org-chart__node::before {
+
+        .page-profil-org .profil-structure {
+            margin-left: 0;
+            margin-right: 0;
+            padding-left: clamp(0.85rem, 3vw, 1.15rem);
+            padding-right: clamp(0.85rem, 3vw, 1.15rem);
+            overflow: visible;
+        }
+
+        .page-profil-org .profil-structure [data-aos],
+        .page-profil-org .profil-org [data-aos] {
+            opacity: 1 !important;
+            transform: none !important;
+            visibility: visible !important;
+        }
+
+        .page-profil-org .profil-structure__container,
+        .page-profil-org .profil-structure__block,
+        .page-profil-org .profil-structure__block.profil-personnel,
+        .page-profil-org .profil-org-chart,
+        .page-profil-org .profil-personnel__grid {
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        .page-profil-org .profil-org-chart__branches {
+            grid-template-columns: 1fr;
+            width: 100%;
+        }
+
+        .page-profil-org .profil-org-chart__tree {
+            width: 100%;
+        }
+
+        .page-profil-org .profil-org-chart__node::before {
             display: none;
         }
-        .profil-org-chart__connector-h {
+
+        .page-profil-org .profil-org-chart__connector-h {
             width: 3px;
             height: 24px;
             background: linear-gradient(180deg, #3b82f6, #8b5cf6);
         }
-        .profil-person-exec--chief .profil-person-exec__inner {
+
+        .page-profil-org .profil-personnel__toolbar {
             flex-direction: column;
+            align-items: stretch;
+            gap: 0.65rem;
         }
-        .profil-person-exec--chief .profil-person-exec__photo {
+
+        .page-profil-org .profil-personnel__add-btn {
             width: 100%;
-            max-width: none;
-            min-height: 200px;
-            max-height: 360px;
-        }
-        .profil-person-exec--staff .profil-person-exec__photo {
-            min-height: 200px;
-            max-height: 360px;
-        }
-        .profil-person-exec--chief .profil-person-exec__body {
-            text-align: center;
-        }
-        .profil-person-exec--chief .profil-person-exec__actions {
             justify-content: center;
         }
-        .profil-structure {
-            margin-left: 0;
-            margin-right: 0;
+
+        .page-profil-org .profil-personnel__grid--staff {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .page-profil-org .profil-person-exec--chief .profil-person-exec__inner {
+            flex-direction: column;
+        }
+
+        .page-profil-org .profil-person-exec--chief .profil-person-exec__photo,
+        .page-profil-org .profil-person-exec--staff .profil-person-exec__photo {
+            width: 100%;
+            max-width: none;
+            min-height: 180px;
+            max-height: 280px;
+            aspect-ratio: 4 / 3;
+        }
+
+        .page-profil-org .profil-person-exec--chief .profil-person-exec__body {
+            text-align: center;
+        }
+
+        .page-profil-org .profil-person-exec--chief .profil-person-exec__actions {
+            justify-content: center;
+        }
+
+        .page-profil-org .sg-portal-main-inner > .container.site-main {
+            padding-left: clamp(0.85rem, 3vw, 1.15rem);
+            padding-right: clamp(0.85rem, 3vw, 1.15rem);
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        .profil-org-chart__branches {
+            grid-template-columns: 1fr;
         }
     }
     @media (prefers-reduced-motion: reduce) {

@@ -1,0 +1,78 @@
+/**
+ * Profil — perbaikan tampilan mobile (struktur & daftar personel terlihat).
+ */
+
+@media (max-width: 991.98px) {
+    .page-profil-org.sg-portal-subpage .sg-portal-main-inner {
+        padding-bottom: clamp(2rem, 5vw, 3rem);
+        overflow-x: clip;
+    }
+
+    @supports not (overflow: clip) {
+        .page-profil-org.sg-portal-subpage .sg-portal-main-inner {
+            overflow-x: hidden;
+        }
+    }
+
+    .page-profil-org .profil-org--institutional .profil-org__layout {
+        display: block;
+    }
+
+    .page-profil-org .profil-org--institutional .profil-org__aside {
+        margin-top: 1.25rem;
+    }
+
+    .page-profil-org .profil-structure.section-spacing {
+        margin-top: 1.25rem;
+        padding-top: 2rem;
+    }
+
+    .page-profil-org .profil-structure__head {
+        margin-bottom: 1.5rem;
+    }
+
+    .page-profil-org .profil-structure__title {
+        font-size: clamp(1.35rem, 4vw + 0.75rem, 1.65rem);
+        line-height: 1.2;
+    }
+
+    .page-profil-org .profil-structure__block-title {
+        font-size: 1.05rem;
+    }
+
+    .page-profil-org .profil-org-chart {
+        padding: 1rem 0.85rem;
+    }
+
+    .page-profil-org .profil-org-chart__chief-inner {
+        padding: 1rem 1.1rem;
+    }
+
+    .page-profil-org .profil-org-chart__chief-title {
+        font-size: 1rem;
+    }
+
+    .page-profil-org .profil-person-exec__name {
+        font-size: 1rem;
+        line-height: 1.25;
+    }
+
+    .page-profil-org .profil-person-exec__role {
+        -webkit-line-clamp: 4;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .page-profil-org .profil-personnel__grid--staff {
+        grid-template-columns: 1fr;
+    }
+
+    .page-profil-org .profil-org-chart__node {
+        min-height: 0;
+        padding: 0.85rem 1rem;
+    }
+
+    .page-profil-org .profil-org-chart__node-label {
+        font-size: 0.9375rem;
+    }
+}

@@ -64,15 +64,21 @@ $extraFooterMarkup = <<<'HTML'
 (function () {
     function initProfilOrgMotion() {
         var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var narrow = window.matchMedia && window.matchMedia('(max-width: 991.98px)').matches;
         if (typeof AOS !== 'undefined') {
             AOS.init({
                 once: true,
                 duration: reduced ? 0 : 420,
                 easing: 'ease-out-cubic',
-                offset: 48,
+                offset: 24,
                 delay: 0,
-                disable: reduced
+                disable: reduced || narrow
             });
+            if (typeof AOS.refreshHard === 'function') {
+                AOS.refreshHard();
+            } else if (typeof AOS.refresh === 'function') {
+                AOS.refresh();
+            }
         }
     }
     if (document.readyState === 'loading') {
@@ -85,7 +91,8 @@ $extraFooterMarkup = <<<'HTML'
 HTML;
 org_portal_apply_assets($bodyClass, $extraHeadMarkup, $extraFooterMarkup);
 $__profilAssetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
-$extraHeadMarkup .= "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($__profilAssetBase . '/assets/css/smart-governance-profil-institutional.css', ENT_QUOTES, 'UTF-8') . '">' . "\n";
+$extraHeadMarkup .= "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($__profilAssetBase . '/assets/css/smart-governance-profil-institutional.css', ENT_QUOTES, 'UTF-8') . '">'
+    . '<link rel="stylesheet" href="' . htmlspecialchars($__profilAssetBase . '/assets/css/profil-mobile.css?v=1', ENT_QUOTES, 'UTF-8') . '">' . "\n";
 org_portal_set_hero(
     'Profil Organisasi',
     '',
