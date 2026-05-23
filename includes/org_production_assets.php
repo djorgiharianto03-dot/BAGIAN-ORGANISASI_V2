@@ -5,7 +5,7 @@
  */
 
 /** Naikkan saat deploy bundle agar browser tidak pakai cache lama (meski filemtime sama). */
-const ORG_ASSETS_BERANDA_CSS_BUNDLE_MANUAL_VERSION = 14;
+const ORG_ASSETS_BERANDA_CSS_BUNDLE_MANUAL_VERSION = 15;
 
 const ORG_ASSETS_BERANDA_SHELL_CSS_BUNDLE_MANUAL_VERSION = 5;
 
