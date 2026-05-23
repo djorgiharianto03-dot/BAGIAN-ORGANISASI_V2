@@ -1,6 +1,7 @@
 /**
- * Beranda — header & navbar selaras subhalaman Profil (portal-nav + org-container-global).
- * Muat paling akhir di beranda.bundle.min.css; menimpa beranda-mobile / beranda-premium / layout-fix.
+ * Beranda — header & navbar saja (bukan #sg-hero). Selaras Profil.
+ * Muat sync setelah portal-nav; juga di akhir beranda.bundle.
+ * Jangan sentuh .sg-hero__* — tipografi hero: beranda-nav-hero.css
  */
 
 body.sg-homepage.sg-portal-page .site-header--sg-portal {
@@ -135,6 +136,15 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.n
     padding: 0.35rem 0;
     border-radius: 20px;
     box-sizing: border-box;
+    align-self: stretch;
+}
+
+body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel .site-header__nav-panel,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-panel#siteHeaderNavPanel {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__nav-row.site-header__nav-row,
@@ -176,11 +186,20 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav a {
 }
 
 /* Tombol kanan (login / dashboard / logout / tema) */
-body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__actions.site-header__actions,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__actions.site-header__actions.site-header__actions--end {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
 body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__actions-end.site-header__actions-end {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    justify-content: flex-end;
     gap: 0.35rem 0.5rem;
     flex-shrink: 0;
 }
