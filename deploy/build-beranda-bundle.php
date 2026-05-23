@@ -25,10 +25,11 @@ $sources = [
     $root . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda-dashboard-cards.css',
     $root . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda-hero-fix-active.css',
     $root . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda-sections.css',
+    $root . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda-premium-polish.css',
     $root . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda-header-nav-unify.css',
 ];
 
-/* beranda-dashboard-cards.css must stay last in bundle for cascade */
+/* beranda-header-nav-unify.css must stay last in bundle for cascade */
 
 function org_minify_css_string(string $css): string
 {

@@ -1,9 +1,9 @@
 /**
- * Beranda — header & navbar sama ukuran subhalaman (Profil, Dokumen, dll.).
- * Muat paling akhir; menimpa override beranda-nav-hero / premium-polish / layout-fix.
+ * Beranda — header & navbar selaras subhalaman Profil (portal-nav + org-container-global).
+ * Muat paling akhir di beranda.bundle.min.css; menimpa beranda-mobile / beranda-premium / layout-fix.
  */
 
-body.sg-homepage.sg-portal-page {
+body.sg-homepage.sg-portal-page .site-header--sg-portal {
     --layout-max-width: 1320px;
     --container-max: 1320px;
     --sg-rail-width: 1320px;
@@ -11,170 +11,269 @@ body.sg-homepage.sg-portal-page {
     --beranda-gutter: var(--portal-content-gutter);
 }
 
-/* Rail header = .site-header__rail.container-global subhalaman */
-body.sg-homepage.sg-portal-page .site-header__rail.container-global,
+/* Rail: kolom branding atas, panel navigasi bawah (sama Profil) */
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail.container-global,
 body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global {
-    width: 100% !important;
-    max-width: var(--layout-max-width, 1320px) !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    padding-left: var(--portal-content-gutter) !important;
-    padding-right: var(--portal-content-gutter) !important;
-    box-sizing: border-box !important;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    width: 100%;
+    max-width: var(--layout-max-width, 1320px);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--portal-content-gutter);
+    padding-right: var(--portal-content-gutter);
+    box-sizing: border-box;
 }
 
 body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient {
-    padding: 0 !important;
-    box-shadow: none !important;
+    padding: 0;
+    box-shadow: none;
+    backdrop-filter: blur(14px) saturate(1.08);
+    -webkit-backdrop-filter: blur(14px) saturate(1.08);
 }
 
 body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__gradient {
-    box-shadow: var(--sg-nav-shadow-scroll, 0 4px 24px rgba(15, 23, 42, 0.12)) !important;
+    box-shadow: var(--sg-nav-shadow-scroll, 0 4px 24px rgba(15, 23, 42, 0.12));
 }
 
-body.sg-homepage.sg-portal-page .site-header__topbar,
-body.sg-homepage.sg-portal-page .org-navbar__top.site-header__topbar {
-    align-items: center !important;
-    gap: 0.5rem 1rem !important;
-    padding: 0.2rem 0 0.15rem !important;
+/* Branding / logo / judul */
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__topbar,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__top.site-header__topbar {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem 1rem;
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 auto;
+    order: 1;
+    margin: 0;
+    padding: 0.2rem 0 0.15rem;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
-body.sg-homepage.sg-portal-page .site-header__brand-row,
-body.sg-homepage.sg-portal-page .org-navbar__brand.site-header__brand-row {
-    align-items: center !important;
-    gap: 0.5rem 1rem !important;
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__brand.site-header__brand-row,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row {
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: 0.5rem 1rem;
 }
 
-body.sg-homepage.sg-portal-page .site-header__logo,
-body.sg-homepage.sg-portal-page .org-navbar__logo {
-    max-height: 48px !important;
-    max-width: none !important;
-    width: auto !important;
-    height: auto !important;
-    object-fit: contain !important;
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__brand .min-w-0 {
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__logo.site-header__logo,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .site-header__logo {
+    max-height: 48px;
+    width: auto;
+    height: auto;
+    max-width: none;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 @media (min-width: 992px) {
-    body.sg-homepage.sg-portal-page .site-header__logo,
-    body.sg-homepage.sg-portal-page .org-navbar__logo {
-        max-height: 52px !important;
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__logo {
+        max-height: 52px;
     }
 }
 
-body.sg-homepage.sg-portal-page .site-header__title {
-    font-family: var(--sg-nav-font, 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif) !important;
-    font-size: clamp(0.8rem, 0.5vw + 0.7rem, 0.95rem) !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.02em !important;
-    line-height: 1.25 !important;
-    color: #fff !important;
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__title.site-header__title,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .site-header__title {
+    font-family: var(--sg-nav-font, 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif);
+    font-size: clamp(0.8rem, 0.5vw + 0.7rem, 0.95rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.25;
+    color: #fff;
+    margin: 0;
 }
 
-body.sg-homepage.sg-portal-page .site-header__subtitle {
-    font-family: var(--sg-nav-font, 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif) !important;
-    font-size: 0.75rem !important;
-    font-weight: 400 !important;
-    line-height: 1.35 !important;
-    opacity: 0.92 !important;
-    color: rgba(255, 255, 255, 0.92) !important;
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__title .site-header__title-full,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__title .site-header__title-mobile {
+    color: inherit;
 }
 
-body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper,
-body.sg-homepage.sg-portal-page .site-header__rail .org-navbar__nav-shell,
-body.sg-homepage.sg-portal-page .navbar-wrapper {
-    margin-top: clamp(0.5rem, 1.2vw, 1.125rem) !important;
-    padding: 0 !important;
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__subtitle.site-header__subtitle,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .site-header__subtitle {
+    font-family: var(--sg-nav-font, 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif);
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.35;
+    opacity: 0.92;
+    color: rgba(255, 255, 255, 0.92);
+    margin: 0;
 }
 
-body.sg-homepage.sg-portal-page .navbar-panel,
-body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-height: 88px !important;
-    margin: 0 !important;
-    padding: 0.35rem 0 !important;
-    border-radius: 20px !important;
-    background: var(--sg-nav-panel-bg, rgba(2, 22, 48, 0.72)) !important;
-    backdrop-filter: blur(14px) saturate(1.08) !important;
-    -webkit-backdrop-filter: blur(14px) saturate(1.08) !important;
-    border: 1px solid var(--sg-nav-panel-border, rgba(147, 197, 253, 0.18)) !important;
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.07),
-        0 10px 32px rgba(0, 10, 28, 0.42) !important;
+/* Navbar shell & panel */
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__nav-shell.navbar-wrapper,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail .navbar-wrapper {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 auto;
+    order: 2;
+    margin: clamp(0.5rem, 1.2vw, 1.125rem) 0 0;
+    padding: 0;
+    align-self: stretch;
 }
 
-body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,
-body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel {
-    background: var(--sg-nav-panel-bg-scrolled, rgba(2, 22, 48, 0.82)) !important;
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap.navbar-panel,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel {
+    width: 100%;
+    max-width: 100%;
+    min-height: 88px;
+    margin: 0;
+    padding: 0.35rem 0;
+    border-radius: 20px;
+    box-sizing: border-box;
 }
 
-body.sg-homepage.sg-portal-page .navbar-panel .site-header__nav-row,
-body.sg-homepage.sg-portal-page .site-header__nav-wrap .site-header__nav-row {
-    min-height: 56px !important;
-    padding: 0.12rem 0 !important;
-    gap: 0.45rem 0.75rem !important;
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__nav-row.site-header__nav-row,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel .site-header__nav-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.45rem 0.75rem;
+    min-height: 56px;
+    padding: 0.12rem 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
-body.sg-homepage.sg-portal-page .site-header__nav a {
-    font-family: var(--sg-nav-font, 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif) !important;
-    font-size: clamp(0.8125rem, 0.25vw + 0.78rem, 0.9375rem) !important;
-    font-weight: 500 !important;
-    padding: 0.45rem 0.75rem !important;
-    min-height: var(--sg-nav-tap, 40px) !important;
-    border-radius: 0.75rem !important;
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__nav.site-header__nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.15rem 0.35rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1 1 auto;
+    min-width: 0;
 }
 
-body.sg-homepage.sg-portal-page .site-header__actions-end .btn,
-body.sg-homepage.sg-portal-page .site-header__actions-end .btn-header-dashboard,
-body.sg-homepage.sg-portal-page .site-header__actions-end .btn-header-login,
-body.sg-homepage.sg-portal-page .site-header__actions-end .btn-header-logout {
-    min-height: var(--sg-nav-tap, 40px) !important;
-    height: auto !important;
-    padding: 0.45rem 0.75rem !important;
-    font-size: clamp(0.8125rem, 0.25vw + 0.78rem, 0.875rem) !important;
-    font-weight: 600 !important;
-    border-radius: 0.75rem !important;
-    box-shadow: none !important;
-    transform: none !important;
+/* Menu navigasi */
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__nav.site-header__nav a,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav a {
+    font-family: var(--sg-nav-font, 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif);
+    font-size: clamp(0.8125rem, 0.25vw + 0.78rem, 0.9375rem);
+    font-weight: 500;
+    padding: 0.45rem 0.75rem;
+    min-height: var(--sg-nav-tap, 40px);
+    border-radius: 0.75rem;
+    transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
 }
 
-body.sg-homepage.sg-portal-page .site-header-doc-search__submit,
-body.sg-homepage.sg-portal-page .org-navbar__search-submit {
-    width: auto !important;
-    height: auto !important;
-    min-width: var(--sg-nav-tap, 40px) !important;
-    margin: 0 !important;
+/* Tombol kanan (login / dashboard / logout / tema) */
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__actions.site-header__actions,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__actions-end.site-header__actions-end {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    flex-shrink: 0;
+}
+
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__actions-end .btn,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__actions-end .btn,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__actions-end .btn-header-dashboard,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__actions-end .btn-header-login,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__actions-end .btn-header-logout,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__actions-end .org-btn--header {
+    min-height: var(--sg-nav-tap, 40px);
+    height: auto;
+    padding: 0.45rem 0.75rem;
+    font-size: clamp(0.8125rem, 0.25vw + 0.78rem, 0.875rem);
+    font-weight: 600;
+    border-radius: 0.75rem;
+    box-shadow: none;
+    transform: none;
+}
+
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__actions-end .btn:hover {
+    transform: none;
+}
+
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__search-submit.site-header-doc-search__submit,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header-doc-search__submit {
+    width: auto;
+    height: auto;
+    min-width: var(--sg-nav-tap, 40px);
+    margin: 0;
 }
 
 @media (max-width: 991.98px) {
-    body.sg-homepage.sg-portal-page .site-header__rail.container-global,
-    body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global {
-        padding-left: var(--portal-content-gutter) !important;
-        padding-right: var(--portal-content-gutter) !important;
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail .site-header__brand-row {
+        flex: 1 1 auto;
+        min-width: 0;
+        align-items: center;
     }
 
-    body.sg-homepage.sg-portal-page .site-header__title {
-        font-size: clamp(0.8rem, 0.5vw + 0.7rem, 0.95rem) !important;
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__search-wrap,
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__search.site-header__search-wrap {
+        display: none;
+    }
+
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-toggle,
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__toggle.site-header__nav-toggle {
+        flex: 0 0 auto;
+        margin-left: auto;
+        order: 10;
+        align-self: center;
+    }
+
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-toggle-label {
+        display: none;
+    }
+
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__title {
+        font-size: clamp(0.8rem, 0.5vw + 0.7rem, 0.95rem);
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
     }
 
-    body.sg-homepage.sg-portal-page .site-header__subtitle {
-        font-size: 0.75rem !important;
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__subtitle {
+        font-size: 0.75rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-height: 1.3;
     }
 
-    body.sg-homepage.sg-portal-page .site-header__logo,
-    body.sg-homepage.sg-portal-page .org-navbar__logo {
-        max-height: 48px !important;
-        max-width: 36vw !important;
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__logo {
+        max-height: 48px;
+        max-width: 36vw;
+    }
+
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail .navbar-wrapper {
+        margin-top: clamp(0.5rem, 1.2vw, 1.125rem);
     }
 }
 
 @media (max-width: 575.98px) {
-    body.sg-homepage.sg-portal-page .site-header__logo,
-    body.sg-homepage.sg-portal-page .org-navbar__logo {
-        max-height: 48px !important;
-        max-width: 36vw !important;
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__logo {
+        max-height: 48px;
+        max-width: 36vw;
+    }
+}
+
+@media (min-width: 992px) {
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail .site-header__nav-row {
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
     }
 }

@@ -50,16 +50,21 @@ function org_portal_head_markup_beranda(string $existing = ''): string
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
 
-    /* Navbar: portal-nav (utama) + portal; font sekali (Inter + Plus Jakarta) */
+    /* Navbar: portal-nav (selaras Profil); bundle sudah berisi CSS beranda */
     $base = org_assets_fonts_portal_markup()
         . org_asset_stylesheet_async('assets/css/smart-governance-portal.css')
-        . org_asset_stylesheet_link('assets/css/smart-governance-portal-nav.css?v=13')
-        . org_beranda_govtech_styles_async_markup()
-        . org_beranda_hero_fix_active_stylesheet_link()
-        . org_beranda_viewport_align_stylesheet_link()
-        . org_beranda_mobile_stylesheet_link()
-        . org_beranda_premium_polish_stylesheet_link()
-        . org_beranda_header_nav_unify_stylesheet_link();
+        . org_asset_stylesheet_link('assets/css/smart-governance-portal-nav.css?v=14');
+
+    if (org_assets_beranda_css_bundle_available()) {
+        $base .= org_beranda_hero_fix_active_stylesheet_link();
+    } else {
+        $base .= org_beranda_govtech_styles_async_markup()
+            . org_beranda_hero_fix_active_stylesheet_link()
+            . org_beranda_viewport_align_stylesheet_link()
+            . org_beranda_mobile_stylesheet_link()
+            . org_beranda_premium_polish_stylesheet_link()
+            . org_beranda_header_nav_unify_stylesheet_link();
+    }
 
     return $base . $existing;
 }
