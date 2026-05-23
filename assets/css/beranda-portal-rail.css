@@ -33,6 +33,10 @@ body.sg-homepage.sg-portal-page .site-layout-main {
 /* Header rail — selaras gutter hero/konten */
 body.sg-homepage.sg-portal-page .site-header__rail.container-global,
 body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-wrap: nowrap;
     width: 100%;
     max-width: var(--sg-beranda-rail);
     margin-left: auto !important;
@@ -40,6 +44,22 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-
     padding-left: var(--sg-beranda-gutter) !important;
     padding-right: var(--sg-beranda-gutter) !important;
     box-sizing: border-box;
+}
+
+body.sg-homepage.sg-portal-page .site-header__rail .site-header__topbar {
+    order: 1;
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 auto;
+}
+
+body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper,
+body.sg-homepage.sg-portal-page .site-header__rail .org-navbar__nav-shell {
+    order: 2;
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 auto;
+    margin-top: clamp(0.45rem, 1.2vw, 0.65rem);
 }
 
 /* Hero shell — lebar sama dengan header rail */
@@ -81,12 +101,20 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .stats-grid.contain
     box-sizing: border-box;
 }
 
-body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .hero-inner.container-global {
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .hero-inner.container-global:not(.hero-inner--stacked) {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, min(360px, 42vw));
     gap: clamp(1.25rem, 3vw, 2.5rem);
     align-items: center;
     min-width: 0;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .hero-inner.container-global.hero-inner--stacked {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: unset;
+    gap: 0.65rem;
+    align-items: stretch;
 }
 
 /* Konten bawah hero — rail sama */

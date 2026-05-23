@@ -327,7 +327,7 @@ $sgQuickLinks[] = $sgEOrgQuick;
 
 
 
-    <div class="container-global hero-inner">
+    <div class="container-global hero-inner hero-inner--stacked">
 
         <div class="sg-hero__copy hero-text sg-reveal">
 

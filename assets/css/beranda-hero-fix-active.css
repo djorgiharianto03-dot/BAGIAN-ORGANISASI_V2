@@ -21,9 +21,14 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section.sg-her
     margin: 0 !important;
     overflow: visible !important;
     box-sizing: border-box !important;
-    padding-top: calc(var(--sg-portal-header-offset, 5.25rem) + 0.3rem) !important;
+    padding-top: calc(var(--sg-portal-header-offset, 6.5rem) + 0.55rem) !important;
     padding-bottom: 0.35rem !important;
     background: linear-gradient(180deg, #0a3d6b 0%, #0c4a7a 100%) !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero--govtech,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero--ultra {
+    overflow: visible !important;
 }
 
 /* HERO FIX ACTIVE — batalkan 62vh / 85vh / 92vh dari bundle & portal CSS */
@@ -76,11 +81,21 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero + #beranda-root {
 /* HERO FIX ACTIVE — teks & ilustrasi tidak terpotong */
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__copy,
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title,
-body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title-secondary {
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title-secondary,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title-primary,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title-org,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__tagline {
     overflow: visible !important;
     clip: auto !important;
     -webkit-line-clamp: unset !important;
     line-clamp: unset !important;
+    max-height: none !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title-secondary {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__holo,
