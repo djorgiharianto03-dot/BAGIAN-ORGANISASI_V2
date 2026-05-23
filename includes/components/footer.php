@@ -12,34 +12,8 @@ org_tailwind_bootstrap();
     <footer class="org-footer site-footer site-footer--modern mt-5">
         <div class="org-footer__cta site-footer__cta-band">
             <div class="container-global">
-                <div class="grid gap-6 lg:grid-cols-2 lg:items-stretch">
-                    <div class="order-1 lg:order-2">
-                        <div class="org-footer__card site-footer-card site-footer-card--form h-full">
-                            <h2 class="org-footer__card-title site-footer-card__title">Saran &amp; kritik</h2>
-                            <p class="org-footer__card-lead site-footer-card__lead">Masukan Anda membantu kami meningkatkan layanan informasi. Pengiriman tanpa memuat ulang halaman.</p>
-                            <form id="formSaranPublik" class="site-footer-form grid gap-3" method="post" action="<?php echo $prosesSaranUrlEsc; ?>" data-saran-endpoint="<?php echo $prosesSaranUrlEsc; ?>" novalidate>
-                                <div class="grid gap-3 sm:grid-cols-2">
-                                    <div>
-                                        <label class="org-footer-form__label site-footer-form__label" for="saran_nama">Nama</label>
-                                        <input type="text" class="org-footer-form__control form-control site-footer-form__control" id="saran_nama" name="nama" placeholder="Nama" required maxlength="190">
-                                    </div>
-                                    <div>
-                                        <label class="org-footer-form__label site-footer-form__label" for="saran_email">Email</label>
-                                        <input type="email" class="org-footer-form__control form-control site-footer-form__control" id="saran_email" name="email" placeholder="Email" required maxlength="190">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="org-footer-form__label site-footer-form__label" for="saran_pesan">Pesan</label>
-                                    <textarea class="org-footer-form__control form-control site-footer-form__control site-footer-form__textarea" id="saran_pesan" name="pesan" rows="4" placeholder="Tulis pesan Anda di sini…" required maxlength="20000"></textarea>
-                                </div>
-                                <div>
-                                    <?php echo org_ui_button('Kirim', ['variant' => 'primary', 'type' => 'submit', 'class' => 'btn btn-site-footer-submit', 'id' => 'btnSaranPublik']); ?>
-                                    <div class="site-footer-form__status org-text-muted mt-2 mb-0 text-org-xs" id="saranPublikStatus" role="status" aria-live="polite"></div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="order-2 lg:order-1">
+                <div class="site-footer__cta-grid">
+                    <div>
                         <div class="org-footer__card site-footer-card site-footer-card--contact h-full">
                             <h2 class="org-footer__card-title site-footer-card__title">Hubungi kami</h2>
                             <p class="org-footer__card-lead site-footer-card__lead site-footer-card__lead--emphasis">Bagian Organisasi — Sekretariat Daerah Kabupaten Kepulauan Aru.</p>
@@ -66,6 +40,32 @@ org_tailwind_bootstrap();
                                     </span>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="org-footer__card site-footer-card site-footer-card--form h-full">
+                            <h2 class="org-footer__card-title site-footer-card__title">Saran &amp; kritik</h2>
+                            <p class="org-footer__card-lead site-footer-card__lead">Masukan Anda membantu kami meningkatkan layanan informasi. Pengiriman tanpa memuat ulang halaman.</p>
+                            <form id="formSaranPublik" class="site-footer-form site-footer-form--grid" method="post" action="<?php echo $prosesSaranUrlEsc; ?>" data-saran-endpoint="<?php echo $prosesSaranUrlEsc; ?>" novalidate>
+                                <div class="site-footer-form__row site-footer-form__row--2col">
+                                    <div>
+                                        <label class="org-footer-form__label site-footer-form__label" for="saran_nama">Nama</label>
+                                        <input type="text" class="org-footer-form__control form-control site-footer-form__control" id="saran_nama" name="nama" placeholder="Nama" required maxlength="190">
+                                    </div>
+                                    <div>
+                                        <label class="org-footer-form__label site-footer-form__label" for="saran_email">Email</label>
+                                        <input type="email" class="org-footer-form__control form-control site-footer-form__control" id="saran_email" name="email" placeholder="Email" required maxlength="190">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="org-footer-form__label site-footer-form__label" for="saran_pesan">Pesan</label>
+                                    <textarea class="org-footer-form__control form-control site-footer-form__control site-footer-form__textarea" id="saran_pesan" name="pesan" rows="4" placeholder="Tulis pesan Anda di sini…" required maxlength="20000"></textarea>
+                                </div>
+                                <div>
+                                    <?php echo org_ui_button('Kirim', ['variant' => 'primary', 'type' => 'submit', 'class' => 'btn btn-site-footer-submit', 'id' => 'btnSaranPublik']); ?>
+                                    <div class="site-footer-form__status org-text-muted mt-2 mb-0 text-org-xs" id="saranPublikStatus" role="status" aria-live="polite"></div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

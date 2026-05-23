@@ -13,7 +13,7 @@ function org_navbar_asset_base(): string
 
 function org_navbar_stylesheet_link(): string
 {
-    $href = org_navbar_asset_base() . 'assets/css/org-navbar.css?v=12';
+    $href = org_navbar_asset_base() . 'assets/css/org-navbar.css?v=14';
 
     return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '">' . "\n";
 }

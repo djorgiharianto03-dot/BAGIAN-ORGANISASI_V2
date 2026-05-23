@@ -147,7 +147,8 @@ body.sg-homepage.sg-portal-page .site-footer__nav a {
     color: #475569 !important;
 }
 
-body.sg-homepage.sg-portal-page .site-footer__cta-band .grid {
+body.sg-homepage.sg-portal-page .site-footer__cta-band .grid,
+body.sg-homepage.sg-portal-page .site-footer__cta-band .site-footer__cta-grid {
     width: 100%;
     max-width: 100%;
     margin: 0;

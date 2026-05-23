@@ -680,7 +680,8 @@ body.sg-homepage.page-index-redesign .org-footer .container-global {
     padding-right: var(--beranda-gutter, clamp(1rem, 2vw, 1.25rem)) !important;
 }
 
-body.sg-homepage.page-index-redesign .site-footer__cta-band .grid {
+body.sg-homepage.page-index-redesign .site-footer__cta-band .grid,
+body.sg-homepage.page-index-redesign .site-footer__cta-band .site-footer__cta-grid {
     width: 100%;
     max-width: 100%;
     margin: 0;

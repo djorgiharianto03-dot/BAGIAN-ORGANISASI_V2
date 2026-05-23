@@ -213,10 +213,17 @@
         max-height: 38px;
     }
 
+    .sg-portal-page .site-header__title {
+        font-size: clamp(0.75rem, 1.1vw + 0.55rem, 0.875rem) !important;
+        font-weight: 700 !important;
+        line-height: 1.12 !important;
+    }
+
     .sg-portal-page .site-header__subtitle {
-        font-size: 0.7rem !important;
+        font-size: clamp(0.5625rem, 0.85vw + 0.42rem, 0.625rem) !important;
+        font-weight: 700 !important;
         line-height: 1.2 !important;
-        margin-top: 0.06rem !important;
+        margin-top: 0.05rem !important;
     }
 
     .site-header__search-wrap {
