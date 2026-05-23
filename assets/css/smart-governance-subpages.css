@@ -29,7 +29,8 @@
 .sg-portal-subpage {
     --sg-subhero-gap-below-header: clamp(0.25rem, 0.65vw, 0.4rem);
     --sg-subhero-pad-bottom: clamp(0.5rem, 1.1vw, 0.75rem);
-    --sg-subhero-inner-x: 24px;
+    /* Sama dengan .site-header__rail.container-global (navbar) */
+    --sg-subhero-inner-x: var(--portal-content-gutter, clamp(1rem, 2.5vw, 32px));
 }
 
 .sg-portal-subpage .sg-ambient-layer--subhero,
@@ -57,8 +58,21 @@ body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .org
 
 .sg-portal-subpage .sg-subhero .org-hero__container.container-global,
 .sg-portal-subpage .sg-subhero .hero-inner.container-global {
+    width: 100%;
+    max-width: var(--layout-max-width, 1320px);
+    margin-left: auto;
+    margin-right: auto;
     padding-left: var(--sg-subhero-inner-x);
     padding-right: var(--sg-subhero-inner-x);
+    box-sizing: border-box;
+}
+
+/* Badge Smart Governance — sejajar kiri dengan panel menu navbar */
+.sg-portal-subpage .sg-subhero__copy,
+.sg-portal-subpage .sg-subhero .org-eyebrow,
+.sg-portal-subpage .sg-subhero .sg-subhero__eyebrow {
+    margin-left: 0;
+    padding-left: 0;
 }
 
 /* Grid: teks kiri & stat kanan sejajar vertikal (tengah) */
@@ -193,8 +207,11 @@ body.sg-portal-subpage .org-hero--sub.sg-subhero .hero-inner.org-hero__container
 body.sg-portal-subpage .org-hero.sg-subhero .org-hero__container.container-global {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
-    padding-left: 24px !important;
-    padding-right: 24px !important;
+    padding-left: var(--portal-content-gutter, clamp(1rem, 2.5vw, 32px)) !important;
+    padding-right: var(--portal-content-gutter, clamp(1rem, 2.5vw, 32px)) !important;
+    max-width: var(--layout-max-width, 1320px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
 
 body.sg-portal-subpage .org-hero--sub .org-hero__stats,

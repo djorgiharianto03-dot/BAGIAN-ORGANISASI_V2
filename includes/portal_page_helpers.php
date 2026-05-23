@@ -13,7 +13,7 @@ function org_portal_head_markup(string $existing = ''): string
     $assetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
 
     /* Font: sudah dimuat di header.php — hindari duplikasi */
-    /* smart-governance-subpages.css?v=4 → org_portal_subpages_stylesheet_link() di header.php (paling akhir) */
+    /* smart-governance-subpages.css?v=5 → org_portal_subpages_stylesheet_link() di header.php (paling akhir) */
     $base = '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal.css?v=16', ENT_QUOTES, 'UTF-8') . '">'
         . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-enterprise.css?v=3', ENT_QUOTES, 'UTF-8') . '">'
         . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal-nav.css?v=11', ENT_QUOTES, 'UTF-8') . '">'
@@ -32,9 +32,9 @@ function org_portal_subpages_stylesheet_link(): string
         define('ORG_WEB_ROOT', org_site_web_root());
     }
     $assetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
-    $href = $assetBase . '/assets/css/smart-governance-subpages.css?v=4';
+    $href = $assetBase . '/assets/css/smart-governance-subpages.css?v=5';
 
-    return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '" data-sg-subpages-css="4">' . "\n";
+    return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '" data-sg-subpages-css="5">' . "\n";
 }
 
 /**

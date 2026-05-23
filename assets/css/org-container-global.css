@@ -141,13 +141,17 @@ body.sg-portal-page .site-header--sg-portal {
     padding-right: 32px;
 }
 
-/* Subhero portal: tanpa py tambahan (tailwind py-org-10) — padding di section.subhero */
+/* Subhero portal: rail sama dengan header .site-header__rail.container-global */
 body.sg-portal-subpage .org-hero.sg-subhero .org-hero__container.container-global,
 body.sg-portal-subpage .org-hero.sg-subhero .hero-inner.container-global {
+    width: 100%;
+    max-width: var(--layout-max-width, 1320px);
+    margin-left: auto;
+    margin-right: auto;
     padding-top: 0;
     padding-bottom: 0;
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: var(--portal-content-gutter, clamp(1rem, 2.5vw, 32px));
+    padding-right: var(--portal-content-gutter, clamp(1rem, 2.5vw, 32px));
 }
 
 /* Shell section full-width (bukan .container-global) */
@@ -529,6 +533,8 @@ body.sg-portal-page .hero-inner.container-global {
 .sg-portal-page .org-hero.org-hero--sub .org-hero__container.container-global {
     padding-top: 0;
     padding-bottom: 0;
+    padding-left: var(--portal-content-gutter, clamp(1rem, 2.5vw, 32px));
+    padding-right: var(--portal-content-gutter, clamp(1rem, 2.5vw, 32px));
 }
 
 .sg-portal-page .site-footer__nav-wrap,
