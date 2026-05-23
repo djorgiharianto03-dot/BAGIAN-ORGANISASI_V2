@@ -72,3 +72,29 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero + #beranda-root {
     margin-top: 0 !important;
     padding-top: 0 !important;
 }
+
+/* HERO FIX ACTIVE — teks & ilustrasi tidak terpotong */
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__copy,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title-secondary {
+    overflow: visible !important;
+    clip: auto !important;
+    -webkit-line-clamp: unset !important;
+    line-clamp: unset !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__holo,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__holo .sg-command-center,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__visual-frame {
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+@media (min-width: 992px) {
+    body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .container-global.hero-inner:not(.hero-inner--stacked) {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) minmax(0, min(400px, 38vw)) !important;
+        align-items: center !important;
+        gap: clamp(0.75rem, 2vw, 1.25rem) !important;
+    }
+}

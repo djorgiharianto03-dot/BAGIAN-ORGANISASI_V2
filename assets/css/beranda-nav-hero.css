@@ -295,8 +295,8 @@ body.sg-homepage .sg-hero__visual-frame {
 
 body.sg-homepage .sg-hero__holo,
 body.sg-homepage .sg-hero__holo .sg-command-center {
-    max-height: 240px;
-    overflow: hidden;
+    max-height: none;
+    overflow: visible;
 }
 
 body.sg-homepage .shortcut-grid.container-global {

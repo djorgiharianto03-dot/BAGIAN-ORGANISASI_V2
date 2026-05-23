@@ -7,19 +7,14 @@ body.sg-homepage.is-lite-render #sg-hero.sg-hero--ultra {
     padding-bottom: 1.25rem;
 }
 
-body.sg-homepage.is-lite-render .sg-hero__visual-col,
-body.sg-homepage.is-perf-lite:not(.is-lite-ready) .sg-hero__visual-col {
-    display: none !important;
+/* Sembunyikan ilustrasi hanya saat first paint ringan (~40ms), bukan selama is-perf-lite */
+body.sg-homepage.is-lite-render:not(.is-lite-ready) .sg-hero__visual-col {
+    visibility: hidden;
+    min-height: min(260px, 36vw);
 }
 
 body.sg-homepage.is-lite-ready .sg-hero__visual-col {
-    display: block !important;
-}
-
-@media (min-width: 992px) {
-    body.sg-homepage.is-perf-lite.is-lite-ready .sg-hero__visual-col {
-        display: block !important;
-    }
+    visibility: visible;
 }
 
 body.sg-homepage.is-lite-render .stats-grid {

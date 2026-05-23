@@ -57,7 +57,8 @@ body.sg-homepage.sg-portal-page > #sg-hero.sg-hero--ultra {
     padding-left: 0 !important;
     padding-right: 0 !important;
     box-sizing: border-box;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: visible;
     background: var(--beranda-hero-bg);
 }
 

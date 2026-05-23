@@ -11,6 +11,8 @@ org_run_dev_database_bootstrap_once();
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'bootstrap.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
 
+define('ORG_BERANDA_PAGE', true);
+
 $pageTitle = 'Beranda — Bagian Organisasi';
 $navActive = 'beranda';
 $includePersonnelModals = false;
@@ -2085,7 +2087,7 @@ if (!empty($berandaTeamTargetsVisible)) {
 HTML;
 }
 
-$extraHeadMarkup = org_portal_head_markup($extraHeadMarkup);
+$extraHeadMarkup = org_portal_head_markup_beranda($extraHeadMarkup);
 $sgAssetBase = defined('ORG_WEB_ROOT') && ORG_WEB_ROOT !== '' ? rtrim(ORG_WEB_ROOT, '/') : '';
 $chartJsLocal = htmlspecialchars($sgAssetBase . '/assets/vendor/chartjs/chart.umd.min.js', ENT_QUOTES, 'UTF-8');
 $chartJsCdn = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';
@@ -2107,13 +2109,6 @@ $extraFooterMarkup .= '<script src="' . $chartJsLocal . '" onload="document.disp
     document.head.appendChild(cdnScript);
 }());
 </script>' . "\n";
-$extraHeadMarkup .= '<link rel="stylesheet" href="' . htmlspecialchars($sgAssetBase . '/assets/css/smart-governance-homepage.css', ENT_QUOTES, 'UTF-8') . '">' . "\n";
-$extraHeadMarkup .= '<link rel="stylesheet" href="' . htmlspecialchars($sgAssetBase . '/assets/css/smart-governance-beranda-ultra.css', ENT_QUOTES, 'UTF-8') . '">' . "\n";
-$extraHeadMarkup .= '<link rel="stylesheet" href="' . htmlspecialchars($sgAssetBase . '/assets/css/smart-governance-enterprise.css', ENT_QUOTES, 'UTF-8') . '">' . "\n";
-$extraHeadMarkup .= '<link rel="stylesheet" href="' . htmlspecialchars($sgAssetBase . '/assets/css/smart-governance-beranda-premium.css?v=5', ENT_QUOTES, 'UTF-8') . '">' . "\n";
-$extraHeadMarkup .= '<link rel="stylesheet" href="' . htmlspecialchars($sgAssetBase . '/assets/css/smart-governance-beranda-govtech.css?v=5', ENT_QUOTES, 'UTF-8') . '">' . "\n";
-$extraHeadMarkup .= '<link rel="stylesheet" href="' . htmlspecialchars($sgAssetBase . '/assets/css/smart-governance-beranda-polish.css?v=2', ENT_QUOTES, 'UTF-8') . '">' . "\n";
-
 /** Portal beranda: lebar shell header/hero — org-container-global.css */
 $htmlClass = 'sg-portal-html-home';
 

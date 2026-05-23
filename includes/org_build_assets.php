@@ -177,22 +177,54 @@ function org_build_assets_generate_site_global(): bool
     return @file_put_contents($outFs, $header . $css, LOCK_EX) !== false;
 }
 
-function org_build_assets_generate_beranda_bundle(): bool
+/**
+ * @param list<string> $sourceRelativePaths
+ */
+function org_build_assets_bundle_stale(string $bundleRel, array $sourceRelativePaths): bool
 {
-    if (org_build_assets_is_present('assets/css/beranda.bundle.min.css', 256)) {
+    $bundleFs = org_build_assets_fs_path($bundleRel);
+    if (!is_file($bundleFs)) {
         return true;
     }
+    $bundleMtime = (int) filemtime($bundleFs);
+    foreach ($sourceRelativePaths as $rel) {
+        $path = org_build_assets_fs_path($rel);
+        if (is_file($path) && (int) filemtime($path) > $bundleMtime) {
+            return true;
+        }
+    }
 
-    return org_build_assets_write_bundle('assets/css/beranda.bundle.min.css', [
+    return false;
+}
+
+function org_build_assets_generate_beranda_bundle(): bool
+{
+    $sources = [
         'assets/css/beranda-page.css',
         'assets/css/smart-governance-homepage.css',
+        'assets/css/smart-governance-beranda-ultra.css',
+        'assets/css/smart-governance-beranda-premium.css',
+        'assets/css/smart-governance-beranda-govtech.css',
+        'assets/css/smart-governance-beranda-polish.css',
         'assets/css/beranda-layout-fix.css',
         'assets/css/beranda-lightweight.css',
         'assets/css/beranda-mobile.css',
         'assets/css/beranda-design-system.css',
         'assets/css/beranda-nav-hero.css',
+        'assets/css/beranda-home-layout.css',
+        'assets/css/beranda-rail-unify.css',
         'assets/css/beranda-dashboard-cards.css',
-    ]);
+        'assets/css/beranda-hero-fix-active.css',
+    ];
+
+    if (
+        org_build_assets_is_present('assets/css/beranda.bundle.min.css', 256)
+        && !org_build_assets_bundle_stale('assets/css/beranda.bundle.min.css', $sources)
+    ) {
+        return true;
+    }
+
+    return org_build_assets_write_bundle('assets/css/beranda.bundle.min.css', $sources);
 }
 
 function org_build_assets_generate_beranda_shell_bundle(): bool

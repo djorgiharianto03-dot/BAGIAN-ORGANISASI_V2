@@ -25,6 +25,56 @@ function org_portal_head_markup(string $existing = ''): string
     return $base . $existing;
 }
 
+/**
+ * Head beranda — portal nav + CSS govtech non-blocking (desain tetap, muat ringan).
+ */
+function org_portal_head_markup_beranda(string $existing = ''): string
+{
+    if (!defined('ORG_WEB_ROOT')) {
+        require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
+        define('ORG_WEB_ROOT', org_site_web_root());
+    }
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
+    $assetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
+
+    $base = org_assets_fonts_portal_markup()
+        . org_asset_stylesheet_async('assets/css/smart-governance-portal.css')
+        . org_asset_stylesheet_async('assets/css/smart-governance-portal-nav.css?v=5', true)
+        . org_beranda_govtech_styles_async_markup();
+
+    return $base . $existing;
+}
+
+/**
+ * Lapisan visual govtech beranda — async (bundle atau per-file).
+ */
+function org_beranda_govtech_styles_async_markup(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
+    org_beranda_assets_prepare_builds();
+
+    if (org_assets_beranda_css_bundle_available()) {
+        return '';
+    }
+
+    $files = [
+        'assets/css/smart-governance-homepage.css',
+        'assets/css/smart-governance-beranda-ultra.css',
+        'assets/css/smart-governance-beranda-premium.css?v=5',
+        'assets/css/smart-governance-beranda-govtech.css?v=5',
+        'assets/css/smart-governance-beranda-polish.css?v=2',
+    ];
+    $out = '';
+    foreach ($files as $rel) {
+        $out .= org_asset_stylesheet_async($rel, str_contains($rel, '?'));
+    }
+
+    return $out;
+}
+
 function org_portal_footer_markup(string $existing = ''): string
 {
     if (!defined('ORG_WEB_ROOT')) {

@@ -50,6 +50,14 @@ $sgQuickLinks[] = $sgEOrgQuick;
 
 <style id="sg-beranda-layout-fix">
 
+.sg-homepage #sg-hero .sg-hero__title-secondary {
+    display: block;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    line-height: 1.35;
+}
+
 .sg-homepage #sg-hero .sg-hero__title,
 
 .sg-homepage #sg-hero .sg-hero__tagline,
@@ -295,7 +303,7 @@ $sgQuickLinks[] = $sgEOrgQuick;
 
 </style>
 
-<div id="sgPortalLoader" class="sg-portal-loader" aria-hidden="true">
+<div id="sgPortalLoader" class="sg-portal-loader" aria-hidden="true" hidden>
 
     <div class="sg-portal-loader__inner">
 

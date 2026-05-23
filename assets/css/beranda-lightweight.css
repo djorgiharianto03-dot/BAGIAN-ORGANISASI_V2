@@ -77,8 +77,8 @@ body.sg-homepage .beranda-scroll-hint {
     line-height: 1.4;
 }
 
-body.sg-homepage.is-perf-lite:not(.is-lite-ready) .sg-hero__visual-col {
-    display: none !important;
+body.sg-homepage.is-lite-render:not(.is-lite-ready) .sg-hero__visual-col {
+    visibility: hidden;
 }
 
 body.sg-homepage .sg-hero__holo,
