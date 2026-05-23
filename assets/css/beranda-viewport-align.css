@@ -1,0 +1,79 @@
+/**
+ * Beranda — lebar viewport konsisten Chrome/Firefox (tanpa 100vw).
+ * Muat sinkron paling akhir (setelah shell bundle async + hero-fix).
+ */
+
+html.sg-portal-html-home {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+    overflow-y: auto;
+    scrollbar-gutter: auto;
+    box-sizing: border-box;
+}
+
+html.sg-portal-html-home body.sg-homepage.sg-portal-page {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    overflow-x: clip;
+    overflow-y: visible;
+    box-sizing: border-box;
+}
+
+@supports not (overflow: clip) {
+    html.sg-portal-html-home,
+    html.sg-portal-html-home body.sg-homepage.sg-portal-page {
+        overflow-x: hidden;
+    }
+}
+
+/* Shell biru penuh lebar dokumen — konten dalam .container-global tetap rail */
+body.sg-homepage.sg-portal-page .site-header--sg-portal {
+    left: 0;
+    right: 0;
+    width: auto;
+    max-width: none;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient {
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+    overflow-x: clip;
+    box-sizing: border-box;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero,
+body.sg-homepage.sg-portal-page .site-layout-main > section#sg-hero,
+body.sg-homepage.sg-portal-page > #sg-hero,
+body.sg-homepage.sg-portal-page > section#sg-hero {
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
+}
+
+body.sg-homepage.sg-portal-page .site-header__rail.container-global,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-wrapper.container-global {
+    width: 100%;
+    max-width: var(--layout-max-width, 1180px);
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}

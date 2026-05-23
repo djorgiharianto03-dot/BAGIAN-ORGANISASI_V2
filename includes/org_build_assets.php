@@ -230,11 +230,23 @@ function org_build_assets_generate_beranda_bundle(): bool
 
 function org_build_assets_generate_beranda_shell_bundle(): bool
 {
-    if (org_build_assets_is_present('assets/css/beranda-shell.bundle.min.css', 128)) {
+    $shellOut = 'assets/css/beranda-shell.bundle.min.css';
+    $shellSources = [
+        'assets/css/org-container-global.css',
+        'assets/css/sg-portal-panel-layout.css',
+        'assets/css/sg-portal-shell-align.css',
+        'assets/css/org-overflow-guard.css',
+        'assets/css/smart-governance-portal-layout-fix.css',
+    ];
+    if (org_build_assets_bundle_stale($shellOut, $shellSources)) {
+        return org_build_assets_write_bundle($shellOut, $shellSources);
+    }
+
+    if (org_build_assets_is_present($shellOut, 128)) {
         return true;
     }
 
-    return org_build_assets_write_bundle('assets/css/beranda-shell.bundle.min.css', [
+    return org_build_assets_write_bundle($shellOut, [
         'assets/css/org-container-global.css',
         'assets/css/sg-portal-panel-layout.css',
         'assets/css/sg-portal-shell-align.css',

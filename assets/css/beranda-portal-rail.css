@@ -67,9 +67,9 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section,
 body.sg-homepage.sg-portal-page .site-layout-main > section#sg-hero,
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero {
     width: 100%;
-    max-width: var(--sg-beranda-rail);
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
     min-height: 0;
     height: auto;
     overflow-x: hidden;

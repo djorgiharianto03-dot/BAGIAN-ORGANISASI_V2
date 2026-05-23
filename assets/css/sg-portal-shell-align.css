@@ -41,8 +41,8 @@ body.sg-portal-page .site-header--sg-portal {
     top: 0 !important;
     left: 0 !important;
     right: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
+    width: auto !important;
+    max-width: none !important;
     margin: 0 !important;
     z-index: 1100 !important;
     box-sizing: border-box;
@@ -65,13 +65,24 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section,
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero {
     display: block !important;
     width: 100% !important;
-    max-width: min(var(--layout-max-width, 1320px), 100%) !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
     padding-top: 0 !important;
-    overflow-x: hidden !important;
+    overflow-x: clip !important;
     overflow-y: visible !important;
     box-sizing: border-box;
+}
+
+@supports not (overflow: clip) {
+    body.sg-homepage.sg-portal-page > section#sg-hero.hero-section,
+    body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
+    body.sg-homepage.sg-portal-page > #sg-hero.sg-hero,
+    body.sg-homepage.sg-portal-page .site-layout-main > section#sg-hero.hero-section,
+    body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section,
+    body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero {
+        overflow-x: hidden !important;
+    }
 }
 
 body.sg-homepage.sg-portal-page > #sg-hero .sg-hero__bg,
