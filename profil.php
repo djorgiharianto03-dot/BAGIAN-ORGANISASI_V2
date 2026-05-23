@@ -116,9 +116,8 @@ $extraFooterMarkup = <<<'HTML'
 </script>
 HTML;
 org_portal_apply_assets($bodyClass, $extraHeadMarkup, $extraFooterMarkup);
-$__profilAssetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
-$extraHeadMarkup .= "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($__profilAssetBase . '/assets/css/smart-governance-profil-institutional.css?v=2', ENT_QUOTES, 'UTF-8') . '">'
-    . '<link rel="stylesheet" href="' . htmlspecialchars($__profilAssetBase . '/assets/css/profil-mobile.css?v=2', ENT_QUOTES, 'UTF-8') . '">' . "\n";
+$extraHeadMarkup .= "\n" . '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/smart-governance-profil-institutional.css?v=2'), ENT_QUOTES, 'UTF-8') . '">'
+    . '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/profil-mobile.css?v=2'), ENT_QUOTES, 'UTF-8') . '">' . "\n";
 org_portal_set_hero(
     'Profil Organisasi',
     '',

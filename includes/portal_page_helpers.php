@@ -10,13 +10,15 @@ function org_portal_head_markup(string $existing = ''): string
         require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
         define('ORG_WEB_ROOT', org_site_web_root());
     }
-    $assetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
+    if (!function_exists('org_asset_url')) {
+        require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'org_app.php';
+    }
 
     /* Font: sudah dimuat di header.php — hindari duplikasi */
-    /* smart-governance-subpages.css?v=5 → org_portal_subpages_stylesheet_link() di header.php (paling akhir) */
-    $base = '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal.css?v=16', ENT_QUOTES, 'UTF-8') . '">'
-        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-enterprise.css?v=3', ENT_QUOTES, 'UTF-8') . '">'
-        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal-nav.css?v=17', ENT_QUOTES, 'UTF-8') . '">'
+    /* smart-governance-subpages.css → org_portal_subpages_stylesheet_link() di header.php (paling akhir) */
+    $base = '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/smart-governance-portal.css?v=16'), ENT_QUOTES, 'UTF-8') . '">'
+        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/smart-governance-enterprise.css?v=3'), ENT_QUOTES, 'UTF-8') . '">'
+        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/smart-governance-portal-nav.css?v=17'), ENT_QUOTES, 'UTF-8') . '">'
         . "\n";
 
     return $base . $existing;
@@ -31,10 +33,12 @@ function org_portal_subpages_stylesheet_link(): string
         require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
         define('ORG_WEB_ROOT', org_site_web_root());
     }
-    $assetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
-    $href = $assetBase . '/assets/css/smart-governance-subpages.css?v=5';
+    if (!function_exists('org_asset_url')) {
+        require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'org_app.php';
+    }
+    $href = org_asset_url('assets/css/smart-governance-subpages.css?v=6');
 
-    return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '" data-sg-subpages-css="5">' . "\n";
+    return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '" data-sg-subpages-css="6">' . "\n";
 }
 
 /**
@@ -117,8 +121,10 @@ function org_portal_footer_markup(string $existing = ''): string
         require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
         define('ORG_WEB_ROOT', org_site_web_root());
     }
-    $assetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
-    $script = '<script src="' . htmlspecialchars($assetBase . '/assets/js/smart-governance-portal.js?v=14', ENT_QUOTES, 'UTF-8') . '" defer></script>' . "\n";
+    if (!function_exists('org_asset_url')) {
+        require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'org_app.php';
+    }
+    $script = '<script src="' . htmlspecialchars(org_asset_url('assets/js/smart-governance-portal.js?v=14'), ENT_QUOTES, 'UTF-8') . '" defer></script>' . "\n";
 
     return $existing . $script;
 }

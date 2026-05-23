@@ -36,11 +36,14 @@ function org_asset_stylesheet_async(string $relativePath, bool $withVersion = tr
 
 function org_asset_stylesheet_link(string $relativePath): string
 {
-    $base = org_asset_web_base();
-    $href = $base . '/' . ltrim($relativePath, '/');
-    $fs = ORG_ROOT . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, ltrim(explode('?', $relativePath)[0], '/'));
+    if (!function_exists('org_asset_url')) {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_app.php';
+    }
+    $href = org_asset_url($relativePath);
+    $fsPath = ltrim(explode('?', $relativePath)[0], '/');
+    $fs = ORG_ROOT . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $fsPath);
     if (is_file($fs) && !str_contains($relativePath, '?')) {
-        $href .= '?v=' . rawurlencode((string) filemtime($fs));
+        $href = org_asset_url($fsPath . '?v=' . rawurlencode((string) filemtime($fs)));
     }
 
     return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '">' . "\n";

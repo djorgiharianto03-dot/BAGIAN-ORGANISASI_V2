@@ -93,8 +93,7 @@ if ($orgHeaderBerandaPage) {
     echo org_navbar_stylesheet_link();
     echo org_modal_layer_stylesheet_link();
     if (str_contains($bodyClassAttr, 'sg-portal-page')) {
-        $sgPortalLayoutBase = defined('ORG_WEB_ROOT') && ORG_WEB_ROOT !== '' ? rtrim(ORG_WEB_ROOT, '/') : '';
-        echo '<link rel="stylesheet" href="' . htmlspecialchars($sgPortalLayoutBase . '/assets/css/smart-governance-portal-layout-fix.css?v=23', ENT_QUOTES, 'UTF-8') . '">' . "\n";
+        echo '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/smart-governance-portal-layout-fix.css?v=24'), ENT_QUOTES, 'UTF-8') . '">' . "\n";
     }
 }
 
@@ -115,6 +114,12 @@ if (str_contains($bodyClassAttr, 'sg-portal-page') && !$orgHeaderBerandaPage) {
         . 'body.sg-portal-page .site-header__rail .navbar-wrapper{display:block!important;width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important}'
         . 'body.sg-portal-page:not(.sg-homepage) .site-layout-main{padding-top:0!important}'
         . 'body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero,body.sg-portal-page:not(.sg-homepage) .site-layout-main>.sg-subhero{padding-top:calc(var(--sg-portal-header-offset,5.5rem) + clamp(.25rem,.65vw,.4rem))!important;padding-bottom:clamp(.5rem,1.1vw,.75rem)!important;min-height:0!important;width:100%!important;max-width:none!important;margin-left:0!important;margin-right:0!important}'
+        . 'body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero .org-hero__container{position:relative!important;z-index:2!important;opacity:1!important;visibility:visible!important}'
+        . 'body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero .org-hero__title,body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero .org-heading-1,body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero .sg-subhero__title{color:#fff!important;-webkit-text-fill-color:#fff!important;opacity:1!important;visibility:visible!important}'
+        . 'body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero .org-eyebrow,body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero .sg-subhero__eyebrow{color:#bae6fd!important;opacity:1!important;visibility:visible!important}'
+        . 'body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero .org-hero__breadcrumb,body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero .sg-subhero__breadcrumb{color:rgba(203,213,225,.92)!important;opacity:1!important}'
+        . 'body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero .sg-subhero__stat-num{color:#fff!important}'
+        . 'body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero.org-reveal{opacity:1!important;transform:none!important;visibility:visible!important}'
         . 'body.sg-homepage.sg-portal-page>#sg-hero,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero{display:block!important;width:100%!important;max-width:100%!important;margin:0!important;overflow-x:hidden!important;overflow-y:visible!important;box-sizing:border-box!important}'
         . 'html.sg-portal-html-home{overflow-y:auto!important;overflow-x:hidden!important}body.sg-portal-page{overflow-y:visible!important;overflow-x:hidden!important;max-width:100%!important}'
         . 'body.sg-portal-page .site-header--sg-portal,body.sg-portal-page .site-header--sg-portal .site-header__gradient{width:100%!important;max-width:100%!important}'

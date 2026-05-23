@@ -1,29 +1,15 @@
 <?php
 declare(strict_types=1);
 
-function org_container_global_asset_base(): string
-{
-    if (!defined('ORG_WEB_ROOT')) {
-        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_database.php';
-        define('ORG_WEB_ROOT', org_site_web_root());
-    }
-    $base = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
-
-    return $base === '' ? '' : $base . '/';
-}
-
 function org_container_global_stylesheet_link(): string
 {
-    $base = org_container_global_asset_base();
-    $global = $base . 'assets/css/org-container-global.css?v=42';
-    $panel = $base . 'assets/css/sg-portal-panel-layout.css?v=12';
-    $align = $base . 'assets/css/sg-portal-shell-align.css?v=9';
-    $guard = $base . 'assets/css/org-overflow-guard.css?v=5';
-    $rail = $base . 'assets/css/beranda-portal-rail.css?v=3';
+    if (!function_exists('org_asset_url')) {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_app.php';
+    }
 
-    return '<link rel="stylesheet" href="' . htmlspecialchars($global, ENT_QUOTES, 'UTF-8') . '">' . "\n"
-        . '<link rel="stylesheet" href="' . htmlspecialchars($panel, ENT_QUOTES, 'UTF-8') . '">' . "\n"
-        . '<link rel="stylesheet" href="' . htmlspecialchars($align, ENT_QUOTES, 'UTF-8') . '">' . "\n"
-        . '<link rel="stylesheet" href="' . htmlspecialchars($guard, ENT_QUOTES, 'UTF-8') . '">' . "\n"
-        . '<link rel="stylesheet" href="' . htmlspecialchars($rail, ENT_QUOTES, 'UTF-8') . '">' . "\n";
+    return '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/org-container-global.css?v=42'), ENT_QUOTES, 'UTF-8') . '">' . "\n"
+        . '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/sg-portal-panel-layout.css?v=12'), ENT_QUOTES, 'UTF-8') . '">' . "\n"
+        . '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/sg-portal-shell-align.css?v=9'), ENT_QUOTES, 'UTF-8') . '">' . "\n"
+        . '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/org-overflow-guard.css?v=5'), ENT_QUOTES, 'UTF-8') . '">' . "\n"
+        . '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/beranda-portal-rail.css?v=3'), ENT_QUOTES, 'UTF-8') . '">' . "\n";
 }

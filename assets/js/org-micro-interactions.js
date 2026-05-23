@@ -51,6 +51,9 @@
                 if (seen.has(el) || el.hasAttribute('data-aos') || el.classList.contains('org-reveal')) {
                     return;
                 }
+                if (el.classList.contains('sg-subhero') || el.classList.contains('org-hero--sub')) {
+                    return;
+                }
                 if (el.closest('.modal')) {
                     return;
                 }
@@ -75,6 +78,11 @@
     }
 
     function initRevealObserver() {
+        document.querySelectorAll('.sg-subhero, .org-hero--sub.sg-subhero').forEach(function (el) {
+            el.classList.add('is-visible');
+            el.classList.remove('org-reveal');
+        });
+
         if (reduced || isProfilOrgPage()) {
             document.querySelectorAll('.org-reveal, .org-reveal-stagger').forEach(function (el) {
                 el.classList.add('is-visible');

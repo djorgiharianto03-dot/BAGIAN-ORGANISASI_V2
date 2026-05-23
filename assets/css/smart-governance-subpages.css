@@ -105,6 +105,16 @@ body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .org
     align-items: flex-start;
     gap: 0;
     padding: 0;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+}
+
+.sg-portal-subpage .org-hero.sg-subhero.org-reveal,
+.sg-portal-subpage .org-hero--sub.sg-subhero.org-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
 }
 
 /* Badge → judul → breadcrumb (jarak rapat seperti referensi) */
@@ -117,13 +127,17 @@ body.sg-portal-subpage.sg-portal-page .sg-subhero .sg-subhero__eyebrow {
 }
 
 .sg-portal-subpage .sg-subhero__title,
-.sg-portal-subpage .sg-subhero .org-hero__title {
+.sg-portal-subpage .sg-subhero .org-hero__title,
+.sg-portal-subpage .sg-subhero .org-heading-1 {
     font-size: clamp(1.35rem, 1.05rem + 0.85vw, 1.75rem);
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.2;
     margin: 0 0 0.35rem;
-    color: #fff;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .sg-portal-subpage .sg-subhero__lead,

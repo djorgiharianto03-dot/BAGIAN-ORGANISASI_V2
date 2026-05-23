@@ -221,9 +221,23 @@ function org_asset_url(string $relativePath): string
     if ($relativePath === '' || str_contains($relativePath, '..')) {
         return org_home_url();
     }
+    $query = '';
+    if (str_contains($relativePath, '?')) {
+        [$relativePath, $queryPart] = explode('?', $relativePath, 2);
+        $query = '?' . $queryPart;
+    }
+    $prefix = org_site_path_prefix();
+    $encodedPath = implode('/', array_map('rawurlencode', explode('/', $relativePath)));
+
+    return ($prefix === '' ? '' : org_url_path_from_segments($prefix)) . '/' . $encodedPath . $query;
+}
+
+/** Prefix URL encoded untuk href aset (mis. /BAGIAN%20ORGANISASI_V2). */
+function org_public_asset_base(): string
+{
     $prefix = org_site_path_prefix();
 
-    return ($prefix === '' ? '' : org_url_path_from_segments($prefix)) . '/' . implode('/', array_map('rawurlencode', explode('/', $relativePath)));
+    return $prefix === '' ? '' : org_url_path_from_segments($prefix);
 }
 
 /**

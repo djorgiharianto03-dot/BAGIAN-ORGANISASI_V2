@@ -5,12 +5,9 @@
  */
 function org_mobile_stylesheet_link(): string
 {
-    if (!defined('ORG_WEB_ROOT')) {
-        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_database.php';
-        define('ORG_WEB_ROOT', org_site_web_root());
+    if (!function_exists('org_asset_url')) {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_app.php';
     }
-    $base = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
-    $href = ($base !== '' ? $base . '/' : '') . 'assets/css/org-mobile-first.css?v=3';
 
-    return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '">' . "\n";
+    return '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/org-mobile-first.css?v=3'), ENT_QUOTES, 'UTF-8') . '">' . "\n";
 }
