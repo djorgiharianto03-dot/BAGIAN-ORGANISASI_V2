@@ -98,7 +98,6 @@ if ($orgHeaderBerandaPage) {
         echo '<link rel="stylesheet" href="' . htmlspecialchars($sgPortalLayoutBase . '/assets/css/smart-governance-portal-layout-fix.css?v=19', ENT_QUOTES, 'UTF-8') . '">' . "\n";
     }
 }
-?>
 if (!empty($extraHeadMarkup) && is_string($extraHeadMarkup)) {
     echo $extraHeadMarkup;
 }
@@ -106,11 +105,11 @@ if (str_contains($bodyClassAttr, 'sg-portal-page') && !$orgHeaderBerandaPage) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_container_global_assets.php';
     echo org_container_global_stylesheet_link();
 }
-if (str_contains($bodyClassAttr, 'sg-portal-page')) {
+if (str_contains($bodyClassAttr, 'sg-portal-page') && !$orgHeaderBerandaPage) {
     echo '<style id="sg-portal-shell-critical">'
         . 'body.sg-portal-page .site-header--sg-portal{position:fixed!important;top:0;left:0;right:0;width:100%!important;max-width:100%!important;z-index:1100!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage.sg-portal-page .sg-portal-main.sg-dash-main{width:100%!important;max-width:min(1320px,100%)!important;margin-left:auto!important;margin-right:auto!important}'
-        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title{font-size:clamp(1.25rem,1rem+1vw,1.75rem)!important;line-height:1.2!important}'
+        . ($orgHeaderBerandaPage ? '' : 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title{font-size:clamp(1.25rem,1rem+1vw,1.75rem)!important;line-height:1.2!important}')
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__tagline{font-size:clamp(.9rem,.85rem+.3vw,1.05rem)!important;line-height:1.5!important;max-width:100%!important}'
         . 'body.sg-portal-page .site-header__rail.header-inner{display:flex!important;flex-direction:column!important;align-items:stretch!important;width:100%!important}'
         . 'body.sg-portal-page .site-header__rail .navbar-wrapper{display:block!important;width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important}'
@@ -118,7 +117,7 @@ if (str_contains($bodyClassAttr, 'sg-portal-page')) {
         . 'body.sg-homepage.sg-portal-page>#sg-hero,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero{display:block!important;width:100%!important;max-width:100%!important;margin:0!important;overflow-x:hidden!important;overflow-y:visible!important;box-sizing:border-box!important}'
         . 'html.sg-portal-html-home{overflow-y:auto!important;overflow-x:hidden!important}body.sg-portal-page{overflow-y:visible!important;overflow-x:hidden!important;max-width:100%!important}'
         . 'body.sg-portal-page .site-header--sg-portal,body.sg-portal-page .site-header--sg-portal .site-header__gradient{width:100%!important;max-width:100%!important}'
-        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__bg,body.sg-homepage.sg-portal-page>#sg-hero .sg-hero__bg{position:absolute!important;inset:0!important;left:0!important;right:0!important;width:100%!important;max-width:100%!important;overflow:hidden!important}'
+        . ($orgHeaderBerandaPage ? '' : 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__bg,body.sg-homepage.sg-portal-page>#sg-hero .sg-hero__bg{position:absolute!important;inset:0!important;left:0!important;right:0!important;width:100%!important;max-width:100%!important;overflow:hidden!important}')
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage.sg-portal-page>#sg-hero{overflow-x:hidden!important;overflow-y:visible!important;max-width:100%!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-secondary,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__copy{overflow:visible!important;clip:auto!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__holo,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__holo .sg-command-center{max-height:none!important;overflow:visible!important}'

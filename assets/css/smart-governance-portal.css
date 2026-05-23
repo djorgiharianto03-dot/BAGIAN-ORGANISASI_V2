@@ -263,11 +263,20 @@
     letter-spacing: -0.03em;
     margin: 0 0 1rem;
 }
-.sg-hero__title span {
+/* Jangan terapkan di beranda — bentrok dengan govtech/polish (-webkit-text-fill-color) */
+.sg-hero__title span:not(.sg-hero__title-secondary):not(.sg-hero__title-primary):not(.sg-hero__title-org) {
     background: linear-gradient(90deg, #7dd3fc, #a5f3fc, #fff);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+}
+
+.sg-homepage .sg-hero__title span {
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    color: inherit;
+    -webkit-text-fill-color: inherit;
 }
 .sg-hero__lead {
     font-size: clamp(1rem, 1.5vw, 1.125rem);

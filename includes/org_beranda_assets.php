@@ -136,11 +136,10 @@ function org_beranda_header_vendor_markup(): string
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_navbar_assets.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_modal_layer_assets.php';
 
-    $out = org_assets_fonts_beranda_markup();
-    $out .= org_vendor_stylesheet_preload(org_vendor_bootstrap_css());
+    /* Font: org_portal_head_markup_beranda() — Inter + Plus Jakarta (tanpa duplikat) */
+    $out = org_vendor_stylesheet_preload(org_vendor_bootstrap_css());
     $out .= org_vendor_stylesheet_preload(org_vendor_fontawesome_css());
     $out .= org_asset_stylesheet_async('assets/css/org-dark-mode.css?v=1', true);
-    $out .= org_asset_stylesheet_async('assets/css/org-navbar.css?v=12', true);
     $out .= org_asset_stylesheet_async('assets/css/org-modal-layer.css', true);
     $out .= org_beranda_lite_stylesheet_link();
 
@@ -168,6 +167,9 @@ function org_beranda_header_vendor_markup(): string
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .hero-inner--stacked{display:flex!important;flex-direction:column!important;grid-template-columns:unset!important}'
         . 'body.sg-homepage .sg-hero:not(.sg-hero--ultra):not(.sg-hero--minimal){min-height:0!important}'
         . 'body.sg-homepage.sg-portal-page #beranda-root{display:flex!important;visibility:visible!important;opacity:1!important;min-height:0!important;margin-top:0!important;background:#f4f7fb!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title span{color:inherit!important;-webkit-text-fill-color:inherit!important;background:none!important;-webkit-background-clip:unset!important;background-clip:unset!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-secondary{color:rgba(186,230,253,.92)!important;-webkit-text-fill-color:rgba(186,230,253,.92)!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-primary{color:#fff!important;-webkit-text-fill-color:#fff!important}'
         . '</style>' . "\n";
 
     return $out;
@@ -188,6 +190,44 @@ function org_beranda_lite_stylesheet_link(): string
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
     return org_asset_stylesheet_link('assets/css/beranda-lite.css');
+}
+
+/**
+ * CSS section #beranda-root (dulu inline di index.php) — async jika sudah ada di bundle.
+ */
+function org_beranda_sections_stylesheet_markup(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
+    org_beranda_assets_prepare_builds();
+
+    if (org_assets_beranda_css_bundle_available()) {
+        return '';
+    }
+
+    return org_asset_stylesheet_async('assets/css/beranda-sections.css');
+}
+
+/**
+ * Head tambahan index.php: section CSS + Fancybox (+ Poppins hanya jika chart/KPI).
+ */
+function org_beranda_index_extra_head_markup(bool $loadPoppinsFont = false): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+
+    $out = org_beranda_sections_stylesheet_markup();
+    $out .= '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">' . "\n";
+
+    if ($loadPoppinsFont) {
+        $out .= org_asset_preload_link(
+            'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap',
+            'style',
+            true
+        );
+        $out .= '<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap"></noscript>' . "\n";
+    }
+
+    return $out;
 }
 
 /** Layout beranda — max-width & tipografi normal (muat sinkron, setelah lite). */

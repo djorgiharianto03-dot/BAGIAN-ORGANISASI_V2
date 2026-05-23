@@ -36,11 +36,11 @@ function org_portal_head_markup_beranda(string $existing = ''): string
     }
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
-    $assetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
 
+    /* Navbar: portal-nav (utama) + portal; font sekali (Inter + Plus Jakarta) */
     $base = org_assets_fonts_portal_markup()
         . org_asset_stylesheet_async('assets/css/smart-governance-portal.css')
-        . org_asset_stylesheet_async('assets/css/smart-governance-portal-nav.css?v=5', true)
+        . org_asset_stylesheet_link('assets/css/smart-governance-portal-nav.css?v=5')
         . org_beranda_govtech_styles_async_markup();
 
     return $base . $existing;

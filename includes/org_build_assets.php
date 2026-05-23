@@ -215,6 +215,7 @@ function org_build_assets_generate_beranda_bundle(): bool
         'assets/css/beranda-rail-unify.css',
         'assets/css/beranda-dashboard-cards.css',
         'assets/css/beranda-hero-fix-active.css',
+        'assets/css/beranda-sections.css',
     ];
 
     if (
