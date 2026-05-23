@@ -707,3 +707,183 @@
         transform: none;
     }
 }
+
+/* ==========================================================================
+   Halaman dokumen.php — timpa gaya berat site_styles (kartu kategori lebar, hover 3D)
+   ========================================================================== */
+
+.page-digital-library .sg-portal-main-inner {
+    padding-top: 0.15rem;
+}
+
+.page-digital-library .digital-library--doc-center.section-spacing {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.page-digital-library .digital-library--doc-center .doc-center__sticky {
+    margin-top: 0;
+}
+
+/* Filter kategori: chip kompak, bukan kartu tinggi 88px */
+.page-digital-library .digital-library--doc-center .library-doc-category-filter,
+.page-digital-library .digital-library--doc-center .doc-center__pills {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+    grid-template-columns: unset !important;
+}
+
+.page-digital-library .digital-library--doc-center .library-doc-category-filter__btn {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    width: auto !important;
+    min-height: 0 !important;
+    padding: 0.5rem 0.85rem !important;
+    border-radius: 999px !important;
+    text-align: left !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+.page-digital-library .digital-library--doc-center .library-doc-category-filter__btn:hover {
+    transform: none !important;
+    box-shadow: 0 2px 10px rgba(15, 76, 129, 0.12) !important;
+}
+
+.page-digital-library .digital-library--doc-center .library-doc-category-filter__icon {
+    width: 1.75rem !important;
+    height: 1.75rem !important;
+    min-width: 1.75rem;
+    border-radius: 8px !important;
+    background: rgba(15, 76, 129, 0.08) !important;
+}
+
+.page-digital-library .digital-library--doc-center .library-doc-category-filter__btn.is-active .library-doc-category-filter__icon {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+.page-digital-library .digital-library--doc-center .library-doc-category-filter__text-wrap {
+    flex-direction: row !important;
+    align-items: baseline !important;
+    gap: 0.35rem !important;
+}
+
+.page-digital-library .digital-library--doc-center .library-doc-category-filter__label {
+    font-size: 0.8125rem !important;
+}
+
+.page-digital-library .digital-library--doc-center .library-doc-category-filter__count {
+    font-size: 0.75rem !important;
+    opacity: 0.75;
+}
+
+.page-digital-library .digital-library--doc-center .library-doc-category-filter__count::before {
+    content: "·";
+    margin-right: 0.2rem;
+    opacity: 0.6;
+}
+
+/* Tabel: rapat, tanpa animasi angkat baris */
+.page-digital-library .digital-library--doc-center .digital-library__table {
+    border-spacing: 0 !important;
+    margin-top: 0 !important;
+}
+
+.page-digital-library .digital-library--doc-center .digital-library__table tbody tr {
+    transition: background-color 0.15s ease !important;
+}
+
+.page-digital-library .digital-library--doc-center .digital-library__table tbody tr:hover {
+    transform: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.page-digital-library .digital-library--doc-center .digital-library__table tbody td {
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+}
+
+.page-digital-library .digital-library--doc-center .doc-center-table__th--cat,
+.page-digital-library .digital-library--doc-center .doc-center-table__td--cat {
+    max-width: 12rem;
+}
+
+.page-digital-library .digital-library--doc-center .doc-center-doc__title {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.page-digital-library .digital-library--doc-center .doc-center-doc__file {
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+.page-digital-library .digital-library--doc-center .doc-center-doc__file-name {
+    font-family: inherit;
+    background: transparent;
+    padding: 0;
+    word-break: break-word;
+}
+
+.page-digital-library .digital-library--doc-center .doc-center-doc__file-label {
+    display: none;
+}
+
+.page-digital-library .digital-library--doc-center .doc-center-actions {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+}
+
+.page-digital-library .digital-library--doc-center .doc-center-btn--preview span,
+.page-digital-library .digital-library--doc-center .doc-center-btn--download span {
+    display: inline;
+}
+
+/* Performa daftar panjang: hanya baris terlihat yang di-paint penuh */
+.page-digital-library .digital-library--doc-center .doc-center-table tbody tr.doc-center-table__row {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 4.5rem;
+}
+
+.page-digital-library .digital-library--doc-center .doc-center__panel {
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(15, 23, 42, 0.06);
+}
+
+.page-digital-library .digital-library--doc-center .doc-center-table-wrap {
+    background: #fff;
+}
+
+@media (min-width: 768px) {
+    .page-digital-library .digital-library--doc-center .doc-center-table__th--actions,
+    .page-digital-library .digital-library--doc-center .doc-center-table__td--actions {
+        width: 11rem;
+    }
+
+    .page-digital-library .digital-library--doc-center .doc-center-table__th--doc {
+        width: 42%;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .page-digital-library .digital-library--doc-center .library-doc-category-filter__btn {
+        flex: 1 1 calc(50% - 0.35rem);
+        justify-content: flex-start;
+    }
+
+    .page-digital-library .digital-library--doc-center .doc-center-actions {
+        flex-direction: row !important;
+    }
+
+    .page-digital-library .digital-library--doc-center .doc-center-btn {
+        width: auto !important;
+        flex: 1 1 auto;
+    }
+}

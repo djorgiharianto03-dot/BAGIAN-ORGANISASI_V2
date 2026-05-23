@@ -177,7 +177,7 @@ foreach ($libRows as $countFile) {
                 <div class="doc-center__panel-head">
                     <div>
                         <h3 class="doc-center__panel-title">Arsip dokumen</h3>
-                        <p class="doc-center__panel-lead">Pratinjau aman di tab baru; unduhan mencatat statistik akses publik.</p>
+                        <p class="doc-center__panel-lead">PDF dan gambar dapat dipratinjau di tab baru (tanpa memuat viewer di halaman ini). Unduhan tercatat di statistik.</p>
                     </div>
                     <span class="doc-center__panel-badge"><?php echo (int) count($libRows); ?> berkas</span>
                 </div>
@@ -231,6 +231,7 @@ foreach ($libRows as $countFile) {
                                     $bytes = $fsPath !== null ? (int) filesize($fsPath) : 0;
                                     $unduhCount = $statRow !== null ? (int) ($statRow['jumlah_unduh'] ?? 0) : 0;
                                     [$faIcon, $faColor] = org_dokumen_icon_for_extension($uploadedFile);
+                                    $canPreviewInline = $fileOnDisk && org_dokumen_can_preview_inline($uploadedFile);
                                     $viewHref = htmlspecialchars(org_dokumen_view_url($uploadedFile), ENT_QUOTES, 'UTF-8');
                                     $dlHref = htmlspecialchars(org_dokumen_download_url($uploadedFile), ENT_QUOTES, 'UTF-8');
                                     $rowHay = [
@@ -273,9 +274,9 @@ foreach ($libRows as $countFile) {
                                                     <?php if ($deskShort !== ''): ?>
                                                         <p class="doc-center-doc__desc"><?php echo htmlspecialchars($deskShort, ENT_QUOTES, 'UTF-8'); ?></p>
                                                     <?php endif; ?>
-                                                    <p class="doc-center-doc__file">
+                                                    <p class="doc-center-doc__file" title="<?php echo htmlspecialchars($uploadedFile, ENT_QUOTES, 'UTF-8'); ?>">
                                                         <span class="doc-center-doc__file-label">Berkas</span>
-                                                        <code class="doc-center-doc__file-name"><?php echo htmlspecialchars($uploadedFile, ENT_QUOTES, 'UTF-8'); ?></code>
+                                                        <span class="doc-center-doc__file-name"><?php echo htmlspecialchars($nama_file, ENT_QUOTES, 'UTF-8'); ?></span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -294,10 +295,12 @@ foreach ($libRows as $countFile) {
                                         <td class="doc-center-table__td doc-center-table__td--actions text-end" data-label="Aksi">
                                             <div class="doc-center-actions">
                                                 <?php if ($fileOnDisk): ?>
-                                                    <a class="doc-center-btn doc-center-btn--preview" href="<?php echo $viewHref; ?>" target="_blank" rel="noopener">
+                                                    <?php if ($canPreviewInline): ?>
+                                                    <a class="doc-center-btn doc-center-btn--preview js-doc-center-preview" href="<?php echo $viewHref; ?>" target="_blank" rel="noopener noreferrer" aria-label="Pratinjau <?php echo htmlspecialchars($judulTampilan, ENT_QUOTES, 'UTF-8'); ?>">
                                                         <i class="fa-regular fa-eye" aria-hidden="true"></i>
                                                         <span>Pratinjau</span>
                                                     </a>
+                                                    <?php endif; ?>
                                                     <a class="doc-center-btn doc-center-btn--download js-digital-lib-download" href="<?php echo $dlHref; ?>">
                                                         <i class="fa-solid fa-arrow-down-to-line" aria-hidden="true"></i>
                                                         <span>Unduh</span>

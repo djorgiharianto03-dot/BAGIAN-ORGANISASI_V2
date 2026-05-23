@@ -148,7 +148,9 @@ org_partial_deny_direct();
 
         (function () {
             var root = document.getElementById('cursor-follower');
-            if (!root || window.matchMedia('(pointer: coarse)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            if (!root || document.body.classList.contains('sg-homepage')
+                || window.matchMedia('(pointer: coarse)').matches
+                || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
                 return;
             }
             var ringSlot = root.querySelector('.cursor-follower__ring-slot');

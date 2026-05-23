@@ -341,12 +341,6 @@ $sgQuickLinks[] = $sgEOrgQuick;
 
             </h1>
 
-            <p class="sg-hero__tagline">
-
-                Transformasi Digital Tata Kelola Pemerintahan yang Modern, Efisien, dan Transparan.
-
-            </p>
-
             <div class="sg-hero__cta">
 
                 <a href="dokumen.php" class="sg-btn sg-btn--hero-primary">

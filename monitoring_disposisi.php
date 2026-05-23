@@ -696,6 +696,41 @@ function mdisp_monitoring_collapse_dom_id(string $bucketKey): string
 /**
  * @return array{label: string, class: string}
  */
+/**
+ * Apakah baris disposisi sudah punya bukti dukung yang diunggah staf.
+ *
+ * @param array<string, mixed> $d
+ */
+function mdisp_surat_disposisi_has_bukti(array $d): bool
+{
+    return trim((string) ($d['file_bukti'] ?? '')) !== '';
+}
+
+/**
+ * Kabag boleh meminta perbaikan: baris tugas staf + sudah ada bukti + status layak.
+ *
+ * @param array<string, mixed> $d
+ */
+function mdisp_kabag_can_minta_perbaikan(array $d): bool
+{
+    if (!empty($d['__mdisp_legacy'])) {
+        return false;
+    }
+    $penerima = trim((string) ($d['penerima_username'] ?? ''));
+    if ($penerima === '' || mdisp_is_kabag($penerima) || mdisp_is_super_admin_sibos($penerima)) {
+        return false;
+    }
+    if (!mdisp_surat_disposisi_has_bukti($d)) {
+        return false;
+    }
+    $st = strtolower(trim((string) ($d['status'] ?? '')));
+    if ($st === '' || $st === 'pending' || $st === 'revisi') {
+        return false;
+    }
+
+    return true;
+}
+
 function mdisp_status_badge_meta(string $status): array
 {
     $st = strtolower(trim($status));
@@ -800,7 +835,7 @@ function mdisp_render_monitoring_dispo_data_row(
     $idArsip = (int) ($d['id_arsip'] ?? 0);
     $isLegacyDispo = !empty($d['__mdisp_legacy']);
     $arsipRef = $arsipById[$idArsip] ?? [];
-    $st = trim((string) ($d['status'] ?? ''));
+    $st = strtolower(trim((string) ($d['status'] ?? '')));
     $pengirim = trim((string) ($d['pengirim_username'] ?? ''));
     $penerima = trim((string) ($d['penerima_username'] ?? ''));
     $isMyTask = $isDisposisiOnlyUser && strcasecmp($penerima, $sessionUser) === 0;
@@ -856,7 +891,7 @@ function mdisp_render_monitoring_dispo_data_row(
     echo '<td><span class="', htmlspecialchars($statusMeta['class'], ENT_QUOTES, 'UTF-8'), '">', htmlspecialchars($statusMeta['label'], ENT_QUOTES, 'UTF-8'), '</span>';
     if ($kabagVerif) {
         echo '<div class="small text-success fw-semibold mt-1" role="status">Selesai diverifikasi Kabag</div>';
-    } elseif ($st === 'selesai' && $isStafDispoRow && !$kabagVerif) {
+    } elseif (in_array($st, ['selesai', 'fix'], true) && $isStafDispoRow && !$kabagVerif) {
         echo '<div class="small text-muted mt-1" role="status">';
         if ($isKabag) {
             echo 'Staf menunggu penanda selesai dari Anda (tombol di kolom Aksi).';
@@ -881,10 +916,10 @@ function mdisp_render_monitoring_dispo_data_row(
     $kabagSebagaiPenerima = mdisp_is_kabag($penerima);
     if ($isKabag && !$isLegacyDispo) {
         $showTlKeStaf = $kabagSebagaiPenerima;
-        $showTandaiSelesaiStaf = $st === 'selesai' && $isStafDispoRow && !$kabagVerif;
-        $showMintaRevisi = $isStafDispoRow && in_array($st, ['selesai', 'diterima', 'dikerjakan'], true);
-        if ($showTlKeStaf || $showTandaiSelesaiStaf || $showMintaRevisi) {
-            echo '<div class="d-inline-flex flex-column align-items-end gap-1">';
+        $showTandaiSelesaiStaf = in_array($st, ['selesai', 'fix'], true) && $isStafDispoRow && !$kabagVerif;
+        $showMintaRevisi = mdisp_kabag_can_minta_perbaikan($d);
+        if ($showTlKeStaf || $showTandaiSelesaiStaf) {
+            echo '<div class="d-inline-flex flex-column align-items-end gap-1 mb-1">';
             if ($showTlKeStaf) {
                 echo '<button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modalTL', (string) $did, '">Tindak Lanjuti ke Staf</button>';
             }
@@ -895,10 +930,10 @@ function mdisp_render_monitoring_dispo_data_row(
                 echo '<input type="hidden" name="id_disp" value="', (string) $did, '">';
                 echo '<button type="submit" class="btn btn-sm btn-success">Tandai selesai ke staf</button></form>';
             }
-            if ($showMintaRevisi) {
-                echo '<button class="btn btn-sm btn-outline-warning" type="button" data-bs-toggle="modal" data-bs-target="#modalRevisi', (string) $did, '">Minta perbaikan</button>';
-            }
             echo '</div>';
+        }
+        if ($showMintaRevisi) {
+            echo '<button class="btn btn-sm btn-outline-warning" type="button" data-bs-toggle="modal" data-bs-target="#modalRevisi', (string) $did, '">Minta perbaikan</button>';
         }
     }
     if ($canTerimaOrUploadBukti) {
@@ -1313,13 +1348,16 @@ if ($tablesOk && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mdisp_ac
                         $messageType = 'warning';
                     } else {
                         $puSel = trim((string) ($rowSel['penerima_username'] ?? ''));
-                        $statSel = trim((string) ($rowSel['status'] ?? ''));
+                        $statSel = strtolower(trim((string) ($rowSel['status'] ?? '')));
                         $fbSel = trim((string) ($rowSel['file_bukti'] ?? ''));
                         if ($puSel === '' || mdisp_is_kabag($puSel) || mdisp_is_super_admin_sibos($puSel)) {
                             $message = 'Minta perbaikan hanya untuk baris tugas staf.';
                             $messageType = 'warning';
-                        } elseif (!in_array($statSel, ['selesai', 'diterima', 'dikerjakan'], true)) {
-                            $message = 'Status baris ini tidak dapat dikembalikan ke perbaikan (gunakan baris diterima, dikerjakan, atau selesai).';
+                        } elseif ($fbSel === '') {
+                            $message = 'Minta perbaikan hanya setelah staf mengunggah bukti dukung.';
+                            $messageType = 'warning';
+                        } elseif ($statSel === '' || $statSel === 'pending' || $statSel === 'revisi') {
+                            $message = 'Status baris ini belum siap untuk diminta perbaikan (tunggu staf mengunggah bukti).';
                             $messageType = 'warning';
                         } else {
                             if ($fbSel !== '') {
@@ -2550,12 +2588,7 @@ $tabMonActive = $tab === 'monitoring' ? 'active' : '';
                     </div>
                 </div>
                 <?php endif; ?>
-                <?php
-                $dstKab = trim((string) ($d['status'] ?? ''));
-                $dpenKab = trim((string) ($d['penerima_username'] ?? ''));
-                $dstfKab = $dpenKab !== '' && !mdisp_is_kabag($dpenKab) && !mdisp_is_super_admin_sibos($dpenKab);
-                ?>
-                <?php if ($dstfKab && in_array($dstKab, ['selesai', 'diterima', 'dikerjakan'], true)): ?>
+                <?php if (mdisp_kabag_can_minta_perbaikan($d)): ?>
                     <div class="modal fade" id="modalRevisi<?php echo $did; ?>" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">

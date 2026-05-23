@@ -17,7 +17,7 @@ function org_container_global_stylesheet_link(): string
     $base = org_container_global_asset_base();
     $global = $base . 'assets/css/org-container-global.css?v=39';
     $panel = $base . 'assets/css/sg-portal-panel-layout.css?v=11';
-    $align = $base . 'assets/css/sg-portal-shell-align.css?v=5';
+    $align = $base . 'assets/css/sg-portal-shell-align.css?v=6';
     $guard = $base . 'assets/css/org-overflow-guard.css?v=4';
     $rail = $base . 'assets/css/beranda-portal-rail.css?v=3';
 

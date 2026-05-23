@@ -228,7 +228,6 @@ function org_beranda_index_extra_head_markup(bool $loadPoppinsFont = false): str
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
     $out = org_beranda_sections_stylesheet_markup();
-    $out .= '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">' . "\n";
 
     if ($loadPoppinsFont) {
         $out .= org_asset_preload_link(

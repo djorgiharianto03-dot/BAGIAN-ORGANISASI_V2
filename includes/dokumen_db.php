@@ -415,15 +415,78 @@ function org_dokumen_send_http(string $namaFile, string $disposition = 'attachme
         $disp = 'attachment';
     }
 
-    header('Content-Type: ' . $mime);
-    header('Content-Length: ' . (string) filesize($targetReal));
-    header('Content-Disposition: ' . $disp . '; filename="' . str_replace('"', '', $downloadName) . '"');
-    header('X-Content-Type-Options: nosniff');
-    header('Cache-Control: private, max-age=120');
-    if ($disp === 'inline') {
-        header('X-Frame-Options: SAMEORIGIN');
+    org_dokumen_stream_file($targetReal, $mime, $disp, $downloadName);
+}
+
+/**
+ * Kirim berkas dengan dukungan Range (PDF ringan di pratinjau) + cache privat.
+ */
+function org_dokumen_stream_file(string $targetReal, string $mime, string $disp, string $downloadName): void
+{
+    $fileSize = (int) filesize($targetReal);
+    if ($fileSize < 0) {
+        $fileSize = 0;
     }
 
+    $safeName = str_replace('"', '', $downloadName);
+    $mtime = (int) filemtime($targetReal);
+    $etag = '"' . md5($targetReal . '|' . $fileSize . '|' . $mtime) . '"';
+
+    header('Content-Type: ' . $mime);
+    header('Accept-Ranges: bytes');
+    header('Content-Disposition: ' . $disp . '; filename="' . $safeName . '"');
+    header('X-Content-Type-Options: nosniff');
+    header('ETag: ' . $etag);
+    header('Last-Modified: ' . gmdate('D, d M Y H:i:s', $mtime) . ' GMT');
+
+    if ($disp === 'inline') {
+        header('Cache-Control: private, max-age=3600');
+        header('X-Frame-Options: SAMEORIGIN');
+    } else {
+        header('Cache-Control: private, max-age=120');
+    }
+
+    $ifNoneMatch = trim((string) ($_SERVER['HTTP_IF_NONE_MATCH'] ?? ''));
+    if ($ifNoneMatch === $etag || $ifNoneMatch === 'W/' . $etag) {
+        http_response_code(304);
+        exit;
+    }
+
+    $rangeHeader = (string) ($_SERVER['HTTP_RANGE'] ?? '');
+    if ($rangeHeader !== '' && preg_match('/bytes=(\d*)-(\d*)/', $rangeHeader, $rangeMatch)) {
+        $start = $rangeMatch[1] === '' ? 0 : (int) $rangeMatch[1];
+        $end = $rangeMatch[2] === '' ? $fileSize - 1 : (int) $rangeMatch[2];
+        if ($fileSize > 0 && $start <= $end && $start < $fileSize) {
+            $end = min($end, $fileSize - 1);
+            $length = $end - $start + 1;
+            http_response_code(206);
+            header('Content-Length: ' . (string) $length);
+            header('Content-Range: bytes ' . $start . '-' . $end . '/' . $fileSize);
+            $fp = fopen($targetReal, 'rb');
+            if ($fp !== false) {
+                fseek($fp, $start);
+                $left = $length;
+                while ($left > 0 && !feof($fp)) {
+                    $read = (int) min(65536, $left);
+                    $buf = fread($fp, $read);
+                    if ($buf === false || $buf === '') {
+                        break;
+                    }
+                    echo $buf;
+                    $left -= strlen($buf);
+                }
+                fclose($fp);
+            }
+            exit;
+        }
+        if ($fileSize > 0) {
+            http_response_code(416);
+            header('Content-Range: bytes */' . $fileSize);
+            exit;
+        }
+    }
+
+    header('Content-Length: ' . (string) $fileSize);
     readfile($targetReal);
     exit;
 }

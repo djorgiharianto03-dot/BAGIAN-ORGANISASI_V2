@@ -7,6 +7,7 @@ if (!defined('ORG_ROOT')) {
     define('ORG_ROOT', dirname(__DIR__));
 }
 
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_perf.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_upload_dirs.php';
 org_ensure_upload_directories(ORG_ROOT);
 if (function_exists('org_runtime_cache_ensure_dir')) {

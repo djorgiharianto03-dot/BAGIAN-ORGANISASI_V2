@@ -15,7 +15,8 @@ $extraHeadMarkup = '';
 $extraFooterMarkup = '';
 org_portal_apply_assets($bodyClass, $extraHeadMarkup, $extraFooterMarkup);
 $__docCenterAssetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
-$extraHeadMarkup .= "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($__docCenterAssetBase . '/assets/css/smart-governance-doc-center.css?v=6', ENT_QUOTES, 'UTF-8') . '">' . "\n";
+$extraHeadMarkup .= "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($__docCenterAssetBase . '/assets/css/smart-governance-doc-center.css?v=7', ENT_QUOTES, 'UTF-8') . '">' . "\n";
+$extraFooterMarkup .= "\n" . '<script src="' . htmlspecialchars($__docCenterAssetBase . '/assets/js/doc-center-lite.js?v=1', ENT_QUOTES, 'UTF-8') . '" defer></script>' . "\n";
 org_portal_set_hero(
     'Perpustakaan Digital',
     '',

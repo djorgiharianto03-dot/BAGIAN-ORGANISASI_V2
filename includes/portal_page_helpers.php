@@ -41,7 +41,7 @@ function org_portal_head_markup_beranda(string $existing = ''): string
     /* Navbar: portal-nav (utama) + portal; font sekali (Inter + Plus Jakarta) */
     $base = org_assets_fonts_portal_markup()
         . org_asset_stylesheet_async('assets/css/smart-governance-portal.css')
-        . org_asset_stylesheet_link('assets/css/smart-governance-portal-nav.css?v=8')
+        . org_asset_stylesheet_link('assets/css/smart-governance-portal-nav.css?v=9')
         . org_beranda_govtech_styles_async_markup()
         . org_beranda_hero_fix_active_stylesheet_link()
         . org_beranda_viewport_align_stylesheet_link()
