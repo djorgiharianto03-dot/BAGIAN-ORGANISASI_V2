@@ -296,7 +296,7 @@ function org_beranda_header_nav_unify_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css?v=7');
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css?v=8');
 }
 
 /** Beranda — kartu statistik & dashboard enterprise (sync, cascade terakhir). */
