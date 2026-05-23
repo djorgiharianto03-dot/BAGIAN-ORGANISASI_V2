@@ -19,6 +19,7 @@
 }
 
 .sg-portal-subpage .site-layout-main {
+    padding-top: 0 !important;
     background: var(--sg-sub-surface);
     font-family: var(--sg-sub-font);
     color: var(--sg-sub-text);
@@ -26,8 +27,8 @@
 
 /* —— Subhero compact (semua subhalaman portal_subpage_hero) —— */
 .sg-portal-subpage {
-    --sg-subhero-gap-below-header: clamp(0.35rem, 0.9vw, 0.5rem);
-    --sg-subhero-pad-bottom: clamp(0.75rem, 1.6vw, 1rem);
+    --sg-subhero-gap-below-header: clamp(0.25rem, 0.65vw, 0.4rem);
+    --sg-subhero-pad-bottom: clamp(0.5rem, 1.1vw, 0.75rem);
     --sg-subhero-inner-x: 24px;
 }
 
@@ -170,16 +171,21 @@ body.sg-portal-subpage.sg-portal-page .sg-subhero .sg-subhero__eyebrow {
     opacity: 0.88;
 }
 
-/* —— Menang atas org-tailwind / shell-align / portal (muat paling akhir, v=3) —— */
+/* —— Menang atas org-tailwind / shell-align / portal (muat paling akhir, v=4) —— */
+body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main {
+    padding-top: 0 !important;
+}
+
 body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .org-hero.org-hero--sub.sg-subhero,
 body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .org-hero.sg-subhero,
 body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .sg-subhero {
     padding: 0 !important;
-    padding-top: calc(var(--sg-portal-header-offset, 6.25rem) + clamp(0.35rem, 0.9vw, 0.5rem)) !important;
-    padding-bottom: clamp(0.75rem, 1.6vw, 1rem) !important;
+    padding-top: calc(var(--sg-portal-header-offset, 5.5rem) + var(--sg-subhero-gap-below-header)) !important;
+    padding-bottom: var(--sg-subhero-pad-bottom) !important;
     margin-bottom: 0 !important;
     border-radius: 0 !important;
     min-height: 0 !important;
+    height: auto !important;
 }
 
 body.sg-portal-subpage .org-hero--sub.sg-subhero .org-hero__container,

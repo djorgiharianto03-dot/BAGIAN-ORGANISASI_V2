@@ -45,12 +45,12 @@
         var isHome = document.body.classList.contains('sg-homepage');
         var main = document.querySelector('.site-layout-main');
         if (main) {
-            /* Beranda: hero di bawah header fixed; subhalaman: main diberi offset */
-            main.style.paddingTop = isHome ? '0' : (h > 0 ? h + 'px' : '');
+            /* Subhalaman: offset hanya di .sg-subhero (CSS), bukan padding main — hindari jarak ganda */
+            main.style.paddingTop = '0';
         }
         var subhero = document.querySelector('.site-layout-main > .sg-subhero, .site-layout-main > .org-hero.sg-subhero');
-        if (subhero) {
-            subhero.style.paddingTop = '0';
+        if (subhero && !isHome) {
+            subhero.style.removeProperty('padding-top');
         }
         var hero = document.getElementById('sg-hero');
         if (hero) {

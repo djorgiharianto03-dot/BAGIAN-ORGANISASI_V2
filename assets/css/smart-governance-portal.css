@@ -720,7 +720,7 @@ html.sg-smooth-scroll { scroll-behavior: smooth; }
 
 .sg-subhero {
     position: relative;
-    padding: clamp(2rem, 4vw, 2.75rem) 0 clamp(2rem, 4vw, 2.75rem);
+    padding: clamp(1rem, 2vw, 1.35rem) 0 clamp(0.65rem, 1.5vw, 0.9rem);
     color: #fff;
     overflow: hidden;
     margin-bottom: 0;
@@ -747,8 +747,8 @@ body.sg-portal-subpage .org-hero.org-hero--sub.sg-subhero {
 .sg-subhero__grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.5rem;
-    align-items: end;
+    gap: 0.85rem 1rem;
+    align-items: center;
 }
 @media (min-width: 768px) {
     .sg-subhero__grid {
