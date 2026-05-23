@@ -106,7 +106,7 @@ body.sg-homepage.sg-portal-page .navbar-wrapper.container-global,
 body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global,
 body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-wrapper.container-global {
     width: 100%;
-    max-width: var(--layout-max-width, 1180px);
+    max-width: var(--layout-max-width, 1320px);
     margin-left: auto;
     margin-right: auto;
     padding-left: var(--beranda-gutter);
@@ -284,7 +284,7 @@ body.sg-homepage .sg-dash-main {
 
 body.sg-homepage #beranda-root.site-main.container-global {
     width: 100%;
-    max-width: var(--layout-max-width, 1180px);
+    max-width: var(--layout-max-width, 1320px);
     margin-left: auto;
     margin-right: auto;
     padding-left: var(--beranda-gutter);

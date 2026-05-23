@@ -151,7 +151,6 @@ function org_beranda_header_vendor_markup(): string
         $out .= org_beranda_nav_hero_stylesheet_link();
         $out .= org_beranda_dashboard_cards_stylesheet_link();
         $out .= org_beranda_home_layout_stylesheet_link();
-        $out .= org_beranda_premium_polish_stylesheet_link();
     }
 
     $rail = 'max-width:1320px!important;width:100%!important;margin-left:auto!important;margin-right:auto!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important;box-sizing:border-box!important';
@@ -278,7 +277,7 @@ function org_beranda_nav_hero_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-nav-hero.css?v=2');
+    return org_asset_stylesheet_link('assets/css/beranda-nav-hero.css?v=3');
 }
 
 /** Beranda — final polish UI (sync, cascade paling akhir). */
@@ -286,7 +285,7 @@ function org_beranda_premium_polish_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-premium-polish.css?v=1');
+    return org_asset_stylesheet_link('assets/css/beranda-premium-polish.css?v=2');
 }
 
 /** Beranda — header/navbar selaras subhalaman (muat paling akhir). */
@@ -294,7 +293,7 @@ function org_beranda_header_nav_unify_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css?v=1');
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css?v=2');
 }
 
 /** Beranda — kartu statistik & dashboard enterprise (sync, cascade terakhir). */

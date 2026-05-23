@@ -94,15 +94,23 @@ body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel {
     margin: 0 !important;
     padding: 0.35rem 0 !important;
     border-radius: 20px !important;
+    background: var(--sg-nav-panel-bg, rgba(2, 22, 48, 0.72)) !important;
+    backdrop-filter: blur(14px) saturate(1.08) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(1.08) !important;
     border: 1px solid var(--sg-nav-panel-border, rgba(147, 197, 253, 0.18)) !important;
     box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.07),
         0 10px 32px rgba(0, 10, 28, 0.42) !important;
 }
 
+body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,
+body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel {
+    background: var(--sg-nav-panel-bg-scrolled, rgba(2, 22, 48, 0.82)) !important;
+}
+
 body.sg-homepage.sg-portal-page .navbar-panel .site-header__nav-row,
 body.sg-homepage.sg-portal-page .site-header__nav-wrap .site-header__nav-row {
-    min-height: var(--sg-nav-row-min-h, 48px) !important;
+    min-height: 56px !important;
     padding: 0.12rem 0 !important;
     gap: 0.45rem 0.75rem !important;
 }

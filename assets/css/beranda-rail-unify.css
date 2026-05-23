@@ -66,9 +66,7 @@ body.sg-homepage.sg-portal-page :is(
 }
 
 /* Panel nav mengisi lebar navbar-wrapper (bukan lebih sempit/lebar) */
-body.sg-homepage.sg-portal-page .navbar-wrapper.container-global {
-    margin-top: 0.5rem !important;
-}
+/* margin navbar-wrapper: beranda-header-nav-unify.css */
 
 body.sg-homepage.sg-portal-page .navbar-panel,
 body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel {
