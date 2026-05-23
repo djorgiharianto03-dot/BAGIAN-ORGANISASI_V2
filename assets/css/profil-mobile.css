@@ -1,11 +1,38 @@
 /**
- * Profil — perbaikan tampilan mobile (struktur & daftar personel terlihat).
+ * Profil — perbaikan mobile (struktur & daftar personel selalu terlihat).
+ * v2: netralisasi org-reveal / AOS / grid height pada direktori personel.
  */
+
+/* Profil tidak memakai scroll-reveal global — section panjang gagal memicu IntersectionObserver */
+.page-profil-org .site-main > section,
+.page-profil-org .profil-org,
+.page-profil-org .profil-structure,
+.page-profil-org .profil-personnel,
+.page-profil-org .profil-personnel__chief-row,
+.page-profil-org .profil-personnel__grid,
+.page-profil-org .personnel-chief-stack,
+.page-profil-org .profil-person-exec,
+.page-profil-org .org-reveal,
+.page-profil-org .org-reveal-stagger,
+.page-profil-org .org-reveal-stagger > * {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+}
+
+.page-profil-org .profil-structure [data-aos],
+.page-profil-org .profil-org [data-aos],
+.page-profil-org .profil-personnel [data-aos] {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+}
 
 @media (max-width: 991.98px) {
     .page-profil-org.sg-portal-subpage .sg-portal-main-inner {
         padding-bottom: clamp(2rem, 5vw, 3rem);
         overflow-x: clip;
+        overflow-y: visible;
     }
 
     @supports not (overflow: clip) {
@@ -25,6 +52,7 @@
     .page-profil-org .profil-structure.section-spacing {
         margin-top: 1.25rem;
         padding-top: 2rem;
+        overflow: visible;
     }
 
     .page-profil-org .profil-structure__head {
@@ -38,6 +66,18 @@
 
     .page-profil-org .profil-structure__block-title {
         font-size: 1.05rem;
+        letter-spacing: 0.08em;
+    }
+
+    .page-profil-org .profil-structure__block.profil-personnel {
+        display: block !important;
+        margin-top: 0.5rem;
+        padding-top: 0.25rem;
+        scroll-margin-top: 5.5rem;
+    }
+
+    .page-profil-org .profil-personnel__toolbar {
+        margin-bottom: 1.25rem;
     }
 
     .page-profil-org .profil-org-chart {
@@ -52,21 +92,88 @@
         font-size: 1rem;
     }
 
+    .page-profil-org .profil-personnel__chief-row {
+        --bs-gutter-x: 1rem;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .page-profil-org .profil-personnel__chief-row > [class*="col-"] {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+    }
+
+    .page-profil-org .profil-personnel__grid--staff {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .page-profil-org .profil-person-exec {
+        height: auto !important;
+        min-height: 0;
+        overflow: visible;
+    }
+
+    .page-profil-org .profil-person-exec__inner {
+        height: auto !important;
+        min-height: 0 !important;
+    }
+
+    .page-profil-org .profil-person-exec--chief .profil-person-exec__inner {
+        flex-direction: column;
+    }
+
+    .page-profil-org .profil-person-exec__photo {
+        position: relative;
+        width: 100%;
+        min-height: 200px;
+        max-height: 300px;
+        aspect-ratio: 4 / 3;
+    }
+
+    .page-profil-org .profil-person-exec__photo img,
+    .page-profil-org .profil-person-exec__photo-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .page-profil-org .profil-person-exec__body {
+        min-height: 0;
+        flex: 1 1 auto;
+    }
+
+    .page-profil-org .profil-person-exec__role {
+        display: block;
+        -webkit-line-clamp: unset;
+        -webkit-box-orient: unset;
+        overflow: visible;
+    }
+
     .page-profil-org .profil-person-exec__name {
         font-size: 1rem;
         line-height: 1.25;
     }
 
-    .page-profil-org .profil-person-exec__role {
-        -webkit-line-clamp: 4;
+    .page-profil-org .profil-person-exec--chief .profil-person-exec__body {
+        text-align: center;
+    }
+
+    .page-profil-org .profil-person-exec--chief .profil-person-exec__actions {
+        justify-content: center;
+    }
+
+    .page-profil-org .sg-portal-main-inner > .container.site-main {
+        padding-left: clamp(0.85rem, 3vw, 1.15rem);
+        padding-right: clamp(0.85rem, 3vw, 1.15rem);
     }
 }
 
 @media (max-width: 575.98px) {
-    .page-profil-org .profil-personnel__grid--staff {
-        grid-template-columns: 1fr;
-    }
-
     .page-profil-org .profil-org-chart__node {
         min-height: 0;
         padding: 0.85rem 1rem;

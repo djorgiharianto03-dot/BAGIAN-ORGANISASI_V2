@@ -6,8 +6,12 @@
 
     var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    function isProfilOrgPage() {
+        return document.body && document.body.classList.contains('page-profil-org');
+    }
+
     function initAos() {
-        if (reduced || typeof AOS === 'undefined' || window.__ORG_AOS_INIT__) {
+        if (reduced || typeof AOS === 'undefined' || window.__ORG_AOS_INIT__ || isProfilOrgPage()) {
             return;
         }
         window.__ORG_AOS_INIT__ = true;
@@ -22,6 +26,9 @@
     }
 
     function autoRevealTargets() {
+        if (isProfilOrgPage()) {
+            return;
+        }
         var root = document.querySelector('.site-main') || document.querySelector('.sg-portal-main-inner') || document.body;
         var selectors = [
             '.site-main > section',
@@ -68,7 +75,7 @@
     }
 
     function initRevealObserver() {
-        if (reduced) {
+        if (reduced || isProfilOrgPage()) {
             document.querySelectorAll('.org-reveal, .org-reveal-stagger').forEach(function (el) {
                 el.classList.add('is-visible');
             });

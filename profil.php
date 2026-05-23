@@ -62,9 +62,26 @@ $extraHeadMarkup = (string) ob_get_clean();
 $extraFooterMarkup = <<<'HTML'
 <script>
 (function () {
+    function profilOrgEnsureVisible() {
+        document.querySelectorAll(
+            '.profil-org, .profil-structure, .profil-personnel, .profil-personnel__grid, .profil-personnel__chief-row, .personnel-chief-stack, .profil-person-exec'
+        ).forEach(function (el) {
+            el.classList.remove('org-reveal', 'org-reveal-stagger');
+            el.classList.add('is-visible');
+        });
+        document.querySelectorAll('.profil-structure [data-aos], .profil-org [data-aos], .profil-personnel [data-aos]').forEach(function (el) {
+            el.classList.add('aos-animate');
+            el.style.opacity = '1';
+            el.style.visibility = 'visible';
+            el.style.transform = 'none';
+        });
+    }
+
     function initProfilOrgMotion() {
         var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         var narrow = window.matchMedia && window.matchMedia('(max-width: 991.98px)').matches;
+        profilOrgEnsureVisible();
+        window.__ORG_AOS_INIT__ = true;
         if (typeof AOS !== 'undefined') {
             AOS.init({
                 once: true,
@@ -80,11 +97,20 @@ $extraFooterMarkup = <<<'HTML'
                 AOS.refresh();
             }
         }
+        profilOrgEnsureVisible();
     }
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initProfilOrgMotion);
-    } else {
+
+    function bootProfilOrgMotion() {
         initProfilOrgMotion();
+        window.addEventListener('load', function () {
+            profilOrgEnsureVisible();
+        }, { once: true });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bootProfilOrgMotion);
+    } else {
+        bootProfilOrgMotion();
     }
 }());
 </script>
@@ -92,7 +118,7 @@ HTML;
 org_portal_apply_assets($bodyClass, $extraHeadMarkup, $extraFooterMarkup);
 $__profilAssetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
 $extraHeadMarkup .= "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($__profilAssetBase . '/assets/css/smart-governance-profil-institutional.css', ENT_QUOTES, 'UTF-8') . '">'
-    . '<link rel="stylesheet" href="' . htmlspecialchars($__profilAssetBase . '/assets/css/profil-mobile.css?v=1', ENT_QUOTES, 'UTF-8') . '">' . "\n";
+    . '<link rel="stylesheet" href="' . htmlspecialchars($__profilAssetBase . '/assets/css/profil-mobile.css?v=2', ENT_QUOTES, 'UTF-8') . '">' . "\n";
 org_portal_set_hero(
     'Profil Organisasi',
     '',

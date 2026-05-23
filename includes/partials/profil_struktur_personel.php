@@ -168,7 +168,7 @@ $profilPersonRenderActions = static function (array $person) use ($profilCanMana
                     <?php endif; ?>
                 </div>
 
-                <div class="profil-structure__block profil-personnel" data-aos="fade-up" data-aos-duration="420">
+                <div class="profil-structure__block profil-personnel" id="profil-daftar-personel">
                     <div class="profil-personnel__toolbar">
                         <div>
                             <h3 class="profil-structure__block-title mb-1">Direktori personel</h3>
@@ -183,7 +183,7 @@ $profilPersonRenderActions = static function (array $person) use ($profilCanMana
 
                     <?php if (count($personnelKepalaList) > 0): ?>
                         <div class="personnel-chief-stack mb-4 mb-lg-5" role="region" aria-label="Pimpinan unit">
-                            <div class="row justify-content-center g-4">
+                            <div class="profil-personnel__chief-row row justify-content-center g-4">
                                 <?php foreach ($personnelKepalaList as $idx => $person): ?>
                                     <?php
                                     $personNip = (string) ($person['nip'] ?? '');

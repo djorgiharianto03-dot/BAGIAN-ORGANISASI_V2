@@ -229,6 +229,19 @@ a:hover .beranda-galeri-item__img {
     transition-timing-function: var(--org-ease) !important;
 }
 
+/* Profil: section panjang + daftar personel — jangan sembunyikan via org-reveal */
+.page-profil-org .site-main > section,
+.page-profil-org .profil-structure,
+.page-profil-org .profil-personnel,
+.page-profil-org .profil-personnel__grid,
+.page-profil-org .personnel-chief-stack,
+.page-profil-org .org-reveal,
+.page-profil-org .org-reveal-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+}
+
 /* —— Reduced motion —— */
 @media (prefers-reduced-motion: reduce) {
     .org-reveal,

@@ -599,7 +599,8 @@
     .profil-person-exec__action-form {
         margin: 0;
     }
-    .personnel-chief-stack .row {
+    .personnel-chief-stack .row,
+    .profil-personnel__chief-row {
         justify-content: flex-start;
     }
     .profil-personnel__subsection {

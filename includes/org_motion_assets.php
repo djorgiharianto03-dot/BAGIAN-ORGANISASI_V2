@@ -16,14 +16,14 @@ function org_motion_asset_base(): string
 
 function org_motion_stylesheet_link(): string
 {
-    $href = org_motion_asset_base() . 'assets/css/org-micro-interactions.css?v=1';
+    $href = org_motion_asset_base() . 'assets/css/org-micro-interactions.css?v=2';
 
     return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '">' . "\n";
 }
 
 function org_motion_script_tag(): string
 {
-    $src = org_motion_asset_base() . 'assets/js/org-micro-interactions.js?v=1';
+    $src = org_motion_asset_base() . 'assets/js/org-micro-interactions.js?v=2';
 
     return '<script src="' . htmlspecialchars($src, ENT_QUOTES, 'UTF-8') . '" defer></script>' . "\n";
 }
