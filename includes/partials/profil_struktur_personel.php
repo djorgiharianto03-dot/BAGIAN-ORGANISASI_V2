@@ -52,12 +52,16 @@ $profilPersonRenderPhoto = static function (string $name, string $photoUrl) use 
     echo '<span class="profil-person-exec__photo-frame" aria-hidden="true"></span>';
 };
 
-$profilPersonRenderActions = static function (array $person) use ($isAdmin): void {
-    if (empty($isAdmin)) {
+$profilCanManagePersonnel = function_exists('org_personnel_can_manage') && org_personnel_can_manage();
+
+$profilPersonRenderActions = static function (array $person) use ($profilCanManagePersonnel): void {
+    if (!$profilCanManagePersonnel) {
         return;
     }
     $personNip = (string) ($person['nip'] ?? '');
     $personId = (string) ($person['id'] ?? '');
+    $personSlug = (string) ($person['slug'] ?? '');
+    $deleteAction = function_exists('org_page_url') ? org_page_url('profil.php') : 'profil.php';
     ?>
     <div class="profil-person-exec__actions">
         <button
@@ -66,6 +70,7 @@ $profilPersonRenderActions = static function (array $person) use ($isAdmin): voi
             data-bs-toggle="modal"
             data-bs-target="#editPersonnelModal"
             data-id="<?php echo htmlspecialchars($personId, ENT_QUOTES, 'UTF-8'); ?>"
+            data-slug="<?php echo htmlspecialchars($personSlug, ENT_QUOTES, 'UTF-8'); ?>"
             data-name="<?php echo htmlspecialchars((string) ($person['name'] ?? ''), ENT_QUOTES, 'UTF-8'); ?>"
             data-nip="<?php echo htmlspecialchars($personNip, ENT_QUOTES, 'UTF-8'); ?>"
             data-position="<?php echo htmlspecialchars((string) ($person['position'] ?? ''), ENT_QUOTES, 'UTF-8'); ?>"
@@ -74,11 +79,12 @@ $profilPersonRenderActions = static function (array $person) use ($isAdmin): voi
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
             <span>Edit</span>
         </button>
-        <form method="post" class="profil-person-exec__action-form" onsubmit="return confirm('Yakin ingin menghapus personel ini secara permanen?');">
+        <form method="post" action="<?php echo htmlspecialchars($deleteAction, ENT_QUOTES, 'UTF-8'); ?>" class="profil-person-exec__action-form" onsubmit="return confirm('Yakin ingin menghapus personel ini secara permanen?');">
             <input type="hidden" name="action" value="delete_personnel">
             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(org_csrf_token(), ENT_QUOTES, 'UTF-8'); ?>">
             <input type="hidden" name="return_to" value="profil.php">
             <input type="hidden" name="person_id" value="<?php echo htmlspecialchars($personId, ENT_QUOTES, 'UTF-8'); ?>">
+            <input type="hidden" name="person_slug" value="<?php echo htmlspecialchars($personSlug, ENT_QUOTES, 'UTF-8'); ?>">
             <button type="submit" class="profil-person-exec__action profil-person-exec__action--danger" title="Hapus personel">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
                 <span>Hapus</span>
@@ -168,7 +174,7 @@ $profilPersonRenderActions = static function (array $person) use ($isAdmin): voi
                             <h3 class="profil-structure__block-title mb-1">Direktori personel</h3>
                             <p class="profil-structure__block-desc mb-0">Data personel dinamis sesuai struktur organisasi unit.</p>
                         </div>
-                        <?php if (!empty($isAdmin)): ?>
+                        <?php if ($profilCanManagePersonnel): ?>
                             <button type="button" class="profil-personnel__add-btn" data-bs-toggle="modal" data-bs-target="#addPersonnelModal">
                                 <i class="fa-solid fa-user-plus me-1" aria-hidden="true"></i> Tambah personel
                             </button>

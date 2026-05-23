@@ -252,10 +252,7 @@ $personnelSlugs = [];
 $berandaLibraryDocCount = null;
 
 $savePersonnelData = static function (string $personnelFilePath, array $items): bool {
-    return file_put_contents(
-        $personnelFilePath,
-        json_encode(array_values($items), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
-    ) !== false;
+    return org_personnel_write_file($personnelFilePath, $items);
 };
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_personnel_sync.php';
@@ -457,8 +454,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!org_csrf_validate()) {
             $_SESSION['flash_message'] = 'Sesi keamanan tidak valid. Muat ulang halaman lalu coba lagi.';
             $_SESSION['flash_type'] = 'danger';
-        } elseif (!$isAdmin) {
-            $_SESSION['flash_message'] = 'Akses ditolak. Silakan login sebagai Admin terlebih dahulu.';
+        } elseif (!org_personnel_can_manage()) {
+            $_SESSION['flash_message'] = 'Akses ditolak. Hanya Admin yang dapat mengelola personel.';
             $_SESSION['flash_type'] = 'danger';
         } else {
             $name = trim((string) ($_POST['person_name'] ?? ''));
@@ -478,6 +475,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ];
 
                 if ($savePersonnelData($personnelFile, $personnelData)) {
+                    $orgPersonnelRegistryApply(org_personnel_sync_from_disk($personnelFile, $fotoStrukturDir, $slugify, $savePersonnelData));
                     if (isset($_FILES['person_photo']) && $_FILES['person_photo']['error'] === UPLOAD_ERR_OK) {
                         $photoFile = $_FILES['person_photo'];
                         $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -518,15 +516,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!org_csrf_validate()) {
             $_SESSION['flash_message'] = 'Sesi keamanan tidak valid. Muat ulang halaman lalu coba lagi.';
             $_SESSION['flash_type'] = 'danger';
-        } elseif (!$isAdmin) {
-            $_SESSION['flash_message'] = 'Akses ditolak. Silakan login sebagai Admin terlebih dahulu.';
+        } elseif (!org_personnel_can_manage()) {
+            $_SESSION['flash_message'] = 'Akses ditolak. Hanya Admin yang dapat mengelola personel.';
             $_SESSION['flash_type'] = 'danger';
         } else {
             $personId = (string) ($_POST['person_id'] ?? '');
+            $personSlug = trim((string) ($_POST['person_slug'] ?? ''));
             $name = trim((string) ($_POST['person_name'] ?? ''));
             $position = trim((string) ($_POST['person_position'] ?? ''));
             $nip = substr(preg_replace('/\s+/u', '', trim((string) ($_POST['person_nip'] ?? ''))), 0, 20);
-            $rowIndex = org_personnel_find_index_by_id($personnelData, trim($personId));
+            $rowIndex = org_personnel_find_index($personnelData, trim($personId), $personSlug);
 
             if ($rowIndex === false || $name === '' || $position === '') {
                 $_SESSION['flash_message'] = 'Data personel tidak valid.';
@@ -578,10 +577,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
 
                 if ($savePersonnelData($personnelFile, $personnelData)) {
+                    $orgPersonnelRegistryApply(org_personnel_sync_from_disk($personnelFile, $fotoStrukturDir, $slugify, $savePersonnelData));
                     $_SESSION['flash_message'] = 'Data personel berhasil diperbarui.';
                     $_SESSION['flash_type'] = 'success';
                 } else {
-                    $_SESSION['flash_message'] = 'Gagal memperbarui data personel.';
+                    $_SESSION['flash_message'] = 'Gagal memperbarui data personel. Periksa izin tulis berkas personnel.json.';
                     $_SESSION['flash_type'] = 'danger';
                 }
             }
@@ -594,29 +594,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!org_csrf_validate()) {
             $_SESSION['flash_message'] = 'Sesi keamanan tidak valid. Muat ulang halaman lalu coba lagi.';
             $_SESSION['flash_type'] = 'danger';
-        } elseif (!$isAdmin) {
-            $_SESSION['flash_message'] = 'Akses ditolak. Silakan login sebagai Admin terlebih dahulu.';
+        } elseif (!org_personnel_can_manage()) {
+            $_SESSION['flash_message'] = 'Akses ditolak. Hanya Admin yang dapat mengelola personel.';
             $_SESSION['flash_type'] = 'danger';
         } else {
             $personId = trim((string) ($_POST['person_id'] ?? ''));
-            $rowIndex = org_personnel_find_index_by_id($personnelData, $personId);
+            $personSlug = trim((string) ($_POST['person_slug'] ?? ''));
+            $rowIndex = org_personnel_find_index($personnelData, $personId, $personSlug);
             if ($rowIndex === false) {
                 $_SESSION['flash_message'] = 'Data personel tidak ditemukan.';
                 $_SESSION['flash_type'] = 'warning';
             } else {
-                $slug = $personnelData[$rowIndex]['slug'];
-                foreach (['png', 'jpg', 'jpeg'] as $ext) {
-                    $photoPath = $fotoStrukturDir . DIRECTORY_SEPARATOR . $slug . '.' . $ext;
-                    if (is_file($photoPath)) {
-                        @unlink($photoPath);
-                    }
+                $slug = (string) ($personnelData[$rowIndex]['slug'] ?? '');
+                if ($slug === '' && $personSlug !== '') {
+                    $slug = $personSlug;
                 }
+                if ($slug === '') {
+                    $slug = $slugify((string) ($personnelData[$rowIndex]['name'] ?? ''));
+                }
+                org_personnel_delete_photo_files($fotoStrukturDir, $slug);
                 array_splice($personnelData, $rowIndex, 1);
                 if ($savePersonnelData($personnelFile, $personnelData)) {
+                    $orgPersonnelRegistryApply(org_personnel_sync_from_disk($personnelFile, $fotoStrukturDir, $slugify, $savePersonnelData));
                     $_SESSION['flash_message'] = 'Personel berhasil dihapus.';
                     $_SESSION['flash_type'] = 'success';
                 } else {
-                    $_SESSION['flash_message'] = 'Gagal menghapus personel.';
+                    $_SESSION['flash_message'] = 'Gagal menghapus personel. Periksa izin tulis berkas personnel.json.';
                     $_SESSION['flash_type'] = 'danger';
                 }
             }
@@ -624,13 +627,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($shouldRedirect) {
-        $redirectUrl = $redirectPage;
-        if ($action === 'delete_personnel' && $redirectPage === 'profil.php') {
-            $redirectUrl = 'profil.php#profil-struktur-organisasi';
+        $hash = '';
+        if (in_array($action, ['add_personnel', 'edit_personnel', 'delete_personnel'], true) && $redirectPage === 'profil.php') {
+            $hash = 'profil-struktur-organisasi';
         }
-        if ($searchQuery !== '') {
-            $redirectUrl .= (str_contains($redirectUrl, '?') ? '&' : '?') . 'q=' . rawurlencode($searchQuery);
-        }
+        $redirectUrl = org_personnel_post_redirect_url($redirectPage, $hash, $searchQuery);
         header('Location: ' . $redirectUrl);
         exit;
     }

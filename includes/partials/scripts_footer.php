@@ -44,6 +44,7 @@ org_partial_deny_direct();
         (function () {
             const editButtons = document.querySelectorAll('.js-edit-person');
             const idInput = document.getElementById('edit_person_id');
+            const slugInput = document.getElementById('edit_person_slug');
             const nameInput = document.getElementById('edit_person_name');
             const nipInput = document.getElementById('edit_person_nip');
             const positionInput = document.getElementById('edit_person_position');
@@ -53,6 +54,9 @@ org_partial_deny_direct();
             editButtons.forEach(function (button) {
                 button.addEventListener('click', function () {
                     idInput.value = button.getAttribute('data-id') || '';
+                    if (slugInput) {
+                        slugInput.value = button.getAttribute('data-slug') || '';
+                    }
                     nameInput.value = button.getAttribute('data-name') || '';
                     nipInput.value = button.getAttribute('data-nip') || '';
                     positionInput.value = button.getAttribute('data-position') || '';

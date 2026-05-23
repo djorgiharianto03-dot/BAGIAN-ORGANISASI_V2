@@ -56,7 +56,7 @@ org_component('footer', ['prosesSaranUrlEsc' => $prosesSaranUrlEsc]);
                         <div class="modal-body">
                             <input type="hidden" name="action" value="add_personnel">
                             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(org_csrf_token(), ENT_QUOTES, 'UTF-8'); ?>">
-                            <input type="hidden" name="return_to" value="struktur.php">
+                            <input type="hidden" name="return_to" value="profil.php">
                             <div class="mb-3">
                                 <label for="add_person_name" class="form-label">Nama</label>
                                 <input type="text" class="form-control" id="add_person_name" name="person_name" required>
@@ -93,7 +93,8 @@ org_component('footer', ['prosesSaranUrlEsc' => $prosesSaranUrlEsc]);
                         <div class="modal-body">
                             <input type="hidden" name="action" value="edit_personnel">
                             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(org_csrf_token(), ENT_QUOTES, 'UTF-8'); ?>">
-                            <input type="hidden" name="return_to" value="struktur.php">
+                            <input type="hidden" name="return_to" value="profil.php">
+                            <input type="hidden" name="person_slug" id="edit_person_slug">
                             <input type="hidden" name="person_id" id="edit_person_id">
                             <div class="mb-3">
                                 <label for="edit_person_name" class="form-label">Nama</label>

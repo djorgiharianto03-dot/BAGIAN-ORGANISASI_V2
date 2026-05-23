@@ -9,7 +9,7 @@ $profilVisiHtml = org_profil_visi_display_html((string) ($siteSettings['profile_
 $profilMisiPoints = org_profil_misi_to_points((string) ($siteSettings['profile_misi'] ?? ''));
 $profilOrgIntro = trim((string) ($siteSettings['organisasi_intro'] ?? ''));
 $navActive = 'profil';
-$includePersonnelModals = true;
+$includePersonnelModals = function_exists('org_personnel_can_manage') && org_personnel_can_manage();
 $includeNewsModals = false;
 
 /** Gambar struktur opsional (unggah ke uploads/ atau assets). */

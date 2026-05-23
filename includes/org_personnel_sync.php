@@ -93,6 +93,108 @@ function org_personnel_sync_from_disk(
 }
 
 /**
+ * Admin / super admin / Kabag boleh kelola personel di halaman profil.
+ */
+function org_personnel_can_manage(): bool
+{
+    if (empty($_SESSION['is_admin'])) {
+        return false;
+    }
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'staff_users_db.php';
+    $role = org_staff_role_normalize((string) ($_SESSION['level'] ?? $_SESSION['admin_role'] ?? ''));
+    if ($role === '' && trim((string) ($_SESSION['admin_username'] ?? '')) !== '') {
+        return true;
+    }
+    if (in_array($role, ['super_admin', 'admin', 'kabag_organisasi'], true)) {
+        return true;
+    }
+
+    return org_staff_session_is_kabag();
+}
+
+/**
+ * @param array<string, mixed> $person
+ * @return array{id: string, name: string, nip: string, position: string}
+ */
+function org_personnel_row_for_storage(array $person): array
+{
+    return [
+        'id' => (string) ($person['id'] ?? ''),
+        'name' => trim((string) ($person['name'] ?? '')),
+        'nip' => substr(preg_replace('/\s+/u', '', trim((string) ($person['nip'] ?? ''))), 0, 20),
+        'position' => trim((string) ($person['position'] ?? '')),
+    ];
+}
+
+/**
+ * Tulis personnel.json (hanya field inti; foto/slug dihitung ulang saat muat).
+ *
+ * @param list<array<string, mixed>> $items
+ */
+function org_personnel_write_file(string $personnelFilePath, array $items): bool
+{
+    $rows = [];
+    foreach ($items as $person) {
+        if (!is_array($person)) {
+            continue;
+        }
+        $row = org_personnel_row_for_storage($person);
+        if ($row['id'] === '' || $row['name'] === '' || $row['position'] === '') {
+            continue;
+        }
+        $rows[] = $row;
+    }
+
+    $json = json_encode(array_values($rows), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    if ($json === false) {
+        return false;
+    }
+
+    $dir = dirname($personnelFilePath);
+    if (!is_dir($dir) && !@mkdir($dir, 0775, true) && !is_dir($dir)) {
+        return false;
+    }
+
+    $tmp = $personnelFilePath . '.tmp.' . bin2hex(random_bytes(4));
+    if (@file_put_contents($tmp, $json, LOCK_EX) === false) {
+        @unlink($tmp);
+
+        return false;
+    }
+    if (!@rename($tmp, $personnelFilePath)) {
+        @unlink($tmp);
+        if (@file_put_contents($personnelFilePath, $json, LOCK_EX) === false) {
+            return false;
+        }
+        @unlink($tmp);
+
+        return true;
+    }
+
+    return true;
+}
+
+/**
+ * @param list<array<string, mixed>> $personnelData
+ */
+function org_personnel_find_index_by_slug(array $personnelData, string $slug): int|false
+{
+    if ($slug === '') {
+        return false;
+    }
+    foreach ($personnelData as $idx => $person) {
+        if (!is_array($person)) {
+            continue;
+        }
+        if ((string) ($person['slug'] ?? '') === $slug) {
+            return $idx;
+        }
+    }
+
+    return false;
+}
+
+/**
  * @param list<array<string, mixed>> $personnelData
  */
 function org_personnel_find_index_by_id(array $personnelData, string $personId): int|false
@@ -110,4 +212,46 @@ function org_personnel_find_index_by_id(array $personnelData, string $personId):
     }
 
     return false;
+}
+
+/**
+ * Cari baris personel berdasarkan id, lalu slug (cadangan).
+ *
+ * @param list<array<string, mixed>> $personnelData
+ */
+function org_personnel_find_index(array $personnelData, string $personId, string $personSlug = ''): int|false
+{
+    $rowIndex = org_personnel_find_index_by_id($personnelData, trim($personId));
+    if ($rowIndex !== false) {
+        return $rowIndex;
+    }
+
+    return org_personnel_find_index_by_slug($personnelData, trim($personSlug));
+}
+
+function org_personnel_delete_photo_files(string $fotoStrukturDir, string $slug): void
+{
+    if ($slug === '') {
+        return;
+    }
+    foreach (['png', 'jpg', 'jpeg', 'webp'] as $ext) {
+        $photoPath = $fotoStrukturDir . DIRECTORY_SEPARATOR . $slug . '.' . $ext;
+        if (is_file($photoPath)) {
+            @unlink($photoPath);
+        }
+    }
+}
+
+/** URL redirect aman setelah POST personel (query sebelum fragment). */
+function org_personnel_post_redirect_url(string $page, string $hash = '', string $searchQuery = ''): string
+{
+    $url = $page;
+    if ($searchQuery !== '') {
+        $url .= '?q=' . rawurlencode($searchQuery);
+    }
+    if ($hash !== '') {
+        $url .= '#' . ltrim($hash, '#');
+    }
+
+    return $url;
 }
