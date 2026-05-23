@@ -594,8 +594,38 @@ body[class*='theme-'].sg-portal-page .site-header__holiday-ucapan--inline .site-
     }
 
     .sg-portal-page .site-header__search-wrap {
-        max-width: none;
+        display: none;
+    }
+
+    /* Topbar mobile: logo/judul kiri, tombol menu kanan */
+    .sg-portal-page .site-header__topbar {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.4rem 0.5rem;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .sg-portal-page .site-header__brand-row {
         flex: 1 1 auto;
+        min-width: 0;
+        max-width: none;
+        align-items: center;
+        gap: 0.4rem 0.65rem;
+    }
+
+    .sg-portal-page .site-header__nav-toggle {
+        flex: 0 0 auto;
+        margin-left: auto;
+        order: 10;
+        align-self: center;
+    }
+
+    .sg-portal-page .site-header__nav-toggle-label {
+        display: none;
     }
 }
 
@@ -623,7 +653,7 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-
 
 body.sg-homepage.sg-portal-page .site-header__rail .site-header__topbar {
     display: flex !important;
-    flex-wrap: wrap !important;
+    flex-wrap: nowrap !important;
     align-items: center !important;
     justify-content: flex-start !important;
     width: 100% !important;
@@ -631,7 +661,36 @@ body.sg-homepage.sg-portal-page .site-header__rail .site-header__topbar {
     flex: 0 0 auto !important;
     order: 1 !important;
     margin: 0 !important;
-    padding: 0.28rem 0 0.22rem !important;
+    padding: 0.35rem 0 0.3rem !important;
+    gap: 0.4rem 0.5rem !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+}
+
+@media (max-width: 991.98px) {
+    body.sg-homepage.sg-portal-page .site-header__rail .site-header__brand-row {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        align-items: center !important;
+    }
+
+    body.sg-homepage.sg-portal-page .site-header__rail .site-header__search-wrap {
+        display: none !important;
+    }
+
+    body.sg-homepage.sg-portal-page .site-header__rail .site-header__nav-toggle {
+        flex: 0 0 auto !important;
+        margin-left: auto !important;
+        order: 10 !important;
+    }
+
+    body.sg-homepage.sg-portal-page .site-header__subtitle {
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-height: 1.3 !important;
+    }
 }
 
 body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper,
