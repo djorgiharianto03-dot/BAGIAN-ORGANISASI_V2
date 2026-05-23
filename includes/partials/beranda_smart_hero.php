@@ -35,7 +35,7 @@ $sgQuickLinks = [
 ];
 
 $sgEOrgQuick = [
-    'href' => 'e_organisasi.php',
+    'href' => org_page_url('e_organisasi.php'),
     'icon' => 'fa-network-wired',
     'label' => 'E-Organisasi',
     'desc' => 'Masuk untuk akses internal',

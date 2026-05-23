@@ -57,12 +57,39 @@ function org_site_path_prefix(): string
     return $root === '' || $root === '/' ? '' : $root;
 }
 
+/**
+ * Path URL aman (encode segment, mis. spasi → %20).
+ *
+ * @param list<string> $segments
+ */
+function org_url_path_from_segments(string ...$segments): string
+{
+    $parts = [];
+    foreach ($segments as $segment) {
+        $segment = trim(str_replace('\\', '/', $segment), '/');
+        if ($segment === '') {
+            continue;
+        }
+        foreach (explode('/', $segment) as $piece) {
+            $piece = trim($piece);
+            if ($piece !== '') {
+                $parts[] = rawurlencode($piece);
+            }
+        }
+    }
+
+    return $parts === [] ? '/' : '/' . implode('/', $parts);
+}
+
 /** Beranda tanpa /index.php (mis. / atau /subfolder/). */
 function org_home_url(): string
 {
     $prefix = org_site_path_prefix();
+    if ($prefix === '') {
+        return '/';
+    }
 
-    return $prefix === '' ? '/' : $prefix . '/';
+    return org_url_path_from_segments($prefix) . '/';
 }
 
 /**
@@ -91,7 +118,7 @@ function org_page_url(string $script, string $fragment = ''): string
         $url = org_home_url();
     } else {
         $prefix = org_site_path_prefix();
-        $url = ($prefix === '' ? '' : $prefix) . '/' . $slug;
+        $url = org_url_path_from_segments($prefix, $slug);
     }
     if ($fragment !== '') {
         $url .= '#' . ltrim($fragment, '#');
@@ -129,6 +156,63 @@ function org_redirect(string $script, string $query = '', string $fragment = '',
 }
 
 /**
+ * Slug clean URL dari REQUEST_URI (mis. profil, admin/dashboard).
+ */
+function org_current_request_slug(): string
+{
+    $uriPath = parse_url((string) ($_SERVER['REQUEST_URI'] ?? '/'), PHP_URL_PATH);
+    if (!is_string($uriPath) || $uriPath === '') {
+        return '';
+    }
+    $uriPath = str_replace('\\', '/', rawurldecode($uriPath));
+    $prefix = org_site_path_prefix();
+    if ($prefix !== '') {
+        if (str_starts_with($uriPath, $prefix . '/')) {
+            $uriPath = substr($uriPath, strlen($prefix));
+        } elseif ($uriPath === $prefix) {
+            $uriPath = '/';
+        }
+    }
+    $uriPath = trim($uriPath, '/');
+    if ($uriPath === '' || $uriPath === 'index') {
+        return '';
+    }
+
+    return $uriPath;
+}
+
+/**
+ * Fallback router: jika Apache mengarahkan /profil ke index.php, muat skrip yang benar.
+ * Dipanggil hanya dari index.php sebelum ORG_BERANDA_PAGE.
+ */
+function org_dispatch_clean_url_from_index(): void
+{
+    if (PHP_SAPI === 'cli') {
+        return;
+    }
+    $scriptFile = (string) ($_SERVER['SCRIPT_FILENAME'] ?? '');
+    if ($scriptFile === '' || basename($scriptFile) !== 'index.php') {
+        return;
+    }
+    $slug = org_current_request_slug();
+    if ($slug === '' || str_contains($slug, '..')) {
+        return;
+    }
+    $root = defined('ORG_ROOT') ? ORG_ROOT : dirname(__DIR__);
+    if (preg_match('#^admin/([^/]+)$#', $slug, $adminMatch)) {
+        $target = $root . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . $adminMatch[1] . '.php';
+    } elseif (!str_contains($slug, '/')) {
+        $target = $root . DIRECTORY_SEPARATOR . $slug . '.php';
+    } else {
+        return;
+    }
+    if (is_file($target)) {
+        require $target;
+        exit;
+    }
+}
+
+/**
  * Path aset publik (CSS/JS) dengan prefix subfolder; gunakan di href/src.
  */
 function org_asset_url(string $relativePath): string
@@ -139,7 +223,7 @@ function org_asset_url(string $relativePath): string
     }
     $prefix = org_site_path_prefix();
 
-    return ($prefix === '' ? '' : $prefix) . '/' . $relativePath;
+    return ($prefix === '' ? '' : org_url_path_from_segments($prefix)) . '/' . implode('/', array_map('rawurlencode', explode('/', $relativePath)));
 }
 
 /**

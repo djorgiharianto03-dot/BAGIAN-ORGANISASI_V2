@@ -1,7 +1,16 @@
-﻿<?php
+?php
 declare(strict_types=1);
 
+if (!defined('ORG_ROOT')) {
+    define('ORG_ROOT', __DIR__);
+}
+
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_app.php';
+
+/** Jika mod_rewrite gagal, /profil dll. tidak boleh jatuh ke beranda. */
+org_dispatch_clean_url_from_index();
+
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_session.php';
 org_session_start();
 

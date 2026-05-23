@@ -8,8 +8,14 @@ function org_asset_web_base(): string
         require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_database.php';
         define('ORG_WEB_ROOT', org_site_web_root());
     }
+    if (ORG_WEB_ROOT === '') {
+        return '';
+    }
+    if (!function_exists('org_url_path_from_segments')) {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_app.php';
+    }
 
-    return ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
+    return org_url_path_from_segments(rtrim((string) ORG_WEB_ROOT, '/'));
 }
 
 function org_asset_stylesheet_async(string $relativePath, bool $withVersion = true): string
