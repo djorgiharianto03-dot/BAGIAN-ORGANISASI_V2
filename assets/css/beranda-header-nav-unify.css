@@ -39,62 +39,52 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-header
     box-shadow: var(--sg-nav-shadow-scroll, 0 4px 24px rgba(15, 23, 42, 0.12));
 }
 
-/* Branding / logo / judul */
-body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__topbar,
-body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__top.site-header__topbar {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0.5rem 1rem;
-    width: 100%;
-    max-width: 100%;
-    flex: 0 0 auto;
-    order: 1;
-    margin: 0;
-    padding: 0.2rem 0 0.15rem;
-    min-width: 0;
-    box-sizing: border-box;
-}
-
+/*
+ * Branding atas — identik halaman Profil (smart-governance-portal-nav.css).
+ * !important hanya untuk menang atas beranda-mobile / beranda-premium di bundle.
+ */
 body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__brand.site-header__brand-row,
 body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row {
     display: flex;
     align-items: center;
     flex: 1 1 auto;
     min-width: 0;
+    max-width: none;
+    flex-wrap: nowrap;
     gap: 0.5rem 1rem;
+    box-sizing: border-box;
 }
 
-body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__brand .min-w-0 {
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__brand .min-w-0,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .min-w-0 {
     min-width: 0;
     flex: 1 1 auto;
 }
 
 body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__logo.site-header__logo,
 body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .site-header__logo {
-    max-height: 48px;
-    width: auto;
+    max-height: 48px !important;
+    width: auto !important;
     height: auto;
-    max-width: none;
+    max-width: none !important;
     object-fit: contain;
     flex-shrink: 0;
 }
 
 @media (min-width: 992px) {
-    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__logo {
-        max-height: 52px;
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__logo.site-header__logo,
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .site-header__logo {
+        max-height: 52px !important;
     }
 }
 
 body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__title.site-header__title,
 body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .site-header__title {
-    font-family: var(--sg-nav-font, 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif);
-    font-size: clamp(0.8rem, 0.5vw + 0.7rem, 0.95rem);
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    line-height: 1.25;
-    color: #fff;
+    font-family: var(--sg-nav-font) !important;
+    font-size: clamp(0.8rem, 0.5vw + 0.7rem, 0.95rem) !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em !important;
+    line-height: normal !important;
     margin: 0;
 }
 
@@ -105,12 +95,11 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__title .sit
 
 body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__subtitle.site-header__subtitle,
 body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .site-header__subtitle {
-    font-family: var(--sg-nav-font, 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif);
-    font-size: 0.75rem;
-    font-weight: 400;
-    line-height: 1.35;
-    opacity: 0.92;
-    color: rgba(255, 255, 255, 0.92);
+    font-family: var(--sg-nav-font) !important;
+    font-size: 0.75rem !important;
+    font-weight: 400 !important;
+    line-height: normal !important;
+    opacity: 0.92 !important;
     margin: 0;
 }
 
@@ -233,10 +222,31 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header-doc-search_
 }
 
 @media (max-width: 991.98px) {
-    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail .site-header__brand-row {
-        flex: 1 1 auto;
-        min-width: 0;
-        align-items: center;
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__brand.site-header__brand-row,
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        align-items: center !important;
+        gap: 0.4rem 0.65rem !important;
+    }
+
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__title.site-header__title,
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .site-header__title {
+        font-size: clamp(0.8rem, 0.5vw + 0.7rem, 0.95rem) !important;
+        line-height: normal !important;
+    }
+
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__subtitle.site-header__subtitle,
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .site-header__subtitle {
+        font-size: 0.75rem !important;
+        line-height: normal !important;
+        margin-top: 0 !important;
+    }
+
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__logo.site-header__logo,
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .site-header__logo {
+        max-height: 48px !important;
+        max-width: none !important;
     }
 
     body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__search-wrap,
@@ -256,36 +266,16 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header-doc-search_
         display: none;
     }
 
-    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__title {
-        font-size: clamp(0.8rem, 0.5vw + 0.7rem, 0.95rem);
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-    }
-
-    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__subtitle {
-        font-size: 0.75rem;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        line-height: 1.3;
-    }
-
-    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__logo {
-        max-height: 48px;
-        max-width: 36vw;
-    }
-
     body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail .navbar-wrapper {
         margin-top: clamp(0.5rem, 1.2vw, 1.125rem);
     }
 }
 
 @media (max-width: 575.98px) {
-    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__logo {
-        max-height: 48px;
-        max-width: 36vw;
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__logo.site-header__logo,
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row .site-header__logo {
+        max-height: 48px !important;
+        max-width: 36vw !important;
     }
 }
 

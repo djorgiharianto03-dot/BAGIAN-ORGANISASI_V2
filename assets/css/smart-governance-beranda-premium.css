@@ -391,11 +391,7 @@
     color: var(--sg-text-muted);
 }
 
-/* —— Navbar beranda: lebih ringkas —— */
-.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__topbar {
-    padding: 0.22rem 0 0.18rem;
-}
-
+/* —— Navbar beranda: panel/nav (branding = portal-nav, lihat beranda-header-nav-unify.css) —— */
 .sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
