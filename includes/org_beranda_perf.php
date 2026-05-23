@@ -25,6 +25,61 @@ function org_beranda_is_light_page(): bool
 /**
  * Hapus cache beranda yang hanya berisi array kosong (mencegah galeri/indikator tidak tampil).
  */
+/**
+ * Apakah ada baris target tim untuk grafik beranda.
+ *
+ * @param array<string, list<array<string, mixed>>> $grouped
+ */
+function org_beranda_team_targets_has_chart_data(array $grouped): bool
+{
+    foreach ($grouped as $items) {
+        if (is_array($items) && $items !== []) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/**
+ * Hapus cache target tim kosong (beranda_team_targets_YYYY.json).
+ */
+function org_beranda_purge_stale_team_targets_caches(): void
+{
+    if (!org_runtime_cache_ensure_dir()) {
+        return;
+    }
+    $dir = org_runtime_cache_dir();
+    $paths = glob($dir . DIRECTORY_SEPARATOR . 'beranda_team_targets_*.json');
+    if (!is_array($paths)) {
+        return;
+    }
+    foreach ($paths as $path) {
+        if (!is_string($path) || !is_file($path)) {
+            continue;
+        }
+        $raw = @file_get_contents($path);
+        if ($raw === false || $raw === '') {
+            @unlink($path);
+            continue;
+        }
+        try {
+            $decoded = json_decode($raw, true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException) {
+            @unlink($path);
+            continue;
+        }
+        if (!is_array($decoded)) {
+            @unlink($path);
+            continue;
+        }
+        $grouped = $decoded['grouped'] ?? [];
+        if (!is_array($grouped) || !org_beranda_team_targets_has_chart_data($grouped)) {
+            @unlink($path);
+        }
+    }
+}
+
 function org_beranda_purge_empty_list_caches(): void
 {
     if (!org_runtime_cache_ensure_dir()) {
@@ -805,7 +860,8 @@ function org_beranda_fetch_team_targets_bundle(?mysqli $db, int $requestedYear):
 
     }
 
-    $result['visible'] = true;
+    $result['visible'] = org_team_targets_should_show_on_beranda($db, $showYear)
+        && org_beranda_team_targets_has_chart_data($result['grouped']);
 
     org_runtime_cache_write_json($cacheName, [
 
@@ -815,7 +871,7 @@ function org_beranda_fetch_team_targets_bundle(?mysqli $db, int $requestedYear):
 
         'grouped' => $result['grouped'],
 
-        'visible' => true,
+        'visible' => $result['visible'],
 
     ]);
 
@@ -889,7 +945,7 @@ function org_beranda_load_dashboard_and_team(mysqli $db, int $requestedTeamYear)
     }
 
     if (defined('ORG_BERANDA_PAGE') && ORG_BERANDA_PAGE === true) {
-        $teamVisible = true;
+        $teamVisible = $teamVisible || org_beranda_team_targets_has_chart_data($teamGrouped);
         if ($teamYears === []) {
             $teamTahun = org_team_targets_normalize_tahun($requestedTeamYear);
             $teamYears = [$teamTahun];

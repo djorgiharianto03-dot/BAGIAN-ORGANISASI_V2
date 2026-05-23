@@ -9,8 +9,8 @@ html.sg-portal-html-home body.sg-homepage.sg-portal-page {
 }
 
 body.sg-homepage.sg-portal-page {
-    --container-max: 1180px;
-    --layout-max-width: 1180px;
+    --container-max: 1320px;
+    --layout-max-width: 1320px;
     --beranda-gutter: clamp(1rem, 2vw, 1.25rem);
     --beranda-section-y: clamp(1rem, 1.75vw, 1.5rem);
     --beranda-section-head-gap: 0.75rem;

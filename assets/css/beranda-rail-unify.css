@@ -3,14 +3,14 @@
  * Muat terakhir (setelah site_styles + bundle + shell) agar menimpa semua konflik.
  *
  * Shell = lebar viewport 100% (latar header, hero biru, pita footer).
- * Rail  = kotak konten 1180px + gutter sama di semua .container-global beranda.
+ * Rail  = kotak konten 1320px + gutter sama subhalaman (org-container-global).
  */
 
 body.sg-homepage.sg-portal-page {
-    --sg-rail-width: 1180px;
-    --sg-rail-pad: clamp(1rem, 2vw, 1.25rem);
-    --layout-max-width: 1180px;
-    --container-max: 1180px;
+    --sg-rail-width: 1320px;
+    --sg-rail-pad: clamp(1rem, 2.5vw, 32px);
+    --layout-max-width: 1320px;
+    --container-max: 1320px;
     --beranda-gutter: var(--sg-rail-pad);
     --portal-content-gutter: var(--sg-rail-pad);
 }

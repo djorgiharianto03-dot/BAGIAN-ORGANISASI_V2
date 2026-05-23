@@ -16,6 +16,9 @@ if (function_exists('org_runtime_cache_ensure_dir')) {
 if (function_exists('org_beranda_purge_empty_list_caches')) {
     org_beranda_purge_empty_list_caches();
 }
+if (function_exists('org_beranda_purge_stale_team_targets_caches')) {
+    org_beranda_purge_stale_team_targets_caches();
+}
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_theme_hari_besar.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'staff_users_db.php';

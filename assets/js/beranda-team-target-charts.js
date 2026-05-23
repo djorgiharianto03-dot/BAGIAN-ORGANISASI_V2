@@ -272,4 +272,6 @@
     }
 
     window.addEventListener('load', onBootstrap);
+
+    window.__orgInitGovTeamTargetCharts = initGovTeamTargetCharts;
 })();

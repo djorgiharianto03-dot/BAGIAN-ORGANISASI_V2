@@ -138,7 +138,9 @@ org_portal_prepare_page($bodyClass, false);
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
 
 if (!defined('ORG_BERANDA_NEED_APEX')) {
-    define('ORG_BERANDA_NEED_APEX', !empty($berandaTeamTargetsVisible));
+    $orgBerandaHasTeamChartData = function_exists('org_beranda_team_targets_has_chart_data')
+        && org_beranda_team_targets_has_chart_data($berandaTeamTargetsGrouped ?? []);
+    define('ORG_BERANDA_NEED_APEX', $orgBerandaHasTeamChartData);
 }
 
 $extraHeadMarkup = org_beranda_index_extra_head_markup(

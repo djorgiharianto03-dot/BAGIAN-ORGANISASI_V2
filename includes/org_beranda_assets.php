@@ -154,9 +154,9 @@ function org_beranda_header_vendor_markup(): string
         $out .= org_beranda_premium_polish_stylesheet_link();
     }
 
-    $rail = 'max-width:1180px!important;width:100%!important;margin-left:auto!important;margin-right:auto!important;padding-left:clamp(1rem,2vw,1.25rem)!important;padding-right:clamp(1rem,2vw,1.25rem)!important;box-sizing:border-box!important';
+    $rail = 'max-width:1320px!important;width:100%!important;margin-left:auto!important;margin-right:auto!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important;box-sizing:border-box!important';
     $out .= '<style id="sg-beranda-head-critical">'
-        . 'html.sg-portal-html-home,body.sg-homepage.sg-portal-page{background:#f4f7fb!important;--layout-max-width:1180px;--sg-rail-width:1180px}'
+        . 'html.sg-portal-html-home,body.sg-homepage.sg-portal-page{background:#f4f7fb!important;--layout-max-width:1320px;--sg-rail-width:1320px;--portal-content-gutter:clamp(1rem,2.5vw,32px)'
         . 'body.sg-homepage #sgPortalLoader{display:none!important}'
         . 'body.sg-homepage.sg-portal-page .site-header--sg-portal{position:fixed!important;top:0;left:0;right:0;width:auto!important;max-width:none!important;margin:0!important;z-index:1200;pointer-events:auto;box-sizing:border-box}'
         . 'body.sg-homepage.sg-portal-page .site-header__gradient{display:block;width:100%!important;max-width:none!important;margin:0!important;box-sizing:border-box}'
@@ -165,9 +165,9 @@ function org_beranda_header_vendor_markup(): string
         . 'body.sg-homepage.sg-portal-page .site-header__nav a{pointer-events:auto!important;cursor:pointer}'
         . 'body.sg-homepage.sg-portal-page :is(.header-inner.container-global,.navbar-wrapper.container-global,.site-layout-main>#sg-hero .container-global,#beranda-root.container-global,.site-footer .container-global){' . $rail . '}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main{width:100%!important;max-width:100%!important;background:#f4f7fb!important;display:block!important;min-height:0!important}'
-        . 'body.sg-homepage.sg-portal-page .site-header__rail.header-inner,body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global{display:flex!important;flex-direction:column!important;align-items:stretch!important;flex-wrap:nowrap!important;width:100%!important}'
+        . 'body.sg-homepage.sg-portal-page .site-header__rail.header-inner,body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global{display:flex!important;flex-direction:column!important;align-items:stretch!important;flex-wrap:nowrap!important;width:100%!important;max-width:1320px!important;margin-left:auto!important;margin-right:auto!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important}'
         . 'body.sg-homepage.sg-portal-page .site-header__rail .site-header__topbar{width:100%!important;max-width:100%!important;flex:0 0 auto!important;order:1!important;margin:0!important}'
-        . 'body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper,body.sg-homepage.sg-portal-page .site-header__rail .org-navbar__nav-shell{width:100%!important;max-width:100%!important;flex:0 0 auto!important;order:2!important;margin:.5rem 0 0!important;padding:0!important}'
+        . 'body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper,body.sg-homepage.sg-portal-page .site-header__rail .org-navbar__nav-shell{width:100%!important;max-width:100%!important;flex:0 0 auto!important;order:2!important;margin:clamp(.5rem,1.2vw,1.125rem) 0 0!important;padding:0!important}'
         . 'body.sg-homepage.sg-portal-page .site-header__rail .navbar-panel{width:100%!important;max-width:100%!important;box-sizing:border-box!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero{width:100%!important;max-width:100%!important;margin:0!important;padding-left:0!important;padding-right:0!important;min-height:0!important;height:auto!important;overflow:visible!important;padding-top:calc(var(--sg-portal-header-offset,6.5rem) + .65rem)!important;padding-bottom:.5rem!important;background:linear-gradient(180deg,#0a3d6b,#0c4a7a)!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__bg{display:none!important}'
@@ -289,6 +289,14 @@ function org_beranda_premium_polish_stylesheet_link(): string
     return org_asset_stylesheet_link('assets/css/beranda-premium-polish.css?v=1');
 }
 
+/** Beranda — header/navbar selaras subhalaman (muat paling akhir). */
+function org_beranda_header_nav_unify_stylesheet_link(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css?v=1');
+}
+
 /** Beranda — kartu statistik & dashboard enterprise (sync, cascade terakhir). */
 function org_beranda_dashboard_cards_stylesheet_link(): string
 {
@@ -302,11 +310,12 @@ function org_beranda_home_layout_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-home-layout.css?v=7')
+    return org_asset_stylesheet_link('assets/css/beranda-home-layout.css?v=8')
         . org_beranda_rail_unify_stylesheet_link()
         . org_beranda_hero_fix_active_stylesheet_link()
         . org_beranda_viewport_align_stylesheet_link()
-        . org_beranda_premium_polish_stylesheet_link();
+        . org_beranda_premium_polish_stylesheet_link()
+        . org_beranda_header_nav_unify_stylesheet_link();
 }
 
 /** Beranda — selaraskan lebar viewport (Chrome/Firefox), muat paling akhir. */
@@ -314,7 +323,7 @@ function org_beranda_viewport_align_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-viewport-align.css?v=1');
+    return org_asset_stylesheet_link('assets/css/beranda-viewport-align.css?v=2');
 }
 
 /** Rail 1180px — menimpa site_styles (1200px) & org-container-global. */
@@ -322,7 +331,7 @@ function org_beranda_rail_unify_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-rail-unify.css?v=2');
+    return org_asset_stylesheet_link('assets/css/beranda-rail-unify.css?v=3');
 }
 
 /**
@@ -351,6 +360,16 @@ function org_beranda_deferred_script_tag(): string
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
     $rel = org_assets_beranda_js_relpath('beranda-deferred-load.js');
+
+    return org_asset_script_defer($rel);
+}
+
+/** Muat setelah ApexCharts di footer (grafik target tim kerja). */
+function org_beranda_team_target_charts_script_tag(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
+    $rel = org_assets_beranda_js_relpath('beranda-team-target-charts.js');
 
     return org_asset_script_defer($rel);
 }

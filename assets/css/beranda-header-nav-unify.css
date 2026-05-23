@@ -1,0 +1,172 @@
+/**
+ * Beranda — header & navbar sama ukuran subhalaman (Profil, Dokumen, dll.).
+ * Muat paling akhir; menimpa override beranda-nav-hero / premium-polish / layout-fix.
+ */
+
+body.sg-homepage.sg-portal-page {
+    --layout-max-width: 1320px;
+    --container-max: 1320px;
+    --sg-rail-width: 1320px;
+    --portal-content-gutter: clamp(1rem, 2.5vw, 32px);
+    --beranda-gutter: var(--portal-content-gutter);
+}
+
+/* Rail header = .site-header__rail.container-global subhalaman */
+body.sg-homepage.sg-portal-page .site-header__rail.container-global,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global {
+    width: 100% !important;
+    max-width: var(--layout-max-width, 1320px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: var(--portal-content-gutter) !important;
+    padding-right: var(--portal-content-gutter) !important;
+    box-sizing: border-box !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient {
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__gradient {
+    box-shadow: var(--sg-nav-shadow-scroll, 0 4px 24px rgba(15, 23, 42, 0.12)) !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header__topbar,
+body.sg-homepage.sg-portal-page .org-navbar__top.site-header__topbar {
+    align-items: center !important;
+    gap: 0.5rem 1rem !important;
+    padding: 0.2rem 0 0.15rem !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header__brand-row,
+body.sg-homepage.sg-portal-page .org-navbar__brand.site-header__brand-row {
+    align-items: center !important;
+    gap: 0.5rem 1rem !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header__logo,
+body.sg-homepage.sg-portal-page .org-navbar__logo {
+    max-height: 48px !important;
+    max-width: none !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+}
+
+@media (min-width: 992px) {
+    body.sg-homepage.sg-portal-page .site-header__logo,
+    body.sg-homepage.sg-portal-page .org-navbar__logo {
+        max-height: 52px !important;
+    }
+}
+
+body.sg-homepage.sg-portal-page .site-header__title {
+    font-family: var(--sg-nav-font, 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif) !important;
+    font-size: clamp(0.8rem, 0.5vw + 0.7rem, 0.95rem) !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em !important;
+    line-height: 1.25 !important;
+    color: #fff !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header__subtitle {
+    font-family: var(--sg-nav-font, 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif) !important;
+    font-size: 0.75rem !important;
+    font-weight: 400 !important;
+    line-height: 1.35 !important;
+    opacity: 0.92 !important;
+    color: rgba(255, 255, 255, 0.92) !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper,
+body.sg-homepage.sg-portal-page .site-header__rail .org-navbar__nav-shell,
+body.sg-homepage.sg-portal-page .navbar-wrapper {
+    margin-top: clamp(0.5rem, 1.2vw, 1.125rem) !important;
+    padding: 0 !important;
+}
+
+body.sg-homepage.sg-portal-page .navbar-panel,
+body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 88px !important;
+    margin: 0 !important;
+    padding: 0.35rem 0 !important;
+    border-radius: 20px !important;
+    border: 1px solid var(--sg-nav-panel-border, rgba(147, 197, 253, 0.18)) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.07),
+        0 10px 32px rgba(0, 10, 28, 0.42) !important;
+}
+
+body.sg-homepage.sg-portal-page .navbar-panel .site-header__nav-row,
+body.sg-homepage.sg-portal-page .site-header__nav-wrap .site-header__nav-row {
+    min-height: var(--sg-nav-row-min-h, 48px) !important;
+    padding: 0.12rem 0 !important;
+    gap: 0.45rem 0.75rem !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header__nav a {
+    font-family: var(--sg-nav-font, 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif) !important;
+    font-size: clamp(0.8125rem, 0.25vw + 0.78rem, 0.9375rem) !important;
+    font-weight: 500 !important;
+    padding: 0.45rem 0.75rem !important;
+    min-height: var(--sg-nav-tap, 40px) !important;
+    border-radius: 0.75rem !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header__actions-end .btn,
+body.sg-homepage.sg-portal-page .site-header__actions-end .btn-header-dashboard,
+body.sg-homepage.sg-portal-page .site-header__actions-end .btn-header-login,
+body.sg-homepage.sg-portal-page .site-header__actions-end .btn-header-logout {
+    min-height: var(--sg-nav-tap, 40px) !important;
+    height: auto !important;
+    padding: 0.45rem 0.75rem !important;
+    font-size: clamp(0.8125rem, 0.25vw + 0.78rem, 0.875rem) !important;
+    font-weight: 600 !important;
+    border-radius: 0.75rem !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header-doc-search__submit,
+body.sg-homepage.sg-portal-page .org-navbar__search-submit {
+    width: auto !important;
+    height: auto !important;
+    min-width: var(--sg-nav-tap, 40px) !important;
+    margin: 0 !important;
+}
+
+@media (max-width: 991.98px) {
+    body.sg-homepage.sg-portal-page .site-header__rail.container-global,
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global {
+        padding-left: var(--portal-content-gutter) !important;
+        padding-right: var(--portal-content-gutter) !important;
+    }
+
+    body.sg-homepage.sg-portal-page .site-header__title {
+        font-size: clamp(0.8rem, 0.5vw + 0.7rem, 0.95rem) !important;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    body.sg-homepage.sg-portal-page .site-header__subtitle {
+        font-size: 0.75rem !important;
+    }
+
+    body.sg-homepage.sg-portal-page .site-header__logo,
+    body.sg-homepage.sg-portal-page .org-navbar__logo {
+        max-height: 48px !important;
+        max-width: 36vw !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    body.sg-homepage.sg-portal-page .site-header__logo,
+    body.sg-homepage.sg-portal-page .org-navbar__logo {
+        max-height: 48px !important;
+        max-width: 36vw !important;
+    }
+}

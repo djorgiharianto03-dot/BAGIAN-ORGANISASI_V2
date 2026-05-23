@@ -72,7 +72,7 @@ body.sg-homepage.sg-portal-page .site-header__rail.container-global,
 body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global,
 body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-wrapper.container-global {
     width: 100%;
-    max-width: var(--layout-max-width, 1180px);
+    max-width: var(--layout-max-width, 1320px);
     margin-left: auto;
     margin-right: auto;
     box-sizing: border-box;

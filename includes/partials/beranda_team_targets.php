@@ -208,6 +208,27 @@ $baseUrl = strtok($_SERVER['REQUEST_URI'] ?? 'index.php', '?') ?: 'index.php';
                     </div>
 
                     <script type="application/json" id="gov-team-target-charts-data"><?php echo $govTeamTargetChartJson; ?></script>
+                    <script>
+                    (function () {
+                        'use strict';
+                        function bootTeamCharts() {
+                            if (typeof window.__orgInitGovTeamTargetCharts === 'function') {
+                                window.__orgInitGovTeamTargetCharts();
+                            }
+                        }
+                        document.addEventListener('beranda:apex-ready', bootTeamCharts);
+                        if (document.readyState === 'loading') {
+                            document.addEventListener('DOMContentLoaded', function () {
+                                if (typeof ApexCharts !== 'undefined') {
+                                    bootTeamCharts();
+                                }
+                            });
+                        } else if (typeof ApexCharts !== 'undefined') {
+                            bootTeamCharts();
+                        }
+                        window.addEventListener('load', bootTeamCharts);
+                    }());
+                    </script>
                 <?php endif; ?>
             </div>
         </section>

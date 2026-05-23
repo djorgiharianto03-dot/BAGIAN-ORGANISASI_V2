@@ -8,9 +8,9 @@ body.sg-homepage.sg-portal-page {
 }
 
 body.sg-homepage.sg-portal-page {
-    --container-max: 1180px;
-    --layout-max-width: 1180px;
-    --beranda-gutter: clamp(1rem, 2vw, 1.25rem);
+    --container-max: 1320px;
+    --layout-max-width: 1320px;
+    --beranda-gutter: clamp(1rem, 2.5vw, 32px);
     --beranda-section-y: clamp(1.35rem, 2.5vw, 2rem);
     --beranda-section-head-gap: 0.875rem;
     --beranda-card-radius: 12px;
@@ -122,26 +122,7 @@ body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel {
     margin-right: 0;
 }
 
-/* Navbar — judul & logo proporsional */
-body.sg-homepage.sg-portal-page .site-header__title {
-    font-size: clamp(1.05rem, 0.9rem + 0.35vw, 1.3rem) !important;
-    line-height: 1.25;
-}
-
-body.sg-homepage.sg-portal-page .site-header__subtitle {
-    font-size: clamp(0.8125rem, 0.75rem + 0.15vw, 0.9375rem) !important;
-    line-height: 1.35;
-}
-
-body.sg-homepage.sg-portal-page .site-header__logo {
-    max-height: clamp(56px, 10vw, 76px) !important;
-    width: auto;
-    height: auto;
-}
-
-body.sg-homepage.sg-portal-page .navbar-panel {
-    max-width: 100%;
-}
+/* Header/navbar: beranda-header-nav-unify.css (selaras subhalaman) */
 
 /* Hero — tinggi wajar */
 body.sg-homepage.sg-portal-page > #sg-hero.hero-section,

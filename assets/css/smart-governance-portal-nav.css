@@ -669,7 +669,9 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-
     align-items: stretch !important;
     flex-wrap: nowrap !important;
     width: 100% !important;
-    max-width: 100% !important;
+    max-width: var(--layout-max-width, 1320px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
 
 body.sg-homepage.sg-portal-page .site-header__rail .site-header__topbar {
