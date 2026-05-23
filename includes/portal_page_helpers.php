@@ -59,7 +59,8 @@ function org_portal_head_markup_beranda(string $existing = ''): string
         /* Sync paling akhir — menimpa portal.css / portal-nav (bundle async dimuat lebih dulu) */
         $base .= org_beranda_hero_fix_active_stylesheet_link()
             . org_asset_stylesheet_link('assets/css/beranda-nav-hero.css')
-            . org_beranda_header_nav_unify_stylesheet_link();
+            . org_beranda_header_nav_unify_stylesheet_link()
+            . org_beranda_viewport_align_stylesheet_link();
     } else {
         $base .= org_beranda_govtech_styles_async_markup()
             . org_beranda_hero_fix_active_stylesheet_link()

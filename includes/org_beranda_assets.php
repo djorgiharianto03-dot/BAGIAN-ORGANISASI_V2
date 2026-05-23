@@ -155,10 +155,10 @@ function org_beranda_header_vendor_markup(): string
     $out .= '<style id="sg-beranda-head-critical">'
         . 'html.sg-portal-html-home,body.sg-homepage.sg-portal-page{background:#f4f7fb!important;--layout-max-width:1320px;--sg-rail-width:1320px;--portal-content-gutter:clamp(1rem,2.5vw,32px)'
         . 'body.sg-homepage #sgPortalLoader{display:none!important}'
-        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal{position:fixed!important;top:0;left:0;right:0;width:auto!important;max-width:none!important;margin:0!important;z-index:1200;pointer-events:auto;box-sizing:border-box}'
-        . 'body.sg-homepage.sg-portal-page .site-header__gradient{display:block;width:100%!important;max-width:none!important;margin:0!important;box-sizing:border-box}'
+        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal{position:fixed!important;top:0;left:0;right:0;width:100%!important;max-width:100%!important;margin:0!important;z-index:1200;pointer-events:auto;box-sizing:border-box}'
+        . 'body.sg-homepage.sg-portal-page .site-header__gradient{display:block;width:100%!important;max-width:100%!important;margin:0!important;box-sizing:border-box}'
         . 'html.sg-portal-html-home{overflow-y:auto!important;overflow-x:clip!important;width:100%!important;max-width:100%!important;scrollbar-gutter:auto!important}'
-        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage.sg-portal-page .site-layout-main>section#sg-hero{width:100%!important;max-width:none!important;margin-left:0!important;margin-right:0!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage.sg-portal-page .site-layout-main>section#sg-hero{width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important;box-sizing:border-box!important}'
         . 'body.sg-homepage.sg-portal-page .site-header__nav a{pointer-events:auto!important;cursor:pointer}'
         . 'body.sg-homepage.sg-portal-page :is(.header-inner.container-global,.navbar-wrapper.container-global,.site-layout-main>#sg-hero .container-global,#beranda-root.container-global,.site-footer .container-global){' . $rail . '}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main{width:100%!important;max-width:100%!important;background:#f4f7fb!important;display:block!important;min-height:0!important}'
@@ -309,7 +309,7 @@ function org_beranda_viewport_align_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-viewport-align.css?v=2');
+    return org_asset_stylesheet_link('assets/css/beranda-viewport-align.css?v=3');
 }
 
 /** Rail 1180px — menimpa site_styles (1200px) & org-container-global. */

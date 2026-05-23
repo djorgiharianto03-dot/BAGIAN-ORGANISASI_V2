@@ -16,12 +16,12 @@ body.sg-portal-page .site-header--sg-portal {
     left: 0;
     right: 0;
     width: 100%;
-    max-width: none;
+    max-width: 100%;
 }
 
 body.sg-portal-page .site-header--sg-portal .site-header__gradient {
     width: 100%;
-    max-width: none;
+    max-width: 100%;
 }
 
 /* Header gradient & panel nav: org-container-global.css (--sg-header-gradient) */
@@ -45,9 +45,10 @@ body.sg-portal-page .site-layout-main,
 body.sg-portal-page .sg-portal-main,
 body.sg-portal-page .sg-portal-main-inner {
     width: 100%;
-    max-width: none;
+    max-width: 100%;
     margin-left: 0;
     margin-right: 0;
+    box-sizing: border-box;
 }
 
 /* .site-main → org-container-global.css */
