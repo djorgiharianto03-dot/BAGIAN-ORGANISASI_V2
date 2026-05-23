@@ -189,6 +189,8 @@ if ($dbApp !== null) {
         org_site_content_ensure_installed($dbApp);
         org_galeri_ensure_table($dbApp);
         org_saran_kritik_ensure_table($dbApp);
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'surat_disposisi_db.php';
+        org_arsip_surat_disposisi_ensure_tables($dbApp);
     }
 }
 if ($dbApp !== null) {
@@ -424,6 +426,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif (!$isAdmin) {
             $message = 'Akses ditolak. Silakan login sebagai Admin terlebih dahulu.';
             $messageType = 'danger';
+        } elseif (!org_staff_can_manage_perpustakaan_dokumen()) {
+            $message = 'Akses ditolak. Unggah dokumen hanya untuk Admin.';
+            $messageType = 'danger';
         } else {
             $uploadResult = org_dokumen_process_upload(
                 isset($_FILES['dokumen']) && is_array($_FILES['dokumen']) ? $_FILES['dokumen'] : null,
@@ -440,6 +445,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $messageType = 'danger';
         } elseif (!$isAdmin) {
             $message = 'Akses ditolak. Silakan login sebagai Admin terlebih dahulu.';
+            $messageType = 'danger';
+        } elseif (!org_staff_can_manage_perpustakaan_dokumen()) {
+            $message = 'Akses ditolak. Hapus dokumen hanya untuk Admin.';
             $messageType = 'danger';
         } else {
             $deleteResult = org_dokumen_delete_library_file((string) ($_POST['file_name'] ?? ''));

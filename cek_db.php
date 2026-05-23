@@ -225,6 +225,37 @@ try {
     log_line($log, 'ok', 'Tabel galeri siap.');
 
     // -----------------------------------------------------------------------------
+    // 6c) Tabel arsip_surat & surat_disposisi (disposisi Sub Admin E-Org → Kabag)
+    // -----------------------------------------------------------------------------
+    $arsipDispoSql = $root . DIRECTORY_SEPARATOR . 'install' . DIRECTORY_SEPARATOR . 'arsip_surat_surat_disposisi.sql';
+    if (is_file($arsipDispoSql)) {
+        $sqlBody = (string) file_get_contents($arsipDispoSql);
+        foreach (array_filter(array_map('trim', preg_split('/;\s*\R/', $sqlBody))) as $stmt) {
+            if ($stmt === '' || str_starts_with($stmt, '--') || str_starts_with(strtoupper($stmt), 'SET ')) {
+                if (str_starts_with(strtoupper($stmt), 'SET ')) {
+                    $mysqli->query($stmt);
+                }
+                continue;
+            }
+            $mysqli->query($stmt);
+        }
+        log_line($log, 'ok', 'Tabel arsip_surat & surat_disposisi siap (alur disposisi ke Kabag_organisasi).');
+    } else {
+        require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'surat_disposisi_db.php';
+        if (org_arsip_surat_disposisi_ensure_tables($mysqli)) {
+            log_line($log, 'ok', 'Tabel arsip_surat & surat_disposisi siap (via ensure PHP).');
+        } else {
+            log_line($log, 'error', 'Gagal membuat tabel arsip_surat / surat_disposisi.');
+        }
+    }
+
+    require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'surat_disposisi_db.php';
+    $syncedArsip = org_arsip_surat_disposisi_sync_from_meta($mysqli, $root, 500);
+    if ($syncedArsip > 0) {
+        log_line($log, 'ok', 'Sinkron arsip JSON → arsip_surat: ' . $syncedArsip . ' baris baru.');
+    }
+
+    // -----------------------------------------------------------------------------
     // 7) Isi baris default site_content (id=1) jika belum ada
     // -----------------------------------------------------------------------------
     $check = $mysqli->query('SELECT COUNT(*) AS c FROM site_content WHERE id = 1 LIMIT 1');

@@ -38,6 +38,7 @@ $canDeleteStaffAccount = $isSuperAdminActor || $isAdminActor;
 $isSubAdminActor = $sessionRoleNorm === 'sub_admin_eorganisasi' || $sessionRoleNorm === 'sub_admin_publikasi';
 $isSubAdminEorgActor = $sessionRoleNorm === 'sub_admin_eorganisasi';
 $isSubAdminPublikasiActor = $sessionRoleNorm === 'sub_admin_publikasi';
+$canManagePerpustakaanDokumen = org_staff_can_manage_perpustakaan_dokumen();
 
 $siteSettingsFile = $root . DIRECTORY_SEPARATOR . 'site_settings.json';
 $defaultSiteSettings = [
@@ -454,8 +455,8 @@ $idAdminSess = (string) ($_SESSION['admin_username'] ?? 'admin');
 $namaAdminSess = (string) ($_SESSION['admin_display'] ?? $idAdminSess);
 
 if ($isPost && $csrfValid && $postedAction === 'upload') {
-    if ($isSubAdminPublikasiActor) {
-        $flashErr = 'Akses ditolak.';
+    if (!$canManagePerpustakaanDokumen) {
+        $flashErr = 'Akses ditolak. Unggah dokumen hanya untuk Admin.';
     } else {
         $uploadResult = org_dokumen_process_upload(
             isset($_FILES['dokumen']) && is_array($_FILES['dokumen']) ? $_FILES['dokumen'] : null,
@@ -473,8 +474,8 @@ if ($isPost && $csrfValid && $postedAction === 'upload') {
 }
 
 if ($isPost && $csrfValid && $postedAction === 'delete_file') {
-    if ($isSubAdminPublikasiActor) {
-        $flashErr = 'Akses ditolak.';
+    if (!$canManagePerpustakaanDokumen) {
+        $flashErr = 'Akses ditolak. Hapus dokumen hanya untuk Admin.';
     } else {
         $deleteResult = org_dokumen_delete_library_file((string) ($_POST['file_name'] ?? ''));
         if ($deleteResult['type'] === 'success') {
@@ -1455,9 +1456,13 @@ $dashMetrics['kepuasan_publik'] = (int) min(100, max(0, round(
     <script>
         var DASH_IS_SUB_ADMIN = <?php echo $isSubAdminActor ? 'true' : 'false'; ?>;
         var DASH_IS_SUB_ADMIN_PUB = <?php echo $isSubAdminPublikasiActor ? 'true' : 'false'; ?>;
+        var DASH_CAN_MANAGE_DOKUMEN = <?php echo $canManagePerpustakaanDokumen ? 'true' : 'false'; ?>;
         if (DASH_IS_SUB_ADMIN) {
             try {
                 var badHashes = ['#panel-manajemen-staf', '#panel-digital-library-stats', '#panel-audit', '#tab-konten'];
+                if (!DASH_CAN_MANAGE_DOKUMEN) {
+                    badHashes.push('#panel-unggah-dokumen', '#panel-kelola-dokumen');
+                }
                 if (DASH_IS_SUB_ADMIN_PUB) {
                     badHashes.push('#panel-akses-cepat', '#panel-layanan');
                 }

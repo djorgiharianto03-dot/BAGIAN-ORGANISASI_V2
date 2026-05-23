@@ -333,7 +333,7 @@ foreach ($libRows as $countFile) {
                         </svg>
                         <h3 class="doc-center-empty-page__title">Belum ada dokumen</h3>
                         <p class="doc-center-empty-page__text">Unggah berkas resmi melalui dashboard admin agar masyarakat dapat mengaksesnya dari halaman ini.</p>
-                        <?php if (!empty($isAdmin)): ?>
+                        <?php if (!empty($isAdmin) && function_exists('org_staff_can_manage_perpustakaan_dokumen') && org_staff_can_manage_perpustakaan_dokumen()): ?>
                             <a class="doc-center-btn doc-center-btn--download doc-center-empty-page__cta" href="admin/dashboard.php#panel-unggah-dokumen">
                                 <i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i>
                                 <span>Unggah dokumen</span>

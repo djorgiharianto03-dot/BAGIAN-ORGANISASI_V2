@@ -1,6 +1,6 @@
 <?php
 /** @var string $adminName @var string $adminRoleLabel @var string $csrfToken */
-/** @var bool $isSubAdminEorgActor @var bool $isSubAdminPublikasiActor @var bool $isSubAdminActor @var bool $auditRiwayatVisible */
+/** @var bool $isSubAdminEorgActor @var bool $isSubAdminPublikasiActor @var bool $isSubAdminActor @var bool $auditRiwayatVisible @var bool $canManagePerpustakaanDokumen */
 $sgInitials = htmlspecialchars(mb_strtoupper(mb_substr(strip_tags($adminName), 0, 2, 'UTF-8')), ENT_QUOTES, 'UTF-8');
 ?>
 <div class="sg-app" id="sgApp">
@@ -89,10 +89,11 @@ $sgInitials = htmlspecialchars(mb_strtoupper(mb_substr(strip_tags($adminName), 0
                     <i data-lucide="globe"></i><span>Layanan Publik</span>
                 </a>
                 <?php endif; ?>
-                <?php if (!$isSubAdminPublikasiActor): ?>
+                <?php if ($canManagePerpustakaanDokumen): ?>
                 <a class="sg-nav-item" href="#" data-sg-module="dokumen" data-sg-label="Dokumen">
                     <i data-lucide="folder-open"></i><span>Dokumen</span>
                 </a>
+                <?php endif; ?>
                 <?php if (!$isSubAdminActor): ?>
                 <a class="sg-nav-item" href="#" data-sg-module="pegawai" data-sg-label="Pegawai">
                     <i data-lucide="users"></i><span>Pegawai</span>
@@ -110,7 +111,6 @@ $sgInitials = htmlspecialchars(mb_strtoupper(mb_substr(strip_tags($adminName), 0
                 <a class="sg-nav-item" href="#" data-sg-module="pengaturan" data-sg-label="Pengaturan">
                     <i data-lucide="settings"></i><span>Pengaturan</span>
                 </a>
-                <?php endif; ?>
                 <?php endif; ?>
             </nav>
         </aside>

@@ -147,7 +147,7 @@
         <?php endif; ?>
 
 
-        <?php if (!$isSubAdminPublikasiActor): ?>
+        <?php if ($canManagePerpustakaanDokumen): ?>
         <div id="panel-unggah-dokumen" class="card border-0 shadow-sm dash-section">
             <div class="card-body p-4">
                 <h2 class="h5 mb-2">Unggah dokumen</h2>
@@ -181,7 +181,7 @@
         </div>
         <?php endif; ?>
 
-        <?php if (!$isSubAdminPublikasiActor): ?>
+        <?php if ($canManagePerpustakaanDokumen): ?>
         <?php require __DIR__ . DIRECTORY_SEPARATOR . 'panel_kelola_dokumen.php'; ?>
         <?php endif; ?>
 

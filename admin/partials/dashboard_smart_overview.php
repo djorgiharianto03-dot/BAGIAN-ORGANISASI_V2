@@ -3,7 +3,7 @@
 /** @var string $adminName */
 /** @var string $adminRoleLabel */
 /** @var array<string, mixed> $dashMetrics */
-/** @var bool $isSubAdminPublikasiActor */
+/** @var bool $isSubAdminPublikasiActor @var bool $canManagePerpustakaanDokumen */
 /** @var bool $auditRiwayatVisible */
 
 $showTamuChart = !$isSubAdminPublikasiActor;
@@ -253,10 +253,12 @@ $hasTarget = count($dashMetrics['target_labels'] ?? []) > 0;
             </div>
         </div>
         <div class="sg-quick-grid">
-            <a class="sg-quick-btn" href="#panel-unggah-dokumen" data-sidebar-link data-section-target="panel-unggah-dokumen">
+            <?php if ($canManagePerpustakaanDokumen): ?>
+            <a class="sg-quick-btn" href="#panel-unggah-dokumen" data-sidebar-link data-section-target="panel-unggah-dokumen" data-sg-module="dokumen">
                 <span class="sg-quick-btn__icon"><i data-lucide="cloud-upload"></i></span>
                 Unggah dokumen
             </a>
+            <?php endif; ?>
             <a class="sg-quick-btn" href="#tab-pusat" data-sidebar-link data-tab-target="tab-pusat" data-bs-toggle="tab" data-bs-target="#tab-pusat" role="tab">
                 <span class="sg-quick-btn__icon"><i data-lucide="newspaper"></i></span>
                 Berita &amp; info
