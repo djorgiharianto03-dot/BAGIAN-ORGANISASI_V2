@@ -1,0 +1,330 @@
+/**
+ * Beranda — final polish: enterprise smart government (ringan, tanpa animasi berat).
+ * Muat paling akhir; tidak mengubah struktur layout.
+ */
+
+body.sg-homepage.sg-portal-page {
+    --sg-beranda-display: clamp(1.5rem, 1.18rem + 0.85vw, 1.95rem);
+    --sg-beranda-subline: clamp(0.875rem, 0.82rem + 0.18vw, 1rem);
+    --sg-beranda-body: 0.8125rem;
+    --sg-beranda-eyebrow: 0.625rem;
+    --sg-beranda-stat-shadow: 0 1px 2px rgba(15, 23, 42, 0.05), 0 6px 20px rgba(15, 23, 42, 0.09);
+    --sg-beranda-stat-border: rgba(255, 255, 255, 0.14);
+    --sg-beranda-hero-pad-top: calc(var(--sg-portal-header-offset, 6.25rem) + 0.9rem);
+}
+
+/* —— Navbar: compact & premium —— */
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient {
+    padding: 0.5rem 0 0.42rem !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header__topbar {
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+}
+
+body.sg-homepage.sg-portal-page .site-header__brand-row {
+    align-items: center;
+    gap: 0.55rem 0.7rem;
+    min-width: 0;
+}
+
+body.sg-homepage.sg-portal-page .site-header__brand-row > a.inline-flex {
+    align-items: center;
+    flex-shrink: 0;
+    line-height: 0;
+}
+
+body.sg-homepage.sg-portal-page .site-header__brand-row > .min-w-0 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.06rem;
+    min-width: 0;
+}
+
+body.sg-homepage.sg-portal-page .site-header__logo,
+body.sg-homepage.sg-portal-page .org-navbar__logo {
+    max-height: 44px !important;
+    width: auto;
+}
+
+body.sg-homepage.sg-portal-page .site-header__title {
+    font-family: var(--sg-nav-font, 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif) !important;
+    font-size: clamp(0.875rem, 0.8rem + 0.22vw, 1rem) !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.045em !important;
+    line-height: 1.15 !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header__subtitle {
+    font-size: 0.6875rem !important;
+    font-weight: 400 !important;
+    line-height: 1.3 !important;
+    letter-spacing: 0.01em;
+    opacity: 0.9;
+}
+
+body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper,
+body.sg-homepage.sg-portal-page .site-header__rail .org-navbar__nav-shell {
+    margin-top: 0.4rem !important;
+}
+
+body.sg-homepage.sg-portal-page .navbar-panel,
+body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel {
+    padding: 0.2rem 0.3rem !important;
+    border-radius: 9px !important;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05), 0 4px 16px rgba(0, 8, 24, 0.18) !important;
+}
+
+body.sg-homepage.sg-portal-page .navbar-panel .site-header__nav-row {
+    min-height: 2.5rem !important;
+    padding: 0.1rem 0.2rem;
+    gap: 0.3rem 0.55rem;
+}
+
+body.sg-homepage.sg-portal-page .site-header__nav a {
+    font-size: 0.78125rem !important;
+    font-weight: 500 !important;
+    padding: 0.38rem 0.62rem !important;
+    border-radius: 7px !important;
+}
+
+/* Tombol kanan — lebih proporsional */
+body.sg-homepage.sg-portal-page .site-header__actions-end {
+    gap: 0.35rem !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header__actions-end .btn,
+body.sg-homepage.sg-portal-page .site-header__actions-end .btn-header-dashboard,
+body.sg-homepage.sg-portal-page .site-header__actions-end .btn-header-login,
+body.sg-homepage.sg-portal-page .site-header__actions-end .btn-header-logout {
+    min-height: 34px !important;
+    height: 34px !important;
+    padding: 0 0.72rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.02em !important;
+    border-radius: 8px !important;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.14) !important;
+    transform: none !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header__actions-end .btn:hover,
+body.sg-homepage.sg-portal-page .site-header__actions-end .btn-header-dashboard:hover,
+body.sg-homepage.sg-portal-page .site-header__actions-end .btn-header-login:hover,
+body.sg-homepage.sg-portal-page .site-header__actions-end .btn-header-logout:hover {
+    transform: none !important;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.16) !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header__actions-end .btn i {
+    font-size: 0.72rem !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header-doc-search__submit,
+body.sg-homepage.sg-portal-page .org-navbar__search-submit {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px;
+    margin: 2px !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header-doc-search__field,
+body.sg-homepage.sg-portal-page .org-navbar__search-field {
+    min-height: 34px !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header-doc-search__input,
+body.sg-homepage.sg-portal-page .org-navbar__search-input {
+    font-size: 0.78125rem !important;
+    padding: 0.4rem 0.55rem !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header__nav-toggle {
+    min-height: 34px !important;
+    min-width: 34px !important;
+    padding: 0 0.55rem !important;
+}
+
+/* —— Hero: spacing & tipografi —— */
+body.sg-homepage.sg-portal-page > #sg-hero,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero {
+    padding-top: var(--sg-beranda-hero-pad-top) !important;
+    padding-bottom: 0.7rem !important;
+}
+
+body.sg-homepage .sg-hero__copy {
+    max-width: 36rem;
+}
+
+body.sg-homepage .sg-hero__eyebrow,
+body.sg-homepage .sg-hero.sg-hero--compact .sg-hero__title-secondary {
+    margin-bottom: 0.45rem !important;
+    padding: 0.2rem 0.5rem !important;
+    font-size: var(--sg-beranda-eyebrow) !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.11em !important;
+    line-height: 1.35 !important;
+}
+
+body.sg-homepage .sg-hero__title {
+    gap: 0.18rem !important;
+    margin-bottom: 0.45rem !important;
+}
+
+body.sg-homepage .sg-hero__title-primary,
+body.sg-homepage .sg-hero.sg-hero--ultra .sg-hero__title-primary {
+    font-family: var(--sg-nav-font, 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif) !important;
+    font-size: var(--sg-beranda-display) !important;
+    font-weight: 700 !important;
+    line-height: 1.14 !important;
+    letter-spacing: -0.025em !important;
+}
+
+body.sg-homepage .sg-hero__title-org,
+body.sg-homepage .sg-hero.sg-hero--ultra .sg-hero__title-org {
+    font-size: var(--sg-beranda-subline) !important;
+    font-weight: 500 !important;
+    line-height: 1.38 !important;
+    color: rgba(226, 232, 240, 0.9) !important;
+    -webkit-text-fill-color: rgba(226, 232, 240, 0.9) !important;
+}
+
+body.sg-homepage .sg-hero__tagline,
+body.sg-homepage .sg-hero.sg-hero--ultra .sg-hero__tagline {
+    font-size: var(--sg-beranda-body) !important;
+    line-height: 1.55 !important;
+    color: rgba(203, 213, 225, 0.92) !important;
+    max-width: 34rem;
+}
+
+body.sg-homepage .sg-hero__cta {
+    margin-top: 0.65rem !important;
+    gap: 0.45rem !important;
+}
+
+body.sg-homepage .sg-hero__cta .sg-btn {
+    min-height: 2.35rem !important;
+    padding: 0.45rem 0.9rem !important;
+    font-size: 0.78125rem !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+}
+
+body.sg-homepage.sg-portal-page .container-global.hero-inner:not(.hero-inner--stacked) {
+    gap: clamp(0.65rem, 1.75vw, 1.1rem) !important;
+}
+
+/* —— Statistik: modern, shadow halus, tanpa blur/animasi —— */
+body.sg-homepage .stats-grid.container-global {
+    margin-top: 0.8rem !important;
+}
+
+body.sg-homepage .sg-hero-stats {
+    gap: 0.45rem !important;
+}
+
+body.sg-homepage .sg-hero-stats .sg-stat-glass,
+body.sg-homepage .sg-hero-stats .sg-stat-display,
+body.sg-homepage .sg-hero-stat-card {
+    min-height: 4.15rem !important;
+    padding: 0.55rem 0.65rem !important;
+    border-radius: 10px !important;
+    background: rgba(255, 255, 255, 0.085) !important;
+    border: 1px solid var(--sg-beranda-stat-border) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: var(--sg-beranda-stat-shadow) !important;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+body.sg-homepage .sg-hero-stats .sg-stat-display:hover,
+body.sg-homepage .sg-hero-stats .sg-stat-display:focus {
+    transform: none !important;
+    box-shadow: var(--sg-beranda-stat-shadow) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+body.sg-homepage .sg-hero-stats .sg-stat-glass__body {
+    gap: 0.28rem !important;
+}
+
+body.sg-homepage .sg-hero-stats .sg-stat-glass__num,
+body.sg-homepage .sg-stat-glass__num {
+    font-family: var(--sg-nav-font, 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif) !important;
+    font-size: clamp(1.125rem, 1rem + 0.3vw, 1.35rem) !important;
+    font-weight: 700 !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.02em !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+}
+
+body.sg-homepage .sg-hero-stats .sg-stat-glass__label,
+body.sg-homepage .sg-stat-glass__label {
+    font-size: 0.625rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.07em !important;
+    text-transform: uppercase;
+    color: rgba(226, 232, 240, 0.78) !important;
+    margin-top: 0 !important;
+}
+
+body.sg-homepage .sg-stat-glass__icon {
+    display: none !important;
+    animation: none !important;
+}
+
+body.sg-homepage .shortcut-grid.container-global {
+    margin-top: 0.7rem !important;
+}
+
+/* Tanpa animasi berat di hero */
+body.sg-homepage .sg-hero .sg-reveal,
+body.sg-homepage .sg-hero [class*='sg-reveal'] {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+}
+
+@media (min-width: 992px) {
+    body.sg-homepage.sg-portal-page .site-header__logo,
+    body.sg-homepage.sg-portal-page .org-navbar__logo {
+        max-height: 46px !important;
+    }
+}
+
+@media (max-width: 991.98px) {
+    body.sg-homepage.sg-portal-page {
+        --sg-beranda-hero-pad-top: calc(var(--sg-portal-header-offset, 5.75rem) + 0.75rem);
+    }
+
+    body.sg-homepage.sg-portal-page .site-header__logo,
+    body.sg-homepage.sg-portal-page .org-navbar__logo {
+        max-height: 40px !important;
+    }
+
+    body.sg-homepage.sg-portal-page .site-header__title {
+        font-size: 0.8125rem !important;
+    }
+
+    body.sg-homepage .sg-hero__title-primary {
+        font-size: clamp(1.4rem, 4.8vw, 1.65rem) !important;
+    }
+
+    body.sg-homepage .sg-hero-stats {
+        gap: 0.4rem !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.sg-homepage .sg-hero-stats .sg-stat-glass,
+    body.sg-homepage .sg-hero-stats .sg-stat-display {
+        transition: none !important;
+    }
+}

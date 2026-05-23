@@ -151,6 +151,7 @@ function org_beranda_header_vendor_markup(): string
         $out .= org_beranda_nav_hero_stylesheet_link();
         $out .= org_beranda_dashboard_cards_stylesheet_link();
         $out .= org_beranda_home_layout_stylesheet_link();
+        $out .= org_beranda_premium_polish_stylesheet_link();
     }
 
     $rail = 'max-width:1180px!important;width:100%!important;margin-left:auto!important;margin-right:auto!important;padding-left:clamp(1rem,2vw,1.25rem)!important;padding-right:clamp(1rem,2vw,1.25rem)!important;box-sizing:border-box!important';
@@ -278,7 +279,15 @@ function org_beranda_nav_hero_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-nav-hero.css');
+    return org_asset_stylesheet_link('assets/css/beranda-nav-hero.css?v=2');
+}
+
+/** Beranda — final polish UI (sync, cascade paling akhir). */
+function org_beranda_premium_polish_stylesheet_link(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+
+    return org_asset_stylesheet_link('assets/css/beranda-premium-polish.css?v=1');
 }
 
 /** Beranda — kartu statistik & dashboard enterprise (sync, cascade terakhir). */
@@ -297,7 +306,8 @@ function org_beranda_home_layout_stylesheet_link(): string
     return org_asset_stylesheet_link('assets/css/beranda-home-layout.css?v=7')
         . org_beranda_rail_unify_stylesheet_link()
         . org_beranda_hero_fix_active_stylesheet_link()
-        . org_beranda_viewport_align_stylesheet_link();
+        . org_beranda_viewport_align_stylesheet_link()
+        . org_beranda_premium_polish_stylesheet_link();
 }
 
 /** Beranda — selaraskan lebar viewport (Chrome/Firefox), muat paling akhir. */
