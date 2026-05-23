@@ -13,10 +13,10 @@ function org_portal_head_markup(string $existing = ''): string
     $assetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
 
     /* Font: sudah dimuat di header.php — hindari duplikasi */
-    $base = '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal.css?v=14', ENT_QUOTES, 'UTF-8') . '">'
+    $base = '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal.css?v=15', ENT_QUOTES, 'UTF-8') . '">'
         . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-enterprise.css?v=3', ENT_QUOTES, 'UTF-8') . '">'
-        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal-nav.css?v=10', ENT_QUOTES, 'UTF-8') . '">'
-        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-subpages.css?v=1', ENT_QUOTES, 'UTF-8') . '">'
+        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal-nav.css?v=11', ENT_QUOTES, 'UTF-8') . '">'
+        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-subpages.css?v=2', ENT_QUOTES, 'UTF-8') . '">'
         . "\n";
 
     return $base . $existing;

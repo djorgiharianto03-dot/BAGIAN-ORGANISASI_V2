@@ -24,35 +24,106 @@
     color: var(--sg-sub-text);
 }
 
-/* —— Subhero: ringkas, formal, tanpa dekorasi berat —— */
+/* —— Subhero compact (semua subhalaman portal_subpage_hero) —— */
+.sg-portal-subpage {
+    --sg-subhero-gap-below-header: clamp(0.35rem, 0.9vw, 0.5rem);
+    --sg-subhero-pad-bottom: clamp(0.75rem, 1.6vw, 1rem);
+    --sg-subhero-inner-x: 24px;
+}
+
 .sg-portal-subpage .sg-ambient-layer--subhero,
 .sg-portal-subpage .sg-subhero .sg-particles {
     display: none;
 }
 
 .sg-portal-subpage .sg-subhero__bg {
-    background: linear-gradient(118deg, #061a33 0%, #0a2f5c 42%, #134e8a 100%);
+    background:
+        linear-gradient(118deg, #061a33 0%, #0a2f5c 48%, #134e8a 100%);
 }
 
+/* Timpa padding besar .sg-subhero di portal.css */
+body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .sg-subhero,
+body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .org-hero.sg-subhero,
 .sg-portal-subpage .sg-subhero {
-    padding-top: var(--sg-subhero-pad-top, calc(var(--sg-portal-header-offset, 6.25rem) + 0.75rem));
-    padding-bottom: clamp(1.15rem, 2.2vw, 1.55rem);
+    padding-top: calc(var(--sg-portal-header-offset, 6.25rem) + var(--sg-subhero-gap-below-header));
+    padding-bottom: var(--sg-subhero-pad-bottom);
+    padding-left: 0;
+    padding-right: 0;
     min-height: 0;
+    scroll-margin-top: var(--sg-portal-header-offset, 6.25rem);
+}
+
+.sg-portal-subpage .sg-subhero .org-hero__container.container-global,
+.sg-portal-subpage .sg-subhero .hero-inner.container-global {
+    padding-left: var(--sg-subhero-inner-x);
+    padding-right: var(--sg-subhero-inner-x);
+}
+
+/* Grid: teks kiri & stat kanan sejajar vertikal (tengah) */
+.sg-portal-subpage .sg-subhero__grid,
+.sg-portal-subpage .org-hero__grid.sg-subhero__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.85rem 1rem;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .sg-portal-subpage .sg-subhero__grid,
+    .sg-portal-subpage .org-hero__grid.sg-subhero__grid {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 1rem 1.5rem;
+        align-items: center;
+    }
+
+    .sg-portal-subpage .sg-subhero__stats,
+    .sg-portal-subpage .org-hero__stats.sg-subhero__stats {
+        align-self: center;
+        justify-self: end;
+    }
+}
+
+.sg-portal-subpage .sg-subhero__copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    padding: 0;
+}
+
+/* Badge → judul → breadcrumb (jarak rapat seperti referensi) */
+body.sg-portal-subpage.sg-portal-page .sg-subhero .org-eyebrow,
+body.sg-portal-subpage.sg-portal-page .sg-subhero .sg-subhero__eyebrow {
+    margin: 0 0 0.45rem;
+    padding: 0.28rem 0.75rem;
+    font-size: 0.625rem;
+    letter-spacing: 0.11em;
 }
 
 .sg-portal-subpage .sg-subhero__title,
 .sg-portal-subpage .sg-subhero .org-hero__title {
-    font-size: clamp(1.35rem, 1.1rem + 1.2vw, 1.85rem);
+    font-size: clamp(1.35rem, 1.05rem + 0.85vw, 1.75rem);
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.2;
-    margin-bottom: 0.5rem;
+    margin: 0 0 0.35rem;
     color: #fff;
 }
 
 .sg-portal-subpage .sg-subhero__lead,
 .sg-portal-subpage .sg-subhero .org-hero__lead {
     color: rgba(255, 255, 255, 0.9);
+    font-size: clamp(0.875rem, 0.82rem + 0.15vw, 0.9375rem);
+    line-height: 1.5;
+    margin: 0 0 0.35rem;
+}
+
+.sg-portal-subpage .sg-subhero__breadcrumb {
+    margin: 0;
+    padding: 0;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    opacity: 0.88;
 }
 
 .sg-portal-subpage .sg-subhero__eyebrow,
@@ -60,35 +131,42 @@
     color: rgba(255, 255, 255, 0.92);
 }
 
-.sg-portal-subpage .sg-subhero__eyebrow {
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.55rem;
-    opacity: 0.92;
+/* Kartu statistik kanan — compact, sejajar blok teks */
+.sg-portal-subpage .sg-subhero__stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(5.5rem, 1fr));
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 16rem;
 }
 
-.sg-portal-subpage .sg-subhero__lead {
-    font-size: clamp(0.9rem, 0.85rem + 0.2vw, 1rem);
-    line-height: 1.55;
-    margin-bottom: 0.65rem;
+@media (min-width: 768px) {
+    .sg-portal-subpage .sg-subhero__stats {
+        width: auto;
+        max-width: none;
+    }
 }
 
 .sg-portal-subpage .sg-subhero__stat {
-    padding: 0.65rem 0.85rem;
-    border-radius: 12px;
+    padding: 0.5rem 0.65rem;
+    border-radius: 10px;
     background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(4px);
+    text-align: left;
 }
 
 .sg-portal-subpage .sg-subhero__stat-num {
-    font-size: clamp(1.25rem, 1rem + 0.8vw, 1.5rem);
+    font-size: clamp(1.15rem, 0.95rem + 0.5vw, 1.35rem);
     font-weight: 700;
+    line-height: 1.1;
 }
 
 .sg-portal-subpage .sg-subhero__stat-label {
-    font-size: 0.7rem;
+    font-size: 0.6875rem;
+    line-height: 1.25;
+    margin-top: 0.15rem;
+    opacity: 0.88;
 }
 
 /* —— Main shell —— */
@@ -312,10 +390,12 @@
     .sg-portal-subpage .sg-subhero__stats {
         grid-template-columns: 1fr 1fr;
         gap: 0.5rem;
+        max-width: 100%;
     }
 
     .sg-portal-subpage .sg-subhero__grid {
-        gap: 1rem;
+        gap: 0.75rem;
+        align-items: start;
     }
 
     .sg-portal-subpage .table-responsive {
