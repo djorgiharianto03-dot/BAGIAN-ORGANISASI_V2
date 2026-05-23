@@ -166,6 +166,10 @@ function org_site_web_root(): string
 
 function org_proses_saran_url(): string
 {
+    if (function_exists('org_page_url')) {
+        return org_page_url('proses_saran.php');
+    }
     $b = org_site_web_root();
-    return ($b === '' ? '' : $b) . '/proses_saran.php';
+
+    return ($b === '' ? '' : $b) . '/proses_saran';
 }

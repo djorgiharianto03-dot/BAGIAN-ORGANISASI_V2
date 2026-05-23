@@ -16,9 +16,9 @@
                 <h3 class="layanan-premium-empty__title">Segera Hadir</h3>
                 <p class="layanan-premium-empty__text">Layanan untuk kategori ini sedang dalam penyusunan. Informasi akan dipublikasikan setelah siap.</p>
                 <div class="layanan-premium-empty__actions mt-3">
-                    <a class="btn btn-sm btn-primary rounded-pill px-3" href="beranda.php">Kembali ke beranda</a>
+                    <a class="btn btn-sm btn-primary rounded-pill px-3" href="<?php echo org_href('index.php'); ?>">Kembali ke beranda</a>
                     <?php if (!empty($isAdmin)): ?>
-                    <a class="btn btn-sm btn-outline-secondary rounded-pill px-3" href="admin/dashboard.php#panel-layanan">Kelola layanan</a>
+                    <a class="btn btn-sm btn-outline-secondary rounded-pill px-3" href="<?php echo org_href('admin/dashboard.php', '', 'panel-layanan'); ?>">Kelola layanan</a>
                     <?php endif; ?>
                 </div>
             </div>

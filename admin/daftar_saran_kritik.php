@@ -4,21 +4,24 @@ $root = dirname(__DIR__);
 require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_session.php';
 org_session_start();
 
+require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
+require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_app.php';
+if (!defined('ORG_WEB_ROOT')) {
+    define('ORG_WEB_ROOT', org_site_web_root());
+}
+
 $csrfToken = org_csrf_token();
 
 if (empty($_SESSION['is_admin'])) {
-    header('Location: ../index.php');
-    exit;
+    org_redirect('index.php');
 }
 
-require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
 require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'staff_users_db.php';
 require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'saran_kritik_db.php';
 
 $roleNorm = org_staff_role_normalize((string) ($_SESSION['level'] ?? $_SESSION['admin_role'] ?? ''));
 if ($roleNorm === 'sub_admin_eorganisasi' || $roleNorm === 'sub_admin_publikasi') {
-    header('Location: dashboard.php');
-    exit;
+    org_redirect('admin/dashboard.php');
 }
 
 $db = org_db();
@@ -52,17 +55,17 @@ $adminName = htmlspecialchars((string) ($_SESSION['admin_display'] ?? 'Admin'), 
 <body>
     <nav class="navbar navbar-expand-lg dash-navbar navbar-dark mb-4">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="dashboard.php">Dashboard Admin</a>
+            <a class="navbar-brand fw-bold" href="<?php echo org_href('admin/dashboard.php'); ?>">Dashboard Admin</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navSaran">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navSaran">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="dashboard.php">Beranda admin</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../index.php" target="_blank" rel="noopener">Situs publik</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo org_href('admin/dashboard.php'); ?>">Beranda admin</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo htmlspecialchars(org_home_url(), ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener">Situs publik</a></li>
                 </ul>
                 <span class="navbar-text text-white-50 small me-3"><?php echo $adminName; ?></span>
-                <form method="post" action="../index.php" class="d-inline mb-0">
+                <form method="post" action="<?php echo htmlspecialchars(org_home_url(), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline mb-0">
                     <input type="hidden" name="action" value="logout">
                     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
                     <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
@@ -77,7 +80,7 @@ $adminName = htmlspecialchars((string) ($_SESSION['admin_display'] ?? 'Admin'), 
                 <h1 class="h4 mb-1">Saran &amp; kritik pengunjung</h1>
                 <p class="text-muted small mb-0">Pesan dari formulir footer situs (pengiriman via AJAX).</p>
             </div>
-            <a class="btn btn-outline-primary btn-sm" href="dashboard.php"><i class="fa-solid fa-arrow-left me-1" aria-hidden="true"></i>Kembali ke dashboard</a>
+            <a class="btn btn-outline-primary btn-sm" href="<?php echo org_href('admin/dashboard.php'); ?>"><i class="fa-solid fa-arrow-left me-1" aria-hidden="true"></i>Kembali ke dashboard</a>
         </div>
 
         <?php if ($db === null): ?>

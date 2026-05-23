@@ -108,7 +108,7 @@ if ($dbApp instanceof mysqli) {
     $pusatInformasiPosts = org_beranda_fetch_pusat_informasi_cached($dbApp, 4, 12);
 
     if (!defined('ORG_BERANDA_LITE_FIRST') || ORG_BERANDA_LITE_FIRST !== true) {
-        $berandaGaleriKegiatan = org_beranda_fetch_galeri_cached($dbApp, 6);
+        $berandaGaleriKegiatan = org_beranda_fetch_galeri_cached($dbApp, 24);
     }
 
     /* index.php SSR partial indikator + target tim — selalu muat (bukan hanya beranda_chunk.php) */

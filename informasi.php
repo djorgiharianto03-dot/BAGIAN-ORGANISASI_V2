@@ -55,7 +55,7 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'head
     <div class="container-global site-main section-spacing">
         <?php if ($post === null): ?>
             <div class="alert alert-warning">Informasi tidak ditemukan atau telah dihapus.</div>
-            <p class="mb-0"><a href="berita.php">Kembali ke Pusat Informasi</a></p>
+            <p class="mb-0"><a href="<?php echo org_href('berita.php'); ?>">Kembali ke Pusat Informasi</a></p>
         <?php else: ?>
             <?php
             $pk = (string) ($post['kategori'] ?? 'berita');
@@ -68,7 +68,7 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'head
             $tglFmt = $tgl !== '' ? date('d/m/Y H:i', strtotime($tgl)) : '';
             ?>
             <nav class="mb-3" aria-label="Breadcrumb">
-                <a class="small text-decoration-none" href="berita.php">&larr; Kembali ke Pusat Informasi &amp; Pengumuman</a>
+                <a class="small text-decoration-none" href="<?php echo org_href('berita.php'); ?>">&larr; Kembali ke Pusat Informasi &amp; Pengumuman</a>
             </nav>
             <article class="card border-0 shadow-sm overflow-hidden">
                 <?php if ($imgU !== ''): ?>

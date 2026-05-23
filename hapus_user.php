@@ -3,20 +3,23 @@
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_session.php';
 org_session_start();
 
-if (empty($_SESSION['is_admin'])) {
-    header('Location: index.php');
-    exit;
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_app.php';
+if (!defined('ORG_WEB_ROOT')) {
+    define('ORG_WEB_ROOT', org_site_web_root());
 }
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
+if (empty($_SESSION['is_admin'])) {
+    org_redirect('index.php');
+}
+
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'staff_users_db.php';
 
 $actorLevel = org_staff_role_normalize((string) ($_SESSION['level'] ?? $_SESSION['admin_role'] ?? ''));
 if (!in_array($actorLevel, ['super_admin', 'admin'], true)) {
     $_SESSION['flash_message'] = 'Akses Ditolak';
     $_SESSION['flash_type'] = 'danger';
-    header('Location: admin/dashboard.php#panel-manajemen-staf');
-    exit;
+    org_redirect('admin/dashboard.php', '', 'panel-manajemen-staf');
 }
 
 $userId = (int) ($_POST['user_id'] ?? $_GET['user_id'] ?? 0);
@@ -24,24 +27,21 @@ $db = org_db();
 if (!($db instanceof mysqli) || $userId < 1) {
     $_SESSION['flash_message'] = 'Permintaan hapus tidak valid.';
     $_SESSION['flash_type'] = 'warning';
-    header('Location: admin/dashboard.php#panel-manajemen-staf');
-    exit;
+    org_redirect('admin/dashboard.php', '', 'panel-manajemen-staf');
 }
 
 $row = org_staff_users_fetch_by_id($db, $userId);
 if ($row === null) {
     $_SESSION['flash_message'] = 'User tidak ditemukan.';
     $_SESSION['flash_type'] = 'warning';
-    header('Location: admin/dashboard.php#panel-manajemen-staf');
-    exit;
+    org_redirect('admin/dashboard.php', '', 'panel-manajemen-staf');
 }
 
 $targetLevel = org_staff_role_normalize((string) ($row['level'] ?? ''));
 if ($targetLevel === 'super_admin') {
     $_SESSION['flash_message'] = 'User super_admin tidak dapat dihapus.';
     $_SESSION['flash_type'] = 'danger';
-    header('Location: admin/dashboard.php#panel-manajemen-staf');
-    exit;
+    org_redirect('admin/dashboard.php', '', 'panel-manajemen-staf');
 }
 
 if (org_staff_users_delete_by_id($db, $userId)) {
@@ -52,5 +52,5 @@ if (org_staff_users_delete_by_id($db, $userId)) {
     $_SESSION['flash_type'] = 'danger';
 }
 
-header('Location: admin/dashboard.php#panel-manajemen-staf');
+org_redirect('admin/dashboard.php', '', 'panel-manajemen-staf');
 exit;

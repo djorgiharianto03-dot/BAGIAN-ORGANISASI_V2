@@ -4,12 +4,16 @@ $root = dirname(__DIR__);
 require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_session.php';
 org_session_start();
 
-if (empty($_SESSION['is_admin'])) {
-    header('Location: ../index.php');
-    exit;
+require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
+require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_app.php';
+if (!defined('ORG_WEB_ROOT')) {
+    define('ORG_WEB_ROOT', org_site_web_root());
 }
 
-require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
+if (empty($_SESSION['is_admin'])) {
+    org_redirect('index.php');
+}
+
 require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'staff_users_db.php';
 require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'site_content_db.php';
 
@@ -48,10 +52,10 @@ $adminName = htmlspecialchars((string) ($_SESSION['admin_display'] ?? 'Admin'), 
 <body>
     <nav class="navbar navbar-expand-lg dash-navbar navbar-dark mb-4">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="dashboard.php">Dashboard</a>
+            <a class="navbar-brand fw-bold" href="<?php echo org_href('admin/dashboard.php'); ?>">Dashboard</a>
             <div class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
                 <span class="navbar-text text-white-50 small me-lg-2"><?php echo $adminName; ?></span>
-                <a class="nav-link text-white py-2" href="dashboard.php#panel-audit">← Kembali ke ringkas</a>
+                <a class="nav-link text-white py-2" href="<?php echo org_href('dashboard.php', '', 'panel-audit'); ?>">← Kembali ke ringkas</a>
             </div>
         </div>
     </nav>
@@ -61,7 +65,7 @@ $adminName = htmlspecialchars((string) ($_SESSION['admin_display'] ?? 'Admin'), 
 
         <?php if (!empty($forbidden)): ?>
             <div class="alert alert-warning mb-2">Akses laporan audit ditolak untuk akun ini.</div>
-            <p class="mb-0"><a href="dashboard.php">Kembali ke dashboard</a></p>
+            <p class="mb-0"><a href="<?php echo org_href('admin/dashboard.php'); ?>">Kembali ke dashboard</a></p>
         <?php else: ?>
             <div class="card shadow-sm border-0">
                 <div class="card-body p-0">

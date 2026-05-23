@@ -19,7 +19,7 @@ declare(strict_types=1);
                                 <?php endif; ?>
                             </div>
                             <footer class="beranda-exec-card__footer mt-auto">
-                                <a class="beranda-exec-ghost-btn beranda-exec-ghost-btn--visi" href="profil.php#profil-visi">
+                                <a class="beranda-exec-ghost-btn beranda-exec-ghost-btn--visi" href="<?php echo org_href('profil.php', '', 'profil-visi'); ?>">
                                     Selengkapnya <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
                                 </a>
                             </footer>
@@ -40,7 +40,7 @@ declare(strict_types=1);
                                 <?php endif; ?>
                             </div>
                             <footer class="beranda-exec-card__footer mt-auto">
-                                <a class="beranda-exec-ghost-btn beranda-exec-ghost-btn--misi" href="profil.php#profil-misi">
+                                <a class="beranda-exec-ghost-btn beranda-exec-ghost-btn--misi" href="<?php echo org_href('profil.php', '', 'profil-misi'); ?>">
                                     Lihat selengkapnya <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
                                 </a>
                             </footer>
@@ -68,7 +68,7 @@ declare(strict_types=1);
                                 </div>
                             </div>
                             <footer class="beranda-exec-card__footer mt-auto">
-                                <a class="beranda-exec-ghost-btn beranda-exec-ghost-btn--struktur" href="profil.php#profil-struktur-organisasi">
+                                <a class="beranda-exec-ghost-btn beranda-exec-ghost-btn--struktur" href="<?php echo org_href('profil.php', '', 'profil-struktur-organisasi'); ?>">
                                     <i class="fa-solid fa-diagram-project" aria-hidden="true"></i> Bagan organisasi
                                 </a>
                             </footer>

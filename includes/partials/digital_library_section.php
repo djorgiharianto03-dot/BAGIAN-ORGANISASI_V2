@@ -26,6 +26,16 @@ if (isset($digitalLibraryHeroSubtitle) && is_string($digitalLibraryHeroSubtitle)
 $hideIntroEyebrow = !empty($digitalLibraryHideIntroEyebrow);
 $hideIntroHeader = !empty($digitalLibraryHideIntroHeader);
 $showFullPageLink = !empty($digitalLibraryShowFullPageLink);
+$showMiniHero = !empty($digitalLibraryShowMiniHero);
+$miniHeroLead = isset($digitalLibraryMiniHeroLead) && is_string($digitalLibraryMiniHeroLead) && trim($digitalLibraryMiniHeroLead) !== ''
+    ? trim($digitalLibraryMiniHeroLead)
+    : 'Temukan dokumen resmi Bagian Organisasi secara cepat dan terstruktur.';
+$miniHeroDesc = isset($digitalLibraryMiniHeroDesc) && is_string($digitalLibraryMiniHeroDesc) && trim($digitalLibraryMiniHeroDesc) !== ''
+    ? trim($digitalLibraryMiniHeroDesc)
+    : 'Akses Perbup, SOP, SAKIP, regulasi, dan dokumen kelembagaan dalam satu portal digital terpadu.';
+$miniHeroBadge = isset($digitalLibraryMiniHeroBadge) && is_string($digitalLibraryMiniHeroBadge) && trim($digitalLibraryMiniHeroBadge) !== ''
+    ? trim($digitalLibraryMiniHeroBadge)
+    : 'Portal dokumen resmi';
 $sectionClasses = 'section-spacing digital-library digital-library--intl digital-library--doc-center';
 if (isset($digitalLibrarySectionExtraClass) && is_string($digitalLibrarySectionExtraClass) && $digitalLibrarySectionExtraClass !== '') {
     $sectionClasses .= ' ' . trim($digitalLibrarySectionExtraClass);
@@ -63,6 +73,31 @@ foreach ($libRows as $countFile) {
             </header>
             <?php else: ?>
             <h2 id="digital-library-heading" class="visually-hidden"><?php echo htmlspecialchars($heroTitle, ENT_QUOTES, 'UTF-8'); ?></h2>
+            <?php endif; ?>
+
+            <?php if ($showMiniHero): ?>
+            <div class="doc-center__mini-hero" role="region" aria-labelledby="doc-center-mini-hero-lead">
+                <div class="doc-center__mini-hero-inner">
+                    <div class="doc-center__mini-hero-icon" aria-hidden="true">
+                        <i class="fa-solid fa-folder-tree"></i>
+                    </div>
+                    <div class="doc-center__mini-hero-content">
+                        <p class="doc-center__mini-hero-badge">
+                            <span class="doc-center__mini-hero-badge-dot" aria-hidden="true"></span>
+                            <?php echo htmlspecialchars($miniHeroBadge, ENT_QUOTES, 'UTF-8'); ?>
+                        </p>
+                        <p id="doc-center-mini-hero-lead" class="doc-center__mini-hero-lead"><?php echo htmlspecialchars($miniHeroLead, ENT_QUOTES, 'UTF-8'); ?></p>
+                        <p class="doc-center__mini-hero-desc"><?php echo htmlspecialchars($miniHeroDesc, ENT_QUOTES, 'UTF-8'); ?></p>
+                        <ul class="doc-center__mini-hero-tags" aria-label="Jenis dokumen">
+                            <li>Perbup</li>
+                            <li>SOP</li>
+                            <li>SAKIP</li>
+                            <li>Regulasi</li>
+                            <li>Kelembagaan</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <?php endif; ?>
 
             <div class="doc-center__sticky">
@@ -337,7 +372,7 @@ foreach ($libRows as $countFile) {
                         <h3 class="doc-center-empty-page__title">Belum ada dokumen</h3>
                         <p class="doc-center-empty-page__text">Unggah berkas resmi melalui dashboard admin agar masyarakat dapat mengaksesnya dari halaman ini.</p>
                         <?php if (!empty($isAdmin) && function_exists('org_staff_can_manage_perpustakaan_dokumen') && org_staff_can_manage_perpustakaan_dokumen()): ?>
-                            <a class="doc-center-btn doc-center-btn--download doc-center-empty-page__cta" href="admin/dashboard.php#panel-unggah-dokumen">
+                            <a class="doc-center-btn doc-center-btn--download doc-center-empty-page__cta" href="<?php echo org_href('admin/dashboard.php', '', 'panel-unggah-dokumen'); ?>">
                                 <i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i>
                                 <span>Unggah dokumen</span>
                             </a>
@@ -345,7 +380,7 @@ foreach ($libRows as $countFile) {
                     </div>
                 <?php endif; ?>
                 <?php if ($showFullPageLink): ?>
-                    <p class="text-muted small mb-0 mt-3"><a href="dokumen.php">Halaman Dokumen lengkap</a> (unggah &amp; kelola untuk admin).</p>
+                    <p class="text-muted small mb-0 mt-3"><a href="<?php echo org_href('dokumen.php'); ?>">Halaman Dokumen lengkap</a> (unggah &amp; kelola untuk admin).</p>
                 <?php endif; ?>
             </div>
         </section>

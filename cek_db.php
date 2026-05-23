@@ -345,6 +345,6 @@ render:
         <code>config/database.php</code> benar (host, user, password, database).<br>
         Setelah sukses, pertimbangkan untuk <strong>menghapus cek_db.php</strong> di lingkungan produksi.
     </p>
-    <p><a href="index.php">Kembali ke beranda</a> · <a href="admin/dashboard.php">Dashboard admin</a></p>
+    <p><a href="<?php echo org_href('index.php'); ?>">Kembali ke beranda</a> · <a href="<?php echo org_href('admin/dashboard.php'); ?>">Dashboard admin</a></p>
 </body>
 </html>

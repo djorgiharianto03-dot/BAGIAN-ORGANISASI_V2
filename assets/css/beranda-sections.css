@@ -1703,3 +1703,100 @@
         position: relative;
         z-index: 1;
     }
+
+    /* —— Beranda: pusat informasi (berita & pengumuman) + galeri scroll —— */
+    body.sg-homepage #beranda-pusat-informasi,
+    body.sg-homepage #beranda-galeri-kegiatan {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    body.sg-homepage #beranda-pusat-informasi .pi-portal-grid--beranda {
+        display: grid;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        gap: clamp(0.875rem, 2vw, 1.25rem);
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+    }
+
+    @media (min-width: 768px) {
+        body.sg-homepage #beranda-pusat-informasi .pi-portal-grid--beranda {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (min-width: 992px) {
+        body.sg-homepage #beranda-pusat-informasi .pi-portal-grid--beranda {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+
+    body.sg-homepage #beranda-pusat-informasi .pi-portal-grid__cell {
+        display: flex;
+        min-width: 0;
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+    }
+
+    body.sg-homepage #beranda-galeri-kegiatan .beranda-galeri-scroll {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        gap: clamp(0.75rem, 2vw, 1.25rem);
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x proximity;
+        scroll-padding-inline: 0.25rem;
+        padding-bottom: 0.4rem;
+        width: 100%;
+        max-width: 100%;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(15, 98, 207, 0.45) transparent;
+    }
+
+    body.sg-homepage #beranda-galeri-kegiatan .beranda-galeri-scroll::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    body.sg-homepage #beranda-galeri-kegiatan .beranda-galeri-scroll::-webkit-scrollbar-thumb {
+        background: rgba(15, 98, 207, 0.35);
+        border-radius: 999px;
+    }
+
+    body.sg-homepage #beranda-galeri-kegiatan .beranda-galeri-scroll .beranda-galeri-item {
+        flex: 0 0 clamp(200px, 38vw, 300px);
+        max-width: 300px;
+        scroll-snap-align: start;
+    }
+
+    body.sg-homepage #beranda-galeri-kegiatan .beranda-galeri-scroll .beranda-galeri-item__frame {
+        aspect-ratio: 4 / 3;
+    }
+
+    body.sg-homepage .beranda-galeri-scroll-hint {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        color: #64748b;
+        font-size: 0.8125rem;
+    }
+
+    @media (max-width: 767.98px) {
+        body.sg-homepage #beranda-pusat-informasi .pi-portal-grid--beranda.pi-portal-grid--many {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x proximity;
+            padding-bottom: 0.35rem;
+        }
+
+        body.sg-homepage #beranda-pusat-informasi .pi-portal-grid--beranda.pi-portal-grid--many .pi-portal-grid__cell {
+            flex: 0 0 min(88vw, 320px);
+            scroll-snap-align: start;
+        }
+    }

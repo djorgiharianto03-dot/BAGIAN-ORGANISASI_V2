@@ -496,7 +496,7 @@ function dpt_render_arsip_masuk_belum_dispo_cards_html(array $list): void
             $smBtnLabel = str_contains($monSm, 'disposisi_awal_kabag') ? 'Input disposisi awal' : 'Monitoring — Surat Masuk';
             echo '<a class="btn btn-sm btn-success" href="', htmlspecialchars($monSm, ENT_QUOTES, 'UTF-8'), '">', htmlspecialchars($smBtnLabel, ENT_QUOTES, 'UTF-8'), '</a>';
         }
-        echo '<a class="btn btn-sm btn-light border" href="arsip.php">Arsip</a>';
+        echo '<a class="btn btn-sm btn-light border" href="<?php echo org_href('arsip.php'); ?>">Arsip</a>';
         echo '</div></div></article></li>';
     }
 }
@@ -934,7 +934,7 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'head
 ?>
 <div class="container site-main section-spacing">
     <nav class="mb-3" aria-label="Navigasi E-Organisasi">
-        <a class="small text-decoration-none" href="e_organisasi.php">&larr; Kembali ke E-Organisasi</a>
+        <a class="small text-decoration-none" href="<?php echo org_href('e_organisasi.php'); ?>">&larr; Kembali ke E-Organisasi</a>
     </nav>
     <div class="disp-hero p-4 p-lg-4 mb-4">
         <h1 class="h4 mb-3 text-dark disp-hero__title">Disposisi dan Surat Masuk terbaru</h1>
@@ -961,20 +961,20 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'head
                 <p class="mb-2">Belum ada data di ketiga kategori untuk akun Anda.</p>
                 <?php if (!empty($isAdmin)): ?>
                     <p class="small mb-1">Pastikan tabel <code>surat_disposisi</code> dan <code>arsip_surat</code> tersedia, username login cocok dengan kolom pengirim/penerima, dan ada arsip masuk tanpa baris disposisi untuk tab Surat Masuk. Cadangan JSON (tab Disposisi Masuk): <code>data/disposisi_terbaru.json</code>.</p>
-                    <p class="small mb-0"><a href="<?php echo $dptRoleNorm === 'sub_admin_eorganisasi' ? 'disposisi_awal_kabag.php' : 'monitoring_disposisi.php'; ?>"><?php echo $dptRoleNorm === 'sub_admin_eorganisasi' ? 'Disposisi awal &amp; tanda terima Kabag' : 'Monitoring Disposisi'; ?></a> · <a href="arsip.php">Arsip</a></p>
+                    <p class="small mb-0"><a href="<?php echo $dptRoleNorm === 'sub_admin_eorganisasi' ? 'disposisi_awal_kabag.php' : 'monitoring_disposisi.php'; ?>"><?php echo $dptRoleNorm === 'sub_admin_eorganisasi' ? 'Disposisi awal &amp; tanda terima Kabag' : 'Monitoring Disposisi'; ?></a> · <a href="<?php echo org_href('arsip.php'); ?>">Arsip</a></p>
                 <?php endif; ?>
             </div>
         </div>
     <?php else: ?>
         <ul class="nav nav-tabs dpt-nav-tabs mb-3 flex-nowrap" role="tablist">
             <li class="nav-item" role="presentation">
-                <a id="dpt-tab-masuk" class="nav-link <?php echo htmlspecialchars($dptNavMasukActive, ENT_QUOTES, 'UTF-8'); ?>" href="disposisi_terbaru.php?tab=masuk" role="tab">Disposisi Masuk <span class="badge rounded-pill text-bg-primary"><?php echo (int) $dptCountMasuk; ?></span></a>
+                <a id="dpt-tab-masuk" class="nav-link <?php echo htmlspecialchars($dptNavMasukActive, ENT_QUOTES, 'UTF-8'); ?>" href="<?php echo org_href('disposisi_terbaru.php', 'tab=masuk'); ?>" role="tab">Disposisi Masuk <span class="badge rounded-pill text-bg-primary"><?php echo (int) $dptCountMasuk; ?></span></a>
             </li>
             <li class="nav-item" role="presentation">
-                <a id="dpt-tab-ke-staf" class="nav-link <?php echo htmlspecialchars($dptNavKeStafActive, ENT_QUOTES, 'UTF-8'); ?>" href="disposisi_terbaru.php?tab=ke_staf" role="tab">Disposisi Ke Staf <span class="badge rounded-pill text-bg-secondary"><?php echo (int) $dptCountKeStaf; ?></span></a>
+                <a id="dpt-tab-ke-staf" class="nav-link <?php echo htmlspecialchars($dptNavKeStafActive, ENT_QUOTES, 'UTF-8'); ?>" href="<?php echo org_href('disposisi_terbaru.php', 'tab=ke_staf'); ?>" role="tab">Disposisi Ke Staf <span class="badge rounded-pill text-bg-secondary"><?php echo (int) $dptCountKeStaf; ?></span></a>
             </li>
             <li class="nav-item" role="presentation">
-                <a id="dpt-tab-surat" class="nav-link <?php echo htmlspecialchars($dptNavSuratActive, ENT_QUOTES, 'UTF-8'); ?>" href="disposisi_terbaru.php?tab=surat" role="tab">Surat Masuk <span class="badge rounded-pill text-bg-success"><?php echo (int) $dptCountSurat; ?></span></a>
+                <a id="dpt-tab-surat" class="nav-link <?php echo htmlspecialchars($dptNavSuratActive, ENT_QUOTES, 'UTF-8'); ?>" href="<?php echo org_href('disposisi_terbaru.php', 'tab=surat'); ?>" role="tab">Surat Masuk <span class="badge rounded-pill text-bg-success"><?php echo (int) $dptCountSurat; ?></span></a>
             </li>
         </ul>
         <div class="tab-content">

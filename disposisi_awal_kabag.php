@@ -169,7 +169,7 @@ if ($tablesOk && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['dakb_act
                                     $stI->bind_param('iissss', $idArsip, $parentNull, $pengirimAwal, $tujuanAwal, $instruksi, $catatanAwal);
                                     if ($stI->execute()) {
                                         $stI->close();
-                                        header('Location: disposisi_awal_kabag.php?saved=1', true, 302);
+                                        org_redirect('disposisi_awal_kabag.php', 'saved=1');
                                         exit;
                                     }
                                     $message = 'Gagal menyimpan disposisi awal.';
@@ -273,7 +273,7 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'head
 ?>
 <div class="container site-main section-spacing page-dakb">
     <nav class="mb-3" aria-label="Navigasi">
-        <a class="small text-decoration-none" href="e_organisasi.php">&larr; Kembali ke E-Organisasi</a>
+        <a class="small text-decoration-none" href="<?php echo org_href('e_organisasi.php'); ?>">&larr; Kembali ke E-Organisasi</a>
     </nav>
 
     <h1 class="h4 mb-2 text-dark">Disposisi awal ke Kabag</h1>

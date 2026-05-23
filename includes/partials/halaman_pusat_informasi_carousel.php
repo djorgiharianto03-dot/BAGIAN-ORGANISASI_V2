@@ -40,7 +40,7 @@ $highlight = $pusatHighlightSearch ?? null;
                                 $tglFmt = $tgl !== '' ? date('d M Y', strtotime($tgl)) : '';
                                 ?>
                                 <div class="swiper-slide" data-aos="fade-up" data-aos-delay="<?php echo min(300, (int) $slideIdx * 60); ?>">
-                                    <a href="informasi.php?id=<?php echo $piId; ?>" class="pub-pi-card-link" aria-label="<?php echo htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'); ?>">
+                                    <a href="<?php echo org_href('informasi.php', 'id=' . $piId); ?>" class="pub-pi-card-link" aria-label="<?php echo htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'); ?>">
                                         <article class="pub-pi-card<?php echo $isFeatured ? ' pub-pi-card--featured' : ''; ?>">
                                             <div class="pub-pi-card__media">
                                                 <?php if ($imgUrl !== ''): ?>

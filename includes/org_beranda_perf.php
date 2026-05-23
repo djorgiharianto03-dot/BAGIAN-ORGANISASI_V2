@@ -606,11 +606,11 @@ function org_beranda_fetch_dashboard_bundle(?mysqli $db): array
 
  */
 
-function org_beranda_fetch_galeri_cached(?mysqli $db, int $limit = 6): array
+function org_beranda_fetch_galeri_cached(?mysqli $db, int $limit = 24): array
 
 {
 
-    $limit = max(1, min(12, $limit));
+    $limit = max(1, min(48, $limit));
 
     $cached = org_runtime_cache_read_json('beranda_galeri_public.json', 180);
 
@@ -656,7 +656,7 @@ function org_beranda_fetch_pusat_informasi_cached(?mysqli $db, int $maxFeatured 
 
     if (is_array($cached) && isset($cached['items']) && is_array($cached['items']) && $cached['items'] !== []) {
 
-        return array_values($cached['items']);
+        return array_slice(array_values($cached['items']), 0, max(1, min(48, $maxTotal)));
 
     }
 
@@ -667,6 +667,10 @@ function org_beranda_fetch_pusat_informasi_cached(?mysqli $db, int $maxFeatured 
     }
 
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'pusat_informasi_db.php';
+
+    org_beranda_ensure_table_once($db, 'pusat_informasi', static function () use ($db): void {
+        org_pusat_informasi_ensure_table($db);
+    });
 
     $items = org_pusat_informasi_fetch_for_beranda($db, $maxFeatured, $maxTotal);
 

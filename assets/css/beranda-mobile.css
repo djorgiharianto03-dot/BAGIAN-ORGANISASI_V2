@@ -203,7 +203,8 @@
         --bs-gutter-y: 0.875rem;
     }
 
-    body.sg-homepage .pi-portal-grid > [class*="col"] {
+    body.sg-homepage .pi-portal-grid > [class*="col"],
+    body.sg-homepage .pi-portal-grid--beranda .pi-portal-grid__cell {
         min-width: 0;
     }
 
@@ -262,7 +263,8 @@
 }
 
 @media (max-width: 767.98px) {
-    body.sg-homepage .pi-portal-grid > [class*="col"] {
+    body.sg-homepage .pi-portal-grid:not(.pi-portal-grid--many) > [class*="col"],
+    body.sg-homepage .pi-portal-grid--beranda:not(.pi-portal-grid--many) .pi-portal-grid__cell {
         flex: 0 0 100%;
         max-width: 100%;
         width: 100%;

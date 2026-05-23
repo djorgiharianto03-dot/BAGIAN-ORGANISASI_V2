@@ -1,10 +1,14 @@
 <?php
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_app.php';
+if (!defined('ORG_WEB_ROOT')) {
+    define('ORG_WEB_ROOT', org_site_web_root());
+}
 if (!headers_sent()) {
     $qs = isset($_SERVER['QUERY_STRING']) && (string) $_SERVER['QUERY_STRING'] !== ''
-        ? ('?' . (string) $_SERVER['QUERY_STRING'])
+        ? (string) $_SERVER['QUERY_STRING']
         : '';
-    header('Location: monitoring_disposisi.php' . $qs);
-    exit;
+    org_redirect('monitoring_disposisi.php', $qs, '', 301);
 }
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'bootstrap.php';
 org_require_level_access(['super_admin', 'admin', 'sub_admin_eorganisasi']);

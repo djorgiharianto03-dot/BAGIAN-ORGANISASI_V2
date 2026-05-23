@@ -110,7 +110,7 @@ if ($section === 'eksekutif') {
         <p class="beranda-section__desc mb-0 mt-2">Gambaran singkat arah organisasi dan tata kelola unit kerja.</p>
     </header>
     <?php require ORG_ROOT . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_ringkasan_eksekutif.php'; ?>
-    <p class="small text-muted mb-0 mt-3 position-relative beranda-exec-section__foot" style="z-index:1" data-aos="fade-up" data-aos-delay="150"><a href="profil.php" class="text-decoration-none">Halaman Profil</a> berisi Visi, Misi, struktur, dan ringkasan organisasi secara lengkap.</p>
+    <p class="small text-muted mb-0 mt-3 position-relative beranda-exec-section__foot" style="z-index:1" data-aos="fade-up" data-aos-delay="150"><a href="<?php echo org_href('profil.php'); ?>" class="text-decoration-none">Halaman Profil</a> berisi Visi, Misi, struktur, dan ringkasan organisasi secara lengkap.</p>
 </section>
     <?php
     exit;
@@ -122,7 +122,7 @@ if ($db instanceof mysqli) {
     org_beranda_ensure_table_once($db, 'galeri', static function () use ($db): void {
         org_galeri_ensure_table($db);
     });
-    $berandaGaleriKegiatan = org_beranda_fetch_galeri_cached($db, 6);
+    $berandaGaleriKegiatan = org_beranda_fetch_galeri_cached($db, 24);
 }
 ?>
 <section class="section-spacing beranda-section beranda-section--surface-muted" id="beranda-galeri-kegiatan" aria-labelledby="beranda-galeri-title">
@@ -131,7 +131,7 @@ if ($db instanceof mysqli) {
             <h2 id="beranda-galeri-title" class="beranda-section__title mb-0">Galeri Kegiatan Terbaru</h2>
             <p class="beranda-section__desc mb-0 mt-1">Dokumentasi visual kegiatan dan program Bagian Organisasi.</p>
         </div>
-        <a class="small text-decoration-none beranda-section__link-all" href="galeri.php">Lihat galeri lengkap <i class="fa-solid fa-arrow-right ms-1 small" aria-hidden="true"></i></a>
+        <a class="small text-decoration-none beranda-section__link-all" href="<?php echo org_href('galeri.php'); ?>">Lihat galeri lengkap <i class="fa-solid fa-arrow-right ms-1 small" aria-hidden="true"></i></a>
     </div>
     <?php require ORG_ROOT . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_galeri_kegiatan.php'; ?>
 </section>

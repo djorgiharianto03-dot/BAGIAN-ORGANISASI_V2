@@ -89,7 +89,7 @@ if (!function_exists('org_require_level_access')) {
         }
         $_SESSION['flash_message'] = 'Akses Ditolak';
         $_SESSION['flash_type'] = 'danger';
-        header('Location: dashboard.php');
+        header('Location: ' . (function_exists('org_page_url') ? org_page_url('admin/dashboard.php') : '/admin/dashboard'));
         exit;
     }
 }

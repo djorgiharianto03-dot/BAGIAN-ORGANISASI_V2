@@ -558,7 +558,7 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'head
     <div class="tugas-hero p-4 p-md-5 mb-4">
         <div class="d-flex flex-wrap justify-content-between align-items-start gap-3">
             <div>
-                <a href="e_organisasi.php" class="btn btn-sm btn-outline-secondary mb-3">
+                <a href="<?php echo org_href('e_organisasi.php'); ?>" class="btn btn-sm btn-outline-secondary mb-3">
                     <i class="fa-solid fa-arrow-left me-1" aria-hidden="true"></i>Kembali ke E-Organisasi
                 </a>
                 <h1 class="h3 fw-bold text-primary-emphasis mb-2">Manajemen Tugas</h1>
@@ -648,7 +648,7 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'head
 <div class="modal fade" id="modalUploadTugas" tabindex="-1" aria-labelledby="modalUploadTugasLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content border-0 shadow">
-            <form method="post" enctype="multipart/form-data" action="manajemen_tugas.php">
+            <form method="post" enctype="multipart/form-data" action="<?php echo org_href('manajemen_tugas.php'); ?>">
                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
                 <input type="hidden" name="tugas_action" value="upload_tugas">
                 <div class="modal-header border-0 pb-0">
@@ -689,7 +689,7 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'head
 <div class="modal fade" id="modalEditTugas" tabindex="-1" aria-labelledby="modalEditTugasLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content border-0 shadow">
-            <form method="post" enctype="multipart/form-data" action="manajemen_tugas.php">
+            <form method="post" enctype="multipart/form-data" action="<?php echo org_href('manajemen_tugas.php'); ?>">
                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
                 <input type="hidden" name="tugas_action" value="edit_tugas">
                 <input type="hidden" name="tugas_id" id="editTugasId" value="">
@@ -732,7 +732,7 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'head
 <div class="modal fade" id="modalHapusTugas" tabindex="-1" aria-labelledby="modalHapusTugasLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow">
-            <form method="post" action="manajemen_tugas.php">
+            <form method="post" action="<?php echo org_href('manajemen_tugas.php'); ?>">
                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
                 <input type="hidden" name="tugas_action" value="delete_tugas">
                 <input type="hidden" name="tugas_id" id="hapusTugasId" value="">
@@ -761,7 +761,7 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'head
 <div class="modal fade" id="modalValidasiKabag" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow">
-            <form method="post" action="manajemen_tugas.php">
+            <form method="post" action="<?php echo org_href('manajemen_tugas.php'); ?>">
                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
                 <input type="hidden" name="tugas_action" value="update_status_kabag">
                 <input type="hidden" name="tugas_id" id="validasiTugasId" value="">

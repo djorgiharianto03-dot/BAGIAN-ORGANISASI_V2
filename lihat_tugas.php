@@ -9,8 +9,7 @@ $tugasId = (int) ($_GET['id'] ?? 0);
 if ($tugasId < 1) {
     $_SESSION['flash_message'] = 'Tugas tidak ditemukan.';
     $_SESSION['flash_type'] = 'warning';
-    header('Location: manajemen_tugas.php');
-    exit;
+    org_redirect('manajemen_tugas.php');
 }
 
 $roleNorm = org_staff_role_normalize((string) ($_SESSION['level'] ?? $_SESSION['admin_role'] ?? ''));
@@ -27,8 +26,7 @@ if ($db instanceof mysqli && org_tugas_table_exists($db)) {
 if ($row === null) {
     $_SESSION['flash_message'] = 'Tugas tidak ditemukan atau Anda tidak memiliki akses.';
     $_SESSION['flash_type'] = 'danger';
-    header('Location: manajemen_tugas.php');
-    exit;
+    org_redirect('manajemen_tugas.php');
 }
 
 $st = org_tugas_status_normalize((string) ($row['status'] ?? ''));

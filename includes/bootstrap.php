@@ -34,10 +34,10 @@ if (!defined('ORG_DOWNLOAD_ARSIP_URL')) {
     define('ORG_DOWNLOAD_ARSIP_URL', org_page_url('download_arsip.php'));
 }
 if (!defined('ORG_DOWNLOAD_TUGAS_URL')) {
-    define('ORG_DOWNLOAD_TUGAS_URL', (ORG_WEB_ROOT === '' ? '' : ORG_WEB_ROOT) . '/download_tugas.php');
+    define('ORG_DOWNLOAD_TUGAS_URL', org_page_url('download_tugas.php'));
 }
 if (!defined('ORG_VIEW_TUGAS_FILE_URL')) {
-    define('ORG_VIEW_TUGAS_FILE_URL', (ORG_WEB_ROOT === '' ? '' : ORG_WEB_ROOT) . '/view_tugas_file.php');
+    define('ORG_VIEW_TUGAS_FILE_URL', org_page_url('view_tugas_file.php'));
 }
 if (!defined('ORG_DOKUMEN_MAX_UPLOAD_BYTES')) {
     define('ORG_DOKUMEN_MAX_UPLOAD_BYTES', 20 * 1024 * 1024);
@@ -705,12 +705,12 @@ if ($dbPi instanceof mysqli) {
 $berandaGaleriKegiatan = [];
 $dbBerandaData = ($dbApp instanceof mysqli) ? $dbApp : org_db();
 if (org_beranda_is_light_page()) {
-    $berandaGaleriKegiatan = org_beranda_fetch_galeri_cached($dbBerandaData, 6);
+    $berandaGaleriKegiatan = org_beranda_fetch_galeri_cached($dbBerandaData, 24);
 } else {
     $berandaGaleriKegiatan = array_slice(
         org_galeri_kegiatan_load_public($dbBerandaData),
         0,
-        6
+        24
     );
 }
 

@@ -13,7 +13,7 @@ if (!is_array($pi) || $piId < 1) {
         <span class="np-hero__label-dot" aria-hidden="true"></span>
         <span id="np-hero-title"><?php echo $isFeatured ? 'Sorotan Utama' : 'Terbaru'; ?></span>
     </div>
-    <a href="informasi.php?id=<?php echo $piId; ?>" class="np-hero__link" aria-label="<?php echo htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'); ?>">
+    <a href="<?php echo org_href('informasi.php', 'id=' . $piId); ?>" class="np-hero__link" aria-label="<?php echo htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'); ?>">
         <article class="np-hero__card<?php echo $isFeatured ? ' np-hero__card--featured' : ''; ?>">
             <div class="np-hero__media">
                 <?php if ($imgUrl !== ''): ?>

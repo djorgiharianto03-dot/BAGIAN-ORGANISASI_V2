@@ -136,9 +136,9 @@ $profilAsideMisiCount = count($profilMisiPoints);
                             <hr class="profil-org-aside__sep" aria-hidden="true">
                             <p class="profil-org-aside__nav-label">Akses terkait</p>
                             <nav class="profil-org-aside__nav" aria-label="Akses terkait profil">
-                                <a class="profil-org-aside__link" href="dokumen.php"><i class="fa-regular fa-folder-open" aria-hidden="true"></i> Perpustakaan digital</a>
-                                <a class="profil-org-aside__link" href="layanan.php"><i class="fa-regular fa-handshake" aria-hidden="true"></i> Layanan publik</a>
-                                <a class="profil-org-aside__link" href="berita.php"><i class="fa-regular fa-newspaper" aria-hidden="true"></i> Pusat informasi</a>
+                                <a class="profil-org-aside__link" href="<?php echo org_href('dokumen.php'); ?>"><i class="fa-regular fa-folder-open" aria-hidden="true"></i> Perpustakaan digital</a>
+                                <a class="profil-org-aside__link" href="<?php echo org_href('layanan.php'); ?>"><i class="fa-regular fa-handshake" aria-hidden="true"></i> Layanan publik</a>
+                                <a class="profil-org-aside__link" href="<?php echo org_href('berita.php'); ?>"><i class="fa-regular fa-newspaper" aria-hidden="true"></i> Pusat informasi</a>
                             </nav>
                         </div>
                     </aside>
@@ -146,7 +146,7 @@ $profilAsideMisiCount = count($profilMisiPoints);
 
                 <?php if (!empty($isAdmin)): ?>
                     <p class="profil-org__admin-hint text-center mb-0" data-aos="fade-up" data-aos-delay="240">
-                        Untuk mengubah teks ini, gunakan <a href="admin/dashboard.php#panel-konten">Dashboard Admin → Edit konten</a>.
+                        Untuk mengubah teks ini, gunakan <a href="<?php echo org_href('admin/dashboard.php', '', 'panel-konten'); ?>">Dashboard Admin → Edit konten</a>.
                     </p>
                 <?php endif; ?>
             </div>

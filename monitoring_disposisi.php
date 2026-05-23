@@ -2043,7 +2043,7 @@ $tabMonActive = $tab === 'monitoring' ? 'active' : '';
 ?>
 <div class="container site-main section-spacing page-mdisp">
     <nav class="mb-3" aria-label="Navigasi">
-        <a class="small text-decoration-none link-secondary" href="e_organisasi.php">&larr; Kembali ke E-Organisasi</a>
+        <a class="small text-decoration-none link-secondary" href="<?php echo org_href('e_organisasi.php'); ?>">&larr; Kembali ke E-Organisasi</a>
     </nav>
 
     <header class="mdisp-page-hero mb-4">
@@ -2066,10 +2066,10 @@ $tabMonActive = $tab === 'monitoring' ? 'active' : '';
         <div class="mdisp-nav-pills-card mb-4" role="navigation" aria-label="Tab halaman">
             <ul class="nav nav-pills flex-wrap" role="tablist">
                 <?php if (!$isDisposisiOnlyUser): ?>
-                    <li class="nav-item"><a class="nav-link <?php echo $tabMasukActive; ?>" href="monitoring_disposisi.php?tab=masuk">Surat Masuk</a></li>
-                    <li class="nav-item"><a class="nav-link <?php echo $tabKeluarActive; ?>" href="monitoring_disposisi.php?tab=keluar">Surat Keluar</a></li>
+                    <li class="nav-item"><a class="nav-link <?php echo $tabMasukActive; ?>" href="<?php echo org_href('monitoring_disposisi.php', 'tab=masuk'); ?>">Surat Masuk</a></li>
+                    <li class="nav-item"><a class="nav-link <?php echo $tabKeluarActive; ?>" href="<?php echo org_href('monitoring_disposisi.php', 'tab=keluar'); ?>">Surat Keluar</a></li>
                 <?php endif; ?>
-                <li class="nav-item"><a class="nav-link <?php echo $tabMonActive; ?>" href="monitoring_disposisi.php?tab=monitoring">Monitoring Disposisi</a></li>
+                <li class="nav-item"><a class="nav-link <?php echo $tabMonActive; ?>" href="<?php echo org_href('monitoring_disposisi.php', 'tab=monitoring'); ?>">Monitoring Disposisi</a></li>
             </ul>
         </div>
 
@@ -2190,7 +2190,7 @@ $tabMonActive = $tab === 'monitoring' ? 'active' : '';
                     <?php endif; ?>
                     <?php if ($dispoRows === [] && $mdispDispoListDbError === ''): ?>
                         <div class="alert alert-light border small mb-3" role="status">
-                            Belum ada baris disposisi di database. Untuk mengisi: di halaman <strong>Arsip</strong> unggah surat masuk dan centang <strong>akan didisposisikan</strong>, lalu <strong>Sub Admin E-Organisasi</strong> memakai <a class="alert-link" href="disposisi_awal_kabag.php">Disposisi awal &amp; tanda terima Kabag</a>, atau <strong>Admin / Super Admin</strong> di tab <a class="alert-link" href="monitoring_disposisi.php?tab=masuk">Surat Masuk</a> (Monitoring). Surat masuk tanpa centang tersebut hanya tersimpan di Arsip, tidak masuk daftar ini.
+                            Belum ada baris disposisi di database. Untuk mengisi: di halaman <strong>Arsip</strong> unggah surat masuk dan centang <strong>akan didisposisikan</strong>, lalu <strong>Sub Admin E-Organisasi</strong> memakai <a class="alert-link" href="<?php echo org_href('disposisi_awal_kabag.php'); ?>">Disposisi awal &amp; tanda terima Kabag</a>, atau <strong>Admin / Super Admin</strong> di tab <a class="alert-link" href="<?php echo org_href('monitoring_disposisi.php', 'tab=masuk'); ?>">Surat Masuk</a> (Monitoring). Surat masuk tanpa centang tersebut hanya tersimpan di Arsip, tidak masuk daftar ini.
                         </div>
                     <?php endif; ?>
 

@@ -1,9 +1,10 @@
-# Apache / Laragon — HTTPS, beranda tanpa /index.php, keamanan uploads
+# Apache / CloudPanel / Laragon — HTTPS, clean URL, keamanan uploads
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    # Sesuaikan jika situs di subfolder (mis. RewriteBase /nama-folder/)
     RewriteBase /
 
-    # HTTP → HTTPS (production; Laragon HTTP lokal tetap jalan)
+    # HTTP → HTTPS (production; localhost/Laragon tetap HTTP)
     RewriteCond %{HTTPS} !=on
     RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
     RewriteCond %{HTTP_HOST} !^localhost(:\d+)?$ [NC]
@@ -12,9 +13,31 @@
     RewriteCond %{HTTP_HOST} !\.local$ [NC]
     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
 
-    # /index.php → /
+    # 301 GET: /index.php → /
+    RewriteCond %{REQUEST_METHOD} =GET
     RewriteCond %{THE_REQUEST} \s/+index\.php[\s?] [NC]
     RewriteRule ^index\.php$ / [R=301,L,NE]
+
+    # 301 GET: /halaman.php → /halaman (pertahankan query string)
+    RewriteCond %{REQUEST_METHOD} =GET
+    RewriteCond %{THE_REQUEST} \s/+([^?\s]*?)\.php(\?[^\s]*)?\s [NC]
+    RewriteCond %{REQUEST_URI} !^/api/ [NC]
+    RewriteRule ^(.+?)\.php$ $1 [R=301,L,QSA,NE]
+
+    # Lewati aset & folder sistem
+    RewriteRule ^(assets|uploads|api|includes|deploy|config|vendor)/ - [L]
+
+    # File/folder nyata — jangan rewrite
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Admin: /admin/dashboard → admin/dashboard.php
+    RewriteRule ^admin/([^/]+)/?$ admin/$1.php [L,QSA]
+
+    # Clean URL → skrip PHP di akar (profil → profil.php)
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^([^/]+)/?$ $1.php [L,QSA]
 </IfModule>
 
 DirectoryIndex index.php

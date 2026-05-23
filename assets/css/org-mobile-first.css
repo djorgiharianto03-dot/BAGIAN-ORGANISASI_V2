@@ -393,7 +393,7 @@ body:not(.sg-portal-page) .site-header__subtitle,
         gap: 0.5rem;
     }
 
-    .beranda-galeri-grid {
+    .beranda-galeri-grid:not(.beranda-galeri-scroll) {
         grid-template-columns: 1fr !important;
         gap: 0.85rem;
     }

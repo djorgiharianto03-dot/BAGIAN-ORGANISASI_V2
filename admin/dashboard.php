@@ -6,11 +6,16 @@ org_ensure_upload_directories($root);
 require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_session.php';
 org_session_start();
 
+require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
+require_once $root . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_app.php';
+if (!defined('ORG_WEB_ROOT')) {
+    define('ORG_WEB_ROOT', org_site_web_root());
+}
+
 $csrfToken = org_csrf_token();
 
 if (empty($_SESSION['is_admin'])) {
-    header('Location: ../index.php');
-    exit;
+    org_redirect('index.php');
 }
 
 $galeriImgDir = $root . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'galeri';
@@ -1209,7 +1214,7 @@ $dashMetrics['kepuasan_publik'] = (int) min(100, max(0, round(
     <div class="modal fade" id="modalEditGalleryText" tabindex="-1" aria-labelledby="modalEditGalleryTextLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="post" action="dashboard.php#panel-galeri">
+                <form method="post" action="<?php echo org_href('admin/dashboard.php', '', 'panel-galeri'); ?>">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalEditGalleryTextLabel">Edit caption galeri</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
@@ -1233,7 +1238,7 @@ $dashMetrics['kepuasan_publik'] = (int) min(100, max(0, round(
     <div class="modal fade" id="modalEditPusatInformasi" tabindex="-1" aria-labelledby="modalEditPusatInformasiLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form method="post" action="dashboard.php#panel-pusat-informasi" autocomplete="off">
+                <form method="post" action="<?php echo org_href('admin/dashboard.php', '', 'panel-pusat-informasi'); ?>" autocomplete="off">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalEditPusatInformasiLabel">Edit teks Berita/Pengumuman</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
@@ -1285,7 +1290,7 @@ $dashMetrics['kepuasan_publik'] = (int) min(100, max(0, round(
     <div class="modal fade" id="modalEditEmailStaff" tabindex="-1" aria-labelledby="modalEditEmailStaffLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="post" action="dashboard.php#panel-manajemen-staf">
+                <form method="post" action="<?php echo org_href('admin/dashboard.php', '', 'panel-manajemen-staf'); ?>">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalEditEmailStaffLabel">Edit email Google</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
@@ -1311,7 +1316,7 @@ $dashMetrics['kepuasan_publik'] = (int) min(100, max(0, round(
     <div class="modal fade" id="modalEditStaff" tabindex="-1" aria-labelledby="modalEditStaffLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form method="post" action="dashboard.php#panel-manajemen-staf" autocomplete="off">
+                <form method="post" action="<?php echo org_href('admin/dashboard.php', '', 'panel-manajemen-staf'); ?>" autocomplete="off">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalEditStaffLabel">Edit pegawai / staf</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
@@ -1366,7 +1371,7 @@ $dashMetrics['kepuasan_publik'] = (int) min(100, max(0, round(
     <div class="modal fade" id="modalTambahPegawai" tabindex="-1" aria-labelledby="modalTambahPegawaiLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form method="post" action="dashboard.php#panel-manajemen-staf" autocomplete="off">
+                <form method="post" action="<?php echo org_href('admin/dashboard.php', '', 'panel-manajemen-staf'); ?>" autocomplete="off">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalTambahPegawaiLabel">Tambah pegawai baru</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
@@ -1421,7 +1426,7 @@ $dashMetrics['kepuasan_publik'] = (int) min(100, max(0, round(
     <div class="modal fade" id="modalResetPasswordStaff" tabindex="-1" aria-labelledby="modalResetPasswordStaffLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form method="post" action="dashboard.php#panel-manajemen-staf">
+                <form method="post" action="<?php echo org_href('admin/dashboard.php', '', 'panel-manajemen-staf'); ?>">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modalResetPasswordStaffLabel">Reset password</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>

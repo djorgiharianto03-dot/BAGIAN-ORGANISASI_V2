@@ -152,7 +152,7 @@ $hasTarget = count($dashMetrics['target_labels'] ?? []) > 0;
         <?php else: ?>
         <div class="sg-glass-panel sg-metric-card sg-metric-card--empty">
             <p class="sg-panel-head__title mb-1">Target tim kerja</p>
-            <p class="sg-panel-head__sub mb-0">Atur target di <a href="kelola_team_targets.php">Target Tim Kerja</a></p>
+            <p class="sg-panel-head__sub mb-0">Atur target di <a href="<?php echo org_href('admin/kelola_team_targets.php'); ?>">Target Tim Kerja</a></p>
         </div>
         <?php endif; ?>
     </div>
@@ -267,7 +267,7 @@ $hasTarget = count($dashMetrics['target_labels'] ?? []) > 0;
                 <span class="sg-quick-btn__icon"><i data-lucide="images"></i></span>
                 Galeri
             </a>
-            <a class="sg-quick-btn" href="kelola_team_targets.php">
+            <a class="sg-quick-btn" href="<?php echo org_href('admin/kelola_team_targets.php'); ?>">
                 <span class="sg-quick-btn__icon"><i data-lucide="target"></i></span>
                 Target tim
             </a>

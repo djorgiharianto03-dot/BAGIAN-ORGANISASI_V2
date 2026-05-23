@@ -76,11 +76,11 @@ org_tailwind_bootstrap();
                 <nav aria-label="Menu footer" class="site-footer__nav-wrap">
                     <ul class="org-footer__nav site-footer__nav">
                         <li><a href="<?php echo htmlspecialchars(function_exists('org_home_url') ? org_home_url() : 'index.php', ENT_QUOTES, 'UTF-8'); ?>">Beranda</a></li>
-                        <li><a href="profil.php">Profil</a></li>
-                        <li><a href="layanan.php">Layanan</a></li>
-                        <li><a href="dokumen.php">Dokumen</a></li>
-                        <li><a href="berita.php">Pusat Informasi &amp; Pengumuman</a></li>
-                        <li><a href="galeri.php">Galeri</a></li>
+                        <li><a href="<?php echo org_href('profil.php'); ?>">Profil</a></li>
+                        <li><a href="<?php echo org_href('layanan.php'); ?>">Layanan</a></li>
+                        <li><a href="<?php echo org_href('dokumen.php'); ?>">Dokumen</a></li>
+                        <li><a href="<?php echo org_href('berita.php'); ?>">Pusat Informasi &amp; Pengumuman</a></li>
+                        <li><a href="<?php echo org_href('galeri.php'); ?>">Galeri</a></li>
                     </ul>
                 </nav>
                 <div class="site-footer__copyright mt-4">

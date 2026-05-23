@@ -1255,21 +1255,48 @@ org_partial_deny_direct();
                 padding-right: 14px;
             }
         }
-        /* Beranda — grid galeri 3 kolom, rasio 16:9 */
-        .beranda-galeri-grid {
+        /* Beranda — galeri: strip horizontal (scroll) atau grid statis */
+        .beranda-galeri-scroll.beranda-galeri-grid {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 1.25rem;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x proximity;
+            padding-bottom: 0.35rem;
+            width: 100%;
+        }
+        .beranda-galeri-scroll.beranda-galeri-grid .beranda-galeri-item {
+            flex: 0 0 clamp(200px, 38vw, 300px);
+            max-width: 300px;
+            scroll-snap-align: start;
+        }
+        .beranda-galeri-grid:not(.beranda-galeri-scroll) {
             display: grid;
             gap: 1.25rem;
             grid-template-columns: minmax(0, 1fr);
         }
         @media (min-width: 576px) {
-            .beranda-galeri-grid {
+            .beranda-galeri-grid:not(.beranda-galeri-scroll) {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
         @media (min-width: 992px) {
-            .beranda-galeri-grid {
+            .beranda-galeri-grid:not(.beranda-galeri-scroll) {
                 grid-template-columns: repeat(3, minmax(0, 1fr));
             }
+        }
+        /* Pusat informasi beranda — grid tanpa Bootstrap */
+        .pi-portal-grid--beranda {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+            gap: 1rem;
+            width: 100%;
+        }
+        .pi-portal-grid--beranda .pi-portal-grid__cell {
+            display: flex;
+            min-width: 0;
         }
         /* Beranda — pratinjau galeri kegiatan (hover: blur + teks putih) */
         a.beranda-galeri-item {

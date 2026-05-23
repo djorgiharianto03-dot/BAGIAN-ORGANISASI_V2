@@ -154,7 +154,7 @@ $transparencyPct = min(100, max(5, (int) round(($berandaTotalWeek / max(1, count
                 <h2 id="sg-layanan-title" class="sg-section__title">Layanan Publik Unggulan</h2>
                 <p class="sg-section__desc">Akses cepat ke layanan digital Bagian Organisasi.</p>
             </div>
-            <a href="layanan.php" class="sg-section__link">Semua layanan <i class="fa-solid fa-arrow-right ms-1"></i></a>
+            <a href="<?php echo org_href('layanan.php'); ?>" class="sg-section__link">Semua layanan <i class="fa-solid fa-arrow-right ms-1"></i></a>
         </header>
         <div class="row g-3">
             <?php if (count($layananFeatured) === 0): ?>
@@ -168,7 +168,7 @@ $transparencyPct = min(100, max(5, (int) round(($berandaTotalWeek / max(1, count
                         <div class="sg-card__icon"><i class="fa-solid fa-handshake"></i></div>
                         <h3 class="sg-card__title"><?php echo htmlspecialchars($lay['nama'], ENT_QUOTES, 'UTF-8'); ?></h3>
                         <p class="sg-card__text"><?php echo htmlspecialchars(mb_strimwidth($lay['deskripsi'] !== '' ? $lay['deskripsi'] : $lay['kategori'], 0, 100, '…', 'UTF-8'), ENT_QUOTES, 'UTF-8'); ?></p>
-                        <a href="layanan.php" class="sg-section__link small">Detail layanan</a>
+                        <a href="<?php echo org_href('layanan.php'); ?>" class="sg-section__link small">Detail layanan</a>
                     </article>
                 </div>
                 <?php endforeach; ?>
@@ -186,7 +186,7 @@ $transparencyPct = min(100, max(5, (int) round(($berandaTotalWeek / max(1, count
                 <h2 id="sg-timeline-title" class="sg-section__title">Timeline Aktivitas</h2>
                 <p class="sg-section__desc">Update informasi dan publikasi terbaru dari organisasi.</p>
             </div>
-            <a href="berita.php" class="sg-section__link">Arsip lengkap</a>
+            <a href="<?php echo org_href('berita.php'); ?>" class="sg-section__link">Arsip lengkap</a>
         </header>
         <div class="row">
             <div class="col-lg-7">
@@ -226,7 +226,7 @@ $transparencyPct = min(100, max(5, (int) round(($berandaTotalWeek / max(1, count
                 <h2 id="sg-documents-title" class="sg-section__title">Digital Document Center</h2>
                 <p class="sg-section__desc">Unduh dokumen resmi kelembagaan, pelayanan, dan SAKIP.</p>
             </div>
-            <a href="dokumen.php" class="sg-section__link">Buka perpustakaan</a>
+            <a href="<?php echo org_href('dokumen.php'); ?>" class="sg-section__link">Buka perpustakaan</a>
         </header>
         <div class="row g-3">
             <div class="col-lg-7">
@@ -251,7 +251,7 @@ $transparencyPct = min(100, max(5, (int) round(($berandaTotalWeek / max(1, count
                     <div class="sg-card__icon"><i class="fa-solid fa-magnifying-glass"></i></div>
                     <h3 class="sg-card__title">Cari dokumen</h3>
                     <p class="sg-card__text">Gunakan pencarian cepat untuk menemukan regulasi dan dokumen publik.</p>
-                    <form method="get" action="dokumen.php" class="mt-3">
+                    <form method="get" action="<?php echo org_href('dokumen.php'); ?>" class="mt-3">
                         <label class="visually-hidden" for="sgDocSearch">Cari dokumen</label>
                         <div class="input-group">
                             <input type="search" class="form-control rounded-start-pill" id="sgDocSearch" name="q" placeholder="Kata kunci dokumen…">

@@ -18,10 +18,10 @@
             <h2 id="layanan-empty-global-title" class="layanan-dir-global-empty__title">Belum ada layanan yang dipublikasikan</h2>
             <p class="layanan-dir-global-empty__text">Daftar layanan akan tampil di sini setelah diatur melalui dashboard admin. Silakan kembali lagi nanti atau hubungi administrator situs.</p>
             <div class="layanan-dir-global-empty__actions">
-                <a class="layanan-dir__btn layanan-dir__btn--primary" href="beranda.php"><i class="fa-solid fa-house" aria-hidden="true"></i> Kembali ke beranda</a>
-                <a class="layanan-dir__btn" href="dokumen.php"><i class="fa-regular fa-folder-open" aria-hidden="true"></i> Perpustakaan digital</a>
+                <a class="layanan-dir__btn layanan-dir__btn--primary" href="<?php echo org_href('index.php'); ?>"><i class="fa-solid fa-house" aria-hidden="true"></i> Kembali ke beranda</a>
+                <a class="layanan-dir__btn" href="<?php echo org_href('dokumen.php'); ?>"><i class="fa-regular fa-folder-open" aria-hidden="true"></i> Perpustakaan digital</a>
                 <?php if (!empty($isAdmin)): ?>
-                <a class="layanan-dir__btn" href="admin/dashboard.php#panel-layanan"><i class="fa-solid fa-gear" aria-hidden="true"></i> Kelola layanan</a>
+                <a class="layanan-dir__btn" href="<?php echo org_href('admin/dashboard.php', '', 'panel-layanan'); ?>"><i class="fa-solid fa-gear" aria-hidden="true"></i> Kelola layanan</a>
                 <?php endif; ?>
             </div>
         </div>

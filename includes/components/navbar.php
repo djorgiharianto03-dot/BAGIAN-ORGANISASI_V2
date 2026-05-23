@@ -56,7 +56,7 @@ $headerClass = org_ui_class(
                 </div>
                 <?php if (empty($hideHeaderDocSearch)): ?>
                     <div class="org-navbar__search site-header__search-wrap">
-                        <form method="get" id="headerDocSearchForm" class="site-header-doc-search site-header-doc-search--navbar" action="dokumen.php" role="search" aria-label="Pencarian dokumen">
+                        <form method="get" id="headerDocSearchForm" class="site-header-doc-search site-header-doc-search--navbar" action="<?php echo org_href('dokumen.php'); ?>" role="search" aria-label="Pencarian dokumen">
                             <label class="org-sr-only visually-hidden" for="headerDocSearch">Cari dokumen di perpustakaan</label>
                             <div class="org-navbar__search-field site-header-doc-search__field">
                                 <input type="search" id="headerDocSearch" name="q" class="org-navbar__search-input site-header-doc-search__input" placeholder="Cari dokumen…" autocomplete="off" value="<?php echo htmlspecialchars((string) ($searchQuery ?? ''), ENT_QUOTES, 'UTF-8'); ?>">
@@ -109,15 +109,15 @@ $headerClass = org_ui_class(
                     <div class="org-navbar__nav-row site-header__nav-row">
                         <ul class="org-navbar__nav site-header__nav">
                             <li><a href="<?php echo htmlspecialchars(function_exists('org_home_url') ? org_home_url() : 'index.php', ENT_QUOTES, 'UTF-8'); ?>" class="<?php echo ($navActive ?? '') === 'beranda' ? 'is-active' : ''; ?>">Beranda</a></li>
-                            <li><a href="profil.php" class="<?php echo ($navActive ?? '') === 'profil' ? 'is-active' : ''; ?>">Profil</a></li>
-                            <li><a href="layanan.php" class="<?php echo ($navActive ?? '') === 'layanan' ? 'is-active' : ''; ?>">Layanan</a></li>
-                            <li><a href="dokumen.php" class="<?php echo ($navActive ?? '') === 'dokumen' ? 'is-active' : ''; ?>">Dokumen</a></li>
+                            <li><a href="<?php echo org_href('profil.php'); ?>" class="<?php echo ($navActive ?? '') === 'profil' ? 'is-active' : ''; ?>">Profil</a></li>
+                            <li><a href="<?php echo org_href('layanan.php'); ?>" class="<?php echo ($navActive ?? '') === 'layanan' ? 'is-active' : ''; ?>">Layanan</a></li>
+                            <li><a href="<?php echo org_href('dokumen.php'); ?>" class="<?php echo ($navActive ?? '') === 'dokumen' ? 'is-active' : ''; ?>">Dokumen</a></li>
                             <?php if (empty($isAdmin) || !empty($canAccessPublikasi)): ?>
-                                <li><a href="berita.php" class="<?php echo ($navActive ?? '') === 'berita' ? 'is-active' : ''; ?>" title="Pusat Informasi &amp; Pengumuman">Informasi</a></li>
-                                <li><a href="galeri.php" class="<?php echo ($navActive ?? '') === 'galeri' ? 'is-active' : ''; ?>">Galeri</a></li>
+                                <li><a href="<?php echo org_href('berita.php'); ?>" class="<?php echo ($navActive ?? '') === 'berita' ? 'is-active' : ''; ?>" title="Pusat Informasi &amp; Pengumuman">Informasi</a></li>
+                                <li><a href="<?php echo org_href('galeri.php'); ?>" class="<?php echo ($navActive ?? '') === 'galeri' ? 'is-active' : ''; ?>">Galeri</a></li>
                             <?php endif; ?>
                             <?php if (!empty($isAdmin) && !empty($canAccessEOrganisasi)): ?>
-                                <li><a href="e_organisasi.php" class="<?php echo ($navActive ?? '') === 'e_organisasi' ? 'is-active' : ''; ?>">E-Organisasi</a></li>
+                                <li><a href="<?php echo org_href('e_organisasi.php'); ?>" class="<?php echo ($navActive ?? '') === 'e_organisasi' ? 'is-active' : ''; ?>">E-Organisasi</a></li>
                             <?php endif; ?>
                         </ul>
                         <div class="org-navbar__actions site-header__actions site-header__actions--end">
@@ -130,7 +130,7 @@ $headerClass = org_ui_class(
                                     </span>
                                 </button>
                                 <?php if (!empty($isAdmin)): ?>
-                                    <?php echo org_ui_button('Dashboard', ['variant' => 'header-dashboard', 'size' => 'sm', 'href' => 'admin/dashboard.php', 'icon' => 'fa-solid fa-chart-line', 'class' => 'btn btn-sm btn-header-dashboard']); ?>
+                                    <?php echo org_ui_button('Dashboard', ['variant' => 'header-dashboard', 'size' => 'sm', 'href' => org_page_url('admin/dashboard.php'), 'icon' => 'fa-solid fa-chart-line', 'class' => 'btn btn-sm btn-header-dashboard']); ?>
                                     <form method="post" class="site-header__logout-form mb-0">
                                         <input type="hidden" name="action" value="logout">
                                         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(org_csrf_token(), ENT_QUOTES, 'UTF-8'); ?>">
@@ -170,7 +170,7 @@ $headerClass = org_ui_class(
                 </div>
                 <?php if (empty($hideHeaderDocSearch)): ?>
                     <div class="org-navbar__search site-header__search-wrap">
-                        <form method="get" id="headerDocSearchForm" class="site-header-doc-search site-header-doc-search--navbar" action="dokumen.php" role="search" aria-label="Pencarian dokumen">
+                        <form method="get" id="headerDocSearchForm" class="site-header-doc-search site-header-doc-search--navbar" action="<?php echo org_href('dokumen.php'); ?>" role="search" aria-label="Pencarian dokumen">
                             <label class="org-sr-only visually-hidden" for="headerDocSearch">Cari dokumen di perpustakaan</label>
                             <div class="org-navbar__search-field site-header-doc-search__field">
                                 <input type="search" id="headerDocSearch" name="q" class="org-navbar__search-input site-header-doc-search__input" placeholder="Cari dokumen…" autocomplete="off" value="<?php echo htmlspecialchars((string) ($searchQuery ?? ''), ENT_QUOTES, 'UTF-8'); ?>">
@@ -207,15 +207,15 @@ $headerClass = org_ui_class(
                     <div class="org-navbar__nav-row site-header__nav-row">
                         <ul class="org-navbar__nav site-header__nav">
                             <li><a href="<?php echo htmlspecialchars(function_exists('org_home_url') ? org_home_url() : 'index.php', ENT_QUOTES, 'UTF-8'); ?>" class="<?php echo ($navActive ?? '') === 'beranda' ? 'is-active' : ''; ?>">Beranda</a></li>
-                            <li><a href="profil.php" class="<?php echo ($navActive ?? '') === 'profil' ? 'is-active' : ''; ?>">Profil</a></li>
-                            <li><a href="layanan.php" class="<?php echo ($navActive ?? '') === 'layanan' ? 'is-active' : ''; ?>">Layanan</a></li>
-                            <li><a href="dokumen.php" class="<?php echo ($navActive ?? '') === 'dokumen' ? 'is-active' : ''; ?>">Dokumen</a></li>
+                            <li><a href="<?php echo org_href('profil.php'); ?>" class="<?php echo ($navActive ?? '') === 'profil' ? 'is-active' : ''; ?>">Profil</a></li>
+                            <li><a href="<?php echo org_href('layanan.php'); ?>" class="<?php echo ($navActive ?? '') === 'layanan' ? 'is-active' : ''; ?>">Layanan</a></li>
+                            <li><a href="<?php echo org_href('dokumen.php'); ?>" class="<?php echo ($navActive ?? '') === 'dokumen' ? 'is-active' : ''; ?>">Dokumen</a></li>
                             <?php if (empty($isAdmin) || !empty($canAccessPublikasi)): ?>
-                                <li><a href="berita.php" class="<?php echo ($navActive ?? '') === 'berita' ? 'is-active' : ''; ?>" title="Pusat Informasi &amp; Pengumuman">Informasi</a></li>
-                                <li><a href="galeri.php" class="<?php echo ($navActive ?? '') === 'galeri' ? 'is-active' : ''; ?>">Galeri</a></li>
+                                <li><a href="<?php echo org_href('berita.php'); ?>" class="<?php echo ($navActive ?? '') === 'berita' ? 'is-active' : ''; ?>" title="Pusat Informasi &amp; Pengumuman">Informasi</a></li>
+                                <li><a href="<?php echo org_href('galeri.php'); ?>" class="<?php echo ($navActive ?? '') === 'galeri' ? 'is-active' : ''; ?>">Galeri</a></li>
                             <?php endif; ?>
                             <?php if (!empty($isAdmin) && !empty($canAccessEOrganisasi)): ?>
-                                <li><a href="e_organisasi.php" class="<?php echo ($navActive ?? '') === 'e_organisasi' ? 'is-active' : ''; ?>">E-Organisasi</a></li>
+                                <li><a href="<?php echo org_href('e_organisasi.php'); ?>" class="<?php echo ($navActive ?? '') === 'e_organisasi' ? 'is-active' : ''; ?>">E-Organisasi</a></li>
                             <?php endif; ?>
                         </ul>
                         <div class="org-navbar__actions site-header__actions site-header__actions--end">
@@ -228,7 +228,7 @@ $headerClass = org_ui_class(
                                     </span>
                                 </button>
                                 <?php if (!empty($isAdmin)): ?>
-                                    <?php echo org_ui_button('Dashboard', ['variant' => 'header-dashboard', 'size' => 'sm', 'href' => 'admin/dashboard.php', 'icon' => 'fa-solid fa-chart-line', 'class' => 'btn btn-sm btn-header-dashboard']); ?>
+                                    <?php echo org_ui_button('Dashboard', ['variant' => 'header-dashboard', 'size' => 'sm', 'href' => org_page_url('admin/dashboard.php'), 'icon' => 'fa-solid fa-chart-line', 'class' => 'btn btn-sm btn-header-dashboard']); ?>
                                     <form method="post" class="site-header__logout-form mb-0">
                                         <input type="hidden" name="action" value="logout">
                                         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars(org_csrf_token(), ENT_QUOTES, 'UTF-8'); ?>">

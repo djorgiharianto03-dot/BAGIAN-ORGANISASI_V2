@@ -119,12 +119,18 @@ function org_tugas_require_access(): void
         $_SESSION['flash_message'] = 'Silakan login terlebih dahulu.';
         $_SESSION['flash_type'] = 'warning';
         $qs = function_exists('org_theme_preview_query_suffix') ? org_theme_preview_query_suffix() : '';
+        if (function_exists('org_redirect')) {
+            org_redirect('index.php', ltrim($qs, '?'));
+        }
         header('Location: index.php' . $qs);
         exit;
     }
     $_SESSION['flash_message'] = 'Akses Ditolak';
     $_SESSION['flash_type'] = 'danger';
     $qs = function_exists('org_theme_preview_query_suffix') ? org_theme_preview_query_suffix() : '';
+    if (function_exists('org_redirect')) {
+        org_redirect('e_organisasi.php', ltrim($qs, '?'));
+    }
     header('Location: e_organisasi.php' . $qs);
     exit;
 }

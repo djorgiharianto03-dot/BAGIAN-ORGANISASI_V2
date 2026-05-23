@@ -66,17 +66,66 @@ function org_home_url(): string
 }
 
 /**
- * Path ke skrip PHP di akar situs (mis. /profil.php atau /folder/profil.php).
+ * Slug clean URL dari path skrip (profil.php → profil, index.php → '').
  */
-function org_page_url(string $script): string
+function org_page_slug(string $script): string
 {
     $script = ltrim(str_replace('\\', '/', trim($script)), '/');
     if ($script === '' || str_contains($script, '..')) {
-        return org_home_url();
+        return '';
     }
-    $prefix = org_site_path_prefix();
+    if (preg_match('/\.php$/i', $script)) {
+        $script = substr($script, 0, -4);
+    }
 
-    return ($prefix === '' ? '' : $prefix) . '/' . $script;
+    return $script === 'index' ? '' : $script;
+}
+
+/**
+ * Path clean URL ke skrip PHP (mis. /profil atau /subfolder/admin/dashboard).
+ */
+function org_page_url(string $script, string $fragment = ''): string
+{
+    $slug = org_page_slug($script);
+    if ($slug === '') {
+        $url = org_home_url();
+    } else {
+        $prefix = org_site_path_prefix();
+        $url = ($prefix === '' ? '' : $prefix) . '/' . $slug;
+    }
+    if ($fragment !== '') {
+        $url .= '#' . ltrim($fragment, '#');
+    }
+
+    return $url;
+}
+
+/**
+ * Atribut href/action aman HTML — clean URL + escape.
+ */
+function org_href(string $script, string $query = '', string $fragment = ''): string
+{
+    $url = org_page_url($script, $fragment);
+    if ($query !== '') {
+        $url .= (str_contains($url, '?') ? '&' : '?') . ltrim($query, '?&');
+    }
+
+    return htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
+}
+
+/**
+ * Redirect HTTP ke clean URL (301/302).
+ */
+function org_redirect(string $script, string $query = '', string $fragment = '', int $status = 302): never
+{
+    $url = org_page_url($script, $fragment);
+    if ($query !== '') {
+        $url .= (str_contains($url, '?') ? '&' : '?') . ltrim($query, '?&');
+    }
+    if (!headers_sent()) {
+        header('Location: ' . $url, true, $status);
+    }
+    exit;
 }
 
 /**

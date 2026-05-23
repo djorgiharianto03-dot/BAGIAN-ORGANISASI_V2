@@ -13,8 +13,9 @@ $posts = $pusatInformasiPosts ?? [];
 ?>
 
             <?php if (count($posts) > 0): ?>
+                <?php $piGridMany = count($posts) > 2 ? ' pi-portal-grid--many' : ''; ?>
 
-                <div class="row g-4 gy-4 pi-portal-grid">
+                <div class="pi-portal-grid pi-portal-grid--beranda<?php echo $piGridMany; ?>">
 
                     <?php foreach ($posts as $pi): ?>
 
@@ -80,9 +81,9 @@ $posts = $pusatInformasiPosts ?? [];
 
                         ?>
 
-                        <div class="col-md-6 col-lg-4 d-flex">
+                        <div class="pi-portal-grid__cell">
 
-                            <a href="informasi.php?id=<?php echo $piId; ?>" class="pi-portal-card-link w-100" aria-label="<?php echo htmlspecialchars($piJudul, ENT_QUOTES, 'UTF-8'); ?> — baca selengkapnya">
+                            <a href="<?php echo org_href('informasi.php', 'id=' . $piId); ?>" class="pi-portal-card-link w-100" aria-label="<?php echo htmlspecialchars($piJudul, ENT_QUOTES, 'UTF-8'); ?> — baca selengkapnya">
 
                                 <article class="card pi-portal-card h-100 border-0<?php echo $cardHeadlineClass; ?>">
 
@@ -178,7 +179,7 @@ $posts = $pusatInformasiPosts ?? [];
 
                         <p class="text-muted small mb-4 mx-auto" style="max-width: 28rem;">Unggah judul, kategori, teks, dan gambar dari Dashboard Admin → Pusat Informasi &amp; Pengumuman.</p>
 
-                        <a class="btn btn-primary btn-sm px-4" href="admin/dashboard.php#panel-pusat-informasi"><i class="fa-solid fa-pen-to-square me-2" aria-hidden="true"></i>Kelola di Dashboard</a>
+                        <a class="btn btn-primary btn-sm px-4" href="<?php echo org_href('admin/dashboard.php', '', 'panel-pusat-informasi'); ?>"><i class="fa-solid fa-pen-to-square me-2" aria-hidden="true"></i>Kelola di Dashboard</a>
 
                     </div>
 

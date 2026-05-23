@@ -15,19 +15,19 @@ declare(strict_types=1);
  */
 $sgQuickLinks = [
     [
-        'href' => 'index.php#beranda-dashboard-widgets',
+        'href' => org_page_url('index.php', 'beranda-dashboard-widgets'),
         'icon' => 'fa-chart-line',
         'label' => 'Dashboard Kinerja',
         'desc' => 'Monitoring indikator & capaian OPD',
     ],
     [
-        'href' => 'index.php#beranda-pusat-informasi',
+        'href' => org_page_url('index.php', 'beranda-pusat-informasi'),
         'icon' => 'fa-bullhorn',
         'label' => 'Pengumuman Terbaru',
         'desc' => 'Informasi & pengumuman resmi',
     ],
     [
-        'href' => 'profil.php#profil-struktur-organisasi',
+        'href' => org_page_url('profil.php', 'profil-struktur-organisasi'),
         'icon' => 'fa-sitemap',
         'label' => 'Struktur Organisasi',
         'desc' => 'Visi, struktur & tata kelola',
@@ -343,7 +343,7 @@ $sgQuickLinks[] = $sgEOrgQuick;
 
             <div class="sg-hero__cta">
 
-                <a href="dokumen.php" class="sg-btn sg-btn--hero-primary">
+                <a href="<?php echo org_href('dokumen.php'); ?>" class="sg-btn sg-btn--hero-primary">
 
                     <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
 
@@ -351,7 +351,7 @@ $sgQuickLinks[] = $sgEOrgQuick;
 
                 </a>
 
-                <a href="layanan.php" class="sg-btn sg-btn--hero-secondary">
+                <a href="<?php echo org_href('layanan.php'); ?>" class="sg-btn sg-btn--hero-secondary">
 
                     <i class="fa-solid fa-handshake" aria-hidden="true"></i>
 

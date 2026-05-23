@@ -35,7 +35,7 @@ $sgInitials = htmlspecialchars(mb_strtoupper(mb_substr(strip_tags($adminName), 0
                 <i data-lucide="moon" class="sg-theme-icon-dark"></i>
                 <i data-lucide="sun" class="sg-theme-icon-light d-none"></i>
             </button>
-            <a class="sg-btn-ghost d-none d-sm-inline-flex" href="../index.php" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Situs</a>
+            <a class="sg-btn-ghost d-none d-sm-inline-flex" href="<?php echo htmlspecialchars(org_home_url(), ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Situs</a>
             <div class="dropdown">
                 <button class="sg-profile-btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
                     <span class="sg-profile-btn__avatar"><?php echo $sgInitials; ?></span>
@@ -49,7 +49,7 @@ $sgInitials = htmlspecialchars(mb_strtoupper(mb_substr(strip_tags($adminName), 0
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#" data-sg-module="monitoring"><i data-lucide="activity" class="me-2"></i>Monitoring</a></li>
                     <li>
-                        <form method="post" action="../index.php" class="px-3 py-1">
+                        <form method="post" action="<?php echo htmlspecialchars(org_home_url(), ENT_QUOTES, 'UTF-8'); ?>" class="px-3 py-1">
                             <input type="hidden" name="action" value="logout">
                             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
                             <button type="submit" class="btn btn-sm btn-primary w-100">Logout</button>
@@ -98,7 +98,7 @@ $sgInitials = htmlspecialchars(mb_strtoupper(mb_substr(strip_tags($adminName), 0
                 <a class="sg-nav-item" href="#" data-sg-module="pegawai" data-sg-label="Pegawai">
                     <i data-lucide="users"></i><span>Pegawai</span>
                 </a>
-                <a class="sg-nav-item" href="kelola_team_targets.php" data-sg-label="Tim Kerja">
+                <a class="sg-nav-item" href="<?php echo org_href('admin/kelola_team_targets.php'); ?>" data-sg-label="Tim Kerja">
                     <i data-lucide="target"></i><span>Tim Kerja</span>
                 </a>
                 <?php endif; ?>

@@ -105,7 +105,7 @@
                                                 title="Edit data staf"
                                             ><i class="fa-solid fa-pen-to-square me-1" aria-hidden="true"></i>Edit</button>
                                             <?php if ($showStaffDelete): ?>
-                                                <form method="post" action="dashboard.php#panel-manajemen-staf" class="d-inline mb-0" onsubmit="return confirm('Hapus akun staf ini secara permanen? Tindakan ini tidak dapat dibatalkan.');">
+                                                <form method="post" action="<?php echo org_href('admin/dashboard.php', '', 'panel-manajemen-staf'); ?>" class="d-inline mb-0" onsubmit="return confirm('Hapus akun staf ini secara permanen? Tindakan ini tidak dapat dibatalkan.');">
                                                     <input type="hidden" name="action" value="staff_delete_user">
                                                     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
                                                     <input type="hidden" name="staff_user_id" value="<?php echo $suid; ?>">
@@ -151,8 +151,8 @@
         <div id="panel-unggah-dokumen" class="card border-0 shadow-sm dash-section">
             <div class="card-body p-4">
                 <h2 class="h5 mb-2">Unggah dokumen</h2>
-                <p class="text-muted small mb-4">File disimpan di <code>uploads/perpustakaan_digital/</code> dan tampil di halaman <a href="../dokumen.php" target="_blank" rel="noopener">dokumen publik</a>. Untuk mengelola atau menghapus file, gunakan panel <a href="#panel-kelola-dokumen">Kelola Dokumen</a> di bawah.</p>
-                <form method="post" enctype="multipart/form-data" action="dashboard.php#panel-unggah-dokumen">
+                <p class="text-muted small mb-4">File disimpan di <code>uploads/perpustakaan_digital/</code> dan tampil di halaman <a href="<?php echo org_href('dokumen.php'); ?>" target="_blank" rel="noopener">dokumen publik</a>. Untuk mengelola atau menghapus file, gunakan panel <a href="#panel-kelola-dokumen">Kelola Dokumen</a> di bawah.</p>
+                <form method="post" enctype="multipart/form-data" action="<?php echo org_href('admin/dashboard.php', '', 'panel-unggah-dokumen'); ?>">
                     <input type="hidden" name="action" value="upload">
                     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
                     <div class="mb-3">
@@ -189,7 +189,7 @@
         <div id="panel-digital-library-stats" class="card border-0 shadow-sm dash-section">
             <div class="card-body p-4">
                 <h2 class="h5 mb-2">Digital Library — statistik unduhan</h2>
-                <p class="text-muted small mb-4">Jumlah unduhan bertambah setiap kali pengunjung menekan <strong>Unduh</strong> di halaman <a href="../dokumen.php">dokumen publik</a> (bukan pratinjau &quot;Buka&quot;).</p>
+                <p class="text-muted small mb-4">Jumlah unduhan bertambah setiap kali pengunjung menekan <strong>Unduh</strong> di halaman <a href="<?php echo org_href('dokumen.php'); ?>">dokumen publik</a> (bukan pratinjau &quot;Buka&quot;).</p>
                 <?php if ($db === null): ?>
                     <p class="text-muted small mb-0">Database tidak tersedia.</p>
                 <?php elseif (!$dashDocDbReady): ?>
@@ -381,7 +381,7 @@
             <div class="card-body p-4">
                 <h2 class="h5 mb-3">Manajemen Layanan</h2>
                 <p class="text-muted small mb-3">Input daftar layanan publik, <strong>urutan</strong> (angka lebih kecil = tampil lebih dulu dalam satu kategori; 0 = ikuti urutan simpanan), <strong>pin nama</strong> (teks singkat di depan atau di belakang judul di halaman publik), lalu tambahkan media integrasi (gambar, dokumen, dan link) untuk dipakai di halaman <code>layanan.php</code> atau modul lain.</p>
-                <form method="post" action="dashboard.php#panel-konten-tabs" enctype="multipart/form-data">
+                <form method="post" action="<?php echo org_href('admin/dashboard.php', '', 'panel-konten-tabs'); ?>" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="save_layanan_dashboard">
                     <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
                     <div class="table-responsive">
@@ -829,26 +829,26 @@
                 <p class="text-muted small mb-4">Akses cepat ke konfigurasi dan data pendukung.</p>
                 <div class="row g-3">
                     <div class="col-md-6 col-lg-4">
-                        <a href="kelola_dashboard_widgets.php" class="sg-settings-link">
+                        <a href="<?php echo org_href('admin/kelola_dashboard_widgets.php'); ?>" class="sg-settings-link">
                             <i data-lucide="gauge"></i>
                             <span>Widget beranda publik</span>
                         </a>
                     </div>
                     <div class="col-md-6 col-lg-4">
-                        <a href="kelola_team_targets.php" class="sg-settings-link">
+                        <a href="<?php echo org_href('admin/kelola_team_targets.php'); ?>" class="sg-settings-link">
                             <i data-lucide="target"></i>
                             <span>Target tim kerja</span>
                         </a>
                     </div>
                     <div class="col-md-6 col-lg-4">
-                        <a href="daftar_saran_kritik.php" class="sg-settings-link">
+                        <a href="<?php echo org_href('admin/daftar_saran_kritik.php'); ?>" class="sg-settings-link">
                             <i data-lucide="message-square"></i>
                             <span>Saran &amp; kritik</span>
                         </a>
                     </div>
                     <?php if ($auditRiwayatVisible): ?>
                     <div class="col-md-6 col-lg-4">
-                        <a href="laporan_audit.php" class="sg-settings-link">
+                        <a href="<?php echo org_href('admin/laporan_audit.php'); ?>" class="sg-settings-link">
                             <i data-lucide="file-text"></i>
                             <span>Laporan audit</span>
                         </a>

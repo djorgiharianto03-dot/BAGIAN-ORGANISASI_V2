@@ -5,7 +5,7 @@ declare(strict_types=1);
 $items = $berandaGaleriKegiatan ?? [];
 ?>
             <?php if (count($items) > 0): ?>
-                <div class="beranda-galeri-grid">
+                <div class="beranda-galeri-scroll beranda-galeri-grid" role="region" aria-label="Galeri kegiatan — geser ke samping untuk foto lainnya" tabindex="0">
                     <?php foreach ($items as $gItem): ?>
                         <?php
                         if (!is_array($gItem)) {
@@ -51,9 +51,14 @@ $items = $berandaGaleriKegiatan ?? [];
                         </a>
                     <?php endforeach; ?>
                 </div>
+                <?php if (count($items) > 3): ?>
+                    <p class="beranda-galeri-scroll-hint small text-muted mb-0 mt-2" aria-hidden="true">
+                        <i class="fa-solid fa-arrows-left-right me-1" aria-hidden="true"></i>Geser ke samping untuk melihat foto lainnya
+                    </p>
+                <?php endif; ?>
             <?php else: ?>
                 <div class="beranda-galeri-empty rounded-3 border border-light bg-light px-3 py-4 text-center">
                     <p class="text-muted small mb-2 mb-md-0">Belum ada foto kegiatan untuk ditampilkan.</p>
-                    <a class="small fw-semibold text-decoration-none" href="galeri.php">Buka halaman Galeri</a>
+                    <a class="small fw-semibold text-decoration-none" href="<?php echo org_href('galeri.php'); ?>">Buka halaman Galeri</a>
                 </div>
             <?php endif; ?>
