@@ -8,7 +8,7 @@
     --sg-nav-accent: #1d9bf0;
     --sg-nav-accent-soft: rgba(29, 155, 240, 0.2);
     --sg-nav-blur: 20px;
-    --sg-nav-row-min-h: 56px;
+    --sg-nav-row-min-h: 48px;
     --sg-nav-shadow-scroll: 0 4px 24px rgba(15, 23, 42, 0.12);
     --sg-nav-border: rgba(255, 255, 255, 0.12);
     --sg-nav-tap: 40px;
@@ -38,16 +38,16 @@ body.sg-portal-page .site-header--sg-portal {
 
 /* Subhalaman: jarak di bawah navbar fixed — badge Smart Governance Portal tidak menempel atas */
 .sg-portal-page {
-    --sg-subhero-gap-below-header: clamp(0.85rem, 2.2vw, 1.25rem);
-    --sg-subhero-pad-top: calc(var(--sg-portal-header-offset, 6.5rem) + var(--sg-subhero-gap-below-header));
+    --sg-subhero-gap-below-header: clamp(0.65rem, 1.5vw, 0.95rem);
+    --sg-subhero-pad-top: calc(var(--sg-portal-header-offset, 6.25rem) + var(--sg-subhero-gap-below-header));
 }
 
 body.sg-portal-page:not(.sg-homepage) .site-layout-main > .sg-subhero,
 body.sg-portal-page:not(.sg-homepage) .site-layout-main > .org-hero.sg-subhero,
 body.sg-portal-page:not(.sg-homepage) .site-layout-main > .org-hero.org-hero--sub.sg-subhero:first-child {
     margin-top: 0;
-    padding-top: var(--sg-subhero-pad-top) !important;
-    padding-bottom: clamp(1.75rem, 3.5vw, 2.35rem) !important;
+    padding-top: var(--sg-subhero-pad-top);
+    padding-bottom: clamp(1.2rem, 2.5vw, 1.65rem);
     box-sizing: border-box;
 }
 
@@ -86,7 +86,7 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero,
 .sg-portal-page .site-header__topbar {
     align-items: center;
     gap: 0.5rem 1rem;
-    padding: 0.28rem 0 0.22rem;
+    padding: 0.2rem 0 0.15rem;
 }
 
 .sg-portal-page .site-header__logo {

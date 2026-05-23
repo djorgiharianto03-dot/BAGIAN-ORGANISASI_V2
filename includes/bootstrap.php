@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Bootstrap aplikasi: sesi, data, dan penanganan POST.
  * Wajib dipanggil dari setiap halaman publik sebelum header.

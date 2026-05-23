@@ -12,14 +12,11 @@ function org_portal_head_markup(string $existing = ''): string
     }
     $assetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
 
-    $base = '<link rel="preconnect" href="https://fonts.googleapis.com">'
-        . "\n" . '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-        . "\n" . '<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700;800&amp;family=Poppins:wght@500;600;700;800&amp;display=swap" rel="stylesheet">'
-        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal.css', ENT_QUOTES, 'UTF-8') . '">'
-        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-dashboard.css', ENT_QUOTES, 'UTF-8') . '">'
-        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-premium-ui.css', ENT_QUOTES, 'UTF-8') . '">'
-        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-enterprise.css', ENT_QUOTES, 'UTF-8') . '">'
-        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal-nav.css?v=5', ENT_QUOTES, 'UTF-8') . '">'
+    /* Font: sudah dimuat di header.php — hindari duplikasi */
+    $base = '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal.css?v=14', ENT_QUOTES, 'UTF-8') . '">'
+        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-enterprise.css?v=3', ENT_QUOTES, 'UTF-8') . '">'
+        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal-nav.css?v=10', ENT_QUOTES, 'UTF-8') . '">'
+        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-subpages.css?v=1', ENT_QUOTES, 'UTF-8') . '">'
         . "\n";
 
     return $base . $existing;
@@ -41,7 +38,7 @@ function org_portal_head_markup_beranda(string $existing = ''): string
     /* Navbar: portal-nav (utama) + portal; font sekali (Inter + Plus Jakarta) */
     $base = org_assets_fonts_portal_markup()
         . org_asset_stylesheet_async('assets/css/smart-governance-portal.css')
-        . org_asset_stylesheet_link('assets/css/smart-governance-portal-nav.css?v=9')
+        . org_asset_stylesheet_link('assets/css/smart-governance-portal-nav.css?v=10')
         . org_beranda_govtech_styles_async_markup()
         . org_beranda_hero_fix_active_stylesheet_link()
         . org_beranda_viewport_align_stylesheet_link()

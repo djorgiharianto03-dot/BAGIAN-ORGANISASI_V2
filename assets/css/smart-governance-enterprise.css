@@ -59,13 +59,20 @@
 .sg-portal-page .site-main h3,
 .sg-portal-page .site-main .h1,
 .sg-portal-page .site-main .h2,
-.sg-portal-page .site-main .h3,
-.sg-portal-page .sg-subhero__title {
+.sg-portal-page .site-main .h3 {
     font-family: var(--sg-ent-font-display);
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.25;
     color: var(--sg-ent-text);
+}
+
+/* Judul subhero: warna di portal-nav / subpages (bukan --sg-ent-text) */
+.sg-portal-page .sg-subhero__title {
+    font-family: var(--sg-ent-font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
 }
 
 .sg-portal-page .site-main .lead,

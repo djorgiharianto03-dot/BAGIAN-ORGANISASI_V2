@@ -1,0 +1,344 @@
+/**
+ * Smart Governance — subhalaman (profil, layanan, dokumen, informasi, galeri, …)
+ * Muat setelah: portal.css → enterprise.css → portal-nav.css
+ * Tidak menggantikan: doc-center, layanan-directory, profil-institutional (per halaman).
+ */
+
+.sg-portal-subpage {
+    --sg-sub-surface: #f4f7fb;
+    --sg-sub-card: #ffffff;
+    --sg-sub-text: #0f172a;
+    --sg-sub-muted: #64748b;
+    --sg-sub-border: rgba(15, 23, 42, 0.08);
+    --sg-sub-radius: 16px;
+    --sg-sub-radius-lg: 20px;
+    --sg-sub-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px rgba(15, 23, 42, 0.06);
+    --sg-sub-shadow-hover: 0 4px 12px rgba(15, 23, 42, 0.06), 0 16px 40px rgba(37, 99, 235, 0.08);
+    --sg-sub-section-y: clamp(1.25rem, 2.5vw, 2rem);
+    --sg-sub-font: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+}
+
+.sg-portal-subpage .site-layout-main {
+    background: var(--sg-sub-surface);
+    font-family: var(--sg-sub-font);
+    color: var(--sg-sub-text);
+}
+
+/* —— Subhero: ringkas, formal, tanpa dekorasi berat —— */
+.sg-portal-subpage .sg-ambient-layer--subhero,
+.sg-portal-subpage .sg-subhero .sg-particles {
+    display: none;
+}
+
+.sg-portal-subpage .sg-subhero__bg {
+    background: linear-gradient(118deg, #061a33 0%, #0a2f5c 42%, #134e8a 100%);
+}
+
+.sg-portal-subpage .sg-subhero {
+    padding-top: var(--sg-subhero-pad-top, calc(var(--sg-portal-header-offset, 6.25rem) + 0.75rem));
+    padding-bottom: clamp(1.15rem, 2.2vw, 1.55rem);
+    min-height: 0;
+}
+
+.sg-portal-subpage .sg-subhero__title,
+.sg-portal-subpage .sg-subhero .org-hero__title {
+    font-size: clamp(1.35rem, 1.1rem + 1.2vw, 1.85rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.sg-portal-subpage .sg-subhero__lead,
+.sg-portal-subpage .sg-subhero .org-hero__lead {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.sg-portal-subpage .sg-subhero__eyebrow,
+.sg-portal-subpage .sg-subhero .org-eyebrow {
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.sg-portal-subpage .sg-subhero__eyebrow {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.55rem;
+    opacity: 0.92;
+}
+
+.sg-portal-subpage .sg-subhero__lead {
+    font-size: clamp(0.9rem, 0.85rem + 0.2vw, 1rem);
+    line-height: 1.55;
+    margin-bottom: 0.65rem;
+}
+
+.sg-portal-subpage .sg-subhero__stat {
+    padding: 0.65rem 0.85rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(6px);
+}
+
+.sg-portal-subpage .sg-subhero__stat-num {
+    font-size: clamp(1.25rem, 1rem + 0.8vw, 1.5rem);
+    font-weight: 700;
+}
+
+.sg-portal-subpage .sg-subhero__stat-label {
+    font-size: 0.7rem;
+}
+
+/* —— Main shell —— */
+.sg-portal-subpage .sg-portal-main-inner {
+    padding-top: clamp(1.15rem, 2vw, 1.65rem);
+    padding-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.sg-portal-subpage .sg-portal-main-inner > .container-global.site-main,
+.sg-portal-subpage .sg-portal-main-inner > .container.site-main {
+    max-width: var(--layout-max-width, 1320px);
+    padding-left: var(--portal-content-gutter, clamp(1rem, 2.5vw, 32px));
+    padding-right: var(--portal-content-gutter, clamp(1rem, 2.5vw, 32px));
+}
+
+/* —— Typography hierarchy —— */
+.sg-portal-subpage .site-main h1,
+.sg-portal-subpage .site-main .h1 {
+    font-size: clamp(1.35rem, 1.1rem + 0.9vw, 1.75rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--sg-sub-text);
+}
+
+.sg-portal-subpage .site-main h2,
+.sg-portal-subpage .site-main .h2,
+.sg-portal-subpage .section-title,
+.sg-portal-subpage .org-section__title {
+    font-size: clamp(1.1rem, 0.95rem + 0.5vw, 1.35rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--sg-sub-text);
+    margin-bottom: 0.65rem;
+}
+
+.sg-portal-subpage .site-main h3,
+.sg-portal-subpage .site-main .h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--sg-sub-text);
+}
+
+.sg-portal-subpage .site-main .lead,
+.sg-portal-subpage .site-main .text-muted,
+.sg-portal-subpage .section-lead {
+    color: var(--sg-sub-muted);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+}
+
+.sg-portal-subpage .section-spacing {
+    margin-top: var(--sg-sub-section-y);
+    margin-bottom: var(--sg-sub-section-y);
+}
+
+.sg-portal-subpage .section-spacing:first-child {
+    margin-top: 0;
+}
+
+/* —— Cards & panels —— */
+.sg-portal-subpage .card,
+.sg-portal-subpage .section-card,
+.sg-portal-subpage .sg-card,
+.sg-portal-subpage .sg-ent-card,
+.sg-portal-subpage .layanan-premium-card,
+.sg-portal-subpage .pi-portal-card {
+    border-radius: var(--sg-sub-radius-lg);
+    border: 1px solid var(--sg-sub-border);
+    background: var(--sg-sub-card);
+    box-shadow: var(--sg-sub-shadow);
+    transition: box-shadow 0.22s ease, transform 0.22s ease, border-color 0.22s ease;
+}
+
+.sg-portal-subpage .card:hover,
+.sg-portal-subpage .section-card:hover,
+.sg-portal-subpage .sg-card:hover,
+.sg-portal-subpage .layanan-premium-card:hover,
+.sg-portal-subpage .pi-portal-card:hover {
+    box-shadow: var(--sg-sub-shadow-hover);
+    transform: translateY(-2px);
+}
+
+.sg-portal-subpage .profil-org__orb,
+.sg-portal-subpage .profil-org__grain {
+    display: none;
+}
+
+.sg-portal-subpage .profil-org--premium {
+    background: var(--sg-sub-surface);
+    margin-left: 0;
+    margin-right: 0;
+    padding: var(--sg-sub-section-y) 0;
+}
+
+/* —— Buttons —— */
+.sg-portal-subpage .btn {
+    font-family: var(--sg-sub-font);
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 0.45rem 1rem;
+    font-size: 0.875rem;
+}
+
+.sg-portal-subpage .btn-primary {
+    background: linear-gradient(135deg, #0f4c81, #1d6bb8);
+    border-color: transparent;
+    box-shadow: 0 2px 8px rgba(15, 76, 129, 0.25);
+}
+
+.sg-portal-subpage .btn-primary:hover {
+    background: linear-gradient(135deg, #0c3d6b, #155a9e);
+    box-shadow: 0 4px 14px rgba(15, 76, 129, 0.3);
+}
+
+.sg-portal-subpage .btn-outline-primary {
+    border-color: rgba(15, 76, 129, 0.35);
+    color: #0f4c81;
+}
+
+/* —— Forms —— */
+.sg-portal-subpage .form-control,
+.sg-portal-subpage .form-select {
+    border-radius: 10px;
+    border-color: var(--sg-sub-border);
+    font-size: 0.9375rem;
+    padding: 0.5rem 0.85rem;
+}
+
+.sg-portal-subpage .form-control:focus,
+.sg-portal-subpage .form-select:focus {
+    border-color: rgba(37, 99, 235, 0.45);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.sg-portal-subpage .form-label {
+    font-weight: 600;
+    font-size: 0.8125rem;
+    color: var(--sg-sub-text);
+    margin-bottom: 0.35rem;
+}
+
+/* —— Tables —— */
+.sg-portal-subpage .table {
+    font-size: 0.9rem;
+    color: var(--sg-sub-text);
+}
+
+.sg-portal-subpage .table thead th {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--sg-sub-muted);
+    border-bottom-width: 1px;
+    background: #f8fafc;
+}
+
+.sg-portal-subpage .table-hover tbody tr:hover {
+    background: rgba(37, 99, 235, 0.04);
+}
+
+.sg-portal-subpage .table-responsive {
+    border-radius: var(--sg-sub-radius);
+    border: 1px solid var(--sg-sub-border);
+    box-shadow: var(--sg-sub-shadow);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* —— Alerts —— */
+.sg-portal-subpage .alert {
+    border-radius: var(--sg-sub-radius);
+    border-width: 1px;
+    font-size: 0.9rem;
+}
+
+/* —— Publikasi (berita / galeri) selaras portal —— */
+.sg-portal-subpage.page-publikasi-premium {
+    background: var(--sg-sub-surface);
+}
+
+.sg-portal-subpage.page-publikasi-premium .pub-page-hero {
+    border-radius: var(--sg-sub-radius-lg);
+    box-shadow: var(--sg-sub-shadow);
+}
+
+.sg-portal-subpage.page-publikasi-premium .pub-card,
+.sg-portal-subpage.page-publikasi-premium .pub-grid-card {
+    border-radius: var(--sg-sub-radius-lg);
+    box-shadow: var(--sg-sub-shadow);
+}
+
+/* —— Statistik konten (bukan hero) —— */
+.sg-portal-subpage .sg-stat-tile,
+.sg-portal-subpage .metric-pill,
+.sg-portal-subpage .eorg-stat-mini {
+    border-radius: 12px;
+    border: 1px solid var(--sg-sub-border);
+    background: var(--sg-sub-card);
+    box-shadow: var(--sg-sub-shadow);
+    padding: 0.75rem 1rem;
+}
+
+/* —— Overflow & konsistensi browser —— */
+.sg-portal-subpage,
+.sg-portal-subpage .site-layout-main,
+.sg-portal-subpage .sg-portal-main-inner {
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+.sg-portal-subpage img,
+.sg-portal-subpage video,
+.sg-portal-subpage iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+/* —— Mobile —— */
+@media (max-width: 767.98px) {
+    .sg-portal-subpage .sg-subhero__stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+    }
+
+    .sg-portal-subpage .sg-subhero__grid {
+        gap: 1rem;
+    }
+
+    .sg-portal-subpage .table-responsive {
+        margin-left: calc(-1 * var(--portal-content-gutter, 1rem));
+        margin-right: calc(-1 * var(--portal-content-gutter, 1rem));
+        width: calc(100% + 2 * var(--portal-content-gutter, 1rem));
+        border-left: none;
+        border-right: none;
+        border-radius: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sg-portal-subpage .card,
+    .sg-portal-subpage .section-card,
+    .sg-portal-subpage .sg-card,
+    .sg-portal-subpage .layanan-premium-card,
+    .sg-portal-subpage .pi-portal-card {
+        transition: none;
+    }
+
+    .sg-portal-subpage .card:hover,
+    .sg-portal-subpage .layanan-premium-card:hover {
+        transform: none;
+    }
+}

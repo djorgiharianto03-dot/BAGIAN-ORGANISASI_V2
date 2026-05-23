@@ -20,7 +20,6 @@ $portalHeroAriaLabel = $portalHeroTitle !== '' ? $portalHeroTitle : ($portalHero
 ?>
 <section class="org-hero org-hero--sub sg-subhero" aria-label="<?php echo htmlspecialchars($portalHeroAriaLabel, ENT_QUOTES, 'UTF-8'); ?>">
     <div class="org-hero__bg sg-subhero__bg" aria-hidden="true"></div>
-    <?php $sgAmbientVariant = 'subhero'; $sgParticleCount = 24; require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'sg_ambient_layer.php'; ?>
     <div class="container-global hero-inner org-hero__container">
         <div class="org-hero__grid sg-subhero__grid">
             <div class="sg-subhero__copy">

@@ -95,7 +95,7 @@ if ($orgHeaderBerandaPage) {
     echo org_modal_layer_stylesheet_link();
     if (str_contains($bodyClassAttr, 'sg-portal-page')) {
         $sgPortalLayoutBase = defined('ORG_WEB_ROOT') && ORG_WEB_ROOT !== '' ? rtrim(ORG_WEB_ROOT, '/') : '';
-        echo '<link rel="stylesheet" href="' . htmlspecialchars($sgPortalLayoutBase . '/assets/css/smart-governance-portal-layout-fix.css?v=20', ENT_QUOTES, 'UTF-8') . '">' . "\n";
+        echo '<link rel="stylesheet" href="' . htmlspecialchars($sgPortalLayoutBase . '/assets/css/smart-governance-portal-layout-fix.css?v=21', ENT_QUOTES, 'UTF-8') . '">' . "\n";
     }
 }
 
@@ -114,7 +114,7 @@ if (str_contains($bodyClassAttr, 'sg-portal-page') && !$orgHeaderBerandaPage) {
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__tagline{font-size:clamp(.9rem,.85rem+.3vw,1.05rem)!important;line-height:1.5!important;max-width:100%!important}'
         . 'body.sg-portal-page .site-header__rail.header-inner{display:flex!important;flex-direction:column!important;align-items:stretch!important;width:100%!important}'
         . 'body.sg-portal-page .site-header__rail .navbar-wrapper{display:block!important;width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important}'
-        . 'body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero,body.sg-portal-page:not(.sg-homepage) .site-layout-main>.sg-subhero{padding-top:calc(var(--sg-portal-header-offset,6.5rem) + clamp(.85rem,2.2vw,1.25rem))!important;padding-bottom:clamp(1.75rem,3.5vw,2.35rem)!important;width:100%!important;max-width:none!important;margin-left:0!important;margin-right:0!important}'
+        . 'body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero,body.sg-portal-page:not(.sg-homepage) .site-layout-main>.sg-subhero{padding-top:calc(var(--sg-portal-header-offset,6.25rem) + clamp(.65rem,1.5vw,.95rem))!important;padding-bottom:clamp(1.2rem,2.5vw,1.65rem)!important;width:100%!important;max-width:none!important;margin-left:0!important;margin-right:0!important}'
         . 'body.sg-homepage.sg-portal-page>#sg-hero,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero{display:block!important;width:100%!important;max-width:100%!important;margin:0!important;overflow-x:hidden!important;overflow-y:visible!important;box-sizing:border-box!important}'
         . 'html.sg-portal-html-home{overflow-y:auto!important;overflow-x:hidden!important}body.sg-portal-page{overflow-y:visible!important;overflow-x:hidden!important;max-width:100%!important}'
         . 'body.sg-portal-page .site-header--sg-portal,body.sg-portal-page .site-header--sg-portal .site-header__gradient{width:100%!important;max-width:100%!important}'
