@@ -17,8 +17,8 @@ function org_tailwind_asset_base(): string
 function org_tailwind_stylesheet_link(): string
 {
     $href = function_exists('org_asset_url')
-        ? org_asset_url('assets/css/org-tailwind.css?v=2')
-        : org_tailwind_asset_base() . 'assets/css/org-tailwind.css?v=2';
+        ? org_asset_url('assets/css/org-tailwind.css?v=3')
+        : org_tailwind_asset_base() . 'assets/css/org-tailwind.css?v=3';
 
     return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '">' . "\n";
 }

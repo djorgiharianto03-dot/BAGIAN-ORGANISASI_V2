@@ -13,13 +13,28 @@ function org_portal_head_markup(string $existing = ''): string
     $assetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
 
     /* Font: sudah dimuat di header.php — hindari duplikasi */
-    $base = '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal.css?v=15', ENT_QUOTES, 'UTF-8') . '">'
+    /* smart-governance-subpages.css?v=3 → org_portal_subpages_stylesheet_link() di header.php (paling akhir) */
+    $base = '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal.css?v=16', ENT_QUOTES, 'UTF-8') . '">'
         . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-enterprise.css?v=3', ENT_QUOTES, 'UTF-8') . '">'
         . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal-nav.css?v=11', ENT_QUOTES, 'UTF-8') . '">'
-        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-subpages.css?v=2', ENT_QUOTES, 'UTF-8') . '">'
         . "\n";
 
     return $base . $existing;
+}
+
+/**
+ * Stylesheet subhalaman hero compact — v=3 (juga dipanggil ulang paling akhir di header.php).
+ */
+function org_portal_subpages_stylesheet_link(): string
+{
+    if (!defined('ORG_WEB_ROOT')) {
+        require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_database.php';
+        define('ORG_WEB_ROOT', org_site_web_root());
+    }
+    $assetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
+    $href = $assetBase . '/assets/css/smart-governance-subpages.css?v=3';
+
+    return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '" data-sg-subpages-css="3">' . "\n";
 }
 
 /**

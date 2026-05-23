@@ -44,9 +44,10 @@
 /* Timpa padding besar .sg-subhero di portal.css */
 body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .sg-subhero,
 body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .org-hero.sg-subhero,
+body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .org-hero.org-hero--sub.sg-subhero:first-child,
 .sg-portal-subpage .sg-subhero {
-    padding-top: calc(var(--sg-portal-header-offset, 6.25rem) + var(--sg-subhero-gap-below-header));
-    padding-bottom: var(--sg-subhero-pad-bottom);
+    padding-top: calc(var(--sg-portal-header-offset, 6.25rem) + var(--sg-subhero-gap-below-header)) !important;
+    padding-bottom: var(--sg-subhero-pad-bottom) !important;
     padding-left: 0;
     padding-right: 0;
     min-height: 0;
@@ -65,7 +66,7 @@ body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .org
     display: grid;
     grid-template-columns: 1fr;
     gap: 0.85rem 1rem;
-    align-items: center;
+    align-items: center !important;
 }
 
 @media (min-width: 768px) {
@@ -73,7 +74,7 @@ body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .org
     .sg-portal-subpage .org-hero__grid.sg-subhero__grid {
         grid-template-columns: minmax(0, 1fr) auto;
         gap: 1rem 1.5rem;
-        align-items: center;
+        align-items: center !important;
     }
 
     .sg-portal-subpage .sg-subhero__stats,
@@ -167,6 +168,53 @@ body.sg-portal-subpage.sg-portal-page .sg-subhero .sg-subhero__eyebrow {
     line-height: 1.25;
     margin-top: 0.15rem;
     opacity: 0.88;
+}
+
+/* —— Menang atas org-tailwind / shell-align / portal (muat paling akhir, v=3) —— */
+body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .org-hero.org-hero--sub.sg-subhero,
+body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .org-hero.sg-subhero,
+body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .sg-subhero {
+    padding: 0 !important;
+    padding-top: calc(var(--sg-portal-header-offset, 6.25rem) + clamp(0.35rem, 0.9vw, 0.5rem)) !important;
+    padding-bottom: clamp(0.75rem, 1.6vw, 1rem) !important;
+    margin-bottom: 0 !important;
+    border-radius: 0 !important;
+    min-height: 0 !important;
+}
+
+body.sg-portal-subpage .org-hero--sub.sg-subhero .org-hero__container,
+body.sg-portal-subpage .org-hero--sub.sg-subhero .hero-inner.org-hero__container,
+body.sg-portal-subpage .org-hero.sg-subhero .org-hero__container.container-global {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+}
+
+body.sg-portal-subpage .org-hero--sub .org-hero__stats,
+body.sg-portal-subpage .org-hero--sub .sg-subhero__stats {
+    margin-top: 0 !important;
+}
+
+body.sg-portal-subpage .org-hero--sub .org-hero__grid,
+body.sg-portal-subpage .sg-subhero .sg-subhero__grid {
+    align-items: center !important;
+    gap: 0.85rem 1.25rem !important;
+}
+
+body.sg-portal-subpage .sg-subhero .org-eyebrow,
+body.sg-portal-subpage .sg-subhero .sg-subhero__eyebrow {
+    margin: 0 0 0.45rem !important;
+}
+
+body.sg-portal-subpage .sg-subhero .org-hero__title,
+body.sg-portal-subpage .sg-subhero__title {
+    margin: 0 0 0.35rem !important;
+}
+
+body.sg-portal-subpage .sg-subhero .org-hero__breadcrumb,
+body.sg-portal-subpage .sg-subhero__breadcrumb {
+    margin: 0 !important;
 }
 
 /* —— Main shell —— */

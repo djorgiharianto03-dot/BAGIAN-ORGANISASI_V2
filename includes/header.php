@@ -95,7 +95,7 @@ if ($orgHeaderBerandaPage) {
     echo org_modal_layer_stylesheet_link();
     if (str_contains($bodyClassAttr, 'sg-portal-page')) {
         $sgPortalLayoutBase = defined('ORG_WEB_ROOT') && ORG_WEB_ROOT !== '' ? rtrim(ORG_WEB_ROOT, '/') : '';
-        echo '<link rel="stylesheet" href="' . htmlspecialchars($sgPortalLayoutBase . '/assets/css/smart-governance-portal-layout-fix.css?v=22', ENT_QUOTES, 'UTF-8') . '">' . "\n";
+        echo '<link rel="stylesheet" href="' . htmlspecialchars($sgPortalLayoutBase . '/assets/css/smart-governance-portal-layout-fix.css?v=23', ENT_QUOTES, 'UTF-8') . '">' . "\n";
     }
 }
 
@@ -123,6 +123,10 @@ if (str_contains($bodyClassAttr, 'sg-portal-page') && !$orgHeaderBerandaPage) {
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-secondary,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__copy{overflow:visible!important;clip:auto!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__holo,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__holo .sg-command-center{max-height:none!important;overflow:visible!important}'
         . '</style>' . "\n";
+}
+if (str_contains($bodyClassAttr, 'sg-portal-subpage') && !$orgHeaderBerandaPage) {
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
+    echo org_portal_subpages_stylesheet_link();
 }
 ?>
 </head>

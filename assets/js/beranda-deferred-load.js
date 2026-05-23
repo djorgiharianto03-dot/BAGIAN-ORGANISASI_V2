@@ -116,6 +116,14 @@
     }
 
     function loadChartJs(cb) {
+        if (typeof Chart !== 'undefined') {
+            loaded.chart = true;
+            document.dispatchEvent(new Event('beranda:chart-ready'));
+            if (cb) {
+                cb();
+            }
+            return;
+        }
         if (loaded.chart) {
             document.dispatchEvent(new Event('beranda:chart-ready'));
             if (cb) {
@@ -268,7 +276,7 @@
             return;
         }
         loaded.portal = true;
-        loadScript(assetBase + '/assets/js/smart-governance-portal.js?v=17');
+        loadScript(assetUrl('js/smart-governance-portal.js?v=17'));
     }
 
     function injectChunkHtml(slot, html) {
@@ -524,35 +532,11 @@
             ensureTeamTargetCharts();
         }
         if (document.getElementById('berandaVisitChart')) {
-            if (isBerandaSsrChartsPage()) {
-                requestAnimationFrame(function () {
-                    loadChartJs();
-                });
-            } else {
-                whenChartHostVisible(function () {
-                    loadChartJs();
-                });
-            }
+            loadChartJs();
         }
-        var galeriLink = document.querySelector('[data-fancybox="beranda-galeri-kegiatan"]');
-        if (!galeriLink) {
-            return;
+        if (document.querySelector('[data-fancybox="beranda-galeri-kegiatan"]')) {
+            initFancybox();
         }
-        var galeriSection = document.getElementById('beranda-galeri-kegiatan');
-        if (galeriSection && 'IntersectionObserver' in window) {
-            var galeriIo = new IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
-                    if (!entry.isIntersecting) {
-                        return;
-                    }
-                    galeriIo.disconnect();
-                    initFancybox();
-                });
-            }, { rootMargin: '140px 0px', threshold: 0.02 });
-            galeriIo.observe(galeriSection);
-            return;
-        }
-        initFancybox();
     }
 
     function onDomReady() {

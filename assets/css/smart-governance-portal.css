@@ -728,10 +728,13 @@ html.sg-smooth-scroll { scroll-behavior: smooth; }
     isolation: isolate;
 }
 
-/* Subhalaman: padding & grid diatur subpages.css + portal-nav (bukan nilai default di atas) */
-.sg-portal-subpage .sg-subhero {
-    padding-top: calc(var(--sg-portal-header-offset, 6.25rem) + clamp(0.35rem, 0.9vw, 0.5rem));
-    padding-bottom: clamp(0.75rem, 1.6vw, 1rem);
+/* Subhalaman: jangan pakai padding shorthand besar — subpages.css menang */
+body.sg-portal-subpage .site-layout-main > .org-hero.sg-subhero,
+body.sg-portal-subpage .site-layout-main > .sg-subhero,
+body.sg-portal-subpage .org-hero.org-hero--sub.sg-subhero {
+    padding: 0;
+    margin-bottom: 0;
+    border-radius: 0;
 }
 .sg-subhero__bg {
     position: absolute;
@@ -752,16 +755,6 @@ html.sg-smooth-scroll { scroll-behavior: smooth; }
         grid-template-columns: 1.2fr 0.8fr;
     }
 }
-.sg-portal-subpage .sg-subhero__grid {
-    align-items: center;
-    gap: 0.85rem 1rem;
-}
-@media (min-width: 768px) {
-    .sg-portal-subpage .sg-subhero__grid {
-        grid-template-columns: minmax(0, 1fr) auto;
-        align-items: center;
-    }
-}
 .sg-subhero__eyebrow {
     display: inline-flex;
     align-items: center;
@@ -773,20 +766,12 @@ html.sg-smooth-scroll { scroll-behavior: smooth; }
     opacity: 0.9;
     margin: 0 0 0.65rem;
 }
-.sg-portal-subpage .sg-subhero__eyebrow {
-    margin: 0 0 0.45rem;
-}
 .sg-subhero__title {
     font-size: clamp(1.65rem, 3.5vw, 2.35rem);
     font-weight: 800;
     letter-spacing: -0.03em;
     line-height: 1.15;
     margin: 0 0 0.75rem;
-}
-.sg-portal-subpage .sg-subhero__title {
-    font-size: clamp(1.35rem, 1.05rem + 0.85vw, 1.75rem);
-    font-weight: 700;
-    margin: 0 0 0.35rem;
 }
 .sg-subhero__lead {
     font-size: 1rem;
@@ -830,6 +815,8 @@ html.sg-smooth-scroll { scroll-behavior: smooth; }
     opacity: 0.85;
     margin-top: 0.2rem;
 }
+
+/* Subhalaman compact: detail di smart-governance-subpages.css */
 
 .sg-portal-subpage .sg-portal-main-inner {
     padding: clamp(1.5rem, 3vw, 2.5rem) 0 clamp(3rem, 5vw, 4rem);

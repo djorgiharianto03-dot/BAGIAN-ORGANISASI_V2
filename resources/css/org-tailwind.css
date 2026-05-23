@@ -338,26 +338,30 @@
         @apply text-org-xs text-slate-400;
     }
 
-    /* Sub-hero (portal pages) */
+    /* Sub-hero (portal pages) — padding/grid di smart-governance-subpages.css */
     .org-hero--sub {
-        @apply mb-org-8 rounded-org-xl text-white;
+        @apply mb-0 rounded-none text-white;
     }
 
     .org-hero--sub .org-hero__bg {
-        @apply rounded-org-xl;
+        @apply rounded-none;
         background: linear-gradient(135deg, #041e3f 0%, #0a2f63 55%, #0d3d7a 100%);
     }
 
     .org-hero--sub .org-hero__container {
-        @apply py-org-10;
+        @apply py-0;
     }
 
     .org-hero--sub .org-hero__grid {
-        @apply lg:grid-cols-[1fr_auto];
+        @apply items-center gap-org-4 lg:grid-cols-[1fr_auto];
+    }
+
+    .org-hero--sub .org-hero__stats {
+        @apply mt-0;
     }
 
     .org-hero__breadcrumb {
-        @apply mt-org-4 flex flex-wrap items-center gap-2 text-org-sm text-white/70;
+        @apply mt-0 flex flex-wrap items-center gap-2 text-org-sm text-white/70;
     }
 
     .org-hero__breadcrumb a {

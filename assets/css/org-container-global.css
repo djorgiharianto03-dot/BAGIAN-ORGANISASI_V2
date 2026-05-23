@@ -141,6 +141,15 @@ body.sg-portal-page .site-header--sg-portal {
     padding-right: 32px;
 }
 
+/* Subhero portal: tanpa py tambahan (tailwind py-org-10) — padding di section.subhero */
+body.sg-portal-subpage .org-hero.sg-subhero .org-hero__container.container-global,
+body.sg-portal-subpage .org-hero.sg-subhero .hero-inner.container-global {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
 /* Shell section full-width (bukan .container-global) */
 .org-hero,
 .sg-subhero,

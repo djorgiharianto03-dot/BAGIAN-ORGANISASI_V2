@@ -407,3 +407,30 @@ function org_beranda_footer_vendor_base_script(): string
     return '<script>window.ORG_VENDOR_BASE=' . json_encode(org_vendor_web_base(), JSON_UNESCAPED_SLASHES)
         . ';</script>' . "\n";
 }
+
+/**
+ * Variabel global + Chart.js (dan opsional Apex) sebelum beranda-deferred-load.js.
+ */
+function org_beranda_footer_chart_scripts(bool $loadApexCharts = false): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_vendor_assets.php';
+    if (!defined('ORG_WEB_ROOT')) {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_database.php';
+        define('ORG_WEB_ROOT', org_site_web_root());
+    }
+    $webRoot = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
+    $assetBase = $webRoot;
+
+    $out = org_beranda_footer_vendor_base_script();
+    $out .= '<script>window.ORG_WEB_ROOT=' . json_encode($webRoot, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+        . ';window.ORG_ASSET_BASE=' . json_encode($assetBase, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+        . ';</script>' . "\n";
+    $out .= org_vendor_script_preload(org_vendor_chartjs_js());
+    $out .= org_vendor_script(org_vendor_chartjs_js(), true);
+    if ($loadApexCharts) {
+        $out .= org_vendor_script_preload(org_vendor_apexcharts_js());
+        $out .= org_vendor_script(org_vendor_apexcharts_js(), true);
+    }
+
+    return $out;
+}

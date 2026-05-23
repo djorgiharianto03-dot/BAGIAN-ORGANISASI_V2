@@ -387,6 +387,16 @@
     position: relative;
     overflow: hidden;
 }
+
+/* Subhalaman: premium-ui tidak menambah tinggi (file ini jarang dimuat publik) */
+body.sg-portal-subpage .org-hero--sub.sg-subhero,
+body.sg-portal-subpage .org-hero.sg-subhero {
+    margin-bottom: 0;
+}
+body.sg-portal-subpage .org-hero--sub .org-hero__container {
+    padding-top: 0;
+    padding-bottom: 0;
+}
 .sg-ambient-layer--subhero .sg-ambient-glow {
     opacity: 0.45;
 }

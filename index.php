@@ -136,6 +136,11 @@ $prosesSaranUrlEsc = htmlspecialchars($prosesSaranUrl, ENT_QUOTES, 'UTF-8');
 
 org_portal_prepare_page($bodyClass, false);
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
+
+if (!defined('ORG_BERANDA_NEED_APEX')) {
+    define('ORG_BERANDA_NEED_APEX', !empty($berandaTeamTargetsVisible));
+}
+
 $extraHeadMarkup = org_beranda_index_extra_head_markup(
     count($berandaDashboardWidgets) > 0 || !empty($berandaTeamTargetsVisible)
 );

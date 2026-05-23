@@ -6,6 +6,19 @@ declare(strict_types=1);
 $berandaDashboardWidgets = $berandaDashboardWidgets ?? [];
 $berandaWidgetDetailsMap = $berandaWidgetDetailsMap ?? [];
 if (count($berandaDashboardWidgets) === 0) {
+    ?>
+        <section class="beranda-section gov-kpi-section gov-kpi-section--empty" id="beranda-dashboard-widgets" aria-labelledby="beranda-dashboard-widgets-title">
+            <div class="gov-kpi-section__shell">
+                <header class="gov-kpi-section__header">
+                    <div class="gov-kpi-section__heading">
+                        <h2 id="beranda-dashboard-widgets-title" class="gov-kpi-section__title">Indikator &amp; Statistik</h2>
+                        <p class="gov-kpi-section__subtitle">Monitoring Real Time Capaian OPD</p>
+                    </div>
+                </header>
+                <p class="gov-kpi-section__empty text-muted mb-0">Belum ada indikator aktif. Kelola widget di dashboard admin.</p>
+            </div>
+        </section>
+    <?php
     return;
 }
 $widgetCount = count($berandaDashboardWidgets);

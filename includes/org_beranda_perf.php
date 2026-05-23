@@ -22,7 +22,40 @@ function org_beranda_is_light_page(): bool
 
 }
 
-
+/**
+ * Hapus cache beranda yang hanya berisi array kosong (mencegah galeri/indikator tidak tampil).
+ */
+function org_beranda_purge_empty_list_caches(): void
+{
+    if (!org_runtime_cache_ensure_dir()) {
+        return;
+    }
+    $rules = [
+        'beranda_galeri_public.json' => 'items',
+        'beranda_dashboard_bundle.json' => 'widgets',
+        'beranda_pusat_informasi.json' => 'items',
+    ];
+    foreach ($rules as $filename => $listKey) {
+        $path = org_runtime_cache_file_path($filename);
+        if (!is_file($path)) {
+            continue;
+        }
+        $raw = @file_get_contents($path);
+        if ($raw === false || $raw === '') {
+            @unlink($path);
+            continue;
+        }
+        try {
+            $decoded = json_decode($raw, true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException) {
+            @unlink($path);
+            continue;
+        }
+        if (!is_array($decoded) || !isset($decoded[$listKey]) || !is_array($decoded[$listKey]) || $decoded[$listKey] === []) {
+            @unlink($path);
+        }
+    }
+}
 
 /** @deprecated Gunakan org_runtime_cache_dir() — alias kompatibilitas */
 
@@ -526,7 +559,7 @@ function org_beranda_fetch_galeri_cached(?mysqli $db, int $limit = 6): array
 
     $cached = org_runtime_cache_read_json('beranda_galeri_public.json', 180);
 
-    if (is_array($cached) && isset($cached['items']) && is_array($cached['items'])) {
+    if (is_array($cached) && isset($cached['items']) && is_array($cached['items']) && $cached['items'] !== []) {
 
         return array_slice(array_values($cached['items']), 0, $limit);
 
@@ -566,7 +599,7 @@ function org_beranda_fetch_pusat_informasi_cached(?mysqli $db, int $maxFeatured 
 
     $cached = org_runtime_cache_read_json('beranda_pusat_informasi.json', 300);
 
-    if (is_array($cached) && isset($cached['items']) && is_array($cached['items'])) {
+    if (is_array($cached) && isset($cached['items']) && is_array($cached['items']) && $cached['items'] !== []) {
 
         return array_values($cached['items']);
 

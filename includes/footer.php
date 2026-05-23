@@ -142,7 +142,8 @@ echo org_theme_script_tag();
 echo org_navbar_script_tag();
 if ($orgFooterBeranda) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
-    echo org_beranda_footer_vendor_base_script();
+    $orgBerandaLoadApex = defined('ORG_BERANDA_NEED_APEX') && ORG_BERANDA_NEED_APEX === true;
+    echo org_beranda_footer_chart_scripts($orgBerandaLoadApex);
     echo org_beranda_lite_render_script_tag();
     echo org_beranda_deferred_script_tag();
     echo org_beranda_portal_header_offset_script();
