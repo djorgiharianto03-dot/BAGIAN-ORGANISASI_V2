@@ -16,7 +16,7 @@ function org_portal_head_markup(string $existing = ''): string
     /* smart-governance-subpages.css?v=5 → org_portal_subpages_stylesheet_link() di header.php (paling akhir) */
     $base = '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal.css?v=16', ENT_QUOTES, 'UTF-8') . '">'
         . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-enterprise.css?v=3', ENT_QUOTES, 'UTF-8') . '">'
-        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal-nav.css?v=13', ENT_QUOTES, 'UTF-8') . '">'
+        . "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($assetBase . '/assets/css/smart-governance-portal-nav.css?v=14', ENT_QUOTES, 'UTF-8') . '">'
         . "\n";
 
     return $base . $existing;
@@ -38,6 +38,16 @@ function org_portal_subpages_stylesheet_link(): string
 }
 
 /**
+ * Navbar portal — muat paling akhir di head beranda (setelah unify/viewport).
+ */
+function org_portal_nav_stylesheet_link(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+
+    return org_asset_stylesheet_link('assets/css/smart-governance-portal-nav.css?v=14');
+}
+
+/**
  * Head beranda — portal nav + CSS govtech non-blocking (desain tetap, muat ringan).
  */
 function org_portal_head_markup_beranda(string $existing = ''): string
@@ -50,12 +60,9 @@ function org_portal_head_markup_beranda(string $existing = ''): string
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
 
-    /* Navbar: portal-nav (selaras Profil); bundle sudah berisi CSS beranda */
-    $base = org_asset_stylesheet_async('assets/css/smart-governance-portal.css')
-        . org_asset_stylesheet_link('assets/css/smart-governance-portal-nav.css?v=13');
+    $base = org_asset_stylesheet_async('assets/css/smart-governance-portal.css');
 
     if (org_assets_beranda_css_bundle_available()) {
-        /* Sync paling akhir — menimpa portal.css / portal-nav (bundle async dimuat lebih dulu) */
         $base .= org_beranda_hero_fix_active_stylesheet_link()
             . org_asset_stylesheet_link('assets/css/beranda-nav-hero.css')
             . org_beranda_header_nav_unify_stylesheet_link()
@@ -68,6 +75,9 @@ function org_portal_head_markup_beranda(string $existing = ''): string
             . org_beranda_premium_polish_stylesheet_link()
             . org_beranda_header_nav_unify_stylesheet_link();
     }
+
+    /* Sync paling akhir — branding header identik Profil */
+    $base .= org_portal_nav_stylesheet_link();
 
     return $base . $existing;
 }
