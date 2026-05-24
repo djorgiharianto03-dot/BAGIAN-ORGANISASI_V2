@@ -123,7 +123,7 @@ function org_container_global_stylesheet_link_async(): string
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
     $links = '';
     foreach ([
-        'assets/css/org-container-global.css?v=39',
+        'assets/css/org-container-global.css?v=44',
         'assets/css/sg-portal-panel-layout.css?v=6',
         'assets/css/sg-portal-shell-align.css?v=5',
         'assets/css/org-overflow-guard.css?v=1',

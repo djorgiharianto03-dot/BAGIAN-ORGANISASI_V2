@@ -203,14 +203,16 @@
         padding-bottom: 6px !important;
     }
 
+    /* Header portal — selaraskan dengan portal-nav (logo rail Beranda) */
     .sg-portal-page .site-header__topbar {
-        gap: 0.35rem 0.5rem;
-        padding-top: 0.1rem;
-        padding-bottom: 0.1rem;
+        gap: 0.5rem 1rem;
+        padding: 0.2rem 0 0.15rem;
     }
 
-    .sg-portal-page .site-header__logo {
-        max-height: 38px;
+    .sg-portal-page .site-header__logo,
+    .sg-portal-page .org-navbar__logo {
+        max-height: 38px !important;
+        max-width: 36vw !important;
     }
 
     .sg-portal-page .site-header__title {

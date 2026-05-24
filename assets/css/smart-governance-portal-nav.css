@@ -130,32 +130,49 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero,
     display: none !important;
 }
 
+/* Header portal: logo saja — posisi & ukuran sama Beranda (semua halaman) */
 .sg-portal-page .site-header__brand-row,
 .sg-portal-page .org-navbar__brand.site-header__brand-row {
-    flex: 0 1 auto;
-    gap: 0;
+    flex: 1 1 auto !important;
+    gap: 0.65rem 0.85rem !important;
 }
 
-.sg-portal-page .site-header__logo {
-    max-height: 48px;
-    width: auto;
-    max-width: none;
+.sg-portal-page .site-header__logo,
+.sg-portal-page .org-navbar__logo {
+    max-height: 48px !important;
+    max-width: none !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
     filter: none !important;
-    object-fit: contain;
     flex-shrink: 0;
     vertical-align: middle;
 }
 
 @media (min-width: 992px) {
-    .sg-portal-page .site-header__logo {
-        max-height: 52px;
+    .sg-portal-page .site-header__logo,
+    .sg-portal-page .org-navbar__logo {
+        max-height: 52px !important;
     }
 }
 
-/*
- * Branding teks — proporsional logo (48px / 52px desktop).
- * Semua halaman portal: Beranda, Profil, subhalaman.
- */
+@media (max-width: 991.98px) {
+    .sg-portal-page .site-header__logo,
+    .sg-portal-page .org-navbar__logo {
+        max-height: 38px !important;
+        max-width: 36vw !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .sg-portal-page .site-header__logo,
+    .sg-portal-page .org-navbar__logo {
+        max-height: 48px !important;
+        max-width: 36vw !important;
+    }
+}
+
+/* Legacy title rules (hidden) — kept for cache safety */
 .sg-portal-page .site-header__title {
     font-family: var(--sg-nav-font) !important;
     font-weight: 700 !important;
@@ -711,11 +728,11 @@ body[class*='theme-'].sg-portal-page .site-header__holiday-ucapan--inline .site-
     }
 
     .sg-portal-page .site-header__brand-row {
-        flex: 1 1 auto;
+        flex: 1 1 auto !important;
         min-width: 0;
         max-width: none;
         align-items: center !important;
-        gap: 0.5rem 0.65rem !important;
+        gap: 0.65rem 0.85rem !important;
     }
 
     .sg-portal-page .site-header__nav-toggle {
@@ -731,11 +748,6 @@ body[class*='theme-'].sg-portal-page .site-header__holiday-ucapan--inline .site-
 }
 
 @media (max-width: 575.98px) {
-    .sg-portal-page .site-header__logo {
-        max-height: 48px;
-        max-width: 36vw;
-    }
-
     .sg-portal-page .site-header__holiday-ucapan--inline .site-header__holiday-ucapan-sub {
         display: none !important;
     }

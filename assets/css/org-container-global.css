@@ -255,9 +255,12 @@ body.sg-homepage.sg-portal-page .site-layout-main {
     width: 100%;
     max-width: 100%;
     margin: 0;
-    padding: 0;
+    padding: 0.2rem 0 0.15rem;
     flex: 0 0 auto;
     align-self: stretch;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    box-sizing: border-box;
 }
 
 .sg-portal-page .header-inner .site-header__brand-row,
@@ -353,7 +356,7 @@ body.sg-homepage.sg-portal-page .site-layout-main {
 }
 
 .sg-portal-page .site-header--sg-portal .site-header__gradient {
-    padding: 24px 0 16px;
+    padding: 0;
     box-sizing: border-box;
 }
 
@@ -541,6 +544,13 @@ body.sg-portal-page .hero-inner.container-global {
 .sg-portal-page .site-footer__copyright-inner {
     width: 100%;
     max-width: 100%;
+}
+
+@media (max-width: 991.98px) {
+    body.sg-portal-page .site-header--sg-portal .site-header__gradient {
+        padding-top: 10px !important;
+        padding-bottom: 6px !important;
+    }
 }
 
 @media (max-width: 1024px) {
