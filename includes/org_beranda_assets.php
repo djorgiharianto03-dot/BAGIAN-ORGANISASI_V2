@@ -301,7 +301,7 @@ function org_beranda_header_nav_unify_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css?v=8');
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css?v=9');
 }
 
 /** Beranda — kartu statistik & dashboard enterprise (sync, cascade terakhir). */
@@ -321,8 +321,7 @@ function org_beranda_home_layout_stylesheet_link(): string
         . org_beranda_rail_unify_stylesheet_link()
         . org_beranda_hero_fix_active_stylesheet_link()
         . org_beranda_viewport_align_stylesheet_link()
-        . org_beranda_premium_polish_stylesheet_link()
-        . org_beranda_header_nav_unify_stylesheet_link();
+        . org_beranda_premium_polish_stylesheet_link();
 }
 
 /** Beranda — selaraskan lebar viewport (Chrome/Firefox), muat paling akhir. */

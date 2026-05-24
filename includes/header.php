@@ -100,6 +100,10 @@ if ($orgHeaderBerandaPage) {
 if (!empty($extraHeadMarkup) && is_string($extraHeadMarkup)) {
     echo $extraHeadMarkup;
 }
+if ($orgHeaderBerandaPage) {
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
+    echo org_beranda_header_nav_unify_stylesheet_link();
+}
 if (str_contains($bodyClassAttr, 'sg-portal-page') && !$orgHeaderBerandaPage) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_container_global_assets.php';
     echo org_container_global_stylesheet_link();

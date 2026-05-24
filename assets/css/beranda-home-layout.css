@@ -673,7 +673,7 @@ body.sg-homepage.page-index-redesign .site-footer__cta-band .container-global,
 body.sg-homepage.page-index-redesign .site-footer__links-band .container-global,
 body.sg-homepage.page-index-redesign .org-footer .container-global {
     width: 100% !important;
-    max-width: var(--beranda-rail-max, min(var(--layout-max-width, 1180px), 100%)) !important;
+    max-width: var(--beranda-rail-max, min(var(--layout-max-width, 1320px), 100%)) !important;
     margin-left: auto !important;
     margin-right: auto !important;
     padding-left: var(--beranda-gutter, clamp(1rem, 2vw, 1.25rem)) !important;
