@@ -77,8 +77,7 @@ function org_portal_head_markup_beranda(string $existing = ''): string
             . org_beranda_premium_polish_stylesheet_link();
     }
 
-    /* portal-nav + unify/hero-reference dimuat paling akhir di header.php */
-    $base .= org_portal_nav_stylesheet_link();
+    /* portal-nav dimuat paling akhir di header.php (setelah unify + hero-reference) */
 
     return $base . $existing;
 }
