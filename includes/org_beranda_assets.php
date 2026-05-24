@@ -176,8 +176,10 @@ function org_beranda_header_vendor_markup(): string
         . 'html.sg-portal-html-home{overflow-y:auto!important;overflow-x:clip!important;width:100%!important;max-width:100%!important;scrollbar-gutter:auto!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero{padding-top:calc(var(--sg-portal-header-offset,6.5rem) + .65rem)!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__copy,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-secondary,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-primary,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-org{opacity:1!important;visibility:visible!important;transform:none!important;display:block!important;color:#fff!important;-webkit-text-fill-color:currentColor!important}'
-        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-secondary{color:rgba(186,230,253,.92)!important;-webkit-text-fill-color:rgba(186,230,253,.92)!important}'
-        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-org{color:rgba(226,232,240,.92)!important;-webkit-text-fill-color:rgba(226,232,240,.92)!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-secondary{color:rgba(186,230,253,.92)!important;-webkit-text-fill-color:rgba(186,230,253,.92)!important;font-weight:600!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-primary{font-weight:800!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-org{color:rgba(226,232,240,.92)!important;-webkit-text-fill-color:rgba(226,232,240,.92)!important;font-weight:700!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__tagline{font-weight:400!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__visual-col,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .shortcut-grid{display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__tagline{display:block!important;opacity:1!important;visibility:visible!important;color:rgba(203,213,225,.92)!important;-webkit-text-fill-color:rgba(203,213,225,.92)!important;font-size:clamp(.875rem,.82rem+.2vw,.975rem)!important;line-height:1.55!important;margin:.5rem 0 0!important;max-width:38rem!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__cta{display:flex!important;opacity:1!important;visibility:visible!important}'
@@ -311,7 +313,7 @@ function org_beranda_hero_reference_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-hero-reference.css?v=5');
+    return org_asset_stylesheet_link('assets/css/beranda-hero-reference.css?v=6');
 }
 
 /** Paksa teks hero tampil setelah CSS async/bundle selesai dimuat. */
@@ -357,6 +359,22 @@ function org_beranda_hero_text_lock_script(): string
         if (cta) {
             cta.style.setProperty('flex-wrap', 'wrap', 'important');
             cta.style.setProperty('gap', '0.5rem', 'important');
+        }
+        var primary = hero.querySelector('.sg-hero__title-primary');
+        if (primary) {
+            primary.style.setProperty('font-weight', '800', 'important');
+        }
+        var org = hero.querySelector('.sg-hero__title-org');
+        if (org) {
+            org.style.setProperty('font-weight', '700', 'important');
+        }
+        var secondary = hero.querySelector('.sg-hero__title-secondary');
+        if (secondary) {
+            secondary.style.setProperty('font-weight', '600', 'important');
+        }
+        var tagline = hero.querySelector('.sg-hero__tagline');
+        if (tagline) {
+            tagline.style.setProperty('font-weight', '400', 'important');
         }
     }
     lockHeroText();

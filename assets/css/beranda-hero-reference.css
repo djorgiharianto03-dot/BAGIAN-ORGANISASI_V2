@@ -90,7 +90,7 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title-sec
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title-primary {
     display: block !important;
     font-size: clamp(1.625rem, 1.35rem + 0.9vw, 2.125rem) !important;
-    font-weight: 700 !important;
+    font-weight: 800 !important;
     line-height: 1.12 !important;
     color: #fff !important;
     -webkit-text-fill-color: #fff !important;
@@ -100,7 +100,7 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title-org
     display: block !important;
     margin-top: 0.2rem !important;
     font-size: clamp(0.9375rem, 0.875rem + 0.25vw, 1.0625rem) !important;
-    font-weight: 500 !important;
+    font-weight: 700 !important;
     line-height: 1.4 !important;
     color: rgba(226, 232, 240, 0.92) !important;
     -webkit-text-fill-color: rgba(226, 232, 240, 0.92) !important;
