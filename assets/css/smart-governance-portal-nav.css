@@ -1178,3 +1178,14 @@ body[class*='theme-'].sg-portal-page .site-header__holiday-ucapan--inline .site-
         transition: none;
     }
 }
+/* FORCE navbar subhalaman sama seperti beranda */
+body.sg-portal-page:not(.sg-homepage) .navbar-panel,
+body.sg-portal-page:not(.sg-homepage) .site-header__nav-wrap,
+body.sg-portal-page:not(.sg-homepage) .org-navbar__nav-wrap {
+    min-height: 72px !important;
+    padding: 12px 24px !important;
+    border-radius: 24px !important;
+    backdrop-filter: blur(14px) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12) !important;
+}
