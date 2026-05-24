@@ -91,6 +91,8 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-
     max-width: min(var(--layout-max-width, 1320px), 100%);
     margin-left: auto;
     margin-right: auto;
+    padding-left: var(--portal-content-gutter, clamp(1rem, 2.5vw, 32px));
+    padding-right: var(--portal-content-gutter, clamp(1rem, 2.5vw, 32px));
     box-sizing: border-box;
 }
 

@@ -11,7 +11,8 @@ html.sg-portal-html-home body.sg-homepage.sg-portal-page {
 body.sg-homepage.sg-portal-page {
     --container-max: 1320px;
     --layout-max-width: 1320px;
-    --beranda-gutter: clamp(1rem, 2vw, 1.25rem);
+    --portal-content-gutter: clamp(1rem, 2.5vw, 32px);
+    --beranda-gutter: var(--portal-content-gutter);
     --beranda-section-y: clamp(1rem, 1.75vw, 1.5rem);
     --beranda-section-head-gap: 0.75rem;
     --beranda-rail-max: min(var(--layout-max-width), 100%);
@@ -52,11 +53,7 @@ body.sg-homepage.sg-portal-page .sg-hero.sg-hero--ultra {
     height: auto !important;
 }
 
-/* —— Satu rail: navbar, hero, konten, footer —— */
-body.sg-homepage.sg-portal-page .header-inner.container-global,
-body.sg-homepage.sg-portal-page .navbar-wrapper.container-global,
-body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global,
-body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-wrapper.container-global,
+/* —— Satu rail: hero, konten, footer (header/navbar = portal-nav, identik Profil) —— */
 body.sg-homepage.sg-portal-page .container-global.hero-inner,
 body.sg-homepage .shortcut-grid.container-global,
 body.sg-homepage .stats-grid.container-global,
@@ -72,13 +69,7 @@ body.sg-homepage .org-footer .container-global {
     box-sizing: border-box;
 }
 
-body.sg-homepage.sg-portal-page .navbar-panel,
-body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel {
-    width: 100%;
-    max-width: 100%;
-    margin-left: 0;
-    margin-right: 0;
-}
+/* Header/navbar: beranda-header-nav-unify.css + smart-governance-portal-nav.css */
 
 /* Hero minimal — compact, tanpa dekorasi / area biru kosong */
 body.sg-homepage.sg-portal-page > #sg-hero.sg-hero--minimal,

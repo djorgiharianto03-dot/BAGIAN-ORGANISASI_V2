@@ -47,10 +47,8 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-ambient-layer {
     display: none !important;
 }
 
-/* —— Satu rail: semua konten sejajar (kiri/kanan sama dengan menu navbar) —— */
+/* —— Satu rail: hero, konten, footer (header/navbar = portal-nav, identik Profil) —— */
 body.sg-homepage.sg-portal-page :is(
-    .header-inner.container-global,
-    .navbar-wrapper.container-global,
     .site-layout-main > #sg-hero .container-global,
     #beranda-root.container-global,
     .site-footer .container-global,
@@ -65,17 +63,7 @@ body.sg-homepage.sg-portal-page :is(
     box-sizing: border-box !important;
 }
 
-/* Panel nav mengisi lebar navbar-wrapper (bukan lebih sempit/lebar) */
-/* margin navbar-wrapper: beranda-header-nav-unify.css */
-
-body.sg-homepage.sg-portal-page .navbar-panel,
-body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    box-sizing: border-box;
-}
+/* Panel nav: smart-governance-portal-nav.css + sg-portal-navbar-panel-lock.css */
 
 /* Hero dalam — satu kolom, sama lebar dengan stats di bawahnya */
 body.sg-homepage.sg-portal-page .container-global.hero-inner.hero-inner--stacked,
@@ -156,8 +144,6 @@ body.sg-homepage.sg-portal-page .site-footer__cta-band .site-footer__cta-grid {
 
 @media (max-width: 1212px) {
     body.sg-homepage.sg-portal-page :is(
-        .header-inner.container-global,
-        .navbar-wrapper.container-global,
         .site-layout-main > #sg-hero .container-global,
         #beranda-root.container-global,
         .site-footer .container-global

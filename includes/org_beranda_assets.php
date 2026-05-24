@@ -190,7 +190,7 @@ function org_beranda_header_vendor_markup(): string
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage.sg-portal-page .site-layout-main>section#sg-hero{width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important;box-sizing:border-box!important}'
         . 'body.sg-homepage.sg-portal-page .site-header__nav a{pointer-events:auto!important;cursor:pointer}'
         . 'body.sg-homepage.sg-portal-page :is(.site-header__rail.container-global,.header-inner.container-global,.navbar-wrapper.container-global,.site-layout-main>#sg-hero .container-global,#beranda-root.container-global,.site-footer .container-global){' . $rail . '}'
-        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel,body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}'
+        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel,body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}'
         . 'body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper{margin-top:clamp(.5rem,1.2vw,1.125rem)!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main{width:100%!important;max-width:100%!important;background:#f4f7fb!important;display:block!important;min-height:0!important}'
         . 'body.sg-homepage.sg-portal-page #beranda-root{display:flex!important;visibility:visible!important;opacity:1!important;min-height:0!important;margin-top:0!important;background:#f4f7fb!important}'
@@ -329,6 +329,20 @@ function org_beranda_header_nav_unify_stylesheet_link(): string
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
     return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css');
+}
+
+/**
+ * Beranda — lock navbar panel setelah bundle async (footer, identik Profil).
+ */
+function org_beranda_navbar_footer_sync_markup(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
+
+    return org_beranda_header_nav_unify_stylesheet_link()
+        . org_portal_nav_stylesheet_link()
+        . org_portal_nav_panel_lock_stylesheet_link()
+        . org_beranda_nav_panel_critical_markup();
 }
 
 /** Beranda — hero compact (referensi screenshot). Muat paling akhir setelah unify. */
