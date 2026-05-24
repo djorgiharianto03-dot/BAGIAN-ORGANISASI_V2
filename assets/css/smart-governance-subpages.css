@@ -39,8 +39,7 @@
 }
 
 .sg-portal-subpage .sg-subhero__bg {
-    background:
-        linear-gradient(118deg, #061a33 0%, #0a2f5c 48%, #134e8a 100%);
+    background: var(--sg-portal-hero-gradient, linear-gradient(180deg, #0a3d6b 0%, #0c4a7a 100%));
 }
 
 /* Timpa padding besar .sg-subhero di portal.css */
@@ -180,10 +179,12 @@ body.sg-portal-subpage.sg-portal-page .sg-subhero .sg-subhero__eyebrow {
 .sg-portal-subpage .sg-subhero__stat {
     padding: 0.5rem 0.65rem;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: var(--sg-portal-glass-bg, rgba(255, 255, 255, 0.1));
+    border: 1px solid var(--sg-portal-glass-border, rgba(255, 255, 255, 0.14));
     backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     text-align: left;
+    box-shadow: none;
 }
 
 .sg-portal-subpage .sg-subhero__stat-num {

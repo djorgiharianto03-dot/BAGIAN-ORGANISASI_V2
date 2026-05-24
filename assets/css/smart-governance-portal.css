@@ -739,9 +739,7 @@ body.sg-portal-subpage .org-hero.org-hero--sub.sg-subhero {
 .sg-subhero__bg {
     position: absolute;
     inset: 0;
-    background:
-        radial-gradient(ellipse 70% 80% at 10% 0%, rgba(6, 182, 212, 0.28), transparent 55%),
-        linear-gradient(125deg, #061a33 0%, #0c2d5a 45%, #1a5da8 100%);
+    background: var(--sg-portal-hero-gradient, linear-gradient(180deg, #0a3d6b 0%, #0c4a7a 100%));
 }
 /* Subhero z-index: org-container-global.css */
 .sg-subhero__grid {

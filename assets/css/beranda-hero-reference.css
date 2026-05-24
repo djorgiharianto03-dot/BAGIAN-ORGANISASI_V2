@@ -9,7 +9,7 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero {
     height: auto !important;
     padding-top: calc(var(--sg-portal-header-offset, 6.5rem) + 0.65rem) !important;
     padding-bottom: 0.75rem !important;
-    background: linear-gradient(180deg, #0a3d6b 0%, #0c4a7a 100%) !important;
+    background: var(--sg-portal-hero-gradient, linear-gradient(180deg, #0a3d6b 0%, #0c4a7a 100%)) !important;
     overflow: visible !important;
 }
 
@@ -140,8 +140,8 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero-stat-card 
     min-height: 4.75rem !important;
     padding: 0.65rem 0.75rem !important;
     border-radius: 10px !important;
-    background: rgba(255, 255, 255, 0.1) !important;
-    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    background: var(--sg-portal-glass-bg, rgba(255, 255, 255, 0.1)) !important;
+    border: 1px solid var(--sg-portal-glass-border, rgba(255, 255, 255, 0.14)) !important;
 }
 
 @media (max-width: 767.98px) {

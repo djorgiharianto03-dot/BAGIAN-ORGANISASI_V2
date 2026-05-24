@@ -1,14 +1,37 @@
 /**
- * Beranda — variabel rail & override ringan.
+ * Beranda — variabel rail & palet master portal (navy premium dark blue).
  * Panel navbar + logo: smart-governance-portal-nav.css (muat paling akhir di head).
  */
 
-body.sg-homepage.sg-portal-page {
+body.sg-homepage.sg-portal-page,
+body.sg-portal-page {
     --layout-max-width: 1320px;
     --container-max: 1320px;
     --sg-rail-width: 1320px;
     --portal-content-gutter: clamp(1rem, 2.5vw, 32px);
     --beranda-gutter: var(--portal-content-gutter);
+    /* Master tone Beranda */
+    --sg-portal-navy-900: #001428;
+    --sg-portal-navy-800: #032244;
+    --sg-portal-navy-700: #073d6b;
+    --sg-portal-navy-600: #0a4d85;
+    --sg-portal-hero-from: #0a3d6b;
+    --sg-portal-hero-to: #0c4a7a;
+    --sg-portal-surface: #f4f7fb;
+    --sg-portal-hero-gradient: linear-gradient(180deg, var(--sg-portal-hero-from) 0%, var(--sg-portal-hero-to) 100%);
+    --sg-portal-glass-bg: rgba(255, 255, 255, 0.1);
+    --sg-portal-glass-border: rgba(255, 255, 255, 0.14);
+    --sg-header-gradient: linear-gradient(
+        90deg,
+        #001428 0%,
+        #032244 12%,
+        #073d6b 30%,
+        #0a4d85 50%,
+        #073d6b 70%,
+        #032244 88%,
+        #001428 100%
+    );
+    --sg-header-gradient-scrolled: linear-gradient(90deg, #001428 0%, #053057 50%, #001428 100%);
 }
 
 body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient {
@@ -16,8 +39,10 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient {
     box-shadow: none !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
+    background: var(--sg-header-gradient) !important;
 }
 
 body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__gradient {
+    background: var(--sg-header-gradient-scrolled) !important;
     box-shadow: var(--sg-nav-shadow-scroll, 0 4px 24px rgba(15, 23, 42, 0.12)) !important;
 }

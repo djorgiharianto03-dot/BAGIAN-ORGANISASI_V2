@@ -34,6 +34,28 @@ org_partial_deny_direct();
             --org-touch: 44px;
             --org-space-x: clamp(1rem, 4.2vw, 1.25rem);
         }
+        /* Portal Smart Governance — tone Beranda (timpa slate #243f5f / #1e3a5f legacy) */
+        body.sg-portal-page {
+            --header-gradient: linear-gradient(
+                90deg,
+                #001428 0%,
+                #032244 12%,
+                #073d6b 30%,
+                #0a4d85 50%,
+                #073d6b 70%,
+                #032244 88%,
+                #001428 100%
+            );
+            --header-nav-surface: rgba(2, 22, 48, 0.72);
+            --header-nav-overlay: var(--header-nav-surface);
+            --header-nav-border: rgba(147, 197, 253, 0.18);
+            --header-nav-glass-blur: 14px;
+            --header-nav-glass-blur-scroll: 14px;
+            --header-nav-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 10px 32px rgba(0, 10, 28, 0.42);
+            --header-nav-shadow-elevated: var(--header-nav-shadow);
+            --layout-max-width: 1320px;
+            --page-bg: #f4f7fb;
+        }
         body.mode-publikasi {
             --brand-navy: #1d4ed8;
             --brand-navy-deep: #1e40af;

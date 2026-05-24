@@ -1,10 +1,42 @@
 /**
  * Navbar portal — panel, logo, menu identik Beranda di semua halaman .sg-portal-page
- * Subhalaman: blok :not(.sg-homepage) menimpa org-container-global / Tailwind / site_styles
+ * Palet warna master Beranda: --sg-portal-* / --sg-header-gradient / --sg-nav-panel-*
  * Muat paling akhir di <head> (setelah enterprise.css / org-container-global)
  */
 
 .sg-portal-page {
+    /* —— Master palette Beranda (navy premium dark blue) —— */
+    --sg-portal-navy-900: #001428;
+    --sg-portal-navy-800: #032244;
+    --sg-portal-navy-700: #073d6b;
+    --sg-portal-navy-600: #0a4d85;
+    --sg-portal-hero-from: #0a3d6b;
+    --sg-portal-hero-to: #0c4a7a;
+    --sg-portal-surface: #f4f7fb;
+    --sg-portal-hero-gradient: linear-gradient(180deg, var(--sg-portal-hero-from) 0%, var(--sg-portal-hero-to) 100%);
+    --sg-portal-glass-bg: rgba(255, 255, 255, 0.1);
+    --sg-portal-glass-border: rgba(255, 255, 255, 0.14);
+    --sg-portal-glass-blur: blur(4px);
+    --sg-header-gradient: linear-gradient(
+        90deg,
+        #001428 0%,
+        #032244 12%,
+        #073d6b 30%,
+        #0a4d85 50%,
+        #073d6b 70%,
+        #032244 88%,
+        #001428 100%
+    );
+    --sg-header-gradient-scrolled: linear-gradient(90deg, #001428 0%, #053057 50%, #001428 100%);
+    /* Remap legacy site_styles / site-global agar tidak pakai slate #243f5f */
+    --header-gradient: var(--sg-header-gradient);
+    --header-nav-surface: rgba(2, 22, 48, 0.72);
+    --header-nav-border: rgba(147, 197, 253, 0.18);
+    --header-nav-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 10px 32px rgba(0, 10, 28, 0.42);
+    --header-nav-shadow-elevated: var(--header-nav-shadow);
+    --header-nav-glass-blur: 14px;
+    --header-nav-glass-blur-scroll: 14px;
+
     --sg-nav-font: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
     --sg-nav-accent: #1d9bf0;
     --sg-nav-accent-soft: rgba(29, 155, 240, 0.2);
@@ -1178,14 +1210,97 @@ body[class*='theme-'].sg-portal-page .site-header__holiday-ucapan--inline .site-
         transition: none;
     }
 }
-/* FORCE navbar subhalaman sama seperti beranda */
-body.sg-portal-page:not(.sg-homepage) .navbar-panel,
-body.sg-portal-page:not(.sg-homepage) .site-header__nav-wrap,
-body.sg-portal-page:not(.sg-homepage) .org-navbar__nav-wrap {
-    min-height: 72px !important;
-    padding: 12px 24px !important;
-    border-radius: 24px !important;
-    backdrop-filter: blur(14px) !important;
-    -webkit-backdrop-filter: blur(14px) !important;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.12) !important;
+
+/*
+ * Identitas warna portal — header, navbar, hero/subhero (seluruh halaman selain tone slate legacy).
+ * Beranda = master; subhalaman Profil/Layanan/Dokumen/Informasi/Galeri/E-Organisasi mengikuti.
+ */
+body.sg-portal-page .site-header--sg-portal .site-header__gradient,
+body.sg-portal-page .org-navbar__gradient.site-header__gradient {
+    background: var(--sg-header-gradient) !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+body.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__gradient {
+    background: var(--sg-header-gradient-scrolled) !important;
+    box-shadow: var(--sg-nav-shadow-scroll) !important;
+}
+
+/* Subhero / hero subhalaman — gradient identik Beranda */
+body.sg-portal-page:not(.sg-homepage) .sg-subhero,
+body.sg-portal-page:not(.sg-homepage) .org-hero.sg-subhero,
+body.sg-portal-page:not(.sg-homepage) .org-hero.org-hero--sub.sg-subhero {
+    background: transparent !important;
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+body.sg-portal-page .org-hero.sg-subhero .org-hero__bg,
+body.sg-portal-page .org-hero.sg-subhero .sg-subhero__bg,
+body.sg-portal-page .sg-subhero .sg-subhero__bg,
+body.sg-portal-page .org-hero--sub .org-hero__bg {
+    background: var(--sg-portal-hero-gradient) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Transisi halus hero → konten terang (tanpa belang) */
+body.sg-portal-page:not(.sg-homepage) .sg-subhero::after,
+body.sg-portal-page:not(.sg-homepage) .org-hero.sg-subhero::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: clamp(0.75rem, 1.5vw, 1.25rem);
+    background: linear-gradient(180deg, transparent 0%, var(--sg-portal-surface, #f4f7fb) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+body.sg-portal-page:not(.sg-homepage) .site-layout-main {
+    background: var(--sg-portal-surface, #f4f7fb);
+}
+
+/* Kartu statistik glass — sama Beranda */
+body.sg-portal-page .sg-subhero__stat,
+body.sg-portal-page .org-hero.sg-subhero .org-hero__stat {
+    background: var(--sg-portal-glass-bg) !important;
+    border: 1px solid var(--sg-portal-glass-border) !important;
+    backdrop-filter: var(--sg-portal-glass-blur);
+    -webkit-backdrop-filter: var(--sg-portal-glass-blur);
+    box-shadow: none !important;
+}
+
+body.sg-portal-page .sg-subhero__stat-num,
+body.sg-portal-page .org-hero.sg-subhero .org-hero__stat-num {
+    color: #fff !important;
+}
+
+body.sg-portal-page .sg-subhero__stat-label,
+body.sg-portal-page .org-hero.sg-subhero .org-hero__stat-label {
+    color: rgba(255, 255, 255, 0.88) !important;
+}
+
+/* Banner hari besar inline — glass navy (bukan slate) */
+body.sg-portal-page .site-header__holiday-ucapan--inline {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+    box-shadow: none !important;
+}
+
+/* Mobile drawer — timpa #243f5f dari site_styles */
+@media (max-width: 991.98px) {
+    body.sg-portal-page .site-header__nav-panel.is-open,
+    body.sg-portal-page .site-header__nav-collapse.show {
+        background: rgba(2, 22, 48, 0.96) !important;
+        background-color: rgba(2, 22, 48, 0.96) !important;
+        border-top: 1px solid var(--sg-nav-panel-border) !important;
+        backdrop-filter: var(--sg-nav-panel-blur) !important;
+        -webkit-backdrop-filter: var(--sg-nav-panel-blur) !important;
+        box-shadow: 0 12px 32px rgba(0, 10, 28, 0.42) !important;
+    }
 }
