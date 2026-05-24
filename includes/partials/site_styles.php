@@ -209,7 +209,7 @@ org_partial_deny_direct();
         body.theme-sumpah-pemuda .site-header__gradient {
             --holiday-header-shadow: 0 10px 40px rgba(30, 58, 138, 0.42), 0 0 0 1px rgba(191, 219, 254, 0.12) inset;
         }
-        body[class*="theme-"] .site-header__nav-wrap {
+        body[class*="theme-"]:not(.sg-portal-page) .site-header__nav-wrap {
             background: var(--holiday-nav-surface, var(--header-nav-surface));
         }
         body[class*="theme-"] .site-header__nav a,
@@ -756,7 +756,7 @@ org_partial_deny_direct();
         .site-header__holiday-ucapan--inline {
             flex-shrink: 0;
         }
-        .site-header__nav-wrap {
+        body:not(.sg-portal-page) .site-header__nav-wrap {
             margin-top: 1rem;
             margin-left: calc(-1 * min(20px, 2vw));
             margin-right: calc(-1 * min(20px, 2vw));
@@ -788,54 +788,54 @@ org_partial_deny_direct();
             animation: site-header-nav-reveal 1.05s cubic-bezier(0.22, 1, 0.36, 1) 0.22s both;
         }
         /* Saat scroll: glass blur halus, warna navy tetap */
-        .site-header__nav-wrap.is-nav-scrolled,
-        .site-header__nav-wrap.is-nav-elevated,
-        .site-header__nav-wrap.is-features-fixed {
+        body:not(.sg-portal-page) .site-header__nav-wrap.is-nav-scrolled,
+        body:not(.sg-portal-page) .site-header__nav-wrap.is-nav-elevated,
+        body:not(.sg-portal-page) .site-header__nav-wrap.is-features-fixed {
             background: linear-gradient(135deg, rgba(30, 58, 95, 0.9) 0%, rgba(39, 73, 109, 0.9) 100%);
             background-color: rgba(36, 63, 95, 0.92);
             backdrop-filter: blur(var(--header-nav-glass-blur-scroll)) saturate(1.14);
             -webkit-backdrop-filter: blur(var(--header-nav-glass-blur-scroll)) saturate(1.14);
         }
         @supports not (translate: 0) {
-            .site-header__nav-wrap {
+            body:not(.sg-portal-page) .site-header__nav-wrap {
                 animation-name: site-header-nav-reveal-fallback;
             }
         }
-        .site-header__nav-wrap.is-nav-elevated,
-        .site-header__nav-wrap.is-features-fixed {
+        body:not(.sg-portal-page) .site-header__nav-wrap.is-nav-elevated,
+        body:not(.sg-portal-page) .site-header__nav-wrap.is-features-fixed {
             box-shadow: var(--header-nav-shadow-elevated);
             border-bottom-color: var(--header-nav-border);
             filter: none;
             opacity: 1;
         }
-        body[class*="theme-"] .site-header__nav-wrap.is-nav-scrolled,
-        body[class*="theme-"] .site-header__nav-wrap.is-nav-elevated,
-        body[class*="theme-"] .site-header__nav-wrap.is-features-fixed {
+        body[class*="theme-"]:not(.sg-portal-page) .site-header__nav-wrap.is-nav-scrolled,
+        body[class*="theme-"]:not(.sg-portal-page) .site-header__nav-wrap.is-nav-elevated,
+        body[class*="theme-"]:not(.sg-portal-page) .site-header__nav-wrap.is-features-fixed {
             background: var(--holiday-nav-surface, var(--header-nav-surface));
             background-color: transparent;
             backdrop-filter: blur(var(--header-nav-glass-blur-scroll)) saturate(1.14);
             -webkit-backdrop-filter: blur(var(--header-nav-glass-blur-scroll)) saturate(1.14);
         }
-        .site-header__nav-wrap.is-nav-scrolled .site-header__nav a,
-        .site-header__nav-wrap.is-nav-elevated .site-header__nav a,
-        .site-header__nav-wrap.is-features-fixed .site-header__nav a,
-        .site-header__nav-wrap.is-nav-scrolled .site-header__nav-toggle,
-        .site-header__nav-wrap.is-nav-elevated .site-header__nav-toggle,
-        .site-header__nav-wrap.is-features-fixed .site-header__nav-toggle {
+        body:not(.sg-portal-page) .site-header__nav-wrap.is-nav-scrolled .site-header__nav a,
+        body:not(.sg-portal-page) .site-header__nav-wrap.is-nav-elevated .site-header__nav a,
+        body:not(.sg-portal-page) .site-header__nav-wrap.is-features-fixed .site-header__nav a,
+        body:not(.sg-portal-page) .site-header__nav-wrap.is-nav-scrolled .site-header__nav-toggle,
+        body:not(.sg-portal-page) .site-header__nav-wrap.is-nav-elevated .site-header__nav-toggle,
+        body:not(.sg-portal-page) .site-header__nav-wrap.is-features-fixed .site-header__nav-toggle {
             color: rgba(255, 255, 255, 0.92);
         }
-        .site-header__nav-wrap.is-nav-scrolled .site-header__nav a:hover,
-        .site-header__nav-wrap.is-nav-elevated .site-header__nav a:hover,
-        .site-header__nav-wrap.is-features-fixed .site-header__nav a:hover {
+        body:not(.sg-portal-page) .site-header__nav-wrap.is-nav-scrolled .site-header__nav a:hover,
+        body:not(.sg-portal-page) .site-header__nav-wrap.is-nav-elevated .site-header__nav a:hover,
+        body:not(.sg-portal-page) .site-header__nav-wrap.is-features-fixed .site-header__nav a:hover {
             color: #ffffff;
         }
-        .site-header__nav-wrap.is-nav-scrolled .site-header__nav a.is-active,
-        .site-header__nav-wrap.is-nav-elevated .site-header__nav a.is-active,
-        .site-header__nav-wrap.is-features-fixed .site-header__nav a.is-active {
+        body:not(.sg-portal-page) .site-header__nav-wrap.is-nav-scrolled .site-header__nav a.is-active,
+        body:not(.sg-portal-page) .site-header__nav-wrap.is-nav-elevated .site-header__nav a.is-active,
+        body:not(.sg-portal-page) .site-header__nav-wrap.is-features-fixed .site-header__nav a.is-active {
             color: var(--header-nav-active);
             text-shadow: 0 0 14px var(--header-nav-active-glow);
         }
-        .site-header__nav-wrap.is-features-fixed {
+        body:not(.sg-portal-page) .site-header__nav-wrap.is-features-fixed {
             position: fixed;
             top: 0;
             left: 50%;
@@ -851,10 +851,10 @@ org_partial_deny_direct();
             border-radius: 0 0 14px 14px;
             z-index: 1055;
         }
-        .site-header__nav-wrap-spacer {
+        body:not(.sg-portal-page) .site-header__nav-wrap-spacer {
             display: none;
         }
-        .site-header__nav-wrap-spacer.is-active {
+        body:not(.sg-portal-page) .site-header__nav-wrap-spacer.is-active {
             display: block;
         }
         .site-header__nav-toggle {
@@ -1219,7 +1219,7 @@ org_partial_deny_direct();
             }
         }
         @media (prefers-reduced-motion: reduce) {
-            .site-header__nav-wrap {
+            body:not(.sg-portal-page) .site-header__nav-wrap {
                 animation: none;
                 opacity: 1;
                 filter: none;
@@ -1227,7 +1227,7 @@ org_partial_deny_direct();
             }
             .site-header__hamburger-line,
             .site-header__nav a::after,
-            .site-header__nav-wrap,
+            body:not(.sg-portal-page) .site-header__nav-wrap,
             .site-header__actions-end .btn-header-dashboard,
             .site-header__actions-end .btn-header-logout,
             .site-header__actions-end .btn-header-login {
@@ -3064,7 +3064,7 @@ org_partial_deny_direct();
                 margin-top: 0.45rem;
                 margin-bottom: 0.45rem;
             }
-            .site-header__nav-wrap:not(:has(.site-header__nav-panel.is-open)) {
+            body:not(.sg-portal-page) .site-header__nav-wrap:not(:has(.site-header__nav-panel.is-open)) {
                 display: none !important;
                 margin: 0 !important;
                 padding: 0 !important;
@@ -3075,7 +3075,7 @@ org_partial_deny_direct();
                 animation: none;
                 opacity: 1;
             }
-            .site-header__nav-wrap:has(.site-header__nav-panel.is-open) {
+            body:not(.sg-portal-page) .site-header__nav-wrap:has(.site-header__nav-panel.is-open) {
                 display: block;
                 gap: 0;
                 margin: 0 !important;
@@ -3374,7 +3374,7 @@ org_partial_deny_direct();
                 font-size: 0.68rem;
                 right: auto;
             }
-            .site-header__nav-wrap {
+            body:not(.sg-portal-page) .site-header__nav-wrap {
                 margin-top: 0;
                 padding-top: 0;
                 border-top: none;
