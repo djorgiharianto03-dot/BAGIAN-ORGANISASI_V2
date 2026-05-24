@@ -317,7 +317,7 @@ function org_beranda_nav_panel_critical_markup(): string
         . '@media(min-width:992px){body.sg-homepage.sg-portal-page .site-header__logo,body.sg-homepage.sg-portal-page .org-navbar__logo{max-height:52px!important}}'
         . 'body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper,body.sg-homepage.sg-portal-page .site-header__rail .org-navbar__nav-shell{display:block!important;order:2;width:100%!important;margin-top:clamp(.5rem,1.2vw,1.125rem)!important;padding:0!important}'
         . 'body.sg-homepage.sg-portal-page .header-inner .site-header__brand-row,body.sg-homepage.sg-portal-page .header-inner .site-header__brand-row>a:first-child{margin-left:0!important;padding-left:0!important}'
-        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel,body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap.navbar-panel,body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap{width:100%!important;max-width:100%!important;min-height:88px!important;margin:0!important;padding:.35rem 0!important;border-radius:20px!important;background:rgba(2,22,48,.94)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border:1px solid rgba(147,197,253,.18)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 32px rgba(0,10,28,.42)!important;display:flex!important;flex-direction:column!important;position:static!important;transform:none!important;opacity:1!important}'
+        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel,body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap.navbar-panel,body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap{width:100%!important;max-width:100%!important;min-height:auto!important;margin:0!important;padding:.12rem 0!important;border-radius:14px!important;background:rgba(2,22,48,.94)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border:1px solid rgba(147,197,253,.18)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 32px rgba(0,10,28,.42)!important;display:flex!important;flex-direction:column!important;position:static!important;transform:none!important;opacity:1!important}'
         . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel .site-header__nav-row,body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap .site-header__nav-row{min-height:56px!important;padding:.12rem 0!important}'
         . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav a.is-active{color:#fff!important;background:rgba(37,99,235,.4)!important;box-shadow:inset 0 -2px 0 0 #60a5fa!important}'
         . '</style>' . "\n";
@@ -328,7 +328,10 @@ function org_beranda_header_nav_unify_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css');
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
+    $v = (string) ORG_ASSETS_PORTAL_NAV_MANUAL_VERSION;
+
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css?v=' . rawurlencode($v));
 }
 
 /**
