@@ -30,8 +30,16 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .hero-inner.hero-in
 }
 
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__visual-col,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .hero-visual,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__holo,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .shortcut-grid,
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .shortcut-grid.container-global {
     display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title {
@@ -96,6 +104,17 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title-org
     line-height: 1.4 !important;
     color: rgba(226, 232, 240, 0.92) !important;
     -webkit-text-fill-color: rgba(226, 232, 240, 0.92) !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__tagline {
+    display: block !important;
+    margin: 0.5rem 0 0 !important;
+    max-width: 38rem !important;
+    font-size: clamp(0.875rem, 0.82rem + 0.2vw, 0.975rem) !important;
+    font-weight: 400 !important;
+    line-height: 1.55 !important;
+    color: rgba(203, 213, 225, 0.92) !important;
+    -webkit-text-fill-color: rgba(203, 213, 225, 0.92) !important;
 }
 
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__cta {
