@@ -8,8 +8,8 @@ body.sg-portal-page {
     --sg-nav-panel-min-h: 88px;
     --sg-nav-panel-radius: 20px;
     --sg-nav-panel-pad-block: 0.35rem;
-    --sg-nav-panel-bg: rgba(2, 22, 48, 0.72);
-    --sg-nav-panel-bg-scrolled: rgba(2, 22, 48, 0.82);
+    --sg-nav-panel-bg: rgba(2, 22, 48, 0.94);
+    --sg-nav-panel-bg-scrolled: rgba(2, 22, 48, 0.97);
     --sg-nav-panel-border: rgba(147, 197, 253, 0.18);
     --sg-nav-wrapper-gap: clamp(0.5rem, 1.2vw, 1.125rem);
     --sg-nav-row-min-h: 56px;
@@ -87,7 +87,13 @@ body.sg-homepage.sg-portal-page .header-inner .site-header__topbar {
     box-sizing: border-box;
 }
 
-/* Logo — posisi kiri rail, ukuran sama subhalaman Profil */
+/* Logo — posisi kiri rail, identik Profil (timpa site-global legacy) */
+body.sg-homepage.sg-portal-page .header-inner .site-header__brand-row,
+body.sg-homepage.sg-portal-page .header-inner .site-header__brand-row > a:first-child {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
 body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row,
 body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__brand.site-header__brand-row {
     display: flex !important;
@@ -175,8 +181,8 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap {
     padding: var(--sg-nav-panel-pad-block) 0 !important;
     border-radius: var(--sg-nav-panel-radius) !important;
     background: var(--sg-nav-panel-bg) !important;
-    backdrop-filter: blur(14px) saturate(1.08) !important;
-    -webkit-backdrop-filter: blur(14px) saturate(1.08) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
     border: 1px solid var(--sg-nav-panel-border) !important;
     box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.07),

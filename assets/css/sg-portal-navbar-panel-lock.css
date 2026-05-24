@@ -38,9 +38,9 @@ body.sg-portal-page .site-header__nav-wrap.navbar-panel {
     margin-right: 0 !important;
     padding: 0.35rem 0 !important;
     border-radius: 20px !important;
-    background: var(--sg-nav-panel-bg, rgba(2, 22, 48, 0.72)) !important;
-    backdrop-filter: blur(14px) saturate(1.08) !important;
-    -webkit-backdrop-filter: blur(14px) saturate(1.08) !important;
+    background: var(--sg-nav-panel-bg, rgba(2, 22, 48, 0.94)) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: stretch !important;
@@ -186,6 +186,41 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-
     padding-right: var(--portal-content-gutter, clamp(1rem, 2.5vw, 32px)) !important;
 }
 
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__brand.site-header__brand-row,
+body.sg-homepage.sg-portal-page .header-inner .site-header__brand-row,
+body.sg-homepage.sg-portal-page .header-inner .site-header__brand-row > a:first-child {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__brand.site-header__brand-row {
+    align-items: center !important;
+    gap: 0.65rem 0.85rem !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row > a:first-child {
+    align-self: center !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header__logo,
+body.sg-homepage.sg-portal-page .org-navbar__logo {
+    max-height: 48px !important;
+    max-width: none !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    filter: none !important;
+}
+
+@media (min-width: 992px) {
+    body.sg-homepage.sg-portal-page .site-header__logo,
+    body.sg-homepage.sg-portal-page .org-navbar__logo {
+        max-height: 52px !important;
+    }
+}
+
 body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail .navbar-wrapper,
 body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail .org-navbar__nav-shell {
     margin-top: clamp(0.5rem, 1.2vw, 1.125rem) !important;
@@ -203,9 +238,9 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap {
     margin: 0 !important;
     padding: 0.35rem 0 !important;
     border-radius: 20px !important;
-    background: rgba(2, 22, 48, 0.72) !important;
-    backdrop-filter: blur(14px) saturate(1.08) !important;
-    -webkit-backdrop-filter: blur(14px) saturate(1.08) !important;
+    background: rgba(2, 22, 48, 0.94) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
     border: 1px solid rgba(147, 197, 253, 0.18) !important;
     box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.07),
@@ -223,7 +258,7 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap {
 
 body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,
 body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel {
-    background: rgba(2, 22, 48, 0.82) !important;
+    background: rgba(2, 22, 48, 0.97) !important;
 }
 
 body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.is-nav-scrolled,
@@ -232,11 +267,13 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.i
     min-height: 88px !important;
     padding: 0.35rem 0 !important;
     border-radius: 20px !important;
-    background: rgba(2, 22, 48, 0.72) !important;
+    background: rgba(2, 22, 48, 0.94) !important;
     border: 1px solid rgba(147, 197, 253, 0.18) !important;
     box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.07),
         0 10px 32px rgba(0, 10, 28, 0.42) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
 }
 
 body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel .site-header__nav-row,

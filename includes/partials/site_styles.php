@@ -403,7 +403,7 @@ org_partial_deny_direct();
                 max-width: none;
             }
         }
-        .site-header__brand-row {
+        body:not(.sg-portal-page) .site-header__brand-row {
             display: flex;
             align-items: flex-start;
             gap: 1rem 1.35rem;
@@ -411,11 +411,11 @@ org_partial_deny_direct();
             flex: 1 1 auto;
             min-width: min(100%, 12rem);
         }
-        .site-header__brand-row > a:first-child {
+        body:not(.sg-portal-page) .site-header__brand-row > a:first-child {
             flex-shrink: 0;
             align-self: flex-start;
         }
-        .site-header__logo {
+        body:not(.sg-portal-page) .site-header__logo {
             max-height: 76px;
             width: auto;
             max-width: min(150px, 32vw);
@@ -700,7 +700,7 @@ org_partial_deny_direct();
             }
         }
         @media (max-width: 576px) {
-            .site-header__logo {
+            body:not(.sg-portal-page) .site-header__logo {
                 max-height: 58px;
                 max-width: 36vw;
             }
@@ -3309,7 +3309,7 @@ org_partial_deny_direct();
                 padding-top: 0.25rem;
                 padding-bottom: 0.3rem;
             }
-            .site-header__logo {
+            body:not(.sg-portal-page) .site-header__logo {
                 max-height: 32px;
                 max-width: 22vw;
             }
