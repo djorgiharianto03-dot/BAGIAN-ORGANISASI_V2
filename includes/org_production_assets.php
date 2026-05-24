@@ -5,12 +5,12 @@
  */
 
 /** Naikkan saat deploy bundle agar browser tidak pakai cache lama (meski filemtime sama). */
-const ORG_ASSETS_BERANDA_CSS_BUNDLE_MANUAL_VERSION = 24;
+const ORG_ASSETS_BERANDA_CSS_BUNDLE_MANUAL_VERSION = 25;
 
-/** Naikkan saat deploy perubahan navbar portal (portal-nav + panel-lock + unify). */
-const ORG_ASSETS_PORTAL_NAV_MANUAL_VERSION = 9;
+/** Naikkan saat deploy perubahan navbar portal (portal-nav saja). */
+const ORG_ASSETS_PORTAL_NAV_MANUAL_VERSION = 10;
 
-const ORG_ASSETS_BERANDA_SHELL_CSS_BUNDLE_MANUAL_VERSION = 6;
+const ORG_ASSETS_BERANDA_SHELL_CSS_BUNDLE_MANUAL_VERSION = 7;
 
 function org_assets_beranda_css_bundle_rel(): string
 {

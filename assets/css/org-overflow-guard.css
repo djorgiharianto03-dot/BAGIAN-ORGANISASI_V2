@@ -72,10 +72,9 @@ body.sg-homepage.sg-portal-page .site-layout-main > section#sg-hero {
 }
 
 body.sg-homepage.sg-portal-page .site-header--sg-portal .container-global,
-body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global,
-body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-wrapper.container-global {
+body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global {
     width: 100%;
-    max-width: min(var(--layout-max-width, 1180px), 100%);
+    max-width: min(var(--layout-max-width, 1320px), 100%);
     margin-left: auto;
     margin-right: auto;
 }

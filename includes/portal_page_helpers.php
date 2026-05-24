@@ -55,54 +55,16 @@ function org_portal_nav_stylesheet_link(): string
     return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '">' . "\n";
 }
 
-/** Panel navbar — lock paling akhir (timpa site_styles legacy di subhalaman). */
+/** @deprecated Panel-lock dihapus — navbar global via org-navbar + portal-nav. */
 function org_portal_nav_panel_lock_stylesheet_link(): string
 {
-    if (!function_exists('org_asset_url')) {
-        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_app.php';
-    }
-    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
-    $v = (string) ORG_ASSETS_PORTAL_NAV_MANUAL_VERSION;
-    $href = org_asset_url('assets/css/sg-portal-navbar-panel-lock.css?v=' . rawurlencode($v));
-
-    return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '">' . "\n";
+    return '';
 }
 
-/**
- * CSS kritis inline panel navbar — fallback jika cache CSS lama.
- */
+/** @deprecated Critical inline panel dihapus — hindari min-height/radius paksa. */
 function org_portal_nav_panel_critical_markup(): string
 {
-    return '<style id="sg-portal-nav-panel-critical">'
-        . 'body.sg-portal-page .site-header__rail .navbar-wrapper{margin-top:clamp(.5rem,1.2vw,1.125rem)!important;padding:0!important}'
-        . '@media(min-width:992px){'
-        . 'body.sg-portal-page .navbar-panel,body.sg-portal-page .site-header__nav-wrap.navbar-panel,body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap{'
-        . 'width:100%!important;max-width:100%!important;min-height:88px!important;margin:0!important;'
-        . 'padding:.35rem 0!important;border-radius:20px!important;display:flex!important;'
-        . 'background:var(--sg-nav-panel-bg,rgba(2,22,48,.94))!important;'
-        . 'border:1px solid var(--sg-nav-panel-border,rgba(147,197,253,.18))!important;'
-        . 'box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 32px rgba(0,10,28,.42)!important;'
-        . 'position:static!important;transform:none!important;opacity:1!important;animation:none!important'
-        . '}'
-        . 'body.sg-portal-page .site-header__nav-wrap .site-header__nav-row{min-height:56px!important;padding:.12rem 0!important}'
-        . '}'
-        . '@media(max-width:991.98px){'
-        . 'body.sg-portal-page .site-header--sg-portal .site-header__rail .navbar-wrapper:not(.is-navbar-menu-open){display:none!important;margin:0!important;padding:0!important;min-height:0!important;height:0!important;overflow:hidden!important}'
-        . 'body.sg-portal-page .navbar-panel,body.sg-portal-page .site-header__nav-wrap.navbar-panel,'
-        . 'body.sg-portal-page .navbar-wrapper:not(.is-navbar-menu-open) .site-header__nav-wrap,'
-        . 'body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap:not(:has(.site-header__nav-panel.is-open)){'
-        . 'display:none!important;min-height:0!important;height:0!important;margin:0!important;padding:0!important;'
-        . 'border:none!important;background:transparent!important;box-shadow:none!important;overflow:hidden!important'
-        . '}'
-        . 'body.sg-portal-page .site-header__nav-panel:not(.is-open){display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important}'
-        . 'body.sg-portal-page .site-header__nav-panel.is-open{'
-        . 'background:rgba(2,22,48,.96)!important;border-top:1px solid rgba(147,197,253,.18)!important;'
-        . 'box-shadow:0 12px 32px rgba(0,10,28,.42)!important'
-        . '}'
-        . '}'
-        . 'body.sg-portal-page .site-header__nav a.is-active{background:rgba(37,99,235,.4)!important;box-shadow:inset 0 -2px 0 0 #60a5fa!important}'
-        . 'body.sg-portal-page .site-header--sg-portal .btn-header-dashboard{background:linear-gradient(135deg,#1e40af 0%,#2563eb 45%,#38bdf8 100%)!important}'
-        . '</style>' . "\n";
+    return '';
 }
 
 /**

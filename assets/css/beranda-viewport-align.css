@@ -96,13 +96,6 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-
     box-sizing: border-box;
 }
 
-body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper,
-body.sg-homepage.sg-portal-page .site-header__rail .org-navbar__nav-shell {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-}
-
 body.sg-homepage.sg-portal-page #beranda-root.container-global,
 body.sg-homepage.sg-portal-page .sg-portal-main.sg-dash-main {
     width: 100%;

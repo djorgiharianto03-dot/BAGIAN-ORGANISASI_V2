@@ -53,15 +53,6 @@ body.sg-homepage.sg-portal-page .site-header__rail .site-header__topbar {
     flex: 0 0 auto;
 }
 
-body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper,
-body.sg-homepage.sg-portal-page .site-header__rail .org-navbar__nav-shell {
-    order: 2;
-    width: 100%;
-    max-width: 100%;
-    flex: 0 0 auto;
-    margin-top: clamp(0.5rem, 1.2vw, 1.125rem);
-}
-
 /* Hero shell — lebar sama dengan header rail */
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section,
 body.sg-homepage.sg-portal-page .site-layout-main > section#sg-hero,

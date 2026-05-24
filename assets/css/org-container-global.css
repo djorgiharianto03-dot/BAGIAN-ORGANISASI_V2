@@ -269,6 +269,7 @@ body.sg-homepage.sg-portal-page .site-layout-main {
     padding-left: 0;
 }
 
+@media (min-width: 992px) {
 .sg-portal-page .site-header__rail .navbar-wrapper,
 .sg-portal-page .site-header__rail .org-navbar__nav-shell,
 .sg-portal-page .navbar-wrapper {
@@ -282,72 +283,6 @@ body.sg-homepage.sg-portal-page .site-layout-main {
     padding-bottom: 0;
     flex: 0 0 auto;
     align-self: stretch;
-}
-
-@media (min-width: 992px) {
-.sg-portal-page .navbar-panel,
-.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel {
-    width: 100%;
-    min-height: 88px !important;
-    margin: 0;
-    border-radius: 20px;
-    background: var(--sg-nav-panel-bg) !important;
-    backdrop-filter: blur(14px) saturate(1.08);
-    -webkit-backdrop-filter: blur(14px) saturate(1.08);
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: center;
-    padding: 0.35rem 0;
-    box-sizing: border-box;
-    border: 1px solid var(--sg-nav-panel-border) !important;
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.07),
-        0 10px 32px rgba(0, 10, 28, 0.42);
-}
-
-.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,
-.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel {
-    background: var(--sg-nav-panel-bg-scrolled) !important;
-}
-
-.sg-portal-page .navbar-panel.site-header__nav-wrap {
-    position: static;
-    top: auto;
-    left: auto;
-    right: auto;
-    transform: none;
-    opacity: 1;
-    animation: none;
-}
-
-.sg-portal-page .navbar-panel .site-header__nav-panel,
-.sg-portal-page .navbar-panel .site-header__nav-row {
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    padding-left: 0;
-    padding-right: 0;
-}
-
-.sg-portal-page .navbar-panel .site-header__nav-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.45rem 0.75rem;
-    min-height: 56px;
-}
-
-.sg-portal-page .site-header__nav-wrap.is-features-fixed,
-.sg-portal-page .navbar-panel.site-header__nav-wrap.is-features-fixed {
-    position: static;
-    left: auto;
-    right: auto;
-    transform: none;
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
 }
 }
 

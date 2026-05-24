@@ -8,29 +8,10 @@
         --beranda-section-y: clamp(1.85rem, 4.5vw, 2.5rem);
     }
 
-    /* Header logo/navbar: beranda-header-nav-unify.css + portal-nav (sama Profil) */
+    /* Navbar: org-navbar.css + portal-nav (sama Profil) */
 
     body.sg-homepage.sg-portal-page .site-header__search-wrap {
         display: none !important;
-    }
-
-    body.sg-homepage.sg-portal-page .site-header__nav-toggle,
-    body.sg-homepage.sg-portal-page .org-navbar__toggle.site-header__nav-toggle {
-        flex: 0 0 auto !important;
-        margin-left: auto !important;
-        order: 10 !important;
-        min-width: 44px !important;
-        min-height: 44px !important;
-        padding: 0 0.65rem !important;
-        border-radius: 0.65rem !important;
-    }
-
-    body.sg-homepage.sg-portal-page .site-header__nav-toggle-label {
-        display: none !important;
-    }
-
-    body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper {
-        margin-top: clamp(0.5rem, 1.2vw, 1.125rem) !important;
     }
 
     body.sg-homepage.sg-portal-page .site-header__nav-panel.is-open {
