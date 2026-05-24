@@ -391,17 +391,7 @@
     color: var(--sg-text-muted);
 }
 
-/* —— Navbar beranda: panel/nav (branding = portal-nav, lihat beranda-header-nav-unify.css) —— */
-.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-}
-
-.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled {
-    box-shadow: var(--sg-shadow-elevated);
-}
-
-/* Navbar panel/menu: portal-nav + beranda-header-nav-unify.css (sama Profil) */
+/* Header/nav: portal-nav + beranda-header-nav-sync (sama Profil) */
 
 /* —— Reveal: jangan sembunyikan teks hero —— */
 .sg-homepage #sg-hero .sg-reveal {

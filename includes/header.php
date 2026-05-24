@@ -150,6 +150,7 @@ if ($orgHeaderBerandaPage) {
     echo org_beranda_hero_fix_active_stylesheet_link();
     echo org_beranda_viewport_align_stylesheet_link();
     echo org_beranda_header_nav_sync_stylesheet_link();
+    echo org_beranda_header_nav_critical_footer_markup();
 }
 ?>
 </head>

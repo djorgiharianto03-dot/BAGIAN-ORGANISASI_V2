@@ -5,7 +5,7 @@
  */
 
 /** Naikkan saat deploy bundle agar browser tidak pakai cache lama (meski filemtime sama). */
-const ORG_ASSETS_BERANDA_CSS_BUNDLE_MANUAL_VERSION = 27;
+const ORG_ASSETS_BERANDA_CSS_BUNDLE_MANUAL_VERSION = 28;
 
 /** Naikkan saat deploy perubahan navbar portal (portal-nav saja). */
 const ORG_ASSETS_PORTAL_NAV_MANUAL_VERSION = 16;

@@ -81,8 +81,9 @@ function org_beranda_bundle_stylesheet_async_link(): string
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
     $rel = org_assets_beranda_css_bundle_rel() . '?v=' . org_assets_beranda_css_bundle_version();
 
+    /* Blocking — async bundle menimpa footer cascade & header sync (Profil parity). */
     return org_asset_preload_link($rel, 'style')
-        . org_asset_stylesheet_async($rel, false);
+        . org_asset_stylesheet_link($rel);
 }
 
 function org_beranda_bundle_stylesheet_link_fallback(): string
@@ -487,7 +488,71 @@ function org_beranda_header_nav_sync_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=2');
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=3');
+}
+
+/** Skrip: kunci ukuran header Beranda = Profil (setelah semua CSS async/bundle). */
+function org_beranda_header_nav_relock_script(): string
+{
+    return <<<'HTML'
+<script id="sg-beranda-header-relock">
+(function () {
+    'use strict';
+    if (!document.body || !document.body.classList.contains('sg-homepage')) return;
+
+    var STYLE_ID = 'sg-beranda-header-relock-style';
+
+    function css() {
+        var desktop = window.matchMedia('(min-width:992px)').matches;
+        var mobile = window.matchMedia('(max-width:991.98px)').matches;
+        var logoH = desktop ? '52px' : (window.matchMedia('(max-width:575.98px)').matches ? '48px' : '38px');
+        var logoW = desktop ? 'none' : '36vw';
+        var rules = [
+            'body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient{padding:0!important}',
+            'body.sg-homepage.sg-portal-page .site-header__rail .site-header__topbar,body.sg-homepage.sg-portal-page .header-inner .site-header__topbar{gap:.5rem 1rem!important;padding:.2rem 0 .15rem!important}',
+            'body.sg-homepage.sg-portal-page .site-header__logo,body.sg-homepage.sg-portal-page .org-navbar__logo{max-height:' + logoH + '!important;max-width:' + logoW + '!important;width:auto!important;height:auto!important;object-fit:contain!important;filter:none!important}',
+            'body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail.container-global,body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global{max-width:1320px!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important;padding-top:0!important;padding-bottom:0!important}',
+            'body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-login,body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-logout,body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-dashboard,body.sg-homepage.sg-portal-page .site-header__actions-end .btn{min-height:40px!important;padding:.45rem .75rem!important;border-radius:.75rem!important}'
+        ];
+        if (desktop) {
+            rules.push(
+                'body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper{margin-top:clamp(.5rem,1.2vw,1.125rem)!important}',
+                'body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel{min-height:56px!important;border-radius:20px!important;padding:.35rem 0!important;background:rgba(2,22,48,.94)!important;border:1px solid rgba(147,197,253,.18)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 32px rgba(0,10,28,.42)!important}'
+            );
+        }
+        if (mobile) {
+            rules.push('body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient{padding-top:10px!important;padding-bottom:6px!important}');
+        }
+        return rules.join('');
+    }
+
+    function apply() {
+        var el = document.getElementById(STYLE_ID);
+        if (!el) {
+            el = document.createElement('style');
+            el.id = STYLE_ID;
+            document.head.appendChild(el);
+        }
+        el.textContent = css();
+    }
+
+    apply();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', apply);
+    }
+    window.addEventListener('load', apply);
+    window.addEventListener('resize', apply, { passive: true });
+    if (typeof ResizeObserver !== 'undefined') {
+        var header = document.querySelector('.site-header--sg-portal');
+        if (header) new ResizeObserver(apply).observe(header);
+    }
+    document.querySelectorAll('link[rel="stylesheet"]').forEach(function (link) {
+        link.addEventListener('load', apply);
+    });
+})();
+</script>
+
+HTML;
 }
 
 /** Inline lock header Beranda = Profil (footer, setelah semua CSS async). */
@@ -520,7 +585,8 @@ function org_beranda_navbar_footer_cascade_markup(): string
 
     return org_portal_navbar_footer_cascade_markup()
         . org_beranda_header_nav_sync_stylesheet_link()
-        . org_beranda_header_nav_critical_footer_markup();
+        . org_beranda_header_nav_critical_footer_markup()
+        . org_beranda_header_nav_relock_script();
 }
 
 function org_beranda_deferred_script_tag(): string

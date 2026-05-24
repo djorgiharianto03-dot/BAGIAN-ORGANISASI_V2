@@ -15,9 +15,7 @@ body.sg-homepage.sg-portal-page {
     --portal-content-gutter: var(--sg-rail-pad);
 }
 
-/* —— Shell full-width (background = lebar section) —— */
-body.sg-homepage.sg-portal-page .site-header--sg-portal,
-body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient,
+/* —— Shell full-width (hero, main, footer — header: portal-nav + beranda-header-nav-sync) —— */
 body.sg-homepage.sg-portal-page .site-layout-main,
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero,
 body.sg-homepage.sg-portal-page .site-footer.site-footer--modern {
