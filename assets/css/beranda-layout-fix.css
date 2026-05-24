@@ -28,22 +28,7 @@ body.sg-homepage.sg-portal-page {
     box-sizing: border-box;
 }
 
-body.sg-homepage.sg-portal-page .site-header--sg-portal {
-    left: 0;
-    right: 0;
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    box-sizing: border-box;
-}
-
-body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    box-sizing: border-box;
-}
+/* Header: smart-governance-portal-nav.css + beranda-header-nav-sync.css */
 
 body.sg-homepage.sg-portal-page > #sg-hero.hero-section,
 body.sg-homepage.sg-portal-page > section#sg-hero.hero-section,

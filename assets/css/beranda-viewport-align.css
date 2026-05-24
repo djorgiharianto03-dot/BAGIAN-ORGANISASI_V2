@@ -31,23 +31,7 @@ html.sg-portal-html-home body.sg-homepage.sg-portal-page {
     }
 }
 
-/* Header fixed = lebar layout box (bukan viewport+scrollbar seperti width:auto di Chrome) */
-body.sg-homepage.sg-portal-page .site-header--sg-portal {
-    left: 0;
-    right: 0;
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    box-sizing: border-box;
-}
-
-body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    box-sizing: border-box;
-}
+/* Header: sg-portal-shell-align.css + portal-nav + beranda-header-nav-sync.css */
 
 body.sg-homepage.sg-portal-page .site-layout-main {
     width: 100%;

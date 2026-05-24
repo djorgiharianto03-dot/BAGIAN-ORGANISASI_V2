@@ -102,20 +102,19 @@ function org_portal_head_markup_beranda(string $existing = ''): string
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
 
-    $base = org_asset_stylesheet_async('assets/css/smart-governance-portal.css');
+    /* smart-governance-portal.css → org_beranda_portal_header_stylesheet_links() (blocking, sama Profil) */
+    $base = '';
 
     if (org_assets_beranda_css_bundle_available()) {
-        $base .= org_asset_stylesheet_link('assets/css/beranda-nav-hero.css?v=4')
-            . org_beranda_viewport_align_stylesheet_link();
+        $base .= org_asset_stylesheet_link('assets/css/beranda-nav-hero.css?v=4');
     } else {
         $base .= org_beranda_govtech_styles_async_markup()
             . org_asset_stylesheet_link('assets/css/beranda-nav-hero.css?v=4')
-            . org_beranda_viewport_align_stylesheet_link()
             . org_beranda_mobile_stylesheet_link()
             . org_beranda_premium_polish_stylesheet_link();
     }
 
-    /* portal-nav dimuat paling akhir di header.php (setelah unify + hero-reference) */
+    /* portal-nav + beranda-header-nav-sync dimuat paling akhir di header.php */
 
     return $base . $existing;
 }

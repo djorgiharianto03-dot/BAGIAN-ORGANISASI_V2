@@ -59,6 +59,7 @@ function org_beranda_portal_header_stylesheet_links(): string
     return org_mobile_stylesheet_link()
         . org_navbar_stylesheet_link()
         . org_tailwind_stylesheet_link()
+        . org_asset_stylesheet_link('assets/css/smart-governance-portal.css?v=16')
         . org_asset_stylesheet_link('assets/css/smart-governance-enterprise.css?v=3');
 }
 
@@ -168,12 +169,10 @@ function org_beranda_header_vendor_markup(): string
 
     $rail = 'max-width:1320px!important;width:100%!important;margin-left:auto!important;margin-right:auto!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important;box-sizing:border-box!important';
     $out .= '<style id="sg-beranda-head-critical">'
-        . 'html.sg-portal-html-home,body.sg-homepage.sg-portal-page{background:#f4f7fb!important;--layout-max-width:1320px;--sg-rail-width:1320px;--portal-content-gutter:clamp(1rem,2.5vw,32px);--sg-portal-header-offset:11rem}'
+        . 'html.sg-portal-html-home,body.sg-homepage.sg-portal-page{background:#f4f7fb!important;--layout-max-width:1320px;--sg-rail-width:1320px;--portal-content-gutter:clamp(1rem,2.5vw,32px);--sg-portal-header-offset:5.5rem}'
         . 'body.sg-homepage #sgPortalLoader{display:none!important}'
-        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal{position:fixed!important;top:0;left:0;right:0;width:100%!important;max-width:100%!important;margin:0!important;z-index:1100;pointer-events:auto;box-sizing:border-box}'
-        . 'body.sg-homepage.sg-portal-page .site-header__gradient{display:block;width:100%!important;max-width:100%!important;margin:0!important;box-sizing:border-box}'
         . 'html.sg-portal-html-home{overflow-y:auto!important;overflow-x:clip!important;width:100%!important;max-width:100%!important;scrollbar-gutter:auto!important}'
-        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage.sg-portal-page .site-layout-main>section#sg-hero{background:linear-gradient(180deg,#0a3d6b 0%,#0c4a7a 100%)!important;background-color:#0a3d6b!important;filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;padding-top:calc(var(--sg-portal-header-offset,11rem) + .75rem)!important;overflow:visible!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage.sg-portal-page .site-layout-main>section#sg-hero{background:linear-gradient(180deg,#0a3d6b 0%,#0c4a7a 100%)!important;background-color:#0a3d6b!important;filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;padding-top:calc(var(--sg-portal-header-offset,5.5rem) + .75rem)!important;overflow:visible!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__bg,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-ambient-layer,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__grid-floor{display:none!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__copy,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-secondary,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-primary,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-org,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__tagline{opacity:1!important;visibility:visible!important;transform:none!important;display:block!important;color:#fff!important;-webkit-text-fill-color:currentColor!important;overflow:visible!important;clip:auto!important;max-height:none!important;-webkit-line-clamp:unset!important;line-clamp:unset!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-secondary{color:rgba(186,230,253,.92)!important;-webkit-text-fill-color:rgba(186,230,253,.92)!important;font-weight:600!important}'
@@ -488,7 +487,30 @@ function org_beranda_header_nav_sync_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=1');
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=2');
+}
+
+/** Inline lock header Beranda = Profil (footer, setelah semua CSS async). */
+function org_beranda_header_nav_critical_footer_markup(): string
+{
+    return '<style id="sg-beranda-header-match-profil">'
+        . '@media(min-width:992px){'
+        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail.container-global,'
+        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global{'
+        . 'max-width:1320px!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important;padding-top:0!important;padding-bottom:0!important'
+        . '}'
+        . 'body.sg-homepage.sg-portal-page .site-header__logo,body.sg-homepage.sg-portal-page .org-navbar__logo{max-height:52px!important}'
+        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,'
+        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel{'
+        . 'min-height:56px!important;border-radius:20px!important;padding:.35rem 0!important;background:rgba(2,22,48,.94)!important'
+        . '}'
+        . 'body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper{margin-top:clamp(.5rem,1.2vw,1.125rem)!important}'
+        . '}'
+        . '@media(max-width:991.98px){'
+        . 'body.sg-homepage.sg-portal-page .site-header__logo,body.sg-homepage.sg-portal-page .org-navbar__logo{max-height:38px!important;max-width:36vw!important}'
+        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient{padding-top:10px!important;padding-bottom:6px!important}'
+        . '}'
+        . '</style>' . "\n";
 }
 
 /** Muat ulang CSS navbar paling akhir (timpa bundle async beranda). */
@@ -496,7 +518,9 @@ function org_beranda_navbar_footer_cascade_markup(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
 
-    return org_portal_navbar_footer_cascade_markup() . org_beranda_header_nav_sync_stylesheet_link();
+    return org_portal_navbar_footer_cascade_markup()
+        . org_beranda_header_nav_sync_stylesheet_link()
+        . org_beranda_header_nav_critical_footer_markup();
 }
 
 function org_beranda_deferred_script_tag(): string
