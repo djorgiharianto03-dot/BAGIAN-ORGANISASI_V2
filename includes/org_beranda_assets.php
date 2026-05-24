@@ -174,6 +174,11 @@ function org_beranda_header_vendor_markup(): string
         . 'body.sg-homepage.sg-portal-page .site-header--sg-portal{position:fixed!important;top:0;left:0;right:0;width:100%!important;max-width:100%!important;margin:0!important;z-index:1200;pointer-events:auto;box-sizing:border-box}'
         . 'body.sg-homepage.sg-portal-page .site-header__gradient{display:block;width:100%!important;max-width:100%!important;margin:0!important;box-sizing:border-box}'
         . 'html.sg-portal-html-home{overflow-y:auto!important;overflow-x:clip!important;width:100%!important;max-width:100%!important;scrollbar-gutter:auto!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero{padding-top:calc(var(--sg-portal-header-offset,6.5rem) + .65rem)!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__copy,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-secondary,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-primary,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-org{opacity:1!important;visibility:visible!important;transform:none!important;display:block!important;color:#fff!important;-webkit-text-fill-color:currentColor!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-secondary{color:rgba(186,230,253,.92)!important;-webkit-text-fill-color:rgba(186,230,253,.92)!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-org{color:rgba(226,232,240,.92)!important;-webkit-text-fill-color:rgba(226,232,240,.92)!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__cta{display:flex!important;opacity:1!important;visibility:visible!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage.sg-portal-page .site-layout-main>section#sg-hero{width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important;box-sizing:border-box!important}'
         . 'body.sg-homepage.sg-portal-page .site-header__nav a{pointer-events:auto!important;cursor:pointer}'
         . 'body.sg-homepage.sg-portal-page :is(.header-inner.container-global,.navbar-wrapper.container-global,.site-layout-main>#sg-hero .container-global,#beranda-root.container-global,.site-footer .container-global){' . $rail . '}'
@@ -304,7 +309,7 @@ function org_beranda_hero_reference_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-hero-reference.css?v=2');
+    return org_asset_stylesheet_link('assets/css/beranda-hero-reference.css?v=3');
 }
 
 /** Beranda — kartu statistik & dashboard enterprise (sync, cascade terakhir). */

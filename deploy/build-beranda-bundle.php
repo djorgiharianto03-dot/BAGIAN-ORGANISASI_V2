@@ -23,11 +23,11 @@ $sources = [
     $root . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda-home-layout.css',
     $root . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda-rail-unify.css',
     $root . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda-dashboard-cards.css',
-    $root . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda-hero-fix-active.css',
     $root . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda-sections.css',
     $root . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'beranda-premium-polish.css',
 ];
 
+/* beranda-hero-fix-active.css — digantikan beranda-hero-reference.css (sync, paling akhir) */
 /* beranda-header-nav-unify.css — hanya sync di header.php (paling akhir), jangan masuk bundle async */
 
 function org_minify_css_string(string $css): string

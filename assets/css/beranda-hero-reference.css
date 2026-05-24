@@ -25,6 +25,8 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .hero-inner.hero-in
     grid-template-columns: unset !important;
     align-items: stretch !important;
     gap: 0.65rem !important;
+    position: relative !important;
+    z-index: 2 !important;
 }
 
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__visual-col,
@@ -32,9 +34,31 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .shortcut-grid.cont
     display: none !important;
 }
 
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.2rem !important;
+    margin: 0 !important;
+}
+
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__copy,
-body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title-secondary,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title-primary,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title-org,
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-reveal {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    position: relative !important;
+    z-index: 3 !important;
+    overflow: visible !important;
+    clip: auto !important;
+    max-height: none !important;
+}
+
+html.sg-js body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__copy,
+html.sg-js body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-reveal {
     opacity: 1 !important;
     visibility: visible !important;
     transform: none !important;

@@ -58,6 +58,15 @@ $sgQuickLinks[] = $sgEOrgQuick;
     line-height: 1.35;
 }
 
+.sg-homepage #sg-hero .sg-hero__title-secondary,
+.sg-homepage #sg-hero .sg-hero__title-primary,
+.sg-homepage #sg-hero .sg-hero__title-org,
+.sg-homepage #sg-hero .sg-hero__copy {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
 .sg-homepage #sg-hero .sg-hero__title,
 
 .sg-homepage #sg-hero .sg-hero__tagline,
@@ -329,7 +338,7 @@ $sgQuickLinks[] = $sgEOrgQuick;
 
     <div class="container-global hero-inner hero-inner--stacked">
 
-        <div class="sg-hero__copy hero-text sg-reveal">
+        <div class="sg-hero__copy hero-text">
 
             <h1 class="sg-hero__title">
 
