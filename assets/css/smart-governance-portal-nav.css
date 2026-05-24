@@ -1,6 +1,6 @@
 /**
- * Navbar portal — sticky premium (blur, semi-transparan, area klik lebar)
- * Muat setelah enterprise.css
+ * Navbar portal — panel, logo, menu identik Beranda di semua halaman .sg-portal-page
+ * Muat paling akhir di <head> (setelah enterprise.css / org-container-global)
  */
 
 .sg-portal-page {
@@ -12,6 +12,21 @@
     --sg-nav-shadow-scroll: 0 4px 24px rgba(15, 23, 42, 0.12);
     --sg-nav-border: rgba(255, 255, 255, 0.12);
     --sg-nav-tap: 40px;
+    /* Panel navbar — token identik Beranda (semua halaman portal) */
+    --layout-max-width: 1320px;
+    --portal-content-gutter: clamp(1rem, 2.5vw, 32px);
+    --sg-nav-panel-min-h: 88px;
+    --sg-nav-panel-radius: 20px;
+    --sg-nav-panel-pad-block: 0.35rem;
+    --sg-nav-panel-pad-inline: 0;
+    --sg-nav-panel-blur: blur(14px) saturate(1.08);
+    --sg-nav-panel-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.07),
+        0 10px 32px rgba(0, 10, 28, 0.42);
+    --sg-nav-panel-bg: rgba(2, 22, 48, 0.72);
+    --sg-nav-panel-bg-scrolled: rgba(2, 22, 48, 0.82);
+    --sg-nav-panel-border: rgba(147, 197, 253, 0.18);
+    --sg-nav-wrapper-gap: clamp(0.5rem, 1.2vw, 1.125rem);
 }
 
 /* Header portal: fixed — menu tetap saat scroll (offset: smart-governance-portal.js) */
@@ -78,13 +93,54 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero,
     box-sizing: border-box;
 }
 
-/* Gradient header + panel nav: org-container-global.css (--sg-header-gradient) */
+/* Header shell — gradient + rail identik Beranda (semua halaman portal) */
 .sg-portal-page .site-header--sg-portal .site-header__gradient {
+    padding: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
     transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
     border-bottom: none;
 }
 
-/* Topbar: spacing vertikal saja (horizontal = container-global) */
+.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__gradient {
+    box-shadow: var(--sg-nav-shadow-scroll) !important;
+}
+
+.sg-portal-page .site-header--sg-portal .site-header__rail.container-global,
+.sg-portal-page .site-header--sg-portal .header-inner.container-global,
+.sg-portal-page .site-header__inner.header-inner {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    max-width: var(--layout-max-width, 1320px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: var(--portal-content-gutter) !important;
+    padding-right: var(--portal-content-gutter) !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    box-sizing: border-box !important;
+}
+
+.sg-portal-page .site-header__rail .site-header__topbar,
+.sg-portal-page .header-inner .site-header__topbar {
+    order: 1;
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 auto;
+    align-self: stretch;
+}
+
+.sg-portal-page .header-inner .site-header__brand-row,
+.sg-portal-page .header-inner .site-header__brand-row > a:first-child {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+/* Topbar: spacing vertikal sama Beranda */
 .sg-portal-page .site-header__topbar {
     align-items: center;
     gap: 0.5rem 1rem;
@@ -224,7 +280,121 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero,
     text-shadow: none;
 }
 
-/* Panel nav: org-container-global.css */
+/* Panel navbar — identik Beranda (semua halaman portal) */
+.sg-portal-page .site-header__rail .navbar-wrapper,
+.sg-portal-page .site-header__rail .org-navbar__nav-shell,
+.sg-portal-page .navbar-wrapper {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: var(--sg-nav-wrapper-gap) !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+    flex: 0 0 auto;
+    order: 2;
+    align-self: stretch;
+    box-sizing: border-box;
+}
+
+.sg-portal-page .navbar-panel,
+.sg-portal-page .site-header--sg-portal .site-header__nav-wrap,
+.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
+.sg-portal-page .site-header__nav-wrap.navbar-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: var(--sg-nav-panel-min-h) !important;
+    margin: 0 !important;
+    padding: var(--sg-nav-panel-pad-block) var(--sg-nav-panel-pad-inline) !important;
+    border-radius: var(--sg-nav-panel-radius) !important;
+    background: var(--sg-nav-panel-bg) !important;
+    backdrop-filter: var(--sg-nav-panel-blur) !important;
+    -webkit-backdrop-filter: var(--sg-nav-panel-blur) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    border: 1px solid var(--sg-nav-panel-border) !important;
+    box-shadow: var(--sg-nav-panel-shadow) !important;
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    opacity: 1 !important;
+    animation: none !important;
+    isolation: auto !important;
+}
+
+.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,
+.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel {
+    background: var(--sg-nav-panel-bg-scrolled) !important;
+}
+
+.sg-portal-page .site-header__nav-wrap.is-nav-scrolled,
+.sg-portal-page .site-header__nav-wrap.is-nav-elevated,
+.sg-portal-page .site-header__nav-wrap.is-features-fixed,
+.sg-portal-page .navbar-panel.site-header__nav-wrap.is-features-fixed {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    margin-top: var(--sg-nav-wrapper-gap) !important;
+    padding: var(--sg-nav-panel-pad-block) var(--sg-nav-panel-pad-inline) !important;
+    border-radius: var(--sg-nav-panel-radius) !important;
+    background: var(--sg-nav-panel-bg) !important;
+    border: 1px solid var(--sg-nav-panel-border) !important;
+    box-shadow: var(--sg-nav-panel-shadow) !important;
+    backdrop-filter: var(--sg-nav-panel-blur) !important;
+    -webkit-backdrop-filter: var(--sg-nav-panel-blur) !important;
+    opacity: 1 !important;
+    animation: none !important;
+}
+
+.sg-portal-page .navbar-panel .site-header__nav-panel,
+.sg-portal-page .navbar-panel .site-header__nav-row,
+.sg-portal-page .site-header__nav-wrap .site-header__nav-panel,
+.sg-portal-page .site-header__nav-wrap .site-header__nav-row {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.sg-portal-page .navbar-panel .site-header__nav-row,
+.sg-portal-page .site-header__nav-wrap .site-header__nav-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.45rem 0.75rem !important;
+    min-height: var(--sg-nav-row-min-h) !important;
+    padding: 0.12rem 0 !important;
+    box-sizing: border-box !important;
+}
+
+@media (min-width: 992px) {
+    .sg-portal-page .site-header--sg-portal .navbar-panel,
+    .sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel {
+        overflow: visible !important;
+        height: auto !important;
+    }
+
+    .sg-portal-page .site-header__nav-panel {
+        display: block !important;
+        visibility: visible !important;
+        overflow: visible !important;
+        opacity: 1 !important;
+        height: auto !important;
+        max-height: none !important;
+    }
+}
 
 /* Tema hari besar — override variabel portal */
 body[class*='theme-'].sg-portal-page {
@@ -257,7 +427,7 @@ body[class*='theme-'].sg-portal-page .site-header__holiday-ucapan--inline .site-
     color: var(--holiday-ucapan-sub, rgba(255, 255, 255, 0.88));
 }
 
-/* Baris menu: tinggi 72px (desktop) */
+/* Baris menu — tinggi & alignment vertikal sama Beranda */
 .sg-portal-page .site-header__nav-row {
     display: flex;
     flex-wrap: wrap;
@@ -529,6 +699,18 @@ body[class*='theme-'].sg-portal-page .site-header__holiday-ucapan--inline .site-
     transform: translateY(-1px);
 }
 
+.sg-portal-page .site-header__actions-end .btn,
+.sg-portal-page .site-header__actions-end .btn-header-dashboard,
+.sg-portal-page .site-header__actions-end .btn-header-login,
+.sg-portal-page .site-header__actions-end .btn-header-logout {
+    min-height: var(--sg-nav-tap) !important;
+    height: auto !important;
+    padding: 0.45rem 0.75rem !important;
+    font-size: clamp(0.8125rem, 0.25vw + 0.78rem, 0.875rem) !important;
+    font-weight: 600 !important;
+    border-radius: 0.75rem !important;
+}
+
 /* Tombol kanan — gradient identik Beranda (lihat blok di atas) */
 
 /* Banner hari besar inline — selalu ikut blok nav saat scroll (tidak di-collapse) */
@@ -689,7 +871,8 @@ body[class*='theme-'].sg-portal-page .site-header__holiday-ucapan--inline .site-
     }
 
     .sg-portal-page .site-header__nav a.is-active {
-        background: rgba(29, 155, 240, 0.18);
+        background: rgba(37, 99, 235, 0.4) !important;
+        box-shadow: inset 0 -2px 0 0 #60a5fa !important;
     }
 
     .sg-portal-page .site-header__actions {
@@ -757,107 +940,6 @@ body[class*='theme-'].sg-portal-page .site-header__holiday-ucapan--inline .site-
     }
 }
 
-/* Panel navbar — identik Beranda (semua halaman portal; timpa site_styles.php) */
-.sg-portal-page .site-header--sg-portal .site-header__rail.container-global,
-.sg-portal-page .site-header--sg-portal .header-inner.container-global {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    flex-wrap: nowrap !important;
-}
-
-.sg-portal-page .site-header__rail .navbar-wrapper,
-.sg-portal-page .site-header__rail .org-navbar__nav-shell,
-.sg-portal-page .navbar-wrapper {
-    display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-top: clamp(0.5rem, 1.2vw, 1.125rem) !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding: 0 !important;
-    flex: 0 0 auto;
-    order: 2;
-    align-self: stretch;
-    box-sizing: border-box;
-}
-
-.sg-portal-page .navbar-panel,
-.sg-portal-page .site-header--sg-portal .site-header__nav-wrap,
-.sg-portal-page .site-header__nav-wrap.navbar-panel {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-height: 88px !important;
-    margin: 0 !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding: 0.35rem 0 !important;
-    border-radius: 20px !important;
-    background: var(--sg-nav-panel-bg, rgba(2, 22, 48, 0.72)) !important;
-    backdrop-filter: blur(14px) saturate(1.08) !important;
-    -webkit-backdrop-filter: blur(14px) saturate(1.08) !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    justify-content: center !important;
-    box-sizing: border-box !important;
-    border: 1px solid var(--sg-nav-panel-border, rgba(147, 197, 253, 0.18)) !important;
-    border-top: 1px solid var(--sg-nav-panel-border, rgba(147, 197, 253, 0.18)) !important;
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.07),
-        0 10px 32px rgba(0, 10, 28, 0.42) !important;
-    position: static !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    transform: none !important;
-    opacity: 1 !important;
-    animation: none !important;
-    isolation: auto !important;
-}
-
-.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,
-.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel {
-    background: var(--sg-nav-panel-bg-scrolled, rgba(2, 22, 48, 0.82)) !important;
-}
-
-.sg-portal-page .site-header__nav-wrap.is-nav-scrolled,
-.sg-portal-page .site-header__nav-wrap.is-nav-elevated,
-.sg-portal-page .site-header__nav-wrap.is-features-fixed {
-    position: static !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    transform: none !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-top: clamp(0.5rem, 1.2vw, 1.125rem) !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding: 0.35rem 0 !important;
-    border-radius: 20px !important;
-    opacity: 1 !important;
-    animation: none !important;
-}
-
-.sg-portal-page .navbar-panel .site-header__nav-row,
-.sg-portal-page .site-header__nav-wrap .site-header__nav-row {
-    min-height: 56px !important;
-    padding: 0.12rem 0 !important;
-}
-
-.sg-portal-page .site-header__actions-end .btn,
-.sg-portal-page .site-header__actions-end .btn-header-dashboard,
-.sg-portal-page .site-header__actions-end .btn-header-login,
-.sg-portal-page .site-header__actions-end .btn-header-logout {
-    min-height: var(--sg-nav-tap, 40px) !important;
-    height: auto !important;
-    padding: 0.45rem 0.75rem !important;
-    font-size: clamp(0.8125rem, 0.25vw + 0.78rem, 0.875rem) !important;
-    font-weight: 600 !important;
-    border-radius: 0.75rem !important;
-}
-
 @media (max-width: 991.98px) {
     .sg-portal-page .navbar-panel,
     .sg-portal-page .site-header__nav-wrap.navbar-panel,
@@ -872,6 +954,11 @@ body[class*='theme-'].sg-portal-page .site-header__holiday-ucapan--inline .site-
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
         overflow: visible !important;
+    }
+
+    .sg-portal-page .site-header__nav-panel.is-open {
+        z-index: 1190 !important;
+        pointer-events: auto !important;
     }
 }
 
