@@ -95,7 +95,7 @@
     }
 
     .sg-portal-page .site-header__nav-panel .site-header__nav-row {
-        min-height: var(--sg-nav-row-min-h, 72px);
+        min-height: 56px !important;
     }
 
     .site-header__nav-panel .site-header__nav {

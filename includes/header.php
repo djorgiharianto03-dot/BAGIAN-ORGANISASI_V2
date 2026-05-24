@@ -138,6 +138,8 @@ if ($orgHeaderBerandaPage) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
     echo org_beranda_header_nav_unify_stylesheet_link();
     echo org_beranda_hero_reference_stylesheet_link();
+}
+if (str_contains($bodyClassAttr, 'sg-portal-page')) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
     echo org_portal_nav_stylesheet_link();
 }
