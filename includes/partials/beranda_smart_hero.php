@@ -139,6 +139,10 @@ $sgQuickLinks[] = $sgEOrgQuick;
 
 <section class="hero-section sg-hero sg-hero--minimal sg-hero--compact" id="sg-hero" aria-label="Smart Governance Portal">
 
+<script id="sg-hero-offset-sync-inline">
+(function(){'use strict';function s(){var h=document.querySelector('.site-header--sg-portal'),e=document.getElementById('sg-hero');if(!h||!e)return;var t=Math.ceil(h.getBoundingClientRect().height);if(t<1)return;document.body.style.setProperty('--sg-portal-header-offset',t+'px');e.style.removeProperty('padding-top');}s();if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',s);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(s);requestAnimationFrame(function(){s();requestAnimationFrame(s);});})();
+</script>
+
     <div class="sg-hero__bg" aria-hidden="true"></div>
 
 

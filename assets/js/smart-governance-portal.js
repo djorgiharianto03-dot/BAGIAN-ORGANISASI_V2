@@ -54,11 +54,7 @@
         }
         var hero = document.getElementById('sg-hero');
         if (hero) {
-            if (isHome && h > 0) {
-                hero.style.paddingTop = h + 'px';
-            } else {
-                hero.style.removeProperty('padding-top');
-            }
+            hero.style.removeProperty('padding-top');
         }
     }
 

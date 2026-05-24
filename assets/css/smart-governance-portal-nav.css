@@ -120,8 +120,8 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero,
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
-    padding-top: calc(var(--sg-portal-header-offset, 6.5rem) + 0.5rem);
-    overflow-x: clip;
+    padding-top: calc(var(--sg-portal-header-offset, 11rem) + 0.75rem);
+    overflow-x: visible;
     overflow-y: visible;
     box-sizing: border-box;
 }

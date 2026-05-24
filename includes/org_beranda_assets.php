@@ -171,12 +171,12 @@ function org_beranda_header_vendor_markup(): string
 
     $rail = 'max-width:1320px!important;width:100%!important;margin-left:auto!important;margin-right:auto!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important;box-sizing:border-box!important';
     $out .= '<style id="sg-beranda-head-critical">'
-        . 'html.sg-portal-html-home,body.sg-homepage.sg-portal-page{background:#f4f7fb!important;--layout-max-width:1320px;--sg-rail-width:1320px;--portal-content-gutter:clamp(1rem,2.5vw,32px)}'
+        . 'html.sg-portal-html-home,body.sg-homepage.sg-portal-page{background:#f4f7fb!important;--layout-max-width:1320px;--sg-rail-width:1320px;--portal-content-gutter:clamp(1rem,2.5vw,32px);--sg-portal-header-offset:11rem}'
         . 'body.sg-homepage #sgPortalLoader{display:none!important}'
         . 'body.sg-homepage.sg-portal-page .site-header--sg-portal{position:fixed!important;top:0;left:0;right:0;width:100%!important;max-width:100%!important;margin:0!important;z-index:1200;pointer-events:auto;box-sizing:border-box}'
         . 'body.sg-homepage.sg-portal-page .site-header__gradient{display:block;width:100%!important;max-width:100%!important;margin:0!important;box-sizing:border-box}'
         . 'html.sg-portal-html-home{overflow-y:auto!important;overflow-x:clip!important;width:100%!important;max-width:100%!important;scrollbar-gutter:auto!important}'
-        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage.sg-portal-page .site-layout-main>section#sg-hero{background:linear-gradient(180deg,#0a3d6b 0%,#0c4a7a 100%)!important;background-color:#0a3d6b!important;filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage.sg-portal-page .site-layout-main>section#sg-hero{background:linear-gradient(180deg,#0a3d6b 0%,#0c4a7a 100%)!important;background-color:#0a3d6b!important;filter:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;padding-top:calc(var(--sg-portal-header-offset,11rem) + .75rem)!important;overflow:visible!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__bg,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-ambient-layer,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__grid-floor{display:none!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero{padding-top:calc(var(--sg-portal-header-offset,6.5rem) + .65rem)!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__copy,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-secondary,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-primary,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-org{opacity:1!important;visibility:visible!important;transform:none!important;display:block!important;color:#fff!important;-webkit-text-fill-color:currentColor!important}'
@@ -336,24 +336,60 @@ function org_beranda_hero_reference_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-hero-reference.css?v=6');
+    return org_asset_stylesheet_link('assets/css/beranda-hero-reference.css');
+}
+
+/** Sinkron offset header fixed → teks hero tidak tertutup navbar. */
+function org_beranda_hero_offset_sync_script(): string
+{
+    return <<<'HTML'
+<script id="sg-hero-offset-sync">
+(function () {
+    'use strict';
+  function syncHeroOffset() {
+    var header = document.querySelector('.site-header--sg-portal');
+    var hero = document.getElementById('sg-hero');
+    if (!header || !hero) return;
+    var h = Math.ceil(header.getBoundingClientRect().height);
+    if (h < 1) return;
+    document.body.style.setProperty('--sg-portal-header-offset', h + 'px');
+    hero.style.removeProperty('padding-top');
+  }
+  syncHeroOffset();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', syncHeroOffset);
+  }
+  window.addEventListener('load', syncHeroOffset);
+  window.addEventListener('resize', syncHeroOffset, { passive: true });
+  if (typeof ResizeObserver !== 'undefined') {
+    var header = document.querySelector('.site-header--sg-portal');
+    if (header) {
+      new ResizeObserver(syncHeroOffset).observe(header);
+    }
+  }
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(syncHeroOffset);
+  }
+  requestAnimationFrame(function () {
+    syncHeroOffset();
+    requestAnimationFrame(syncHeroOffset);
+  });
+})();
+</script>
+
+HTML;
 }
 
 /** Paksa teks hero tampil setelah CSS async/bundle selesai dimuat. */
 function org_beranda_hero_text_lock_script(): string
 {
-    return <<<'HTML'
+    return org_beranda_hero_offset_sync_script() . <<<'HTML'
 <script id="sg-hero-text-lock">
 (function () {
     'use strict';
     function lockHeroText() {
         var hero = document.getElementById('sg-hero');
         if (!hero) return;
-        var header = document.querySelector('.site-header--sg-portal');
-        var h = header ? Math.ceil(header.getBoundingClientRect().height) : 0;
-        if (h > 0) {
-            hero.style.setProperty('padding-top', (h + 10) + 'px', 'important');
-        }
         var paint = {
             '.sg-hero__copy': { display: 'block', color: '#fff' },
             '.sg-hero__title': { display: 'flex', color: '#fff' },
@@ -371,6 +407,9 @@ function org_beranda_hero_text_lock_script(): string
                 el.style.setProperty('color', paint[sel].color, 'important');
                 el.style.setProperty('-webkit-text-fill-color', paint[sel].color, 'important');
                 el.style.setProperty('transform', 'none', 'important');
+                el.style.setProperty('overflow', 'visible', 'important');
+                el.style.setProperty('max-height', 'none', 'important');
+                el.style.setProperty('-webkit-line-clamp', 'unset', 'important');
             });
         });
         var title = hero.querySelector('.sg-hero__title');
@@ -399,13 +438,15 @@ function org_beranda_hero_text_lock_script(): string
         if (tagline) {
             tagline.style.setProperty('font-weight', '400', 'important');
         }
+        hero.querySelectorAll('.sg-reveal').forEach(function (el) {
+            el.classList.add('is-visible');
+        });
     }
     lockHeroText();
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', lockHeroText);
     }
     window.addEventListener('load', lockHeroText);
-    window.addEventListener('resize', lockHeroText, { passive: true });
 })();
 </script>
 
