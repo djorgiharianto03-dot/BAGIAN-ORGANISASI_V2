@@ -67,8 +67,10 @@ echo org_theme_boot_script();
 $orgHeaderBerandaPage = defined('ORG_BERANDA_PAGE') && ORG_BERANDA_PAGE === true;
 if ($orgHeaderBerandaPage) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_container_global_assets.php';
     echo org_beranda_header_vendor_markup();
-    echo org_beranda_shell_stylesheet_async_link();
+    /* Sync — stack CSS portal sama Profil (bukan hanya shell async) */
+    echo org_container_global_stylesheet_link();
     echo org_beranda_bundle_stylesheet_async_link();
 } else {
     ?>
@@ -99,10 +101,6 @@ if ($orgHeaderBerandaPage) {
 
 if (!empty($extraHeadMarkup) && is_string($extraHeadMarkup)) {
     echo $extraHeadMarkup;
-}
-if ($orgHeaderBerandaPage) {
-    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
-    echo org_beranda_header_nav_unify_stylesheet_link();
 }
 if (str_contains($bodyClassAttr, 'sg-portal-page') && !$orgHeaderBerandaPage) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_container_global_assets.php';
@@ -136,6 +134,11 @@ if (str_contains($bodyClassAttr, 'sg-portal-page') && !$orgHeaderBerandaPage) {
 if (str_contains($bodyClassAttr, 'sg-portal-subpage') && !$orgHeaderBerandaPage) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
     echo org_portal_subpages_stylesheet_link();
+}
+if ($orgHeaderBerandaPage) {
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
+    echo org_beranda_header_nav_unify_stylesheet_link();
+    echo org_beranda_head_critical_final_markup();
 }
 ?>
 </head>

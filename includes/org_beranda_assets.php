@@ -181,7 +181,10 @@ function org_beranda_header_vendor_markup(): string
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero{width:100%!important;max-width:100%!important;margin:0!important;padding-left:0!important;padding-right:0!important;min-height:0!important;height:auto!important;overflow:visible!important;padding-top:calc(var(--sg-portal-header-offset,6.5rem) + .65rem)!important;padding-bottom:.5rem!important;background:linear-gradient(180deg,#0a3d6b,#0c4a7a)!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__bg{display:none!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .container-global.hero-inner,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .hero-inner--stacked{display:flex!important;flex-direction:column!important;grid-template-columns:unset!important;align-items:stretch!important;gap:.65rem!important}'
-        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__copy{overflow:visible!important;min-width:0!important;padding-top:.15rem!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__copy{overflow:visible!important;min-width:0!important;padding-top:.15rem!important;opacity:1!important;visibility:visible!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-secondary{display:block!important;color:rgba(186,230,253,.92)!important;-webkit-text-fill-color:rgba(186,230,253,.92)!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-primary{display:block!important;color:#fff!important;-webkit-text-fill-color:#fff!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-org{display:block!important;color:rgba(226,232,240,.92)!important;-webkit-text-fill-color:rgba(226,232,240,.92)!important}'
         . 'body.sg-homepage .sg-hero:not(.sg-hero--ultra):not(.sg-hero--minimal){min-height:0!important}'
         . 'body.sg-homepage.sg-portal-page #beranda-root{display:flex!important;visibility:visible!important;opacity:1!important;min-height:0!important;margin-top:0!important;background:#f4f7fb!important}'
         . 'body.sg-homepage #beranda-pusat-informasi,body.sg-homepage #beranda-galeri-kegiatan{display:block!important;visibility:visible!important;opacity:1!important}'
@@ -301,7 +304,27 @@ function org_beranda_header_nav_unify_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css?v=9');
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css?v=10');
+}
+
+/**
+ * Critical inline — header + teks hero (paling akhir di head, menang atas bundle async).
+ */
+function org_beranda_head_critical_final_markup(): string
+{
+    return '<style id="sg-beranda-head-critical-final">'
+        . 'body.sg-homepage.sg-portal-page .site-header__rail.container-global{max-width:1320px!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important}'
+        . 'body.sg-homepage.sg-portal-page .site-header__logo{max-height:48px!important;width:auto!important}'
+        . '@media(min-width:992px){body.sg-homepage.sg-portal-page .site-header__logo{max-height:52px!important}}'
+        . 'body.sg-homepage.sg-portal-page .navbar-panel,body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel{min-height:88px!important;border-radius:20px!important;padding:.35rem 0!important}'
+        . 'body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper{margin-top:clamp(.5rem,1.2vw,1.125rem)!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__copy,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-reveal{opacity:1!important;visibility:visible!important;transform:none!important;display:block!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-secondary{display:block!important;color:rgba(186,230,253,.92)!important;-webkit-text-fill-color:rgba(186,230,253,.92)!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-primary{display:block!important;color:#fff!important;-webkit-text-fill-color:#fff!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-org{display:block!important;color:rgba(226,232,240,.92)!important;-webkit-text-fill-color:rgba(226,232,240,.92)!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__cta{display:flex!important;flex-wrap:wrap!important;gap:.5rem!important;margin-top:.65rem!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero-stats{opacity:1!important;visibility:visible!important}'
+        . '</style>' . "\n";
 }
 
 /** Beranda — kartu statistik & dashboard enterprise (sync, cascade terakhir). */
