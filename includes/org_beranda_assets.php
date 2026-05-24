@@ -185,7 +185,7 @@ function org_beranda_header_vendor_markup(): string
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__cta{display:flex!important;opacity:1!important;visibility:visible!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage.sg-portal-page .site-layout-main>section#sg-hero{width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important;box-sizing:border-box!important}'
         . 'body.sg-homepage.sg-portal-page .site-header__nav a{pointer-events:auto!important;cursor:pointer}'
-        . 'body.sg-homepage.sg-portal-page :is(.site-header__rail.container-global,.header-inner.container-global,.site-layout-main>#sg-hero .container-global,#beranda-root.container-global,.site-footer .container-global){' . $rail . '}'
+        . 'body.sg-homepage.sg-portal-page :is(.site-layout-main>#sg-hero .container-global,#beranda-root.container-global,.site-footer .container-global){' . $rail . '}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main{width:100%!important;max-width:100%!important;background:#f4f7fb!important;display:block!important;min-height:0!important}'
         . 'body.sg-homepage.sg-portal-page #beranda-root{display:flex!important;visibility:visible!important;opacity:1!important;min-height:0!important;margin-top:0!important;background:#f4f7fb!important}'
         . 'body.sg-homepage #beranda-pusat-informasi,body.sg-homepage #beranda-galeri-kegiatan{display:block!important;visibility:visible!important;opacity:1!important}'
@@ -484,12 +484,19 @@ function org_beranda_lite_render_script_tag(): string
     return $out . org_asset_script_defer($rel);
 }
 
+function org_beranda_header_nav_sync_stylesheet_link(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=1');
+}
+
 /** Muat ulang CSS navbar paling akhir (timpa bundle async beranda). */
 function org_beranda_navbar_footer_cascade_markup(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
 
-    return org_portal_navbar_footer_cascade_markup();
+    return org_portal_navbar_footer_cascade_markup() . org_beranda_header_nav_sync_stylesheet_link();
 }
 
 function org_beranda_deferred_script_tag(): string

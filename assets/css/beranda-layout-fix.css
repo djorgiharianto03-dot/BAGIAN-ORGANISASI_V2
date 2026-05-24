@@ -97,8 +97,8 @@ body.sg-homepage.sg-portal-page .site-layout-main {
     box-sizing: border-box;
 }
 
-/* Satu rail konten — hero dalam, main, footer (header/navbar: portal-nav + unify) */
-body.sg-homepage.sg-portal-page .container-global,
+/* Satu rail konten — hero dalam, main, footer (header/navbar: portal-nav) */
+body.sg-homepage.sg-portal-page .container-global:not(.site-header__rail):not(.header-inner),
 body.sg-homepage.sg-portal-page .org-hero__container,
 body.sg-homepage.sg-portal-page .container-global.hero-inner,
 body.sg-homepage.sg-portal-page .container-global.org-container {

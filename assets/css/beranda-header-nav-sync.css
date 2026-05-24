@@ -1,0 +1,165 @@
+/**
+ * Beranda — header rail, logo, panel navbar identik Profil / Layanan / Informasi / Galeri / E-Organisasi.
+ * Muat paling akhir (setelah bundle async) agar menimpa override beranda-only.
+ */
+
+body.sg-homepage.sg-portal-page {
+    --sg-nav-panel-min-h: 56px;
+    --sg-nav-panel-radius: 20px;
+    --sg-nav-panel-pad-block: 0.35rem;
+    --sg-nav-panel-pad-inline: 0;
+    --sg-nav-panel-bg: rgba(2, 22, 48, 0.94);
+    --sg-nav-panel-bg-scrolled: rgba(2, 22, 48, 0.97);
+    --sg-nav-panel-border: rgba(147, 197, 253, 0.18);
+    --sg-nav-panel-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.07),
+        0 10px 32px rgba(0, 10, 28, 0.42);
+    --sg-nav-wrapper-gap: clamp(0.5rem, 1.2vw, 1.125rem);
+    --sg-nav-row-min-h: 56px;
+}
+
+/* Rail header — sama .sg-portal-page (portal-nav.css) */
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail.container-global,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    max-width: var(--layout-max-width, 1320px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: var(--portal-content-gutter, clamp(1rem, 2.5vw, 32px)) !important;
+    padding-right: var(--portal-content-gutter, clamp(1rem, 2.5vw, 32px)) !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    box-sizing: border-box !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header__rail .site-header__topbar,
+body.sg-homepage.sg-portal-page .header-inner .site-header__topbar {
+    order: 1 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 auto !important;
+    align-self: stretch !important;
+    align-items: center !important;
+    gap: 0.5rem 1rem !important;
+    padding: 0.2rem 0 0.15rem !important;
+}
+
+body.sg-homepage.sg-portal-page .header-inner .site-header__brand-row,
+body.sg-homepage.sg-portal-page .header-inner .site-header__brand-row > a:first-child {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
+/* Logo — posisi & ukuran sama subhalaman */
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__brand.site-header__brand-row {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    gap: 0.65rem 0.85rem !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row > a:first-child {
+    flex-shrink: 0 !important;
+    align-self: center !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header__logo,
+body.sg-homepage.sg-portal-page .org-navbar__logo {
+    max-height: 48px !important;
+    max-width: none !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    filter: none !important;
+    flex-shrink: 0 !important;
+    vertical-align: middle !important;
+}
+
+@media (min-width: 992px) {
+    body.sg-homepage.sg-portal-page .site-header__logo,
+    body.sg-homepage.sg-portal-page .org-navbar__logo {
+        max-height: 52px !important;
+    }
+
+    body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper,
+    body.sg-homepage.sg-portal-page .site-header__rail .org-navbar__nav-shell,
+    body.sg-homepage.sg-portal-page .navbar-wrapper {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-top: var(--sg-nav-wrapper-gap) !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 0 !important;
+        flex: 0 0 auto !important;
+        order: 2 !important;
+        align-self: stretch !important;
+        box-sizing: border-box !important;
+    }
+
+    body.sg-homepage.sg-portal-page .navbar-panel,
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap,
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
+    body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel,
+    body.sg-homepage.sg-portal-page .org-navbar__nav-wrap.navbar-panel {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: var(--sg-nav-panel-min-h) !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: var(--sg-nav-panel-pad-block) var(--sg-nav-panel-pad-inline) !important;
+        border-radius: var(--sg-nav-panel-radius) !important;
+        background: rgba(2, 22, 48, 0.94) !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
+        border: 1px solid var(--sg-nav-panel-border) !important;
+        box-shadow: var(--sg-nav-panel-shadow) !important;
+        position: static !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
+        opacity: 1 !important;
+        animation: none !important;
+        isolation: auto !important;
+    }
+
+    body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,
+    body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel,
+    body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .org-navbar__nav-wrap.navbar-panel {
+        background: rgba(2, 22, 48, 0.97) !important;
+    }
+}
+
+@media (max-width: 991.98px) {
+    body.sg-homepage.sg-portal-page .site-header__logo,
+    body.sg-homepage.sg-portal-page .org-navbar__logo {
+        max-height: 38px !important;
+        max-width: 36vw !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    body.sg-homepage.sg-portal-page .site-header__logo,
+    body.sg-homepage.sg-portal-page .org-navbar__logo {
+        max-height: 48px !important;
+        max-width: 36vw !important;
+    }
+}

@@ -148,6 +148,7 @@ if ($orgHeaderBerandaPage) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
     echo org_beranda_bundle_stylesheet_async_link();
     echo org_beranda_hero_fix_active_stylesheet_link();
+    echo org_beranda_header_nav_sync_stylesheet_link();
 }
 ?>
 </head>

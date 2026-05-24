@@ -30,7 +30,7 @@ body.sg-homepage.sg-portal-page .site-layout-main {
     background: transparent;
 }
 
-/* Header rail — selaras gutter hero/konten */
+/* Header rail — portal-nav.css + beranda-header-nav-sync.css */
 body.sg-homepage.sg-portal-page .site-header__rail.container-global,
 body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global {
     display: flex;
@@ -38,11 +38,13 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-
     align-items: stretch;
     flex-wrap: nowrap;
     width: 100%;
-    max-width: var(--sg-beranda-rail);
+    max-width: var(--layout-max-width, 1320px);
     margin-left: auto !important;
     margin-right: auto !important;
-    padding-left: var(--sg-beranda-gutter) !important;
-    padding-right: var(--sg-beranda-gutter) !important;
+    padding-left: var(--portal-content-gutter, clamp(1rem, 2.5vw, 32px)) !important;
+    padding-right: var(--portal-content-gutter, clamp(1rem, 2.5vw, 32px)) !important;
+    padding-top: 0;
+    padding-bottom: 0;
     box-sizing: border-box;
 }
 
