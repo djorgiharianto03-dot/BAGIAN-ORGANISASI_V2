@@ -337,11 +337,12 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero,
 .sg-portal-page .site-header__nav-wrap.navbar-panel {
     width: 100% !important;
     max-width: 100% !important;
-    min-height: var(--sg-nav-panel-min-h) !important;
+    min-height: auto !important;
+    height: auto !important;
     margin: 0 !important;
-    padding: var(--sg-nav-panel-pad-block) var(--sg-nav-panel-pad-inline) !important;
-    border-radius: var(--sg-nav-panel-radius) !important;
-    background: var(--sg-nav-panel-bg) !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     display: flex !important;
@@ -349,8 +350,8 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero,
     align-items: stretch !important;
     justify-content: center !important;
     box-sizing: border-box !important;
-    border: 1px solid var(--sg-nav-panel-border) !important;
-    box-shadow: var(--sg-nav-panel-shadow) !important;
+    border: none !important;
+    box-shadow: none !important;
     position: static !important;
     top: auto !important;
     left: auto !important;
@@ -476,11 +477,12 @@ body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
 body.sg-portal-page .site-header__nav-wrap.navbar-panel {
     width: 100% !important;
     max-width: 100% !important;
-    min-height: var(--sg-nav-panel-min-h) !important;
+    min-height: auto !important;
+    height: auto !important;
     margin: 0 !important;
-    padding: var(--sg-nav-panel-pad-block) var(--sg-nav-panel-pad-inline) !important;
-    border-radius: var(--sg-nav-panel-radius) !important;
-    background: var(--sg-nav-panel-bg) !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     display: flex !important;
@@ -488,8 +490,8 @@ body.sg-portal-page .site-header__nav-wrap.navbar-panel {
     align-items: stretch !important;
     justify-content: center !important;
     box-sizing: border-box !important;
-    border: 1px solid var(--sg-nav-panel-border) !important;
-    box-shadow: var(--sg-nav-panel-shadow) !important;
+    border: none !important;
+    box-shadow: none !important;
     position: static !important;
     top: auto !important;
     left: auto !important;
@@ -503,7 +505,7 @@ body.sg-portal-page .site-header__nav-wrap.navbar-panel {
 body.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,
 body.sg-portal-page .site-header--sg-portal.is-scrolled .org-navbar__nav-wrap.navbar-panel,
 body.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel {
-    background: var(--sg-nav-panel-bg-scrolled) !important;
+    background: transparent !important;
 }
 
 body.sg-portal-page .site-header__nav-wrap.is-nav-scrolled,
@@ -522,11 +524,11 @@ body.sg-portal-page .org-navbar__nav-wrap.is-features-fixed {
     max-width: 100% !important;
     margin: 0 !important;
     margin-top: var(--sg-nav-wrapper-gap) !important;
-    padding: var(--sg-nav-panel-pad-block) var(--sg-nav-panel-pad-inline) !important;
-    border-radius: var(--sg-nav-panel-radius) !important;
-    background: var(--sg-nav-panel-bg) !important;
-    border: 1px solid var(--sg-nav-panel-border) !important;
-    box-shadow: var(--sg-nav-panel-shadow) !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     opacity: 1 !important;

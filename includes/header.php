@@ -70,7 +70,6 @@ if ($orgHeaderBerandaPage) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_container_global_assets.php';
     echo org_beranda_header_vendor_markup();
     echo org_container_global_stylesheet_link(false);
-    echo org_beranda_bundle_stylesheet_async_link();
 } else {
     ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -136,14 +135,17 @@ if (str_contains($bodyClassAttr, 'sg-portal-subpage') && !$orgHeaderBerandaPage)
     echo org_portal_subpages_stylesheet_link();
 }
 if ($orgHeaderBerandaPage) {
-    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
-    echo org_beranda_hero_reference_stylesheet_link();
     echo org_asset_stylesheet_link('assets/css/smart-governance-portal-layout-fix.css');
 }
 if (str_contains($bodyClassAttr, 'sg-portal-page')) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
     echo org_portal_nav_stylesheet_link();
+}
+if ($orgHeaderBerandaPage) {
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+    echo org_beranda_bundle_stylesheet_async_link();
 }
 ?>
 </head>

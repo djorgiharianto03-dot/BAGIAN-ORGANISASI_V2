@@ -19,41 +19,15 @@ function org_beranda_assets_prepare_builds(): void
 
 function org_beranda_site_global_stylesheet_link(): string
 {
-    org_beranda_assets_prepare_builds();
-    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
-    $fs = ORG_ROOT . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . 'site-global.min.css';
-    if (!is_file($fs)) {
-        return '';
-    }
-
-    /* Sync — urutan cascade sama Profil (site_styles → portal-nav) */
-    return org_asset_stylesheet_link('assets/css/site-global.min.css');
+    /* Jangan pakai site-global.min.css — beranda portal memakai site_styles.php (sama Profil). */
+    return '';
 }
 
-/** CSS header portal yang sama dengan halaman Profil (mobile-first, navbar, enterprise). */
-function org_beranda_portal_header_stylesheet_links(): string
-{
-    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
-    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_mobile_assets.php';
-    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_navbar_assets.php';
-    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_tailwind_assets.php';
-
-    return org_mobile_stylesheet_link()
-        . org_navbar_stylesheet_link()
-        . org_tailwind_stylesheet_link()
-        . org_asset_stylesheet_link('assets/css/smart-governance-enterprise.css?v=3');
-}
-
-function org_beranda_site_styles_markup(): string
+/** Inline site_styles.php — identik halaman Profil / subhalaman portal. */
+function org_beranda_portal_site_styles_markup(): string
 {
     static $cached = null;
     if (is_string($cached)) {
-        return $cached;
-    }
-    $external = org_beranda_site_global_stylesheet_link();
-    if ($external !== '') {
-        $cached = $external;
-
         return $cached;
     }
     $partial = __DIR__ . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'site_styles.php';
@@ -72,6 +46,25 @@ function org_beranda_site_styles_markup(): string
     }
 
     return $cached;
+}
+
+/** CSS header portal yang sama dengan halaman Profil (mobile-first, navbar, enterprise). */
+function org_beranda_portal_header_stylesheet_links(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_mobile_assets.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_navbar_assets.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_tailwind_assets.php';
+
+    return org_mobile_stylesheet_link()
+        . org_navbar_stylesheet_link()
+        . org_tailwind_stylesheet_link()
+        . org_asset_stylesheet_link('assets/css/smart-governance-enterprise.css?v=3');
+}
+
+function org_beranda_site_styles_markup(): string
+{
+    return org_beranda_portal_site_styles_markup();
 }
 
 function org_beranda_bundle_stylesheet_async_link(): string
@@ -148,16 +141,20 @@ function org_beranda_header_vendor_markup(): string
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_theme_assets.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_navbar_assets.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_modal_layer_assets.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_motion_assets.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_theme_assets.php';
 
-    /* Font portal sync — sebelum site-global (metrik teks = Profil) */
+    /* Font portal sync — sebelum site_styles (metrik teks = Profil) */
     $out = org_assets_fonts_portal_sync_markup();
     $out .= org_vendor_stylesheet_preload(org_vendor_bootstrap_css());
     $out .= org_vendor_stylesheet_preload(org_vendor_fontawesome_css());
     $out .= org_asset_stylesheet_async('assets/css/org-dark-mode.css?v=1', true);
-    $out .= org_asset_stylesheet_async('assets/css/org-modal-layer.css', true);
     $out .= org_beranda_lite_stylesheet_link();
-    $out .= org_beranda_site_global_stylesheet_link();
+    $out .= org_beranda_portal_site_styles_markup();
     $out .= org_beranda_portal_header_stylesheet_links();
+    $out .= org_motion_stylesheet_link();
+    $out .= org_theme_stylesheet_link();
+    $out .= org_modal_layer_stylesheet_link();
 
     if (!org_assets_beranda_css_bundle_available()) {
         $out .= org_beranda_layout_fix_stylesheet_link();
@@ -486,6 +483,15 @@ function org_beranda_lite_render_script_tag(): string
     $out = org_asset_script_preload($rel);
 
     return $out . org_asset_script_defer($rel);
+}
+
+/** Muat ulang CSS navbar paling akhir (timpa bundle async beranda). */
+function org_beranda_navbar_footer_cascade_markup(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_navbar_assets.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
+
+    return org_navbar_stylesheet_link() . org_portal_nav_stylesheet_link();
 }
 
 function org_beranda_deferred_script_tag(): string
