@@ -122,7 +122,14 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero,
     gap: 0.06rem;
 }
 
-/* Header portal: logo saja — teks branding dihapus dari navbar */
+/* Header portal: logo saja — teks branding dihapus */
+.sg-portal-page .site-header__title,
+.sg-portal-page .site-header__subtitle,
+.sg-portal-page .org-navbar__title,
+.sg-portal-page .org-navbar__subtitle {
+    display: none !important;
+}
+
 .sg-portal-page .site-header__brand-row,
 .sg-portal-page .org-navbar__brand.site-header__brand-row {
     flex: 0 1 auto;
