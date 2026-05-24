@@ -45,17 +45,27 @@ function org_portal_subpages_stylesheet_link(): string
  */
 function org_portal_nav_stylesheet_link(): string
 {
-    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+    if (!function_exists('org_asset_url')) {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_app.php';
+    }
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
+    $v = (string) ORG_ASSETS_PORTAL_NAV_MANUAL_VERSION;
+    $href = org_asset_url('assets/css/smart-governance-portal-nav.css?v=' . rawurlencode($v));
 
-    return org_asset_stylesheet_link('assets/css/smart-governance-portal-nav.css');
+    return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '">' . "\n";
 }
 
 /** Panel navbar — lock paling akhir (timpa site_styles legacy di subhalaman). */
 function org_portal_nav_panel_lock_stylesheet_link(): string
 {
-    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+    if (!function_exists('org_asset_url')) {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_app.php';
+    }
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_production_assets.php';
+    $v = (string) ORG_ASSETS_PORTAL_NAV_MANUAL_VERSION;
+    $href = org_asset_url('assets/css/sg-portal-navbar-panel-lock.css?v=' . rawurlencode($v));
 
-    return org_asset_stylesheet_link('assets/css/sg-portal-navbar-panel-lock.css');
+    return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '">' . "\n";
 }
 
 /**
@@ -65,8 +75,8 @@ function org_portal_nav_panel_critical_markup(): string
 {
     return '<style id="sg-portal-nav-panel-critical">'
         . 'body.sg-portal-page .navbar-panel,body.sg-portal-page .site-header__nav-wrap.navbar-panel{'
-        . 'width:100%!important;max-width:100%!important;min-height:88px!important;margin:0!important;'
-        . 'padding:.35rem 0!important;border-radius:20px!important;display:flex!important;'
+        . 'width:100%!important;max-width:100%!important;min-height:auto!important;margin:0!important;'
+        . 'padding:.35rem 0!important;border-radius:14px!important;display:flex!important;'
         . 'background:var(--sg-nav-panel-bg,rgba(2,22,48,.72))!important;'
         . 'border:1px solid var(--sg-nav-panel-border,rgba(147,197,253,.18))!important;'
         . 'box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 32px rgba(0,10,28,.42)!important;'
