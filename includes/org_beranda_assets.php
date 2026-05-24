@@ -488,10 +488,9 @@ function org_beranda_lite_render_script_tag(): string
 /** Muat ulang CSS navbar paling akhir (timpa bundle async beranda). */
 function org_beranda_navbar_footer_cascade_markup(): string
 {
-    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_navbar_assets.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
 
-    return org_navbar_stylesheet_link() . org_portal_nav_stylesheet_link();
+    return org_portal_navbar_footer_cascade_markup();
 }
 
 function org_beranda_deferred_script_tag(): string

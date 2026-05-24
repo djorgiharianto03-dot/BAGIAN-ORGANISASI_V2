@@ -46,15 +46,27 @@ org_partial_deny_direct();
                 #032244 88%,
                 #001428 100%
             );
-            --header-nav-surface: rgba(2, 22, 48, 0.72);
+            --header-nav-surface: rgba(2, 22, 48, 0.94);
             --header-nav-overlay: var(--header-nav-surface);
             --header-nav-border: rgba(147, 197, 253, 0.18);
             --header-nav-glass-blur: 14px;
             --header-nav-glass-blur-scroll: 14px;
             --header-nav-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 10px 32px rgba(0, 10, 28, 0.42);
             --header-nav-shadow-elevated: var(--header-nav-shadow);
+            --sg-nav-panel-bg: rgba(2, 22, 48, 0.94);
+            --sg-nav-panel-bg-scrolled: rgba(2, 22, 48, 0.97);
+            --sg-nav-panel-border: rgba(147, 197, 253, 0.18);
             --layout-max-width: 1320px;
             --page-bg: #f4f7fb;
+        }
+        /* Portal + modul: panel nav tetap navy Beranda (bukan gradient modul) */
+        body.mode-publikasi.sg-portal-page,
+        body.mode-eorganisasi.sg-portal-page {
+            --header-nav-surface: rgba(2, 22, 48, 0.94);
+            --header-nav-overlay: var(--header-nav-surface);
+            --sg-nav-panel-bg: rgba(2, 22, 48, 0.94);
+            --sg-nav-panel-bg-scrolled: rgba(2, 22, 48, 0.97);
+            --sg-nav-panel-border: rgba(147, 197, 253, 0.18);
         }
         body.mode-publikasi {
             --brand-navy: #1d4ed8;

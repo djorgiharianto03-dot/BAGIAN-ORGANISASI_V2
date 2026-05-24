@@ -247,9 +247,14 @@
         margin-top: 0;
         border-radius: 14px;
         border: 1px solid var(--header-nav-border, rgba(255, 255, 255, 0.14));
-        background: var(--header-nav-surface, linear-gradient(135deg, #1e3a5f 0%, #27496d 100%));
-        background-color: #243f5f;
+        background: var(--header-nav-surface, rgba(2, 22, 48, 0.94));
         overflow: hidden;
+    }
+
+    .sg-portal-page .site-header__nav-panel {
+        border-radius: 14px;
+        border-color: var(--sg-nav-panel-border, rgba(147, 197, 253, 0.18));
+        background: var(--sg-nav-panel-bg, rgba(2, 22, 48, 0.94)) !important;
     }
 
     .site-header__nav-panel.is-open {

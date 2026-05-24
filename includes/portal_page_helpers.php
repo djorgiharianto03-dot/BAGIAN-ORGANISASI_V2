@@ -67,6 +67,14 @@ function org_portal_nav_panel_critical_markup(): string
     return '';
 }
 
+/** Muat ulang navbar + portal-nav paling akhir (timpa CSS halaman / bundle). */
+function org_portal_navbar_footer_cascade_markup(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_navbar_assets.php';
+
+    return org_navbar_stylesheet_link() . org_portal_nav_stylesheet_link();
+}
+
 /**
  * Head beranda — portal nav + CSS govtech non-blocking (desain tetap, muat ringan).
  */
@@ -151,6 +159,9 @@ function org_portal_prepare_page(string &$bodyClass, bool $isSubpage = true): vo
 {
     global $smartPortalNav;
     $smartPortalNav = true;
+    if (!defined('ORG_SG_PORTAL_PAGE')) {
+        define('ORG_SG_PORTAL_PAGE', true);
+    }
     if (!str_contains($bodyClass, 'sg-portal-page')) {
         $bodyClass = trim($bodyClass . ' sg-portal-page');
     }

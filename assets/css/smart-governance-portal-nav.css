@@ -30,7 +30,7 @@
     --sg-header-gradient-scrolled: linear-gradient(90deg, #001428 0%, #053057 50%, #001428 100%);
     /* Remap legacy site_styles / site-global agar tidak pakai slate #243f5f */
     --header-gradient: var(--sg-header-gradient);
-    --header-nav-surface: rgba(2, 22, 48, 0.72);
+    --header-nav-surface: rgba(2, 22, 48, 0.94);
     --header-nav-border: rgba(147, 197, 253, 0.18);
     --header-nav-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 10px 32px rgba(0, 10, 28, 0.42);
     --header-nav-shadow-elevated: var(--header-nav-shadow);
@@ -636,8 +636,18 @@ body[class*='theme-'].sg-portal-page {
         --holiday-header-gradient-scrolled,
         var(--holiday-header-gradient, linear-gradient(90deg, #001428 0%, #053057 50%, #001428 100%))
     );
-    --sg-nav-panel-bg: var(--holiday-nav-surface, rgba(2, 22, 48, 0.72));
-    --sg-nav-panel-bg-scrolled: var(--holiday-nav-surface, rgba(2, 22, 48, 0.82));
+    --header-nav-surface: var(--holiday-nav-surface, rgba(2, 22, 48, 0.94));
+    --sg-nav-panel-bg: var(--holiday-nav-surface, rgba(2, 22, 48, 0.94));
+    --sg-nav-panel-bg-scrolled: var(--holiday-nav-surface, rgba(2, 22, 48, 0.97));
+}
+
+/* Modul berita / e-org — panel nav sama Beranda saat masih .sg-portal-page */
+body.mode-publikasi.sg-portal-page,
+body.mode-eorganisasi.sg-portal-page {
+    --header-nav-surface: rgba(2, 22, 48, 0.94);
+    --sg-nav-panel-bg: rgba(2, 22, 48, 0.94);
+    --sg-nav-panel-bg-scrolled: rgba(2, 22, 48, 0.97);
+    --sg-nav-panel-border: rgba(147, 197, 253, 0.18);
 }
 
 body[class*='theme-'].sg-portal-page .site-header--sg-portal.is-scrolled .site-header__gradient {
@@ -1464,23 +1474,31 @@ body.sg-portal-page .site-header--sg-portal .btn-header-logout {
     }
 }
 
-/* Desktop: kotak panel glass — Beranda identik Profil (timpa override lama / cache) */
+/* Desktop: kotak panel glass — semua halaman .sg-portal-page (sama Beranda) */
 @media (min-width: 992px) {
     body.sg-portal-page .site-header--sg-portal .navbar-panel,
     body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
     body.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap.navbar-panel,
-    body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel,
-    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel {
-        min-height: var(--sg-nav-panel-min-h) !important;
-        padding: var(--sg-nav-panel-pad-block) var(--sg-nav-panel-pad-inline) !important;
-        border-radius: var(--sg-nav-panel-radius) !important;
-        background: var(--sg-nav-panel-bg) !important;
-        border: 1px solid var(--sg-nav-panel-border) !important;
-        box-shadow: var(--sg-nav-panel-shadow) !important;
+    body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap {
+        min-height: var(--sg-nav-panel-min-h, 56px) !important;
+        padding: var(--sg-nav-panel-pad-block, 0.35rem) var(--sg-nav-panel-pad-inline, 0) !important;
+        border-radius: var(--sg-nav-panel-radius, 20px) !important;
+        background: var(--sg-nav-panel-bg, rgba(2, 22, 48, 0.94)) !important;
+        border: 1px solid var(--sg-nav-panel-border, rgba(147, 197, 253, 0.18)) !important;
+        box-shadow: var(--sg-nav-panel-shadow, inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 10px 32px rgba(0, 10, 28, 0.42)) !important;
     }
 
     body.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,
-    body.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel {
-        background: var(--sg-nav-panel-bg-scrolled) !important;
+    body.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel,
+    body.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap {
+        background: var(--sg-nav-panel-bg-scrolled, rgba(2, 22, 48, 0.97)) !important;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .sg-portal-page .site-header__nav-panel.is-open {
+        background: var(--sg-nav-panel-bg, rgba(2, 22, 48, 0.94)) !important;
+        background-color: transparent !important;
+        border-color: var(--sg-nav-panel-border, rgba(147, 197, 253, 0.18)) !important;
     }
 }
