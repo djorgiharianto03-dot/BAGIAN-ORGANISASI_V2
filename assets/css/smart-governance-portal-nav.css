@@ -1315,6 +1315,7 @@ body.sg-portal-page .site-header--sg-portal .site-header__rail .org-navbar__nav-
     padding: 0 !important;
 }
 
+@media (min-width: 992px) {
 body.sg-portal-page .site-header--sg-portal .navbar-panel,
 body.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap.navbar-panel,
 body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
@@ -1384,6 +1385,7 @@ body.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap .site-header__
     padding: 0.12rem 0 !important;
     margin: 0 !important;
     box-sizing: border-box !important;
+}
 }
 
 body.sg-portal-page .site-header--sg-portal .site-header__nav {

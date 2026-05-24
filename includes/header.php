@@ -137,7 +137,6 @@ if (str_contains($bodyClassAttr, 'sg-portal-subpage') && !$orgHeaderBerandaPage)
 if ($orgHeaderBerandaPage) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
-    echo org_beranda_header_nav_unify_stylesheet_link();
     echo org_beranda_hero_reference_stylesheet_link();
     echo org_asset_stylesheet_link('assets/css/smart-governance-portal-layout-fix.css');
 }
@@ -146,10 +145,6 @@ if (str_contains($bodyClassAttr, 'sg-portal-page')) {
     echo org_portal_nav_stylesheet_link();
     echo org_portal_nav_panel_lock_stylesheet_link();
     echo org_portal_nav_panel_critical_markup();
-}
-if ($orgHeaderBerandaPage) {
-    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
-    echo org_beranda_nav_panel_critical_markup();
 }
 ?>
 </head>
