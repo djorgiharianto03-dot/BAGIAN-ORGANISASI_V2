@@ -156,7 +156,7 @@ $sgQuickLinks[] = $sgEOrgQuick;
 
             </h1>
 
-            <p class="sg-hero__tagline" style="display:block!important;opacity:1!important;visibility:visible!important;color:rgba(203,213,225,.92)!important;-webkit-text-fill-color:rgba(203,213,225,.92)!important;font-size:clamp(.875rem,.82rem + .2vw,.975rem);line-height:1.55;margin:.5rem 0 0;max-width:38rem;">Transformasi Digital Tata Kelola Pemerintahan yang Modern, Efisien, dan Transparan.</p>
+            <p class="sg-hero__tagline" style="display:block!important;opacity:1!important;visibility:visible!important;color:rgba(203,213,225,.92)!important;-webkit-text-fill-color:rgba(203,213,225,.92)!important;font-size:clamp(.875rem,.82rem + .2vw,.975rem);line-height:1.55;margin:.5rem 0 0;max-width:38rem;">Mewujudkan Tata Kelola Pemerintahan Digital.</p>
 
             <div class="sg-hero__cta" style="display:flex!important;opacity:1!important;visibility:visible!important;flex-wrap:wrap;gap:.5rem;margin-top:.75rem;">
 
