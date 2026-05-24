@@ -43,9 +43,9 @@
 }
 
 /* Timpa padding besar .sg-subhero di portal.css */
-body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .sg-subhero,
-body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .org-hero.sg-subhero,
-body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .org-hero.org-hero--sub.sg-subhero:first-child,
+body.sg-portal-subpage.sg-portal-page .site-layout-main > .sg-subhero,
+body.sg-portal-subpage.sg-portal-page .site-layout-main > .org-hero.sg-subhero,
+body.sg-portal-subpage.sg-portal-page .site-layout-main > .org-hero.org-hero--sub.sg-subhero:first-child,
 .sg-portal-subpage .sg-subhero {
     padding-top: calc(var(--sg-portal-header-offset, 6.25rem) + var(--sg-subhero-gap-below-header)) !important;
     padding-bottom: var(--sg-subhero-pad-bottom) !important;
@@ -200,14 +200,14 @@ body.sg-portal-subpage.sg-portal-page .sg-subhero .sg-subhero__eyebrow {
     opacity: 0.88;
 }
 
-/* —— Menang atas org-tailwind / shell-align / portal (muat paling akhir, v=4) —— */
-body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main {
+/* —— Menang atas org-tailwind / shell-align / portal (muat paling akhir, v=7) —— */
+body.sg-portal-subpage.sg-portal-page .site-layout-main {
     padding-top: 0 !important;
 }
 
-body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .org-hero.org-hero--sub.sg-subhero,
-body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .org-hero.sg-subhero,
-body.sg-portal-subpage.sg-portal-page:not(.sg-homepage) .site-layout-main > .sg-subhero {
+body.sg-portal-subpage.sg-portal-page .site-layout-main > .org-hero.org-hero--sub.sg-subhero,
+body.sg-portal-subpage.sg-portal-page .site-layout-main > .org-hero.sg-subhero,
+body.sg-portal-subpage.sg-portal-page .site-layout-main > .sg-subhero {
     padding: 0 !important;
     padding-top: calc(var(--sg-portal-header-offset, 5.5rem) + var(--sg-subhero-gap-below-header)) !important;
     padding-bottom: var(--sg-subhero-pad-bottom) !important;

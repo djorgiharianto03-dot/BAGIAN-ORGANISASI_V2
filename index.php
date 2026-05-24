@@ -29,7 +29,7 @@ $siteLogoAlt = org_beranda_seo_logo_alt();
 $navActive = 'beranda';
 $includePersonnelModals = false;
 $includeNewsModals = false;
-$bodyClass = 'page-index-redesign sg-portal-page sg-homepage';
+$bodyClass = 'page-index-redesign sg-portal-page sg-homepage sg-portal-subpage';
 $smartPortalNav = true;
 
 /** Satu kalimat inti untuk kartu Visi beranda (dari HTML ke plain). */
@@ -165,6 +165,20 @@ $extraFooterMarkup = org_portal_footer_markup('');
 $extraHeadMarkup = org_portal_head_markup_beranda($extraHeadMarkup);
 /** Portal beranda: lebar shell header/hero — org-container-global.css */
 $htmlClass = 'sg-portal-html-home';
+
+org_portal_set_hero(
+    'Bagian Organisasi',
+    'Mewujudkan Tata Kelola Pemerintahan Digital.',
+    'Smart Governance Portal',
+    'fa-building-columns',
+    [
+        ['value' => (int) $berandaTotalToday, 'label' => 'Tamu Hari Ini'],
+        ['value' => (int) $berandaTotalWeek, 'label' => 'Kunjungan 7 Hari'],
+        ['value' => (int) $sgPortalDocCount, 'label' => 'Dokumen Digital'],
+        ['value' => (int) $sgPortalInfoCount, 'label' => 'Publikasi Aktif'],
+    ]
+);
+$portalHeroBreadcrumb = '';
 
 define('ORG_DEFER_LAYOUT_MAIN', true);
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'header.php';

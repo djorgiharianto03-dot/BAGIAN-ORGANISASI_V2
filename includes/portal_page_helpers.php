@@ -35,9 +35,9 @@ function org_portal_subpages_stylesheet_link(): string
     if (!function_exists('org_asset_url')) {
         require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'org_app.php';
     }
-    $href = org_asset_url('assets/css/smart-governance-subpages.css?v=6');
+    $href = org_asset_url('assets/css/smart-governance-subpages.css?v=7');
 
-    return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '" data-sg-subpages-css="6">' . "\n";
+    return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '" data-sg-subpages-css="7">' . "\n";
 }
 
 /**

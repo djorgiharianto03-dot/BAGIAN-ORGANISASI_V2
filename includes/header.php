@@ -107,27 +107,20 @@ if (str_contains($bodyClassAttr, 'sg-portal-page') && !$orgHeaderBerandaPage) {
 if (str_contains($bodyClassAttr, 'sg-portal-page')) {
     echo '<style id="sg-portal-shell-critical">'
         . 'body.sg-portal-page .site-header--sg-portal{position:fixed!important;top:0;left:0;right:0;width:100%!important;max-width:100%!important;z-index:1100!important}'
-        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage.sg-portal-page .sg-portal-main.sg-dash-main{width:100%!important;max-width:min(1320px,100%)!important;margin-left:auto!important;margin-right:auto!important}'
-        . ($orgHeaderBerandaPage ? '' : 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title{font-size:clamp(1.25rem,1rem+1vw,1.75rem)!important;line-height:1.2!important}')
-        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__tagline{font-size:clamp(.9rem,.85rem+.3vw,1.05rem)!important;line-height:1.5!important;max-width:100%!important}'
+        . 'body.sg-homepage.sg-portal-page .sg-portal-main.sg-dash-main{width:100%!important;max-width:min(1320px,100%)!important;margin-left:auto!important;margin-right:auto!important}'
         . 'body.sg-portal-page .site-header__rail.header-inner{display:flex!important;flex-direction:column!important;align-items:stretch!important;width:100%!important}'
         . '@media(min-width:992px){body.sg-portal-page .site-header__rail .navbar-wrapper{display:block!important;width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important}}'
         . '@media(max-width:991.98px){body.sg-portal-page .site-header--sg-portal .site-header__rail .navbar-wrapper:not(.is-navbar-menu-open){display:none!important;margin:0!important;padding:0!important;min-height:0!important;height:0!important;overflow:hidden!important}}'
-        . 'body.sg-portal-page:not(.sg-homepage) .site-layout-main{padding-top:0!important}'
-        . 'body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero,body.sg-portal-page:not(.sg-homepage) .site-layout-main>.sg-subhero{padding-top:calc(var(--sg-portal-header-offset,5.5rem) + clamp(.25rem,.65vw,.4rem))!important;padding-bottom:clamp(.5rem,1.1vw,.75rem)!important;min-height:0!important;width:100%!important;max-width:none!important;margin-left:0!important;margin-right:0!important}'
-        . 'body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero .org-hero__container{position:relative!important;z-index:2!important;opacity:1!important;visibility:visible!important}'
-        . 'body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero .org-hero__title,body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero .org-heading-1,body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero .sg-subhero__title{color:#fff!important;-webkit-text-fill-color:#fff!important;opacity:1!important;visibility:visible!important}'
-        . 'body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero .org-eyebrow,body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero .sg-subhero__eyebrow{color:#bae6fd!important;opacity:1!important;visibility:visible!important}'
-        . 'body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero .org-hero__breadcrumb,body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero .sg-subhero__breadcrumb{color:rgba(203,213,225,.92)!important;opacity:1!important}'
-        . 'body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero .sg-subhero__stat-num{color:#fff!important}'
-        . 'body.sg-portal-page:not(.sg-homepage) .site-layout-main>.org-hero.sg-subhero.org-reveal{opacity:1!important;transform:none!important;visibility:visible!important}'
-        . 'body.sg-homepage.sg-portal-page>#sg-hero,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero{display:block!important;width:100%!important;max-width:100%!important;margin:0!important;overflow-x:hidden!important;overflow-y:visible!important;box-sizing:border-box!important}'
+        . 'body.sg-portal-page.sg-portal-subpage .site-layout-main{padding-top:0!important}'
+        . 'body.sg-portal-page.sg-portal-subpage .site-layout-main>.org-hero.sg-subhero,body.sg-portal-page.sg-portal-subpage .site-layout-main>.sg-subhero{padding-top:calc(var(--sg-portal-header-offset,5.5rem) + clamp(.25rem,.65vw,.4rem))!important;padding-bottom:clamp(.5rem,1.1vw,.75rem)!important;min-height:0!important;width:100%!important;max-width:none!important;margin-left:0!important;margin-right:0!important}'
+        . 'body.sg-portal-page.sg-portal-subpage .site-layout-main>.org-hero.sg-subhero .org-hero__container{position:relative!important;z-index:2!important;opacity:1!important;visibility:visible!important}'
+        . 'body.sg-portal-page.sg-portal-subpage .site-layout-main>.org-hero.sg-subhero .org-hero__title,body.sg-portal-page.sg-portal-subpage .site-layout-main>.org-hero.sg-subhero .org-heading-1,body.sg-portal-page.sg-portal-subpage .site-layout-main>.org-hero.sg-subhero .sg-subhero__title{color:#fff!important;-webkit-text-fill-color:#fff!important;opacity:1!important;visibility:visible!important}'
+        . 'body.sg-portal-page.sg-portal-subpage .site-layout-main>.org-hero.sg-subhero .org-eyebrow,body.sg-portal-page.sg-portal-subpage .site-layout-main>.org-hero.sg-subhero .sg-subhero__eyebrow{color:#bae6fd!important;opacity:1!important;visibility:visible!important}'
+        . 'body.sg-portal-page.sg-portal-subpage .site-layout-main>.org-hero.sg-subhero .org-hero__breadcrumb,body.sg-portal-page.sg-portal-subpage .site-layout-main>.org-hero.sg-subhero .sg-subhero__breadcrumb{color:rgba(203,213,225,.92)!important;opacity:1!important}'
+        . 'body.sg-portal-page.sg-portal-subpage .site-layout-main>.org-hero.sg-subhero .sg-subhero__stat-num{color:#fff!important}'
+        . 'body.sg-portal-page.sg-portal-subpage .site-layout-main>.org-hero.sg-subhero.org-reveal{opacity:1!important;transform:none!important;visibility:visible!important}'
         . 'html.sg-portal-html-home{overflow-y:auto!important;overflow-x:hidden!important}body.sg-portal-page{overflow-y:visible!important;overflow-x:hidden!important;max-width:100%!important}'
         . 'body.sg-portal-page .site-header--sg-portal,body.sg-portal-page .site-header--sg-portal .site-header__gradient{width:100%!important;max-width:100%!important}'
-        . ($orgHeaderBerandaPage ? '' : 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__bg,body.sg-homepage.sg-portal-page>#sg-hero .sg-hero__bg{position:absolute!important;inset:0!important;left:0!important;right:0!important;width:100%!important;max-width:100%!important;overflow:hidden!important}')
-        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage.sg-portal-page>#sg-hero{overflow-x:hidden!important;overflow-y:visible!important;max-width:100%!important}'
-        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-secondary,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__copy,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-primary,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-org,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__tagline{overflow:visible!important;clip:auto!important;max-height:none!important}'
-        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__holo,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__holo .sg-command-center{max-height:none!important;overflow:visible!important}'
         . '</style>' . "\n";
 }
 if (str_contains($bodyClassAttr, 'sg-portal-subpage') && !$orgHeaderBerandaPage) {
@@ -147,10 +140,13 @@ if ($orgHeaderBerandaPage) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
     echo org_beranda_bundle_stylesheet_async_link();
-    echo org_beranda_hero_fix_active_stylesheet_link();
     echo org_beranda_viewport_align_stylesheet_link();
     echo org_beranda_header_nav_sync_stylesheet_link();
     echo org_beranda_header_nav_critical_footer_markup();
+}
+if ($orgHeaderBerandaPage && str_contains($bodyClassAttr, 'sg-portal-subpage')) {
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
+    echo org_portal_subpages_stylesheet_link();
 }
 ?>
 </head>

@@ -151,7 +151,6 @@ if ($orgFooterBeranda) {
     echo org_beranda_deferred_script_tag();
     echo org_beranda_navbar_footer_cascade_markup();
     echo org_beranda_portal_header_offset_script();
-    echo org_beranda_hero_text_lock_script();
 } elseif (defined('ORG_SG_PORTAL_PAGE') && ORG_SG_PORTAL_PAGE === true) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
     echo org_portal_navbar_footer_cascade_markup();
