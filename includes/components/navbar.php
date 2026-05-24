@@ -44,15 +44,6 @@ $headerClass = org_ui_class(
                             <img src="<?php echo htmlspecialchars($logoWebPath, ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($siteLogoAlt, ENT_QUOTES, 'UTF-8'); ?>" class="org-navbar__logo site-header__logo" width="112" height="56" loading="eager" decoding="async"<?php echo $smartPortalNav ? ' fetchpriority="high"' : ''; ?>>
                         </a>
                     <?php endif; ?>
-                    <div class="min-w-0">
-                        <p class="org-navbar__title site-header__title mb-0">
-                            <span class="site-header__title-full">BAGIAN ORGANISASI</span>
-                            <span class="site-header__title-mobile">BAGIAN ORGANISASI</span>
-                        </p>
-                        <?php if (empty($hideHeaderSubtitle)): ?>
-                            <p class="org-navbar__subtitle site-header__subtitle">Sekretariat Daerah Kabupaten Kepulauan Aru</p>
-                        <?php endif; ?>
-                    </div>
                 </div>
                 <?php if (empty($hideHeaderDocSearch)): ?>
                     <div class="org-navbar__search site-header__search-wrap">

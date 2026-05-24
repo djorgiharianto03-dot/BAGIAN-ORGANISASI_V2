@@ -10,9 +10,6 @@ body.sg-homepage.sg-portal-page {
     --sg-rail-width: 1320px;
     --portal-content-gutter: clamp(1rem, 2.5vw, 32px);
     --beranda-gutter: var(--portal-content-gutter);
-    /* site-global.min.css — jangan pakai ukuran header legacy di beranda */
-    --header-title-size: clamp(0.8125rem, 0.5vw + 0.68rem, 0.9375rem);
-    --header-subtitle-size: clamp(0.625rem, 0.35vw + 0.54rem, 0.6875rem);
 }
 
 body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail.container-global,
@@ -71,66 +68,6 @@ body.sg-homepage.sg-portal-page .org-navbar__logo {
     body.sg-homepage.sg-portal-page .site-header__logo,
     body.sg-homepage.sg-portal-page .org-navbar__logo {
         max-height: 52px !important;
-    }
-}
-
-/* Branding teks (judul/subjudul di samping logo): identik smart-governance-portal-nav.css */
-body.sg-homepage.sg-portal-page .site-header__title,
-body.sg-homepage.sg-portal-page .org-navbar__title.site-header__title {
-    font-family: var(--sg-nav-font, 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif) !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.02em !important;
-    font-size: clamp(0.8125rem, 0.5vw + 0.68rem, 0.9375rem) !important;
-    line-height: 1.12 !important;
-    text-transform: uppercase !important;
-    text-shadow: none !important;
-    margin: 0 !important;
-}
-
-body.sg-homepage.sg-portal-page .site-header__subtitle,
-body.sg-homepage.sg-portal-page .org-navbar__subtitle.site-header__subtitle {
-    font-family: var(--sg-nav-font, 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif) !important;
-    font-size: clamp(0.625rem, 0.35vw + 0.54rem, 0.6875rem) !important;
-    font-weight: 700 !important;
-    line-height: 1.25 !important;
-    letter-spacing: 0.015em !important;
-    opacity: 0.92 !important;
-    margin: 0.06rem 0 0 !important;
-    color: rgba(255, 255, 255, 0.9) !important;
-    text-shadow: none !important;
-}
-
-@media (min-width: 992px) {
-    body.sg-homepage.sg-portal-page .site-header__title,
-    body.sg-homepage.sg-portal-page .org-navbar__title.site-header__title {
-        font-size: clamp(0.8125rem, 0.35vw + 0.72rem, 1rem) !important;
-        line-height: 1.1 !important;
-        letter-spacing: 0.02em !important;
-    }
-
-    body.sg-homepage.sg-portal-page .site-header__subtitle,
-    body.sg-homepage.sg-portal-page .org-navbar__subtitle.site-header__subtitle {
-        font-size: clamp(0.6875rem, 0.2vw + 0.6rem, 0.75rem) !important;
-        font-weight: 700 !important;
-        line-height: 1.2 !important;
-        margin: 0.06rem 0 0 !important;
-    }
-}
-
-@media (max-width: 991.98px) {
-    body.sg-homepage.sg-portal-page .site-header__title,
-    body.sg-homepage.sg-portal-page .org-navbar__title.site-header__title {
-        font-size: clamp(0.75rem, 1.1vw + 0.55rem, 0.875rem) !important;
-        font-weight: 700 !important;
-        line-height: 1.12 !important;
-    }
-
-    body.sg-homepage.sg-portal-page .site-header__subtitle,
-    body.sg-homepage.sg-portal-page .org-navbar__subtitle.site-header__subtitle {
-        font-size: clamp(0.5625rem, 0.85vw + 0.42rem, 0.625rem) !important;
-        font-weight: 700 !important;
-        line-height: 1.2 !important;
-        margin-top: 0.05rem !important;
     }
 }
 

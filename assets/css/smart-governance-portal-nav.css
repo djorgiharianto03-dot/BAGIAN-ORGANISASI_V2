@@ -122,6 +122,13 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero,
     gap: 0.06rem;
 }
 
+/* Header portal: logo saja — teks branding dihapus dari navbar */
+.sg-portal-page .site-header__brand-row,
+.sg-portal-page .org-navbar__brand.site-header__brand-row {
+    flex: 0 1 auto;
+    gap: 0;
+}
+
 .sg-portal-page .site-header__logo {
     max-height: 48px;
     width: auto;

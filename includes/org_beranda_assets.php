@@ -185,8 +185,6 @@ function org_beranda_header_vendor_markup(): string
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__cta{display:flex!important;opacity:1!important;visibility:visible!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage.sg-portal-page .site-layout-main>section#sg-hero{width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important;box-sizing:border-box!important}'
         . 'body.sg-homepage.sg-portal-page .site-header__nav a{pointer-events:auto!important;cursor:pointer}'
-        . 'body.sg-homepage.sg-portal-page .site-header__title,body.sg-homepage.sg-portal-page .org-navbar__title.site-header__title{font-family:var(--sg-nav-font,"Plus Jakarta Sans","Inter",system-ui,sans-serif)!important;font-weight:700!important;font-size:clamp(.8125rem,.5vw + .68rem,.9375rem)!important;line-height:1.12!important;letter-spacing:.02em!important;text-transform:uppercase!important;text-shadow:none!important;margin:0!important}'
-        . 'body.sg-homepage.sg-portal-page .site-header__subtitle,body.sg-homepage.sg-portal-page .org-navbar__subtitle.site-header__subtitle{font-family:var(--sg-nav-font,"Plus Jakarta Sans","Inter",system-ui,sans-serif)!important;font-size:clamp(.625rem,.35vw + .54rem,.6875rem)!important;font-weight:700!important;line-height:1.25!important;margin:.06rem 0 0!important;color:rgba(255,255,255,.9)!important;text-shadow:none!important}'
         . 'body.sg-homepage.sg-portal-page :is(.header-inner.container-global,.navbar-wrapper.container-global,.site-layout-main>#sg-hero .container-global,#beranda-root.container-global,.site-footer .container-global){' . $rail . '}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main{width:100%!important;max-width:100%!important;background:#f4f7fb!important;display:block!important;min-height:0!important}'
         . 'body.sg-homepage.sg-portal-page #beranda-root{display:flex!important;visibility:visible!important;opacity:1!important;min-height:0!important;margin-top:0!important;background:#f4f7fb!important}'
@@ -307,7 +305,7 @@ function org_beranda_header_nav_unify_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css?v=13');
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css?v=14');
 }
 
 /** Beranda — hero compact (referensi screenshot). Muat paling akhir setelah unify. */
