@@ -56,6 +56,7 @@ org_partial_deny_direct();
             --sg-nav-panel-bg: rgba(2, 22, 48, 0.94);
             --sg-nav-panel-bg-scrolled: rgba(2, 22, 48, 0.97);
             --sg-nav-panel-border: rgba(147, 197, 253, 0.18);
+            --sg-nav-panel-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 10px 32px rgba(0, 10, 28, 0.42);
             --layout-max-width: 1320px;
             --page-bg: #f4f7fb;
         }
@@ -67,6 +68,7 @@ org_partial_deny_direct();
             --sg-nav-panel-bg: rgba(2, 22, 48, 0.94);
             --sg-nav-panel-bg-scrolled: rgba(2, 22, 48, 0.97);
             --sg-nav-panel-border: rgba(147, 197, 253, 0.18);
+            --sg-nav-panel-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 10px 32px rgba(0, 10, 28, 0.42);
         }
         body.mode-publikasi {
             --brand-navy: #1d4ed8;
@@ -3130,12 +3132,11 @@ org_partial_deny_direct();
                 box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
                 font-size: 1rem;
             }
-            .site-header__nav-panel,
-            .site-header__nav-collapse {
+            .sg-portal-page .site-header__nav-panel,
+            .sg-portal-page .site-header__nav-collapse {
                 margin-top: 0.6rem;
                 border-radius: 14px;
-                background: var(--header-nav-surface);
-                background-color: #243f5f;
+                background: rgba(2, 22, 48, 0.94);
                 border: 1px solid var(--header-nav-border);
                 backdrop-filter: blur(var(--header-nav-glass-blur)) saturate(1.12);
                 -webkit-backdrop-filter: blur(var(--header-nav-glass-blur)) saturate(1.12);
@@ -3170,8 +3171,7 @@ org_partial_deny_direct();
                 border: 0;
                 border-top: 1px solid var(--header-nav-border);
                 padding: 0.65rem 1rem max(1rem, env(safe-area-inset-bottom));
-                background: var(--header-nav-surface);
-                background-color: #243f5f;
+                background: rgba(2, 22, 48, 0.94);
                 backdrop-filter: blur(var(--header-nav-glass-blur)) saturate(1.12);
                 -webkit-backdrop-filter: blur(var(--header-nav-glass-blur)) saturate(1.12);
                 box-shadow: var(--header-nav-shadow-elevated);

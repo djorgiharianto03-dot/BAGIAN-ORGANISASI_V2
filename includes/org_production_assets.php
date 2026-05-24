@@ -8,7 +8,7 @@
 const ORG_ASSETS_BERANDA_CSS_BUNDLE_MANUAL_VERSION = 26;
 
 /** Naikkan saat deploy perubahan navbar portal (portal-nav saja). */
-const ORG_ASSETS_PORTAL_NAV_MANUAL_VERSION = 13;
+const ORG_ASSETS_PORTAL_NAV_MANUAL_VERSION = 14;
 
 const ORG_ASSETS_BERANDA_SHELL_CSS_BUNDLE_MANUAL_VERSION = 7;
 

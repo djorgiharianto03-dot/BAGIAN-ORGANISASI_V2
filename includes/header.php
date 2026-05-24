@@ -141,6 +141,7 @@ if ($orgHeaderBerandaPage) {
 if (str_contains($bodyClassAttr, 'sg-portal-page')) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
     echo org_portal_nav_stylesheet_link();
+    echo org_portal_nav_panel_critical_markup();
 }
 if ($orgHeaderBerandaPage) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';

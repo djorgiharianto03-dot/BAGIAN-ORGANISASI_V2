@@ -61,10 +61,24 @@ function org_portal_nav_panel_lock_stylesheet_link(): string
     return '';
 }
 
-/** @deprecated Critical inline panel dihapus — hindari min-height/radius paksa. */
+/** Critical inline — hanya warna panel (sama Beranda), tanpa ukuran/layout. */
 function org_portal_nav_panel_critical_markup(): string
 {
-    return '';
+    return '<style id="sg-portal-nav-panel-color">'
+        . '@media(min-width:992px){'
+        . 'body.sg-portal-page .site-header--sg-portal .navbar-panel,'
+        . 'body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,'
+        . 'body.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap.navbar-panel{'
+        . 'background:rgba(2,22,48,.94)!important;'
+        . 'border-color:rgba(147,197,253,.18)!important;'
+        . 'box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 32px rgba(0,10,28,.42)!important'
+        . '}'
+        . 'body.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,'
+        . 'body.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel,'
+        . 'body.sg-portal-page .site-header--sg-portal.is-scrolled .org-navbar__nav-wrap.navbar-panel{'
+        . 'background:rgba(2,22,48,.97)!important'
+        . '}'
+        . '}</style>' . "\n";
 }
 
 /** Muat ulang navbar + portal-nav paling akhir (timpa CSS halaman / bundle). */
