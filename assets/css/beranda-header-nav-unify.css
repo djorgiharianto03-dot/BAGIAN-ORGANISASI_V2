@@ -1,10 +1,19 @@
 /**
- * Beranda — variabel rail & palet master portal (navy premium dark blue).
- * Panel navbar + logo: smart-governance-portal-nav.css (muat paling akhir di head).
+ * Beranda — rail header, logo, panel navbar selaras halaman Profil.
+ * Lock panel: smart-governance-portal-nav.css + sg-portal-navbar-panel-lock.css
  */
 
 body.sg-homepage.sg-portal-page,
 body.sg-portal-page {
+    --sg-nav-panel-min-h: 88px;
+    --sg-nav-panel-radius: 20px;
+    --sg-nav-panel-pad-block: 0.35rem;
+    --sg-nav-panel-bg: rgba(2, 22, 48, 0.72);
+    --sg-nav-panel-bg-scrolled: rgba(2, 22, 48, 0.82);
+    --sg-nav-panel-border: rgba(147, 197, 253, 0.18);
+    --sg-nav-wrapper-gap: clamp(0.5rem, 1.2vw, 1.125rem);
+    --sg-nav-row-min-h: 56px;
+    --sg-nav-tap: 40px;
     --layout-max-width: 1320px;
     --container-max: 1320px;
     --sg-rail-width: 1320px;
@@ -45,4 +54,179 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient {
 body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__gradient {
     background: var(--sg-header-gradient-scrolled) !important;
     box-shadow: var(--sg-nav-shadow-scroll, 0 4px 24px rgba(15, 23, 42, 0.12)) !important;
+}
+
+/* Rail header — gutter & kolom vertikal sama Profil */
+body.sg-homepage.sg-portal-page .site-header__rail.container-global,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    max-width: var(--layout-max-width, 1320px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: var(--portal-content-gutter) !important;
+    padding-right: var(--portal-content-gutter) !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    box-sizing: border-box !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header__rail .site-header__topbar,
+body.sg-homepage.sg-portal-page .header-inner .site-header__topbar {
+    order: 1;
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 auto;
+    align-self: stretch;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    padding: 0.2rem 0 0.15rem;
+    box-sizing: border-box;
+}
+
+/* Logo — posisi kiri rail, ukuran sama subhalaman Profil */
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__brand.site-header__brand-row {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    gap: 0.65rem 0.85rem !important;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: none;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row > a:first-child,
+body.sg-homepage.sg-portal-page .header-inner .site-header__brand-row > a:first-child {
+    flex-shrink: 0 !important;
+    align-self: center !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header__logo,
+body.sg-homepage.sg-portal-page .org-navbar__logo {
+    max-height: 48px !important;
+    max-width: none !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    filter: none !important;
+    flex-shrink: 0;
+    vertical-align: middle;
+}
+
+@media (min-width: 992px) {
+    body.sg-homepage.sg-portal-page .site-header__logo,
+    body.sg-homepage.sg-portal-page .org-navbar__logo {
+        max-height: 52px !important;
+    }
+}
+
+@media (max-width: 991.98px) {
+    body.sg-homepage.sg-portal-page .site-header__logo,
+    body.sg-homepage.sg-portal-page .org-navbar__logo {
+        max-height: 38px !important;
+        max-width: 36vw !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    body.sg-homepage.sg-portal-page .site-header__logo,
+    body.sg-homepage.sg-portal-page .org-navbar__logo {
+        max-height: 48px !important;
+        max-width: 36vw !important;
+    }
+}
+
+/* Shell panel navbar — di bawah topbar logo */
+body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper,
+body.sg-homepage.sg-portal-page .site-header__rail .org-navbar__nav-shell {
+    display: block !important;
+    order: 2;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: var(--sg-nav-wrapper-gap) !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+    flex: 0 0 auto;
+    align-self: stretch;
+    box-sizing: border-box;
+}
+
+/* Panel navbar glass — identik Profil */
+body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap.navbar-panel,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: var(--sg-nav-panel-min-h) !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: var(--sg-nav-panel-pad-block) 0 !important;
+    border-radius: var(--sg-nav-panel-radius) !important;
+    background: var(--sg-nav-panel-bg) !important;
+    backdrop-filter: blur(14px) saturate(1.08) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(1.08) !important;
+    border: 1px solid var(--sg-nav-panel-border) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.07),
+        0 10px 32px rgba(0, 10, 28, 0.42) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: center !important;
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    opacity: 1 !important;
+    animation: none !important;
+    isolation: auto !important;
+    box-sizing: border-box !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,
+body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel {
+    background: var(--sg-nav-panel-bg-scrolled) !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel .site-header__nav-row,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap .site-header__nav-row {
+    min-height: var(--sg-nav-row-min-h) !important;
+    padding: 0.12rem 0 !important;
+}
+
+@media (min-width: 992px) {
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel,
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel {
+        overflow: visible !important;
+        min-height: var(--sg-nav-panel-min-h) !important;
+        height: auto !important;
+    }
+}
+
+@media (max-width: 991.98px) {
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel,
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
+    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap:not(:has(.site-header__nav-panel.is-open)) {
+        min-height: 0 !important;
+        height: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
 }

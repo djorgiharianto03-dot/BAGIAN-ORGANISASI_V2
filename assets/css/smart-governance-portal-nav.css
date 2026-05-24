@@ -1308,7 +1308,7 @@ body.sg-portal-page .site-header__holiday-ucapan--inline {
 /*
  * LOCK AKHIR — panel navbar subhalaman identik Beranda.
  * Spesifisitas > panel-lock.css + critical inline; hanya :not(.sg-homepage).
- * Tidak menyentuh hero, logo, atau panel Beranda.
+ * Beranda: beranda-header-nav-unify.css + sg-portal-navbar-panel-lock.css (blok Beranda).
  */
 body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__rail .navbar-wrapper,
 body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__rail .org-navbar__nav-shell {
