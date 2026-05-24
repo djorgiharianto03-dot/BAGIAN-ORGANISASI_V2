@@ -430,10 +430,10 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero,
 }
 
 /*
- * Subhalaman (Profil, Layanan, Dokumen, …) — panel navbar identik Beranda.
- * Selector :not(.sg-homepage) menimpa org-container-global, Tailwind org-navbar, site_styles.
+ * Panel navbar portal — Beranda & subhalaman (Profil, Layanan, …).
+ * Menimpa org-container-global, Tailwind org-navbar, site_styles legacy.
  */
-body.sg-portal-page:not(.sg-homepage) {
+body.sg-portal-page {
     --layout-max-width: 1320px;
     --portal-content-gutter: clamp(1rem, 2.5vw, 32px);
     --sg-nav-panel-min-h: 88px;
@@ -452,9 +452,9 @@ body.sg-portal-page:not(.sg-homepage) {
     --sg-nav-tap: 40px;
 }
 
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__rail .navbar-wrapper,
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__rail .org-navbar__nav-shell,
-body.sg-portal-page:not(.sg-homepage) .site-header__rail .navbar-wrapper {
+body.sg-portal-page .site-header--sg-portal .site-header__rail .navbar-wrapper,
+body.sg-portal-page .site-header--sg-portal .site-header__rail .org-navbar__nav-shell,
+body.sg-portal-page .site-header__rail .navbar-wrapper {
     display: block !important;
     width: 100% !important;
     max-width: 100% !important;
@@ -468,11 +468,11 @@ body.sg-portal-page:not(.sg-homepage) .site-header__rail .navbar-wrapper {
     box-sizing: border-box;
 }
 
-body.sg-portal-page:not(.sg-homepage) .navbar-panel,
-body.sg-portal-page:not(.sg-homepage) .org-navbar__nav-wrap.navbar-panel,
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav-wrap,
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
-body.sg-portal-page:not(.sg-homepage) .site-header__nav-wrap.navbar-panel {
+body.sg-portal-page .navbar-panel,
+body.sg-portal-page .org-navbar__nav-wrap.navbar-panel,
+body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap,
+body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
+body.sg-portal-page .site-header__nav-wrap.navbar-panel {
     width: 100% !important;
     max-width: 100% !important;
     min-height: var(--sg-nav-panel-min-h) !important;
@@ -499,19 +499,19 @@ body.sg-portal-page:not(.sg-homepage) .site-header__nav-wrap.navbar-panel {
     isolation: auto !important;
 }
 
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal.is-scrolled .navbar-panel,
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal.is-scrolled .org-navbar__nav-wrap.navbar-panel,
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel {
+body.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,
+body.sg-portal-page .site-header--sg-portal.is-scrolled .org-navbar__nav-wrap.navbar-panel,
+body.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel {
     background: var(--sg-nav-panel-bg-scrolled) !important;
 }
 
-body.sg-portal-page:not(.sg-homepage) .site-header__nav-wrap.is-nav-scrolled,
-body.sg-portal-page:not(.sg-homepage) .site-header__nav-wrap.is-nav-elevated,
-body.sg-portal-page:not(.sg-homepage) .site-header__nav-wrap.is-features-fixed,
-body.sg-portal-page:not(.sg-homepage) .navbar-panel.site-header__nav-wrap.is-features-fixed,
-body.sg-portal-page:not(.sg-homepage) .org-navbar__nav-wrap.is-nav-scrolled,
-body.sg-portal-page:not(.sg-homepage) .org-navbar__nav-wrap.is-nav-elevated,
-body.sg-portal-page:not(.sg-homepage) .org-navbar__nav-wrap.is-features-fixed {
+body.sg-portal-page .site-header__nav-wrap.is-nav-scrolled,
+body.sg-portal-page .site-header__nav-wrap.is-nav-elevated,
+body.sg-portal-page .site-header__nav-wrap.is-features-fixed,
+body.sg-portal-page .navbar-panel.site-header__nav-wrap.is-features-fixed,
+body.sg-portal-page .org-navbar__nav-wrap.is-nav-scrolled,
+body.sg-portal-page .org-navbar__nav-wrap.is-nav-elevated,
+body.sg-portal-page .org-navbar__nav-wrap.is-features-fixed {
     position: static !important;
     top: auto !important;
     left: auto !important;
@@ -532,12 +532,12 @@ body.sg-portal-page:not(.sg-homepage) .org-navbar__nav-wrap.is-features-fixed {
     animation: none !important;
 }
 
-body.sg-portal-page:not(.sg-homepage) .navbar-panel .site-header__nav-panel,
-body.sg-portal-page:not(.sg-homepage) .navbar-panel .site-header__nav-row,
-body.sg-portal-page:not(.sg-homepage) .site-header__nav-wrap .site-header__nav-panel,
-body.sg-portal-page:not(.sg-homepage) .site-header__nav-wrap .site-header__nav-row,
-body.sg-portal-page:not(.sg-homepage) .org-navbar__nav-wrap .site-header__nav-panel,
-body.sg-portal-page:not(.sg-homepage) .org-navbar__nav-wrap .site-header__nav-row {
+body.sg-portal-page .navbar-panel .site-header__nav-panel,
+body.sg-portal-page .navbar-panel .site-header__nav-row,
+body.sg-portal-page .site-header__nav-wrap .site-header__nav-panel,
+body.sg-portal-page .site-header__nav-wrap .site-header__nav-row,
+body.sg-portal-page .org-navbar__nav-wrap .site-header__nav-panel,
+body.sg-portal-page .org-navbar__nav-wrap .site-header__nav-row {
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
@@ -545,9 +545,9 @@ body.sg-portal-page:not(.sg-homepage) .org-navbar__nav-wrap .site-header__nav-ro
     padding-right: 0 !important;
 }
 
-body.sg-portal-page:not(.sg-homepage) .navbar-panel .site-header__nav-row,
-body.sg-portal-page:not(.sg-homepage) .site-header__nav-wrap .site-header__nav-row,
-body.sg-portal-page:not(.sg-homepage) .org-navbar__nav-wrap .site-header__nav-row {
+body.sg-portal-page .navbar-panel .site-header__nav-row,
+body.sg-portal-page .site-header__nav-wrap .site-header__nav-row,
+body.sg-portal-page .org-navbar__nav-wrap .site-header__nav-row {
     display: flex !important;
     flex-wrap: wrap !important;
     align-items: center !important;
@@ -558,7 +558,7 @@ body.sg-portal-page:not(.sg-homepage) .org-navbar__nav-wrap .site-header__nav-ro
     box-sizing: border-box !important;
 }
 
-body.sg-portal-page:not(.sg-homepage) .site-header__nav {
+body.sg-portal-page .site-header__nav {
     display: flex !important;
     flex-wrap: wrap !important;
     align-items: center !important;
@@ -568,7 +568,7 @@ body.sg-portal-page:not(.sg-homepage) .site-header__nav {
     padding: 0 !important;
 }
 
-body.sg-portal-page:not(.sg-homepage) .site-header__nav a {
+body.sg-portal-page .site-header__nav a {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -584,7 +584,7 @@ body.sg-portal-page:not(.sg-homepage) .site-header__nav a {
     color: rgba(255, 255, 255, 0.88) !important;
 }
 
-body.sg-portal-page:not(.sg-homepage) .site-header__actions-end .btn {
+body.sg-portal-page .site-header__actions-end .btn {
     min-height: var(--sg-nav-tap) !important;
     height: auto !important;
     padding: 0.45rem 0.75rem !important;
@@ -594,15 +594,15 @@ body.sg-portal-page:not(.sg-homepage) .site-header__actions-end .btn {
 }
 
 @media (min-width: 992px) {
-    body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .navbar-panel,
-    body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .org-navbar__nav-wrap.navbar-panel,
-    body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav-wrap.navbar-panel {
+    body.sg-portal-page .site-header--sg-portal .navbar-panel,
+    body.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap.navbar-panel,
+    body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel {
         overflow: visible !important;
         height: auto !important;
         min-height: var(--sg-nav-panel-min-h) !important;
     }
 
-    body.sg-portal-page:not(.sg-homepage) .site-header__nav-panel {
+    body.sg-portal-page .site-header__nav-panel {
         display: block !important;
         visibility: visible !important;
         overflow: visible !important;
@@ -611,14 +611,14 @@ body.sg-portal-page:not(.sg-homepage) .site-header__actions-end .btn {
         max-height: none !important;
     }
 
-    body.sg-portal-page:not(.sg-homepage) .site-header__nav {
+    body.sg-portal-page .site-header__nav {
         flex-wrap: nowrap;
         gap: 0.2rem 0.5rem;
     }
 }
 
 @media (min-width: 992px) and (max-width: 1399.98px) {
-    body.sg-portal-page:not(.sg-homepage) .site-header__nav a {
+    body.sg-portal-page .site-header__nav a {
         padding: 0.55rem 0.75rem !important;
         font-size: 0.8125rem !important;
     }
@@ -1306,20 +1306,19 @@ body.sg-portal-page .site-header__holiday-ucapan--inline {
 }
 
 /*
- * LOCK AKHIR — panel navbar subhalaman identik Beranda.
- * Spesifisitas > panel-lock.css + critical inline; hanya :not(.sg-homepage).
- * Beranda: beranda-header-nav-unify.css + sg-portal-navbar-panel-lock.css (blok Beranda).
+ * LOCK AKHIR — panel navbar (Beranda + Profil + semua halaman portal).
+ * Spesifisitas > panel-lock.css + critical inline.
  */
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__rail .navbar-wrapper,
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__rail .org-navbar__nav-shell {
+body.sg-portal-page .site-header--sg-portal .site-header__rail .navbar-wrapper,
+body.sg-portal-page .site-header--sg-portal .site-header__rail .org-navbar__nav-shell {
     margin-top: clamp(0.5rem, 1.2vw, 1.125rem) !important;
     padding: 0 !important;
 }
 
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .navbar-panel,
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .org-navbar__nav-wrap.navbar-panel,
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav-wrap {
+body.sg-portal-page .site-header--sg-portal .navbar-panel,
+body.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap.navbar-panel,
+body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
+body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap {
     width: 100% !important;
     max-width: 100% !important;
     min-height: 88px !important;
@@ -1349,18 +1348,18 @@ body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav-
     box-sizing: border-box !important;
 }
 
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal.is-scrolled .navbar-panel,
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal.is-scrolled .org-navbar__nav-wrap.navbar-panel,
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel {
+body.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,
+body.sg-portal-page .site-header--sg-portal.is-scrolled .org-navbar__nav-wrap.navbar-panel,
+body.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel {
     background: rgba(2, 22, 48, 0.82) !important;
 }
 
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav-wrap.is-nav-scrolled,
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav-wrap.is-nav-elevated,
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav-wrap.is-features-fixed,
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .org-navbar__nav-wrap.is-nav-scrolled,
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .org-navbar__nav-wrap.is-nav-elevated,
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .org-navbar__nav-wrap.is-features-fixed {
+body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.is-nav-scrolled,
+body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.is-nav-elevated,
+body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.is-features-fixed,
+body.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap.is-nav-scrolled,
+body.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap.is-nav-elevated,
+body.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap.is-features-fixed {
     min-height: 88px !important;
     padding: 0.35rem 0 !important;
     border-radius: 20px !important;
@@ -1373,9 +1372,9 @@ body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .org-navbar__nav-w
     -webkit-backdrop-filter: blur(14px) saturate(1.08) !important;
 }
 
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .navbar-panel .site-header__nav-row,
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav-wrap .site-header__nav-row,
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .org-navbar__nav-wrap .site-header__nav-row {
+body.sg-portal-page .site-header--sg-portal .navbar-panel .site-header__nav-row,
+body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap .site-header__nav-row,
+body.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap .site-header__nav-row {
     display: flex !important;
     flex-wrap: wrap !important;
     align-items: center !important;
@@ -1387,7 +1386,7 @@ body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .org-navbar__nav-w
     box-sizing: border-box !important;
 }
 
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav {
+body.sg-portal-page .site-header--sg-portal .site-header__nav {
     display: flex !important;
     flex-wrap: wrap !important;
     align-items: center !important;
@@ -1398,7 +1397,7 @@ body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav 
     list-style: none !important;
 }
 
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav a {
+body.sg-portal-page .site-header--sg-portal .site-header__nav a {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -1421,27 +1420,27 @@ body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav 
     box-shadow: none !important;
 }
 
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav a:hover {
+body.sg-portal-page .site-header--sg-portal .site-header__nav a:hover {
     color: #fff !important;
     background: rgba(255, 255, 255, 0.08) !important;
     text-shadow: none !important;
 }
 
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav a.is-active {
+body.sg-portal-page .site-header--sg-portal .site-header__nav a.is-active {
     color: #fff !important;
     background: rgba(37, 99, 235, 0.4) !important;
     text-shadow: none !important;
     box-shadow: inset 0 -2px 0 0 #60a5fa !important;
 }
 
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav a.is-active::after {
+body.sg-portal-page .site-header--sg-portal .site-header__nav a.is-active::after {
     transform: translateX(-50%) scaleX(1) !important;
     opacity: 1 !important;
     background: #7dd3fc !important;
     box-shadow: none !important;
 }
 
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__actions-end .btn {
+body.sg-portal-page .site-header--sg-portal .site-header__actions-end .btn {
     min-height: 40px !important;
     height: auto !important;
     padding: 0.45rem 0.75rem !important;
@@ -1450,15 +1449,15 @@ body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__acti
     border-radius: 0.75rem !important;
 }
 
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .btn-header-dashboard {
+body.sg-portal-page .site-header--sg-portal .btn-header-dashboard {
     color: #fff !important;
     background: linear-gradient(135deg, #1e40af 0%, #2563eb 45%, #38bdf8 100%) !important;
     border: 1px solid rgba(147, 197, 253, 0.35) !important;
     box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35) !important;
 }
 
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .btn-header-login,
-body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .btn-header-logout {
+body.sg-portal-page .site-header--sg-portal .btn-header-login,
+body.sg-portal-page .site-header--sg-portal .btn-header-logout {
     color: #0f4c81 !important;
     background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%) !important;
     border: 1px solid rgba(255, 255, 255, 0.85) !important;
@@ -1466,30 +1465,30 @@ body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .btn-header-logout
 }
 
 @media (min-width: 992px) {
-    body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .navbar-panel,
-    body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav-wrap.navbar-panel {
+    body.sg-portal-page .site-header--sg-portal .navbar-panel,
+    body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel {
         overflow: visible !important;
         min-height: 88px !important;
         height: auto !important;
     }
 
-    body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav {
+    body.sg-portal-page .site-header--sg-portal .site-header__nav {
         flex-wrap: nowrap !important;
         gap: 0.2rem 0.5rem !important;
     }
 }
 
 @media (min-width: 992px) and (max-width: 1399.98px) {
-    body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav a {
+    body.sg-portal-page .site-header--sg-portal .site-header__nav a {
         padding: 0.55rem 0.75rem !important;
         font-size: 0.8125rem !important;
     }
 }
 
 @media (max-width: 991.98px) {
-    body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .navbar-panel,
-    body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
-    body.sg-portal-page:not(.sg-homepage) .site-header--sg-portal .site-header__nav-wrap:not(:has(.site-header__nav-panel.is-open)) {
+    body.sg-portal-page .site-header--sg-portal .navbar-panel,
+    body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
+    body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap:not(:has(.site-header__nav-panel.is-open)) {
         min-height: 0 !important;
         height: 0 !important;
         padding: 0 !important;
