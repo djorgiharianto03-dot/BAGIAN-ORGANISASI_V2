@@ -92,10 +92,23 @@ body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__tagline {
     max-height: none !important;
 }
 
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.2rem !important;
+    overflow: visible !important;
+}
+
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title-secondary {
     display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
+    width: auto !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    background: none !important;
+    border: none !important;
+    border-radius: 0 !important;
 }
 
 body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__holo,

@@ -126,7 +126,7 @@ if (str_contains($bodyClassAttr, 'sg-portal-page')) {
         . 'body.sg-portal-page .site-header--sg-portal,body.sg-portal-page .site-header--sg-portal .site-header__gradient{width:100%!important;max-width:100%!important}'
         . ($orgHeaderBerandaPage ? '' : 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__bg,body.sg-homepage.sg-portal-page>#sg-hero .sg-hero__bg{position:absolute!important;inset:0!important;left:0!important;right:0!important;width:100%!important;max-width:100%!important;overflow:hidden!important}')
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage.sg-portal-page>#sg-hero{overflow-x:hidden!important;overflow-y:visible!important;max-width:100%!important}'
-        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-secondary,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__copy{overflow:visible!important;clip:auto!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-secondary,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__copy,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-primary,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-org,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__tagline{overflow:visible!important;clip:auto!important;max-height:none!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__holo,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__holo .sg-command-center{max-height:none!important;overflow:visible!important}'
         . '</style>' . "\n";
 }
@@ -146,6 +146,7 @@ if ($orgHeaderBerandaPage) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
     echo org_beranda_bundle_stylesheet_async_link();
+    echo org_beranda_hero_fix_active_stylesheet_link();
 }
 ?>
 </head>
