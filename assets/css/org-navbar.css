@@ -135,6 +135,13 @@
     }
 
     /* Kotak kosong di bawah logo: wrapper nav disembunyikan sampai menu dibuka */
+    .sg-portal-page .navbar-wrapper:not(.is-navbar-menu-open) {
+        display: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        min-height: 0 !important;
+    }
+
     .sg-portal-page .navbar-wrapper:not(.is-navbar-menu-open):not(:has(.site-header__nav-panel.is-open)) {
         display: none !important;
         margin: 0 !important;
@@ -150,6 +157,8 @@
         padding: 0 !important;
     }
 
+    .sg-portal-page .navbar-wrapper:not(.is-navbar-menu-open) .site-header__nav-wrap.navbar-panel,
+    .sg-portal-page .navbar-wrapper:not(.is-navbar-menu-open) .navbar-panel.site-header__nav-wrap,
     .sg-portal-page .site-header__nav-wrap.navbar-panel:not(:has(.site-header__nav-panel.is-open)),
     .sg-portal-page .navbar-panel.site-header__nav-wrap:not(:has(.site-header__nav-panel.is-open)) {
         display: none !important;

@@ -452,6 +452,7 @@ body.sg-portal-page {
     --sg-nav-tap: 40px;
 }
 
+@media (min-width: 992px) {
 body.sg-portal-page .site-header--sg-portal .site-header__rail .navbar-wrapper,
 body.sg-portal-page .site-header--sg-portal .site-header__rail .org-navbar__nav-shell,
 body.sg-portal-page .site-header__rail .navbar-wrapper {
@@ -593,7 +594,6 @@ body.sg-portal-page .site-header__actions-end .btn {
     border-radius: 0.75rem !important;
 }
 
-@media (min-width: 992px) {
     body.sg-portal-page .site-header--sg-portal .navbar-panel,
     body.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap.navbar-panel,
     body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel {
@@ -1171,7 +1171,9 @@ body[class*='theme-'].sg-portal-page .site-header__holiday-ucapan--inline .site-
 @media (max-width: 991.98px) {
     .sg-portal-page .navbar-panel,
     .sg-portal-page .site-header__nav-wrap.navbar-panel,
+    .sg-portal-page .navbar-wrapper:not(.is-navbar-menu-open) .site-header__nav-wrap,
     .sg-portal-page .site-header__nav-wrap:not(:has(.site-header__nav-panel.is-open)) {
+        display: none !important;
         min-height: 0 !important;
         height: 0 !important;
         margin: 0 !important;
@@ -1181,7 +1183,14 @@ body[class*='theme-'].sg-portal-page .site-header__holiday-ucapan--inline .site-
         box-shadow: none !important;
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
-        overflow: visible !important;
+        overflow: hidden !important;
+    }
+
+    .sg-portal-page .site-header__nav-panel:not(.is-open) {
+        display: none !important;
+        visibility: hidden !important;
+        height: 0 !important;
+        overflow: hidden !important;
     }
 
     .sg-portal-page .site-header__nav-panel.is-open {
@@ -1388,6 +1397,7 @@ body.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap .site-header__
 }
 }
 
+@media (min-width: 992px) {
 body.sg-portal-page .site-header--sg-portal .site-header__nav {
     display: flex !important;
     flex-wrap: wrap !important;
@@ -1441,6 +1451,7 @@ body.sg-portal-page .site-header--sg-portal .site-header__nav a.is-active::after
     background: #7dd3fc !important;
     box-shadow: none !important;
 }
+}
 
 body.sg-portal-page .site-header--sg-portal .site-header__actions-end .btn {
     min-height: 40px !important;
@@ -1488,16 +1499,49 @@ body.sg-portal-page .site-header--sg-portal .btn-header-logout {
 }
 
 @media (max-width: 991.98px) {
-    body.sg-portal-page .site-header--sg-portal .navbar-panel,
-    body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
-    body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap:not(:has(.site-header__nav-panel.is-open)) {
+    body.sg-portal-page .site-header--sg-portal .site-header__rail .navbar-wrapper:not(.is-navbar-menu-open) {
+        display: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
         min-height: 0 !important;
         height: 0 !important;
+        overflow: hidden !important;
+    }
+
+    body.sg-portal-page .site-header--sg-portal .navbar-panel,
+    body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
+    body.sg-portal-page .site-header--sg-portal .navbar-wrapper:not(.is-navbar-menu-open) .site-header__nav-wrap,
+    body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap:not(:has(.site-header__nav-panel.is-open)) {
+        display: none !important;
+        min-height: 0 !important;
+        height: 0 !important;
+        margin: 0 !important;
         padding: 0 !important;
         border: none !important;
         background: transparent !important;
         box-shadow: none !important;
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
+        overflow: hidden !important;
+    }
+
+    body.sg-portal-page .site-header--sg-portal .navbar-wrapper.is-navbar-menu-open .site-header__nav-wrap,
+    body.sg-portal-page .site-header--sg-portal .navbar-wrapper:has(.site-header__nav-panel.is-open) .site-header__nav-wrap {
+        display: block !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    body.sg-portal-page .site-header__nav-panel:not(.is-open) {
+        display: none !important;
+        visibility: hidden !important;
+        height: 0 !important;
+        max-height: 0 !important;
+        overflow: hidden !important;
+        pointer-events: none !important;
     }
 }

@@ -7,7 +7,7 @@ function org_container_global_stylesheet_link(bool $includeBerandaRail = true): 
         require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_app.php';
     }
 
-    $markup = '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/org-container-global.css?v=46'), ENT_QUOTES, 'UTF-8') . '">' . "\n"
+    $markup = '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/org-container-global.css?v=47'), ENT_QUOTES, 'UTF-8') . '">' . "\n"
         . '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/sg-portal-panel-layout.css?v=13'), ENT_QUOTES, 'UTF-8') . '">' . "\n"
         . '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/sg-portal-shell-align.css?v=10'), ENT_QUOTES, 'UTF-8') . '">' . "\n"
         . '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/org-overflow-guard.css?v=6'), ENT_QUOTES, 'UTF-8') . '">' . "\n";
