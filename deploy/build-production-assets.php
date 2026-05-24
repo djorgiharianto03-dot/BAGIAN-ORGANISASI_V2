@@ -17,13 +17,16 @@ $steps = [
     'beranda.bundle.min.css' => static function (): bool {
         return org_build_assets_write_bundle('assets/css/beranda.bundle.min.css', [
             'assets/css/beranda-page.css',
-            'assets/css/smart-governance-homepage.css',
             'assets/css/beranda-layout-fix.css',
             'assets/css/beranda-lightweight.css',
             'assets/css/beranda-mobile.css',
             'assets/css/beranda-design-system.css',
             'assets/css/beranda-nav-hero.css',
+            'assets/css/beranda-home-layout.css',
+            'assets/css/beranda-rail-unify.css',
             'assets/css/beranda-dashboard-cards.css',
+            'assets/css/beranda-sections.css',
+            'assets/css/beranda-premium-polish.css',
         ]);
     },
     'beranda-shell.bundle.min.css' => static function (): bool {

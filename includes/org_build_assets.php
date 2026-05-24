@@ -201,11 +201,6 @@ function org_build_assets_generate_beranda_bundle(): bool
 {
     $sources = [
         'assets/css/beranda-page.css',
-        'assets/css/smart-governance-homepage.css',
-        'assets/css/smart-governance-beranda-ultra.css',
-        'assets/css/smart-governance-beranda-premium.css',
-        'assets/css/smart-governance-beranda-govtech.css',
-        'assets/css/smart-governance-beranda-polish.css',
         'assets/css/beranda-layout-fix.css',
         'assets/css/beranda-lightweight.css',
         'assets/css/beranda-mobile.css',
@@ -214,7 +209,6 @@ function org_build_assets_generate_beranda_bundle(): bool
         'assets/css/beranda-home-layout.css',
         'assets/css/beranda-rail-unify.css',
         'assets/css/beranda-dashboard-cards.css',
-        'assets/css/beranda-hero-fix-active.css',
         'assets/css/beranda-sections.css',
         'assets/css/beranda-premium-polish.css',
     ];
