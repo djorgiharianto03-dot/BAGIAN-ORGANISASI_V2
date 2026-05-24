@@ -348,6 +348,119 @@ function org_beranda_navbar_footer_sync_markup(): string
         . org_beranda_nav_panel_critical_markup();
 }
 
+/** Paksa panel navbar beranda identik Profil setelah CSS async/cache lama. */
+function org_beranda_navbar_panel_lock_script(): string
+{
+    return <<<'HTML'
+<script id="sg-beranda-navbar-lock">
+(function () {
+    'use strict';
+    var GUTTER = 'clamp(1rem, 2.5vw, 32px)';
+    var PANEL = {
+        width: '100%',
+        maxWidth: '100%',
+        minHeight: '88px',
+        margin: '0',
+        padding: '0.35rem 0',
+        borderRadius: '20px',
+        background: 'rgba(2, 22, 48, 0.94)',
+        border: '1px solid rgba(147, 197, 253, 0.18)',
+        boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 10px 32px rgba(0, 10, 28, 0.42)',
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'static',
+        transform: 'none',
+        opacity: '1',
+        backdropFilter: 'none',
+        WebkitBackdropFilter: 'none',
+        boxSizing: 'border-box'
+    };
+
+    function applyImportant(el, styles) {
+        if (!el) return;
+        Object.keys(styles).forEach(function (key) {
+            el.style.setProperty(key.replace(/[A-Z]/g, function (m) { return '-' + m.toLowerCase(); }), styles[key], 'important');
+        });
+    }
+
+    function lockBerandaNavbar() {
+        if (!document.body || !document.body.classList.contains('sg-homepage')) return;
+        var header = document.querySelector('.site-header--sg-portal');
+        if (!header) return;
+
+        var rail = header.querySelector('.site-header__rail.container-global, .header-inner.container-global');
+        if (rail) {
+            applyImportant(rail, {
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'stretch',
+                width: '100%',
+                maxWidth: '1320px',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                paddingLeft: GUTTER,
+                paddingRight: GUTTER,
+                boxSizing: 'border-box'
+            });
+        }
+
+        var brand = header.querySelector('.site-header__brand-row, .org-navbar__brand');
+        if (brand) {
+            applyImportant(brand, { margin: '0', padding: '0', alignItems: 'center' });
+        }
+
+        var logoLink = header.querySelector('.site-header__brand-row > a:first-child');
+        if (logoLink) {
+            applyImportant(logoLink, { margin: '0', padding: '0', display: 'inline-flex', alignItems: 'center' });
+        }
+
+        var logo = header.querySelector('.site-header__logo, .org-navbar__logo');
+        if (logo) {
+            var logoMax = window.matchMedia && window.matchMedia('(min-width: 992px)').matches ? '52px' : '48px';
+            applyImportant(logo, { maxHeight: logoMax, width: 'auto', height: 'auto', objectFit: 'contain', filter: 'none' });
+        }
+
+        var wrapper = header.querySelector('.navbar-wrapper, .org-navbar__nav-shell');
+        if (wrapper) {
+            applyImportant(wrapper, {
+                display: 'block',
+                order: '2',
+                width: '100%',
+                maxWidth: '100%',
+                marginTop: 'clamp(0.5rem, 1.2vw, 1.125rem)',
+                padding: '0'
+            });
+        }
+
+        if (window.matchMedia && window.matchMedia('(min-width: 992px)').matches) {
+            header.querySelectorAll('.navbar-panel, .site-header__nav-wrap').forEach(function (panel) {
+                applyImportant(panel, PANEL);
+            });
+            header.querySelectorAll('.site-header__nav-wrap .site-header__nav-row').forEach(function (row) {
+                applyImportant(row, { minHeight: '56px', padding: '0.12rem 0' });
+            });
+        }
+    }
+
+    lockBerandaNavbar();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', lockBerandaNavbar);
+    }
+    window.addEventListener('load', lockBerandaNavbar);
+    window.addEventListener('resize', lockBerandaNavbar, { passive: true });
+    document.querySelectorAll('link[rel="stylesheet"]').forEach(function (link) {
+        link.addEventListener('load', lockBerandaNavbar);
+    });
+    requestAnimationFrame(function () {
+        lockBerandaNavbar();
+        requestAnimationFrame(lockBerandaNavbar);
+    });
+})();
+</script>
+
+HTML;
+}
+
 /** Beranda — hero compact (referensi screenshot). Muat paling akhir setelah unify. */
 function org_beranda_hero_reference_stylesheet_link(): string
 {
