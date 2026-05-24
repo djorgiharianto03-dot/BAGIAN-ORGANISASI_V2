@@ -145,6 +145,10 @@ if (str_contains($bodyClassAttr, 'sg-portal-page')) {
     echo org_portal_nav_panel_lock_stylesheet_link();
     echo org_portal_nav_panel_critical_markup();
 }
+if ($orgHeaderBerandaPage) {
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_assets.php';
+    echo org_beranda_nav_panel_critical_markup();
+}
 ?>
 </head>
 <body<?php echo $bodyClassAttr !== '' ? ' class="' . htmlspecialchars($bodyClassAttr, ENT_QUOTES, 'UTF-8') . '"' : ''; ?>>

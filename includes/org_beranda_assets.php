@@ -36,9 +36,11 @@ function org_beranda_portal_header_stylesheet_links(): string
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_mobile_assets.php';
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_navbar_assets.php';
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_tailwind_assets.php';
 
     return org_mobile_stylesheet_link()
         . org_navbar_stylesheet_link()
+        . org_tailwind_stylesheet_link()
         . org_asset_stylesheet_link('assets/css/smart-governance-enterprise.css?v=3');
 }
 
@@ -169,7 +171,7 @@ function org_beranda_header_vendor_markup(): string
 
     $rail = 'max-width:1320px!important;width:100%!important;margin-left:auto!important;margin-right:auto!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important;box-sizing:border-box!important';
     $out .= '<style id="sg-beranda-head-critical">'
-        . 'html.sg-portal-html-home,body.sg-homepage.sg-portal-page{background:#f4f7fb!important;--layout-max-width:1320px;--sg-rail-width:1320px;--portal-content-gutter:clamp(1rem,2.5vw,32px)'
+        . 'html.sg-portal-html-home,body.sg-homepage.sg-portal-page{background:#f4f7fb!important;--layout-max-width:1320px;--sg-rail-width:1320px;--portal-content-gutter:clamp(1rem,2.5vw,32px)}'
         . 'body.sg-homepage #sgPortalLoader{display:none!important}'
         . 'body.sg-homepage.sg-portal-page .site-header--sg-portal{position:fixed!important;top:0;left:0;right:0;width:100%!important;max-width:100%!important;margin:0!important;z-index:1200;pointer-events:auto;box-sizing:border-box}'
         . 'body.sg-homepage.sg-portal-page .site-header__gradient{display:block;width:100%!important;max-width:100%!important;margin:0!important;box-sizing:border-box}'
@@ -186,7 +188,7 @@ function org_beranda_header_vendor_markup(): string
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage.sg-portal-page .site-layout-main>section#sg-hero{width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important;box-sizing:border-box!important}'
         . 'body.sg-homepage.sg-portal-page .site-header__nav a{pointer-events:auto!important;cursor:pointer}'
         . 'body.sg-homepage.sg-portal-page :is(.site-header__rail.container-global,.header-inner.container-global,.navbar-wrapper.container-global,.site-layout-main>#sg-hero .container-global,#beranda-root.container-global,.site-footer .container-global){' . $rail . '}'
-        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel,body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel{min-height:88px!important;border-radius:20px!important;background:rgba(2,22,48,.72)!important;border:1px solid rgba(147,197,253,.18)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 32px rgba(0,10,28,.42)!important;display:flex!important}'
+        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel,body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel{min-height:88px!important;border-radius:20px!important;background:rgba(2,22,48,.72)!important;border:1px solid rgba(147,197,253,.18)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 32px rgba(0,10,28,.42)!important;display:flex!important;backdrop-filter:blur(14px) saturate(1.08)!important;-webkit-backdrop-filter:blur(14px) saturate(1.08)!important}'
         . 'body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper{margin-top:clamp(.5rem,1.2vw,1.125rem)!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main{width:100%!important;max-width:100%!important;background:#f4f7fb!important;display:block!important;min-height:0!important}'
         . 'body.sg-homepage.sg-portal-page #beranda-root{display:flex!important;visibility:visible!important;opacity:1!important;min-height:0!important;margin-top:0!important;background:#f4f7fb!important}'
@@ -302,12 +304,29 @@ function org_beranda_premium_polish_stylesheet_link(): string
     return org_asset_stylesheet_link('assets/css/beranda-premium-polish.css?v=2');
 }
 
+/** Beranda — CSS kritis panel navbar (inline, paling akhir di head). */
+function org_beranda_nav_panel_critical_markup(): string
+{
+    return '<style id="sg-beranda-nav-panel-critical">'
+        . 'body.sg-homepage.sg-portal-page .site-header__rail.container-global,body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global{display:flex!important;flex-direction:column!important;align-items:stretch!important;width:100%!important;max-width:1320px!important;margin-left:auto!important;margin-right:auto!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important;box-sizing:border-box!important}'
+        . 'body.sg-homepage.sg-portal-page .site-header__rail .site-header__topbar{order:1;width:100%;padding:.2rem 0 .15rem;align-items:center;gap:.5rem 1rem}'
+        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row,body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__brand.site-header__brand-row{display:flex!important;align-items:center!important;margin:0!important;padding:0!important;gap:.65rem .85rem!important}'
+        . 'body.sg-homepage.sg-portal-page .site-header__logo,body.sg-homepage.sg-portal-page .org-navbar__logo{max-height:48px!important;width:auto!important;height:auto!important;object-fit:contain!important}'
+        . '@media(min-width:992px){body.sg-homepage.sg-portal-page .site-header__logo,body.sg-homepage.sg-portal-page .org-navbar__logo{max-height:52px!important}}'
+        . 'body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper,body.sg-homepage.sg-portal-page .site-header__rail .org-navbar__nav-shell{display:block!important;order:2;width:100%!important;margin-top:clamp(.5rem,1.2vw,1.125rem)!important;padding:0!important}'
+        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel,body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap.navbar-panel,body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap{width:100%!important;max-width:100%!important;min-height:88px!important;margin:0!important;padding:.35rem 0!important;border-radius:20px!important;background:rgba(2,22,48,.72)!important;backdrop-filter:blur(14px) saturate(1.08)!important;-webkit-backdrop-filter:blur(14px) saturate(1.08)!important;border:1px solid rgba(147,197,253,.18)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 32px rgba(0,10,28,.42)!important;display:flex!important;flex-direction:column!important;position:static!important;transform:none!important;opacity:1!important}'
+        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel .site-header__nav-row,body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap .site-header__nav-row{min-height:56px!important;padding:.12rem 0!important}'
+        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav a.is-active{color:#fff!important;background:rgba(37,99,235,.4)!important;box-shadow:inset 0 -2px 0 0 #60a5fa!important}'
+        . '@media(max-width:991.98px){body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel,body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap:not(:has(.site-header__nav-panel.is-open)){min-height:0!important;height:0!important;padding:0!important;border:none!important;background:transparent!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}}'
+        . '</style>' . "\n";
+}
+
 /** Beranda — header/navbar selaras subhalaman (muat paling akhir). */
 function org_beranda_header_nav_unify_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css?v=16');
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css');
 }
 
 /** Beranda — hero compact (referensi screenshot). Muat paling akhir setelah unify. */
