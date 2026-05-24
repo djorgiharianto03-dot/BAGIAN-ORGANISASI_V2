@@ -145,10 +145,6 @@ body.sg-homepage .sg-hero__quick.sg-quick-menu {
     margin-top: 0.15rem;
 }
 
-body.sg-homepage .shortcut-grid.container-global {
-    display: none !important;
-}
-
 body.sg-homepage .sg-hero--minimal .sg-hero__quick .sg-quick-menu__card {
     min-height: 3.25rem;
     padding: 0.5rem 0.65rem !important;
@@ -190,10 +186,6 @@ body.sg-homepage .sg-hero--minimal .sg-hero-stats .sg-stat-glass__label {
 }
 
 body.sg-homepage .beranda-scroll-hint {
-    display: none !important;
-}
-
-body.sg-homepage .sg-hero__visual-col {
     display: none !important;
 }
 
