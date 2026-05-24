@@ -74,6 +74,8 @@ function org_portal_nav_panel_critical_markup(): string
         . '}'
         . 'body.sg-portal-page .site-header__rail .navbar-wrapper{margin-top:clamp(.5rem,1.2vw,1.125rem)!important;padding:0!important}'
         . 'body.sg-portal-page .site-header__nav-wrap .site-header__nav-row{min-height:56px!important;padding:.12rem 0!important}'
+        . 'body.sg-portal-page .site-header__nav a.is-active{background:rgba(37,99,235,.4)!important;box-shadow:inset 0 -2px 0 0 #60a5fa!important}'
+        . 'body.sg-portal-page .site-header--sg-portal .btn-header-dashboard{background:linear-gradient(135deg,#1e40af 0%,#2563eb 45%,#38bdf8 100%)!important}'
         . '@media(max-width:991.98px){body.sg-portal-page .navbar-panel,body.sg-portal-page .site-header__nav-wrap.navbar-panel{min-height:0!important;height:0!important;padding:0!important;border:none!important;background:transparent!important;box-shadow:none!important}}'
         . '</style>' . "\n";
 }

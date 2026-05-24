@@ -103,7 +103,7 @@ if (!empty($extraHeadMarkup) && is_string($extraHeadMarkup)) {
 }
 if (str_contains($bodyClassAttr, 'sg-portal-page') && !$orgHeaderBerandaPage) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_container_global_assets.php';
-    echo org_container_global_stylesheet_link();
+    echo org_container_global_stylesheet_link(false);
 }
 if (str_contains($bodyClassAttr, 'sg-portal-page') && !$orgHeaderBerandaPage) {
     echo '<style id="sg-portal-shell-critical">'
