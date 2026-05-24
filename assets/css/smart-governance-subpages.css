@@ -508,3 +508,22 @@ body.sg-portal-subpage .sg-subhero__breadcrumb {
         transform: none;
     }
 }
+
+/* Beranda — hero lama #sg-hero nonaktif (v=8) */
+body.sg-homepage.sg-portal-subpage #sg-hero,
+body.sg-homepage.sg-portal-subpage > #sg-hero,
+body.sg-homepage.sg-portal-subpage .site-layout-main > #sg-hero,
+body.sg-homepage.sg-portal-subpage .site-layout-main > section#sg-hero,
+body.sg-homepage.sg-portal-subpage .site-layout-main > .hero-section.sg-hero:not(.sg-subhero),
+body.sg-homepage.sg-portal-subpage .site-layout-main > .sg-hero:not(.sg-subhero) {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border: 0 !important;
+    pointer-events: none !important;
+}

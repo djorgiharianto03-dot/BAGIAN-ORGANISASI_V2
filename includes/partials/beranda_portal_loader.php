@@ -9,5 +9,3 @@ declare(strict_types=1);
         <p class="sg-portal-loader__label">Smart Governance Portal</p>
     </div>
 </div>
-
-<?php require __DIR__ . DIRECTORY_SEPARATOR . 'portal_subpage_hero.php'; ?>

@@ -12,7 +12,7 @@
 
     body.classList.add('is-lite-render');
 
-    document.querySelectorAll('#sg-hero .sg-reveal').forEach(function (el) {
+    document.querySelectorAll('.site-layout-main > .org-hero.sg-subhero .sg-reveal').forEach(function (el) {
         el.classList.add('is-visible');
     });
 

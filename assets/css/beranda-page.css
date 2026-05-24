@@ -1,36 +1,14 @@
 ﻿/** Beranda index.php — dipindah untuk cache & non-blocking parse */
 
-/* Hero first paint — sebelum bundle async selesai */
-.sg-homepage #sg-hero .sg-hero__title,
-.sg-homepage #sg-hero .sg-hero__tagline,
-.sg-homepage #sg-hero .sg-reveal,
-.sg-homepage #sg-hero .sg-quick-menu,
-.sg-homepage #sg-hero .sg-hero-stats {
+/* Subhero first paint — sebelum bundle selesai */
+body.sg-homepage.sg-portal-subpage .site-layout-main > .org-hero.sg-subhero,
+body.sg-homepage.sg-portal-subpage .site-layout-main > .org-hero.sg-subhero .org-hero__title,
+body.sg-homepage.sg-portal-subpage .site-layout-main > .org-hero.sg-subhero .org-hero__lead,
+body.sg-homepage.sg-portal-subpage .site-layout-main > .org-hero.sg-subhero .org-eyebrow,
+body.sg-homepage.sg-portal-subpage .site-layout-main > .org-hero.sg-subhero .sg-subhero__stat-num {
     opacity: 1 !important;
     visibility: visible !important;
     transform: none !important;
-}
-.sg-homepage #sg-hero .sg-hero-stats .sg-stat-display {
-    display: block;
-    cursor: default;
-    pointer-events: none;
-    text-align: center;
-    padding: 1rem 0.85rem;
-}
-.sg-homepage #sg-hero .sg-hero-stats .sg-stat-display:hover,
-.sg-homepage #sg-hero .sg-hero-stats .sg-stat-display:focus {
-    transform: none !important;
-    border-color: rgba(255, 255, 255, 0.12) !important;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12) !important;
-}
-.sg-homepage #sg-hero .sg-hero-stats .sg-stat-display .sg-stat-glass__body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.35rem;
-    width: 100%;
-    text-align: center;
 }
 
 .beranda-chunk-skeleton__bar {

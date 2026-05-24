@@ -35,9 +35,9 @@ function org_portal_subpages_stylesheet_link(): string
     if (!function_exists('org_asset_url')) {
         require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'org_app.php';
     }
-    $href = org_asset_url('assets/css/smart-governance-subpages.css?v=7');
+    $href = org_asset_url('assets/css/smart-governance-subpages.css?v=8');
 
-    return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '" data-sg-subpages-css="7">' . "\n";
+    return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '" data-sg-subpages-css="8">' . "\n";
 }
 
 /**
@@ -105,11 +105,8 @@ function org_portal_head_markup_beranda(string $existing = ''): string
     /* smart-governance-portal.css → org_beranda_portal_header_stylesheet_links() (blocking, sama Profil) */
     $base = '';
 
-    if (org_assets_beranda_css_bundle_available()) {
-        $base .= org_asset_stylesheet_link('assets/css/beranda-nav-hero.css?v=4');
-    } else {
+    if (!org_assets_beranda_css_bundle_available()) {
         $base .= org_beranda_govtech_styles_async_markup()
-            . org_asset_stylesheet_link('assets/css/beranda-nav-hero.css?v=4')
             . org_beranda_mobile_stylesheet_link()
             . org_beranda_premium_polish_stylesheet_link();
     }

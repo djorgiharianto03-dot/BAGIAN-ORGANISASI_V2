@@ -163,7 +163,6 @@ function org_beranda_header_vendor_markup(): string
         $out .= org_beranda_lightweight_stylesheet_link();
         $out .= org_beranda_mobile_stylesheet_link();
         $out .= org_beranda_design_system_stylesheet_link();
-        $out .= org_beranda_nav_hero_stylesheet_link();
         $out .= org_beranda_dashboard_cards_stylesheet_link();
         $out .= org_beranda_home_layout_stylesheet_link();
     }
@@ -174,6 +173,7 @@ function org_beranda_header_vendor_markup(): string
         . 'body.sg-homepage #sgPortalLoader{display:none!important}'
         . 'html.sg-portal-html-home{overflow-y:auto!important;overflow-x:clip!important;width:100%!important;max-width:100%!important;scrollbar-gutter:auto!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>.org-hero.sg-subhero{width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important;box-sizing:border-box!important;overflow:visible!important}'
+        . 'body.sg-homepage.sg-portal-page #sg-hero,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero,body.sg-homepage.sg-portal-page .site-layout-main>section#sg-hero{display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;margin:0!important;padding:0!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>.org-hero.sg-subhero .org-hero__container,body.sg-homepage.sg-portal-page .site-layout-main>.org-hero.sg-subhero .org-hero__title,body.sg-homepage.sg-portal-page .site-layout-main>.org-hero.sg-subhero .org-hero__lead,body.sg-homepage.sg-portal-page .site-layout-main>.org-hero.sg-subhero .org-eyebrow{opacity:1!important;visibility:visible!important;transform:none!important;overflow:visible!important;clip:auto!important;max-height:none!important}'
         . 'body.sg-homepage.sg-portal-page .site-header__nav a{pointer-events:auto!important;cursor:pointer}'
         . 'body.sg-homepage.sg-portal-page :is(.site-layout-main>.org-hero.sg-subhero .container-global,#beranda-root.container-global,.site-footer .container-global){' . $rail . '}'
@@ -275,12 +275,10 @@ function org_beranda_design_system_stylesheet_link(): string
     return org_asset_stylesheet_link('assets/css/beranda-design-system.css');
 }
 
-/** Beranda — navbar & hero premium ringan (sync, setelah design system). */
+/** @deprecated Hero lama — Beranda memakai sg-subhero via subpages.css. */
 function org_beranda_nav_hero_stylesheet_link(): string
 {
-    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
-
-    return org_asset_stylesheet_link('assets/css/beranda-nav-hero.css?v=4');
+    return '';
 }
 
 /** Beranda — final polish UI (sync, cascade paling akhir). */

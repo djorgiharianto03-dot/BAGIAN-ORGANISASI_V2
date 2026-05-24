@@ -52,10 +52,6 @@
         if (subhero && !isHome) {
             subhero.style.removeProperty('padding-top');
         }
-        var hero = document.getElementById('sg-hero');
-        if (hero) {
-            hero.style.removeProperty('padding-top');
-        }
     }
 
     function initHeader() {
@@ -288,7 +284,7 @@
 
     function initBerandaReveal() {
         if (!document.body.classList.contains('sg-homepage')) return;
-        var heroReveal = document.querySelectorAll('#sg-hero .sg-reveal');
+        var heroReveal = document.querySelectorAll('.site-layout-main > .org-hero.sg-subhero .sg-reveal, .site-layout-main > .org-hero.sg-subhero [class*="sg-reveal"]');
         heroReveal.forEach(function (el) {
             el.classList.add('is-visible');
         });
