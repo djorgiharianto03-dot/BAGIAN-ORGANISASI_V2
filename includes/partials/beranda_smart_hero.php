@@ -144,21 +144,21 @@ $sgQuickLinks[] = $sgEOrgQuick;
 
     <div class="container-global hero-inner hero-inner--stacked">
 
-        <div class="sg-hero__copy hero-text">
+        <div class="sg-hero__copy hero-text" style="display:block!important;opacity:1!important;visibility:visible!important;position:relative;z-index:5;max-width:42rem;">
 
-            <h1 class="sg-hero__title">
+            <h1 class="sg-hero__title" style="display:flex!important;flex-direction:column!important;gap:.2rem;margin:0!important;color:#fff!important;opacity:1!important;visibility:visible!important;">
 
-                <span class="sg-hero__title-secondary">Smart Governance Portal</span>
+                <span class="sg-hero__title-secondary" style="display:block!important;opacity:1!important;visibility:visible!important;color:#bae6fd!important;-webkit-text-fill-color:#bae6fd!important;font-size:.6875rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;line-height:1.35;margin:0 0 .35rem;">Smart Governance Portal</span>
 
-                <span class="sg-hero__title-primary">Bagian Organisasi</span>
+                <span class="sg-hero__title-primary" style="display:block!important;opacity:1!important;visibility:visible!important;color:#fff!important;-webkit-text-fill-color:#fff!important;font-size:clamp(1.625rem,1.35rem + .9vw,2.125rem);font-weight:700;line-height:1.12;margin:0;">Bagian Organisasi</span>
 
-                <span class="sg-hero__title-org">Sekretariat Daerah Kabupaten Kepulauan Aru</span>
+                <span class="sg-hero__title-org" style="display:block!important;opacity:1!important;visibility:visible!important;color:rgba(226,232,240,.92)!important;-webkit-text-fill-color:rgba(226,232,240,.92)!important;font-size:clamp(.9375rem,.875rem + .25vw,1.0625rem);font-weight:500;line-height:1.4;margin:.2rem 0 0;">Sekretariat Daerah Kabupaten Kepulauan Aru</span>
 
             </h1>
 
-            <p class="sg-hero__tagline">Transformasi Digital Tata Kelola Pemerintahan yang Modern, Efisien, dan Transparan.</p>
+            <p class="sg-hero__tagline" style="display:block!important;opacity:1!important;visibility:visible!important;color:rgba(203,213,225,.92)!important;-webkit-text-fill-color:rgba(203,213,225,.92)!important;font-size:clamp(.875rem,.82rem + .2vw,.975rem);line-height:1.55;margin:.5rem 0 0;max-width:38rem;">Transformasi Digital Tata Kelola Pemerintahan yang Modern, Efisien, dan Transparan.</p>
 
-            <div class="sg-hero__cta">
+            <div class="sg-hero__cta" style="display:flex!important;opacity:1!important;visibility:visible!important;flex-wrap:wrap;gap:.5rem;margin-top:.75rem;">
 
                 <a href="<?php echo org_href('dokumen.php'); ?>" class="sg-btn sg-btn--hero-primary">
 

@@ -150,6 +150,8 @@ if ($orgFooterBeranda) {
     echo org_beranda_lite_render_script_tag();
     echo org_beranda_deferred_script_tag();
     echo org_beranda_portal_header_offset_script();
+    echo org_beranda_hero_text_lock_script();
+    echo org_beranda_hero_reference_stylesheet_link();
 }
 ?>
 <?php require __DIR__ . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'scripts_footer.php'; ?>

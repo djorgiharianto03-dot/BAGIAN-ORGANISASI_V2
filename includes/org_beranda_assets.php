@@ -177,6 +177,7 @@ function org_beranda_header_vendor_markup(): string
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero{padding-top:calc(var(--sg-portal-header-offset,6.5rem) + .65rem)!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__copy,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-secondary,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-primary,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-org{opacity:1!important;visibility:visible!important;transform:none!important;display:block!important;color:#fff!important;-webkit-text-fill-color:currentColor!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-secondary{color:rgba(186,230,253,.92)!important;-webkit-text-fill-color:rgba(186,230,253,.92)!important}'
+        . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__title-org{color:rgba(226,232,240,.92)!important;-webkit-text-fill-color:rgba(226,232,240,.92)!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__visual-col,body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .shortcut-grid{display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__tagline{display:block!important;opacity:1!important;visibility:visible!important;color:rgba(203,213,225,.92)!important;-webkit-text-fill-color:rgba(203,213,225,.92)!important;font-size:clamp(.875rem,.82rem+.2vw,.975rem)!important;line-height:1.55!important;margin:.5rem 0 0!important;max-width:38rem!important}'
         . 'body.sg-homepage.sg-portal-page .site-layout-main>#sg-hero .sg-hero__cta{display:flex!important;opacity:1!important;visibility:visible!important}'
@@ -310,7 +311,64 @@ function org_beranda_hero_reference_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-hero-reference.css?v=4');
+    return org_asset_stylesheet_link('assets/css/beranda-hero-reference.css?v=5');
+}
+
+/** Paksa teks hero tampil setelah CSS async/bundle selesai dimuat. */
+function org_beranda_hero_text_lock_script(): string
+{
+    return <<<'HTML'
+<script id="sg-hero-text-lock">
+(function () {
+    'use strict';
+    function lockHeroText() {
+        var hero = document.getElementById('sg-hero');
+        if (!hero) return;
+        var header = document.querySelector('.site-header--sg-portal');
+        var h = header ? Math.ceil(header.getBoundingClientRect().height) : 0;
+        if (h > 0) {
+            hero.style.setProperty('padding-top', (h + 10) + 'px', 'important');
+        }
+        var paint = {
+            '.sg-hero__copy': { display: 'block', color: '#fff' },
+            '.sg-hero__title': { display: 'flex', color: '#fff' },
+            '.sg-hero__title-secondary': { display: 'block', color: 'rgba(186,230,253,0.92)' },
+            '.sg-hero__title-primary': { display: 'block', color: '#ffffff' },
+            '.sg-hero__title-org': { display: 'block', color: 'rgba(226,232,240,0.92)' },
+            '.sg-hero__tagline': { display: 'block', color: 'rgba(203,213,225,0.92)' },
+            '.sg-hero__cta': { display: 'flex', color: '#fff' }
+        };
+        Object.keys(paint).forEach(function (sel) {
+            hero.querySelectorAll(sel).forEach(function (el) {
+                el.style.setProperty('opacity', '1', 'important');
+                el.style.setProperty('visibility', 'visible', 'important');
+                el.style.setProperty('display', paint[sel].display, 'important');
+                el.style.setProperty('color', paint[sel].color, 'important');
+                el.style.setProperty('-webkit-text-fill-color', paint[sel].color, 'important');
+                el.style.setProperty('transform', 'none', 'important');
+            });
+        });
+        var title = hero.querySelector('.sg-hero__title');
+        if (title) {
+            title.style.setProperty('flex-direction', 'column', 'important');
+            title.style.setProperty('gap', '0.2rem', 'important');
+        }
+        var cta = hero.querySelector('.sg-hero__cta');
+        if (cta) {
+            cta.style.setProperty('flex-wrap', 'wrap', 'important');
+            cta.style.setProperty('gap', '0.5rem', 'important');
+        }
+    }
+    lockHeroText();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', lockHeroText);
+    }
+    window.addEventListener('load', lockHeroText);
+    window.addEventListener('resize', lockHeroText, { passive: true });
+})();
+</script>
+
+HTML;
 }
 
 /** Beranda — kartu statistik & dashboard enterprise (sync, cascade terakhir). */
@@ -408,7 +466,7 @@ function org_beranda_portal_header_offset_script(): string
         }
         var hero = document.getElementById('sg-hero');
         if (hero && isHome && h > 0) {
-            hero.style.paddingTop = h + 'px';
+            hero.style.setProperty('padding-top', (h + 10) + 'px', 'important');
         }
     }
     function onScrollHeader() {
