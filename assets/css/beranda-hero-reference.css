@@ -1,0 +1,108 @@
+/**
+ * Beranda hero — referensi tampilan compact (teks + CTA + statistik).
+ * Visual/shortcut/ambient disembunyikan; header: beranda-header-nav-unify.css
+ */
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.hero-section,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero.sg-hero {
+    min-height: 0 !important;
+    height: auto !important;
+    padding-top: calc(var(--sg-portal-header-offset, 6.5rem) + 0.65rem) !important;
+    padding-bottom: 0.75rem !important;
+    background: linear-gradient(180deg, #0a3d6b 0%, #0c4a7a 100%) !important;
+    overflow: visible !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__bg,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__grid-floor,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-ambient-layer {
+    display: none !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .hero-inner.hero-inner--stacked {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: unset !important;
+    align-items: stretch !important;
+    gap: 0.65rem !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__visual-col,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .shortcut-grid.container-global {
+    display: none !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__copy,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-reveal {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title-secondary {
+    display: block !important;
+    margin: 0 0 0.35rem !important;
+    padding: 0 !important;
+    background: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    font-size: 0.6875rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.14em !important;
+    text-transform: uppercase !important;
+    color: rgba(186, 230, 253, 0.88) !important;
+    -webkit-text-fill-color: rgba(186, 230, 253, 0.88) !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title-primary {
+    display: block !important;
+    font-size: clamp(1.625rem, 1.35rem + 0.9vw, 2.125rem) !important;
+    font-weight: 700 !important;
+    line-height: 1.12 !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__title-org {
+    display: block !important;
+    margin-top: 0.2rem !important;
+    font-size: clamp(0.9375rem, 0.875rem + 0.25vw, 1.0625rem) !important;
+    font-weight: 500 !important;
+    line-height: 1.4 !important;
+    color: rgba(226, 232, 240, 0.92) !important;
+    -webkit-text-fill-color: rgba(226, 232, 240, 0.92) !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero__cta {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+    margin-top: 0.75rem !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .stats-grid.container-global {
+    margin-top: 0.65rem !important;
+    padding-bottom: 0.25rem !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero-stats {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 0.5rem !important;
+}
+
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero-stats .sg-stat-glass,
+body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero-stat-card {
+    min-height: 4.75rem !important;
+    padding: 0.65rem 0.75rem !important;
+    border-radius: 10px !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+}
+
+@media (max-width: 767.98px) {
+    body.sg-homepage.sg-portal-page .site-layout-main > #sg-hero .sg-hero-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}

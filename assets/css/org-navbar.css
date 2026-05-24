@@ -460,7 +460,6 @@ body.sg-portal-page .site-header__nav a::after {
 @media (min-width: 992px) {
     .sg-portal-page .site-header--sg-portal .navbar-panel,
     .sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel {
-        min-height: 0 !important;
         overflow: visible !important;
     }
 

@@ -67,18 +67,17 @@ function org_portal_head_markup_beranda(string $existing = ''): string
     $base = org_asset_stylesheet_async('assets/css/smart-governance-portal.css');
 
     if (org_assets_beranda_css_bundle_available()) {
-        $base .= org_asset_stylesheet_link('assets/css/beranda-nav-hero.css')
-            . org_beranda_header_nav_unify_stylesheet_link()
+        $base .= org_asset_stylesheet_link('assets/css/beranda-nav-hero.css?v=4')
             . org_beranda_viewport_align_stylesheet_link();
     } else {
         $base .= org_beranda_govtech_styles_async_markup()
+            . org_asset_stylesheet_link('assets/css/beranda-nav-hero.css?v=4')
             . org_beranda_viewport_align_stylesheet_link()
             . org_beranda_mobile_stylesheet_link()
-            . org_beranda_premium_polish_stylesheet_link()
-            . org_beranda_header_nav_unify_stylesheet_link();
+            . org_beranda_premium_polish_stylesheet_link();
     }
 
-    /* Sync — portal-nav (header); hero: bundle/govtech asli */
+    /* portal-nav + unify/hero-reference dimuat paling akhir di header.php */
     $base .= org_portal_nav_stylesheet_link();
 
     return $base . $existing;

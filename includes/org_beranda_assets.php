@@ -280,7 +280,7 @@ function org_beranda_nav_hero_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-nav-hero.css?v=3');
+    return org_asset_stylesheet_link('assets/css/beranda-nav-hero.css?v=4');
 }
 
 /** Beranda — final polish UI (sync, cascade paling akhir). */
@@ -296,7 +296,15 @@ function org_beranda_header_nav_unify_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css?v=10');
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-unify.css?v=11');
+}
+
+/** Beranda — hero compact (referensi screenshot). Muat paling akhir setelah unify. */
+function org_beranda_hero_reference_stylesheet_link(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+
+    return org_asset_stylesheet_link('assets/css/beranda-hero-reference.css?v=2');
 }
 
 /** Beranda — kartu statistik & dashboard enterprise (sync, cascade terakhir). */
