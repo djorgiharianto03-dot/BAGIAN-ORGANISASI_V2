@@ -210,13 +210,35 @@
     /* Tim target & eksekutif */
     body.sg-homepage .gov-team-target-section__header {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
         gap: 0.65rem;
+    }
+
+    body.sg-homepage .gov-team-target-section__heading {
+        width: 100%;
+        align-self: stretch;
+        text-align: left;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    body.sg-homepage #beranda-root .gov-team-target-section__title,
+    body.sg-homepage #beranda-root .gov-team-target-section__subtitle {
+        text-align: left !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        max-width: 100%;
     }
 
     body.sg-homepage .gov-team-target-section__years {
         width: 100%;
         justify-content: flex-start;
+        margin-left: 0;
+        padding-left: 0;
     }
 
     body.sg-homepage .gov-team-target-dash-grid > [class*="col-lg-4"],
