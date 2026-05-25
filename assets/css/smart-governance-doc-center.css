@@ -24,7 +24,10 @@
     margin: 0.65rem 0 0;
 }
 
-.page-digital-library .digital-library--portal .doc-center__intro {
+/* Default: intro disembunyikan di halaman portal lain pengguna digital_library_section.
+   Kecuali halaman dokumen v9 (.digital-library--hero-panel) — di sana intro
+   adalah bagian dari hero panel light-blue dan WAJIB tampil. */
+.page-digital-library .digital-library--portal:not(.digital-library--hero-panel) .doc-center__intro {
     display: none;
 }
 
