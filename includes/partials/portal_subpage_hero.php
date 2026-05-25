@@ -8,6 +8,7 @@ org_tailwind_bootstrap();
 org_component('hero', [
     'portalHeroEyebrow' => $portalHeroEyebrow ?? '',
     'portalHeroTitle' => $portalHeroTitle ?? '',
+    'portalHeroTitleHtml' => $portalHeroTitleHtml ?? '',
     'portalHeroLead' => $portalHeroLead ?? '',
     'portalHeroStats' => $portalHeroStats ?? [],
 ]);
