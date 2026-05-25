@@ -187,22 +187,20 @@
                 var pct = Math.max(0, Math.min(100, Number(pack.pct) || 0));
 
                 /* Donat distribusi status: Direncanakan / Berjalan / Selesai.
-                   Lebih informatif daripada radialBar gauge (yang hanya
-                   menampilkan satu angka), namun tetap sangat ringan
-                   (3 slice maks, tanpa animasi gradient). */
+                   Palet modern (amber → biru → emerald) dengan kontras tinggi
+                   namun tetap selaras dengan badge legenda di bawah kartu.
+                   Lebih ringan dari radialBar gauge (3 slice maks, tanpa
+                   gradient fill, animateGradually off). */
                 var sc = pack.statusCounts || {};
-                var palette = pack.statusPalette || {};
                 var rawSeries = [
                     Number(sc.direncanakan) || 0,
                     Number(sc.berjalan) || 0,
                     Number(sc.selesai) || 0
                 ];
                 var rawLabels = ['Direncanakan', 'Berjalan', 'Selesai'];
-                var rawColors = [
-                    palette.direncanakan || '#8F6524',
-                    palette.berjalan || '#1A3F6E',
-                    palette.selesai || '#0B5E48'
-                ];
+                /* Palet vibrant: amber 500, blue 600, emerald 500 — kontras
+                   lebih kuat dibanding palet teal-tua sebelumnya. */
+                var rawColors = ['#F59E0B', '#2563EB', '#10B981'];
 
                 /* Buang slice nol agar tooltip & legend hanya menampilkan
                    status yang relevan; juga sedikit mempercepat render. */
@@ -217,7 +215,8 @@
                     }
                 });
 
-                if (series.length === 0) {
+                var hasRealData = series.length > 0;
+                if (!hasRealData) {
                     /* Fallback: tidak ada slice yang valid — tampilkan donat
                        polos dengan satu segmen 'Belum ada data'. */
                     series = [1];
@@ -226,8 +225,15 @@
                 }
 
                 var fontStack = 'Poppins, system-ui, sans-serif';
-                var totalKegiatan = Number(pack.count) || rawSeries.reduce(function (a, b) { return a + b; }, 0);
 
+                /* Konfigurasi center label mengikuti perilaku natural ApexCharts:
+                     - IDLE (tanpa hover) → tampilkan `total` saja:
+                         baris kecil "Rata-rata" + angka besar "75%".
+                     - HOVER pada slice → ApexCharts otomatis ganti ke
+                         baris kecil "Direncanakan" (name) + angka besar
+                         "2 kegiatan" (value).
+                   Tidak ada offsetY manual — biarkan ApexCharts menata vertikal
+                   agar tidak terjadi tumpukan teks pada saat hover. */
                 var chart = new ApexCharts(el, {
                     series: series,
                     chart: {
@@ -248,32 +254,33 @@
                     plotOptions: {
                         pie: {
                             donut: {
-                                size: '68%',
+                                size: '70%',
                                 labels: {
                                     show: true,
                                     name: {
                                         show: true,
                                         fontSize: '11px',
-                                        fontWeight: 500,
+                                        fontWeight: 600,
                                         color: '#64748b',
-                                        offsetY: 8,
-                                        formatter: function () { return totalKegiatan + ' kegiatan'; }
+                                        formatter: function (seriesName) { return seriesName; }
                                     },
                                     value: {
                                         show: true,
-                                        fontSize: '1.5rem',
+                                        fontSize: '1.4rem',
                                         fontWeight: 700,
                                         color: '#0f2744',
-                                        offsetY: -6,
-                                        formatter: function () { return Math.round(pct) + '%'; }
+                                        formatter: function (val) {
+                                            if (!hasRealData) return '0 keg.';
+                                            return Number(val) + ' keg.';
+                                        }
                                     },
                                     total: {
                                         show: true,
                                         showAlways: true,
-                                        label: '',
-                                        color: '#0f2744',
-                                        fontSize: '1.5rem',
-                                        fontWeight: 700,
+                                        label: 'Rata-rata',
+                                        color: '#64748b',
+                                        fontSize: '11px',
+                                        fontWeight: 600,
                                         formatter: function () { return Math.round(pct) + '%'; }
                                     }
                                 }
@@ -282,19 +289,23 @@
                     },
                     tooltip: {
                         theme: 'light',
+                        fillSeriesColor: false,
                         y: {
-                            formatter: function (val) { return val + ' kegiatan'; }
+                            formatter: function (val) {
+                                if (!hasRealData) return '';
+                                return val + ' kegiatan';
+                            }
                         }
                     },
                     states: {
-                        hover: { filter: { type: 'darken', value: 0.06 } },
+                        hover: { filter: { type: 'darken', value: 0.08 } },
                         active: { filter: { type: 'none' } }
                     },
                     responsive: [{
                         breakpoint: 480,
                         options: {
                             chart: { height: 168 },
-                            plotOptions: { pie: { donut: { size: '62%' } } }
+                            plotOptions: { pie: { donut: { size: '64%' } } }
                         }
                     }]
                 });

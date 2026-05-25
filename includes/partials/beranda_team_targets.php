@@ -71,11 +71,6 @@ foreach (org_team_targets_tim_list() as $timKey) {
         'count' => count($enriched),
         'items' => $enriched,
         'statusCounts' => $statusCounts,
-        'statusPalette' => [
-            'direncanakan' => org_team_targets_status_accent_color('direncanakan'),
-            'berjalan' => org_team_targets_status_accent_color('berjalan'),
-            'selesai' => org_team_targets_status_accent_color('selesai'),
-        ],
     ];
 }
 $govTeamTargetChartJson = json_encode(
