@@ -119,7 +119,7 @@ org_portal_apply_assets($bodyClass, $extraHeadMarkup, $extraFooterMarkup);
 $extraHeadMarkup .= "\n" . '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/smart-governance-profil-institutional.css?v=2'), ENT_QUOTES, 'UTF-8') . '">'
     . '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/profil-mobile.css?v=2'), ENT_QUOTES, 'UTF-8') . '">' . "\n";
 org_portal_set_hero(
-    'Profil Organisasi',
+    'Profil',
     '',
     'Smart Governance Portal',
     'fa-building-columns',

@@ -121,7 +121,7 @@ HTML;
 
 org_portal_apply_assets($bodyClass, $extraHeadMarkup, $extraFooterMarkup);
 org_portal_set_hero(
-    'Galeri Kegiatan',
+    'Galeri',
     '',
     'Publikasi Digital',
     'fa-images',

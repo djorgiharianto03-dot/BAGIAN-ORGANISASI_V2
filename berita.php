@@ -76,7 +76,7 @@ foreach ($pusatInformasiPostsAll as $piRow) {
 
 org_portal_apply_assets($bodyClass, $extraHeadMarkup, $extraFooterMarkup);
 org_portal_set_hero(
-    'Pusat Informasi & Pengumuman',
+    'Informasi',
     '',
     'Publikasi Digital',
     'fa-bullhorn',

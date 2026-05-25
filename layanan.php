@@ -154,7 +154,7 @@ $__layananAssetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');
 $extraHeadMarkup .= "\n" . '<link rel="stylesheet" href="' . htmlspecialchars($__layananAssetBase . '/assets/css/smart-governance-layanan-directory.css?v=2', ENT_QUOTES, 'UTF-8') . '">' . "\n";
 
 org_portal_set_hero(
-    'Layanan Publik',
+    'Layanan',
     '',
     'Pelayanan Publik Digital',
     'fa-handshake-angle',
