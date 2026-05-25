@@ -375,7 +375,7 @@ function org_beranda_header_nav_sync_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=6');
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=7');
 }
 
 /**
@@ -427,7 +427,8 @@ HTML;
  */
 function org_beranda_header_nav_critical_footer_markup(): string
 {
-    $home = 'body.sg-homepage.sg-portal-page';
+    /* Prefix `html ` agar selector lebih spesifik dari site_styles.php inline + bundle. */
+    $home = 'html body.sg-homepage.sg-portal-page';
     /* v=6: panel navbar Beranda mengikuti Profil — lebih terang/transparan, compact.
        Nilai dirujuk via variabel (defined di beranda-header-nav-sync.css?v=6)
        agar single-source-of-truth dan mudah dirubah.                              */
@@ -436,17 +437,23 @@ function org_beranda_header_nav_critical_footer_markup(): string
     $brandAnchor = 'flex-shrink:0!important;align-self:center!important;display:inline-flex!important;align-items:center!important;margin:0!important;padding:0!important';
     $topbar = 'order:1!important;width:100%!important;max-width:100%!important;flex:0 0 auto!important;align-self:stretch!important;align-items:center!important;gap:.5rem 1rem!important;padding:0!important;margin:0!important;min-height:var(--sg-nav-panel-min-h,48px)!important';
     $logo = 'max-width:none!important;width:auto!important;height:auto!important;object-fit:contain!important;filter:none!important;flex-shrink:0!important;vertical-align:middle!important;align-self:center!important;margin-top:0!important;margin-bottom:0!important';
-    $panel = 'min-height:var(--sg-nav-panel-min-h,48px)!important;'
+    /* v=7: HARD-CODE warna panel (TIDAK pakai variabel) — kebal terhadap re-define
+       site_styles.php inline yang mengembalikan --sg-nav-panel-bg ke 0.94. */
+    $panel = 'min-height:48px!important;'
         . 'height:auto!important;margin:0!important;'
-        . 'padding:var(--sg-nav-panel-pad-block,.25rem) var(--sg-nav-panel-pad-inline,.35rem)!important;'
-        . 'border-radius:var(--sg-nav-panel-radius,16px)!important;'
-        . 'background:var(--sg-nav-panel-bg,rgba(2,22,48,.62))!important;'
-        . '-webkit-backdrop-filter:blur(var(--sg-nav-panel-blur,12px)) saturate(1.1)!important;'
-        . 'backdrop-filter:blur(var(--sg-nav-panel-blur,12px)) saturate(1.1)!important;'
-        . 'border:1px solid var(--sg-nav-panel-border,rgba(255,255,255,.14))!important;'
-        . 'box-shadow:var(--sg-nav-panel-shadow,inset 0 1px 0 rgba(255,255,255,.08),0 6px 20px rgba(0,10,28,.28))!important;'
+        . 'padding:.25rem .4rem!important;'
+        . 'border-radius:16px!important;'
+        . 'background:rgba(15,32,71,.45)!important;'
+        . 'background-color:rgba(15,32,71,.45)!important;'
+        . 'background-image:none!important;'
+        . '-webkit-backdrop-filter:blur(14px) saturate(1.2)!important;'
+        . 'backdrop-filter:blur(14px) saturate(1.2)!important;'
+        . 'border:1px solid rgba(147,197,253,.22)!important;'
+        . 'box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 6px 20px rgba(0,10,28,.24)!important;'
         . 'box-sizing:border-box!important';
-    $panelScrolled = 'background:var(--sg-nav-panel-bg-scrolled,rgba(2,22,48,.72))!important;'
+    $panelScrolled = 'background:rgba(15,32,71,.6)!important;'
+        . 'background-color:rgba(15,32,71,.6)!important;'
+        . 'background-image:none!important;'
         . 'box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 8px 26px rgba(0,10,28,.32)!important';
 
     $css = '<style id="sg-beranda-header-match-profil">'

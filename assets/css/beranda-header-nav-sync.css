@@ -1,58 +1,46 @@
 /**
- * Beranda — panel navbar 1:1 dengan Profil/sub halaman.
+ * Beranda — panel navbar 1:1 dengan Profil.
  *
- * v=6: PANEL NAVBAR Beranda saat ini terlihat terlalu gelap & padat.
- * Profil menampilkan panel yang lebih terang/transparan, lebih compact,
- * radius lebih kecil, dan tinggi minimum lebih kecil. File ini menimpa
- * variabel + selector spesifik agar Beranda mengikuti tampilan Profil.
+ * v=7: WARNA panel diperbaiki. Versi sebelumnya pakai variabel
+ * --sg-nav-panel-bg yang masih dapat ditimpa oleh inline <style>
+ * site_styles.php. Sekarang nilai background di-HARD-CODE pada selector
+ * super-spesifik dan ditambah !important agar selalu menang.
  *
- * Catatan:
- *   - SELURUH rule diawali `body.sg-homepage` — Profil dan halaman lain
- *     tidak akan terpengaruh.
- *   - Dimuat paling akhir via org_beranda_navbar_footer_cascade_markup()
- *     (di footer.php), setelah bundle async + smart-governance-portal-nav.css.
- *   - v=5 sebelumnya hanya menyentuh vertical position logo; v=6 fokus
- *     ke styling panel navbar.
+ * Target visual:
+ *   - panel lebih terang/transparan kebiruan (Profil look)
+ *   - radius lebih kecil, lebih compact
+ *
+ * Semua rule diawali html body.sg-homepage — Profil/sub halaman tidak terpengaruh.
  */
 
-body.sg-homepage.sg-portal-page {
-    /* Variabel global (selaras portal-nav.css) */
+html body.sg-homepage.sg-portal-page {
+    /* Variabel untuk komponen lain (logo offset, dst.) — tetap dari v=5/v=6 */
     --layout-max-width: 1320px;
     --portal-content-gutter: clamp(1rem, 2.5vw, 32px);
     --sg-nav-wrapper-gap: clamp(0.5rem, 1.2vw, 1.125rem);
     --sg-nav-row-min-h: 48px;
     --sg-nav-tap: 40px;
 
-    /* Panel navbar — versi terang/transparan & compact (Profil look). */
-    --sg-nav-panel-min-h: 48px;
-    --sg-nav-panel-radius: 16px;
-    --sg-nav-panel-pad-block: 0.25rem;
-    --sg-nav-panel-pad-inline: 0.35rem;
-    --sg-nav-panel-bg: rgba(2, 22, 48, 0.62);
-    --sg-nav-panel-bg-scrolled: rgba(2, 22, 48, 0.72);
-    --sg-nav-panel-border: rgba(255, 255, 255, 0.14);
-    --sg-nav-panel-blur: 12px;
-    --sg-nav-panel-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.08),
-        0 6px 20px rgba(0, 10, 28, 0.28);
-
-    /* Breathing space header (tetap dari v=5 — logo sejajar panel). */
     --sg-beranda-rail-pad-top: clamp(0.55rem, 1.1vw, 0.95rem);
     --sg-beranda-rail-pad-bottom: clamp(0.4rem, 0.9vw, 0.7rem);
+
+    /* Panel tokens — namun nilai final di-set HARD-CODE di rule .navbar-panel. */
+    --sg-nav-panel-min-h: 48px;
+    --sg-nav-panel-radius: 16px;
 }
 
 /* ============================================================
    HEADER RAIL + TOPBAR (vertical position logo)
    ============================================================ */
-body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail.container-global,
-body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global,
-body.sg-homepage.sg-portal-page .site-header__inner.header-inner {
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail.container-global,
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global,
+html body.sg-homepage.sg-portal-page .site-header__inner.header-inner {
     padding-top: var(--sg-beranda-rail-pad-top) !important;
     padding-bottom: var(--sg-beranda-rail-pad-bottom) !important;
 }
 
-body.sg-homepage.sg-portal-page .site-header__rail .site-header__topbar,
-body.sg-homepage.sg-portal-page .header-inner .site-header__topbar {
+html body.sg-homepage.sg-portal-page .site-header__rail .site-header__topbar,
+html body.sg-homepage.sg-portal-page .header-inner .site-header__topbar {
     align-items: center !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
@@ -60,8 +48,8 @@ body.sg-homepage.sg-portal-page .header-inner .site-header__topbar {
     min-height: var(--sg-nav-panel-min-h, 48px) !important;
 }
 
-body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row,
-body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__brand.site-header__brand-row {
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row,
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__brand.site-header__brand-row {
     align-items: center !important;
     align-self: center !important;
     min-height: var(--sg-nav-panel-min-h, 48px) !important;
@@ -69,89 +57,99 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__brand.site-
     margin: 0 !important;
 }
 
-body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row > a:first-child {
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row > a:first-child {
     align-self: center !important;
     margin: 0 !important;
 }
 
-body.sg-homepage.sg-portal-page .site-header__logo,
-body.sg-homepage.sg-portal-page .org-navbar__logo {
+html body.sg-homepage.sg-portal-page .site-header__logo,
+html body.sg-homepage.sg-portal-page .org-navbar__logo {
     align-self: center !important;
     vertical-align: middle !important;
     margin: 0 !important;
 }
 
-body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient {
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient {
     padding: 0 !important;
 }
 
 /* ============================================================
-   PANEL NAVBAR — lighter / glass / compact (sama Profil)
+   PANEL NAVBAR — HARD-CODE warna terang/transparan kebiruan
    ============================================================ */
 
 /* Wrapper di sekitar panel — gap & spacing */
-body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper,
-body.sg-homepage.sg-portal-page .site-header__rail .org-navbar__nav-shell,
-body.sg-homepage.sg-portal-page .navbar-wrapper {
+html body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper,
+html body.sg-homepage.sg-portal-page .site-header__rail .org-navbar__nav-shell,
+html body.sg-homepage.sg-portal-page .navbar-wrapper {
     margin-top: var(--sg-nav-wrapper-gap) !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
     padding: 0 !important;
 }
 
-/* Panel utama (state default) */
-body.sg-homepage.sg-portal-page .navbar-panel,
-body.sg-homepage.sg-portal-page .org-navbar__nav-wrap.navbar-panel,
-body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap,
-body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
-body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel {
-    min-height: var(--sg-nav-panel-min-h) !important;
+/* Panel utama — HARD-CODED background lighter blueish translucent */
+html body.sg-homepage.sg-portal-page .navbar-panel,
+html body.sg-homepage.sg-portal-page .org-navbar__nav-wrap.navbar-panel,
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap,
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
+html body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel,
+html body.sg-homepage.sg-portal-page .site-header__nav-panel {
+    min-height: 48px !important;
     height: auto !important;
     margin: 0 !important;
-    padding: var(--sg-nav-panel-pad-block) var(--sg-nav-panel-pad-inline) !important;
-    border-radius: var(--sg-nav-panel-radius) !important;
-    background: var(--sg-nav-panel-bg) !important;
-    backdrop-filter: blur(var(--sg-nav-panel-blur)) saturate(1.1) !important;
-    -webkit-backdrop-filter: blur(var(--sg-nav-panel-blur)) saturate(1.1) !important;
-    border: 1px solid var(--sg-nav-panel-border) !important;
-    box-shadow: var(--sg-nav-panel-shadow) !important;
+    padding: 0.25rem 0.4rem !important;
+    border-radius: 16px !important;
+    /* HARD-CODE — lighter blueish translucent untuk match Profil */
+    background: rgba(15, 32, 71, 0.45) !important;
+    background-color: rgba(15, 32, 71, 0.45) !important;
+    background-image: none !important;
+    backdrop-filter: blur(14px) saturate(1.2) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(1.2) !important;
+    border: 1px solid rgba(147, 197, 253, 0.22) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 6px 20px rgba(0, 10, 28, 0.24) !important;
     box-sizing: border-box !important;
 }
 
 /* Panel state scrolled — sedikit lebih opaque tapi tetap tembus */
-body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,
-body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .org-navbar__nav-wrap.navbar-panel,
-body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel {
-    background: var(--sg-nav-panel-bg-scrolled) !important;
+html body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,
+html body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .org-navbar__nav-wrap.navbar-panel,
+html body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel {
+    background: rgba(15, 32, 71, 0.6) !important;
+    background-color: rgba(15, 32, 71, 0.6) !important;
+    background-image: none !important;
     box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.08),
         0 8px 26px rgba(0, 10, 28, 0.32) !important;
 }
 
 /* Baris menu di dalam panel — compact spacing */
-body.sg-homepage.sg-portal-page .navbar-panel .site-header__nav-row,
-body.sg-homepage.sg-portal-page .site-header__nav-wrap .site-header__nav-row,
-body.sg-homepage.sg-portal-page .org-navbar__nav-wrap .site-header__nav-row {
+html body.sg-homepage.sg-portal-page .navbar-panel .site-header__nav-row,
+html body.sg-homepage.sg-portal-page .site-header__nav-wrap .site-header__nav-row,
+html body.sg-homepage.sg-portal-page .org-navbar__nav-wrap .site-header__nav-row {
     display: flex !important;
     flex-wrap: nowrap !important;
     align-items: center !important;
     justify-content: space-between !important;
     gap: 0.35rem 0.65rem !important;
-    min-height: var(--sg-nav-row-min-h, 48px) !important;
+    min-height: 48px !important;
     padding: 0.1rem 0 !important;
     box-sizing: border-box !important;
+    background: transparent !important;
 }
 
 /* Daftar menu kiri — gap antar item compact */
-body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav {
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav {
     display: flex !important;
     flex-wrap: nowrap !important;
     gap: 0.2rem 0.45rem !important;
     margin: 0 !important;
     padding: 0 !important;
+    background: transparent !important;
 }
 
-body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav a {
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav a {
     min-height: 36px !important;
     padding: 0.35rem 0.65rem !important;
     border-radius: 10px !important;
@@ -159,22 +157,23 @@ body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav a {
     line-height: 1.2 !important;
 }
 
-/* Group action kanan (theme toggle + Dashboard + Logout) — compact gap */
-body.sg-homepage.sg-portal-page .site-header__actions,
-body.sg-homepage.sg-portal-page .site-header__actions-end,
-body.sg-homepage.sg-portal-page .org-navbar__actions-end {
+/* Group action kanan — compact gap */
+html body.sg-homepage.sg-portal-page .site-header__actions,
+html body.sg-homepage.sg-portal-page .site-header__actions-end,
+html body.sg-homepage.sg-portal-page .org-navbar__actions-end {
     display: flex !important;
     align-items: center !important;
     gap: 0.4rem !important;
     margin: 0 !important;
     padding: 0 !important;
+    background: transparent !important;
 }
 
-/* Tombol header — match Profil (compact) */
-body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-login,
-body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-logout,
-body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-dashboard,
-body.sg-homepage.sg-portal-page .site-header__actions-end .btn {
+/* Tombol header — compact (match Profil) */
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-login,
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-logout,
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-dashboard,
+html body.sg-homepage.sg-portal-page .site-header__actions-end .btn {
     min-height: var(--sg-nav-tap, 40px) !important;
     height: auto !important;
     padding: 0.4rem 0.7rem !important;
@@ -183,8 +182,7 @@ body.sg-homepage.sg-portal-page .site-header__actions-end .btn {
     border-radius: 0.75rem !important;
 }
 
-/* Theme toggle — pastikan tidak terlalu besar */
-body.sg-homepage.sg-portal-page .site-header__actions-end .org-theme-toggle {
+html body.sg-homepage.sg-portal-page .site-header__actions-end .org-theme-toggle {
     min-height: var(--sg-nav-tap, 40px) !important;
 }
 
@@ -192,21 +190,27 @@ body.sg-homepage.sg-portal-page .site-header__actions-end .org-theme-toggle {
    Mobile (≤ 991.98px)
    ============================================================ */
 @media (max-width: 991.98px) {
-    body.sg-homepage.sg-portal-page {
+    html body.sg-homepage.sg-portal-page {
         --sg-beranda-rail-pad-top: 0.4rem;
         --sg-beranda-rail-pad-bottom: 0.3rem;
         --sg-nav-panel-min-h: 44px;
-        --sg-nav-panel-radius: 14px;
-        --sg-nav-panel-pad-block: 0.2rem;
-        --sg-nav-panel-pad-inline: 0.3rem;
     }
 
-    body.sg-homepage.sg-portal-page .site-header__rail .site-header__topbar,
-    body.sg-homepage.sg-portal-page .header-inner .site-header__topbar {
+    html body.sg-homepage.sg-portal-page .navbar-panel,
+    html body.sg-homepage.sg-portal-page .org-navbar__nav-wrap.navbar-panel,
+    html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
+    html body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel {
+        min-height: 44px !important;
+        border-radius: 14px !important;
+        padding: 0.2rem 0.3rem !important;
+    }
+
+    html body.sg-homepage.sg-portal-page .site-header__rail .site-header__topbar,
+    html body.sg-homepage.sg-portal-page .header-inner .site-header__topbar {
         min-height: 44px !important;
     }
 
-    body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row {
+    html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row {
         min-height: 44px !important;
     }
 }
