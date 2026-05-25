@@ -154,7 +154,7 @@ if ($orgHeaderBerandaPage && str_contains($bodyClassAttr, 'sg-portal-subpage')) 
    Berlaku di SEMUA halaman. Tidak menyentuh CSS / layout. */
 ?>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","name":"Bagian Organisasi Setda Aru","alternateName":"Bagian Organisasi Setda Kabupaten Kepulauan Aru","url":"https://www.bagorga.kepulauanarukab.go.id/"}
+{"@context":"https://schema.org","@type":"WebSite","name":"Bagian Organisasi Setda Kabupaten Kepulauan Aru","alternateName":"Bagian Organisasi Setda Aru","url":"https://www.bagorga.kepulauanarukab.go.id/"}
 </script>
 </head>
 <body<?php echo $bodyClassAttr !== '' ? ' class="' . htmlspecialchars($bodyClassAttr, ENT_QUOTES, 'UTF-8') . '"' : ''; ?>>
