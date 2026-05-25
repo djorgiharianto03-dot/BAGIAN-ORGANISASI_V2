@@ -61,23 +61,38 @@ function org_portal_nav_panel_lock_stylesheet_link(): string
     return '';
 }
 
-/** Critical inline — hanya warna panel (sama Beranda), tanpa ukuran/layout. */
+/**
+ * Critical inline — hard-lock SELURUH properti panel navbar agar Beranda,
+ * Profil, dan sub halaman (semua body.sg-portal-page) render IDENTIK.
+ *
+ * Tidak pakai CSS variable supaya tidak ada celah override dari file lain.
+ * Selector diprefix `html ` untuk specificity maksimal.
+ */
 function org_portal_nav_panel_critical_markup(): string
 {
-    return '<style id="sg-portal-nav-panel-color">'
+    $panelSelectors = 'html body.sg-portal-page .site-header--sg-portal .navbar-panel,'
+        . 'html body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,'
+        . 'html body.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap.navbar-panel';
+    $panelScrolledSelectors = 'html body.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,'
+        . 'html body.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel,'
+        . 'html body.sg-portal-page .site-header--sg-portal.is-scrolled .org-navbar__nav-wrap.navbar-panel';
+
+    /* Nilai persis dari smart-governance-portal-nav.css :root —
+       cocok Profil sub-halaman saat ini. */
+    $panelProps = 'background:rgba(2,22,48,.94)!important;'
+        . 'border:1px solid rgba(147,197,253,.18)!important;'
+        . 'border-radius:20px!important;'
+        . 'box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 32px rgba(0,10,28,.42)!important;'
+        . 'backdrop-filter:none!important;'
+        . '-webkit-backdrop-filter:none!important;'
+        . 'padding:.35rem 0!important;'
+        . 'min-height:56px!important;'
+        . 'margin:0!important';
+
+    return '<style id="sg-portal-nav-panel-lock">'
         . '@media(min-width:992px){'
-        . 'body.sg-portal-page .site-header--sg-portal .navbar-panel,'
-        . 'body.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,'
-        . 'body.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap.navbar-panel{'
-        . 'background:rgba(2,22,48,.94)!important;'
-        . 'border-color:rgba(147,197,253,.18)!important;'
-        . 'box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 32px rgba(0,10,28,.42)!important'
-        . '}'
-        . 'body.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,'
-        . 'body.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel,'
-        . 'body.sg-portal-page .site-header--sg-portal.is-scrolled .org-navbar__nav-wrap.navbar-panel{'
-        . 'background:rgba(2,22,48,.97)!important'
-        . '}'
+        . $panelSelectors . '{' . $panelProps . '}'
+        . $panelScrolledSelectors . '{background:rgba(2,22,48,.97)!important}'
         . '}</style>' . "\n";
 }
 
