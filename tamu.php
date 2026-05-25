@@ -201,13 +201,31 @@ $extraHeadMarkup = <<<'HTML'
     .page-tamu-dashboard .table > :not(caption) > * > * {
         vertical-align: middle;
     }
+    .page-tamu-dashboard .tamu-twocol {
+        display: grid !important;
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
     .page-tamu-dashboard .tamu-twocol > [class*="col-"] {
+        max-width: 100%;
+        flex: 0 0 100%;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
         display: flex;
     }
     .page-tamu-dashboard .tamu-twocol .tamu-card {
         width: 100%;
     }
     @media (min-width: 768px) {
+        .page-tamu-dashboard .tamu-twocol {
+            grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+            gap: 1.5rem;
+        }
+        .page-tamu-dashboard .tamu-twocol > [class*="col-"] {
+            flex: initial;
+            max-width: none;
+        }
         .page-tamu-dashboard .tamu-twocol .tamu-card {
             height: 100%;
         }
@@ -217,6 +235,11 @@ $extraHeadMarkup = <<<'HTML'
         }
         .page-tamu-dashboard .tamu-twocol .table-responsive {
             flex: 1 1 auto;
+        }
+    }
+    @media (min-width: 1200px) {
+        .page-tamu-dashboard .tamu-twocol {
+            grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
         }
     }
 </style>
