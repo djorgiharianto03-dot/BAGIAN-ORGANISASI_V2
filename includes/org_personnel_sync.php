@@ -172,16 +172,41 @@ function org_personnel_write_file(string $personnelFilePath, array $items): bool
     $expectedIds = array_column($rows, 'id');
     sort($expectedIds);
 
+    /* Tulis via fopen+flock+fwrite+fflush+fclose agar deterministik di Windows.
+       file_put_contents(LOCK_EX) tidak menjamin fflush() sebelum LOCK_UN —
+       dengan disk-cache + antivirus Windows kadang menyebabkan baris yang
+       baru dihapus muncul kembali setelah refresh (write hilang). */
+    $atomicWrite = static function (string $path, string $data): bool {
+        $fp = @fopen($path, 'cb');
+        if ($fp === false) {
+            return false;
+        }
+        $ok = false;
+        if (@flock($fp, LOCK_EX)) {
+            @ftruncate($fp, 0);
+            @rewind($fp);
+            $written = @fwrite($fp, $data);
+            if ($written !== false && $written === strlen($data)) {
+                @fflush($fp);
+                $ok = true;
+            }
+            @flock($fp, LOCK_UN);
+        }
+        @fclose($fp);
+
+        return $ok;
+    };
+
     $writeOk = false;
     $tmp = $personnelFilePath . '.tmp.' . bin2hex(random_bytes(4));
-    if (@file_put_contents($tmp, $json, LOCK_EX) !== false) {
+    if ($atomicWrite($tmp, $json)) {
         clearstatcache(true, $tmp);
         if (@rename($tmp, $personnelFilePath)) {
             $writeOk = true;
         } else {
             @unlink($tmp);
             for ($attempt = 0; $attempt < 3 && !$writeOk; $attempt++) {
-                if (@file_put_contents($personnelFilePath, $json, LOCK_EX) !== false) {
+                if ($atomicWrite($personnelFilePath, $json)) {
                     $writeOk = true;
                     break;
                 }
@@ -191,7 +216,7 @@ function org_personnel_write_file(string $personnelFilePath, array $items): bool
     } else {
         @unlink($tmp);
         for ($attempt = 0; $attempt < 3 && !$writeOk; $attempt++) {
-            if (@file_put_contents($personnelFilePath, $json, LOCK_EX) !== false) {
+            if ($atomicWrite($personnelFilePath, $json)) {
                 $writeOk = true;
                 break;
             }
@@ -203,7 +228,7 @@ function org_personnel_write_file(string $personnelFilePath, array $items): bool
         return false;
     }
 
-    clearstatcache(true, $personnelFilePath);
+    clearstatcache(true);
 
     /* Verifikasi: pastikan file di disk benar-benar mencerminkan data yang
        diminta. Tanpa verifikasi, kegagalan tulis di Windows kadang lolos
