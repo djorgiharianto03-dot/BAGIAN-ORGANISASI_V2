@@ -1283,6 +1283,15 @@ body.sg-portal-page:not(.sg-homepage) .org-hero.sg-subhero {
     filter: none !important;
 }
 
+/* Aksen warna untuk kata kunci di judul hero (mis. "Smart Governance" di
+   Beranda) — terpicu hanya kalau markup judul mengandung
+   <span class="sg-subhero__title-accent">. */
+.sg-subhero__title .sg-subhero__title-accent,
+.org-hero__title .sg-subhero__title-accent {
+    color: #7dd3fc; /* sky-300, biru cerah seperti referensi */
+    font-weight: inherit;
+}
+
 body.sg-portal-page:not(.sg-homepage) .site-layout-main {
     background: var(--sg-portal-surface, #f4f7fb);
 }

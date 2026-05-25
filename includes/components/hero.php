@@ -14,6 +14,7 @@ org_tailwind_bootstrap();
 $portalHeroLead = trim((string) ($portalHeroLead ?? ''));
 $portalHeroStats = $portalHeroStats ?? [];
 $portalHeroTitle = (string) ($portalHeroTitle ?? '');
+$portalHeroTitleHtml = trim((string) ($portalHeroTitleHtml ?? ''));
 $portalHeroEyebrow = (string) ($portalHeroEyebrow ?? '');
 $portalHeroBreadcrumb = trim((string) ($portalHeroBreadcrumb ?? $portalHeroTitle ?? ''));
 $portalHeroAriaLabel = $portalHeroTitle !== '' ? $portalHeroTitle : ($portalHeroBreadcrumb !== '' ? $portalHeroBreadcrumb : 'Halaman portal');
@@ -29,7 +30,9 @@ $portalHeroAriaLabel = $portalHeroTitle !== '' ? $portalHeroTitle : ($portalHero
                     <?php echo htmlspecialchars($portalHeroEyebrow, ENT_QUOTES, 'UTF-8'); ?>
                 </p>
                 <?php endif; ?>
-                <?php if ($portalHeroTitle !== ''): ?>
+                <?php if ($portalHeroTitleHtml !== ''): ?>
+                <h1 class="org-hero__title org-heading-1 sg-subhero__title"><?php echo $portalHeroTitleHtml; /* trusted markup dari org_portal_set_hero() */ ?></h1>
+                <?php elseif ($portalHeroTitle !== ''): ?>
                 <h1 class="org-hero__title org-heading-1 sg-subhero__title"><?php echo htmlspecialchars($portalHeroTitle, ENT_QUOTES, 'UTF-8'); ?></h1>
                 <?php endif; ?>
                 <?php if ($portalHeroLead !== ''): ?>

@@ -215,11 +215,16 @@ function org_portal_set_hero(
     string $lead = '',
     string $eyebrow = 'Smart Governance Portal',
     string $icon = 'fa-building-columns',
-    array $stats = []
+    array $stats = [],
+    string $titleHtml = ''
 ): void {
-    global $portalHeroEyebrow, $portalHeroTitle, $portalHeroLead, $portalHeroIcon, $portalHeroStats;
+    global $portalHeroEyebrow, $portalHeroTitle, $portalHeroTitleHtml, $portalHeroLead, $portalHeroIcon, $portalHeroStats;
     $portalHeroEyebrow = $eyebrow;
     $portalHeroTitle = $title;
+    /* HTML override: hanya boleh dipakai untuk markup judul yang trusted (di-set
+       dari kode PHP internal, bukan input pengguna). Akan diprint apa adanya
+       oleh hero.php menggantikan $portalHeroTitle versi escape. */
+    $portalHeroTitleHtml = $titleHtml;
     $portalHeroLead = $lead;
     $portalHeroIcon = $icon;
     $portalHeroStats = $stats;

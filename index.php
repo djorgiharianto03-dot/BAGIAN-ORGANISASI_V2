@@ -167,16 +167,18 @@ $extraHeadMarkup = org_portal_head_markup_beranda($extraHeadMarkup);
 $htmlClass = 'sg-portal-html-home';
 
 org_portal_set_hero(
-    'Bagian Organisasi',
+    'Portal Smart Governance Bagian Organisasi',
     'Mewujudkan Tata Kelola Pemerintahan Digital.',
-    'Smart Governance Portal',
+    'SEKRETARIAT DAERAH · KEPULAUAN ARU',
     'fa-building-columns',
     [
         ['value' => (int) $berandaTotalToday, 'label' => 'Tamu Hari Ini'],
         ['value' => (int) $berandaTotalWeek, 'label' => 'Kunjungan 7 Hari'],
         ['value' => (int) $sgPortalDocCount, 'label' => 'Dokumen Digital'],
         ['value' => (int) $sgPortalInfoCount, 'label' => 'Publikasi Aktif'],
-    ]
+    ],
+    /* Title HTML dengan aksen warna "Smart Governance" sesuai referensi gambar */
+    'Portal <span class="sg-subhero__title-accent">Smart Governance</span> Bagian Organisasi'
 );
 $portalHeroBreadcrumb = '';
 
