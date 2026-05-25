@@ -177,8 +177,10 @@ org_portal_set_hero(
         ['value' => (int) $sgPortalDocCount, 'label' => 'Dokumen Digital'],
         ['value' => (int) $sgPortalInfoCount, 'label' => 'Publikasi Aktif'],
     ],
-    /* Title HTML dengan aksen warna "Smart Governance" sesuai referensi gambar */
-    'Portal <span class="sg-subhero__title-accent">Smart Governance</span> Bagian Organisasi'
+    /* Title HTML dengan aksen warna "Smart Governance" sesuai referensi gambar.
+       <br> memaksa "Bagian Organisasi" turun ke baris baru di bawah
+       "Portal Smart Governance" persis seperti gambar. */
+    'Portal <span class="sg-subhero__title-accent">Smart Governance</span><br>Bagian Organisasi'
 );
 $portalHeroBreadcrumb = '';
 

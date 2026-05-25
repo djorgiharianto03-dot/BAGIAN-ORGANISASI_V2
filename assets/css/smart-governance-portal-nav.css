@@ -1288,8 +1288,27 @@ body.sg-portal-page:not(.sg-homepage) .org-hero.sg-subhero {
    <span class="sg-subhero__title-accent">. */
 .sg-subhero__title .sg-subhero__title-accent,
 .org-hero__title .sg-subhero__title-accent {
-    color: #7dd3fc; /* sky-300, biru cerah seperti referensi */
+    color: #7dd3fc !important; /* sky-300, biru cerah seperti referensi */
+    -webkit-text-fill-color: #7dd3fc !important; /* override layout-fix !important */
     font-weight: inherit;
+}
+
+/* Beranda hero — tipografi judul mengikuti referensi gambar:
+   - Font: Plus Jakarta Sans 800 (sudah dipreload di org_production_assets)
+   - Lebih besar, lebih tebal, line-height rapat
+   - HANYA Beranda (body.sg-homepage), sub-halaman lain TIDAK terpengaruh. */
+body.sg-homepage .sg-subhero__title,
+body.sg-homepage .org-hero__title.sg-subhero__title {
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif !important;
+    font-weight: 800 !important;
+    font-size: clamp(2.25rem, 4.2vw + 0.5rem, 4.25rem) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -0.035em !important;
+    margin: 0 0 0.85rem !important;
+}
+
+body.sg-homepage .sg-subhero__title br {
+    line-height: 0;
 }
 
 body.sg-portal-page:not(.sg-homepage) .site-layout-main {

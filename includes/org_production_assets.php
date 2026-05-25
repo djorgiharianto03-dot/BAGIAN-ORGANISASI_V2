@@ -8,7 +8,7 @@
 const ORG_ASSETS_BERANDA_CSS_BUNDLE_MANUAL_VERSION = 29;
 
 /** Naikkan saat deploy perubahan navbar portal (portal-nav saja). */
-const ORG_ASSETS_PORTAL_NAV_MANUAL_VERSION = 18;
+const ORG_ASSETS_PORTAL_NAV_MANUAL_VERSION = 19;
 
 const ORG_ASSETS_BERANDA_SHELL_CSS_BUNDLE_MANUAL_VERSION = 7;
 
@@ -157,11 +157,11 @@ function org_assets_fonts_portal_markup(): string
     return '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n"
         . '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n"
         . org_asset_preload_link(
-            'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap',
+            'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap',
             'style',
             true
         )
-        . '<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700&amp;display=swap"></noscript>' . "\n";
+        . '<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap"></noscript>' . "\n";
 }
 
 /** Font portal sync — beranda header (metrik sama Profil, tanpa flash fallback). */
@@ -169,7 +169,7 @@ function org_assets_fonts_portal_sync_markup(): string
 {
     return '<link rel="preconnect" href="https://fonts.googleapis.com">' . "\n"
         . '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . "\n"
-        . '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700&amp;display=swap" rel="stylesheet">' . "\n";
+        . '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet">' . "\n";
 }
 
 /**
