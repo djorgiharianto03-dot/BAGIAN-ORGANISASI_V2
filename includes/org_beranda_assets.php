@@ -375,7 +375,7 @@ function org_beranda_header_nav_sync_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=9');
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=10');
 }
 
 /**
@@ -451,8 +451,10 @@ function org_beranda_header_nav_critical_footer_markup(): string
         . 'background-image:none!important';
 
     $css = '<style id="sg-beranda-header-match-profil">'
-        /* Wrapper luar — paksa transparent (hanya property bg/border/shadow). */
-        . "{$home} .site-header--sg-portal .site-header__gradient,"
+        /* Wrapper KECIL di dalam gradient — paksa transparent.
+           CATATAN: .site-header__gradient TIDAK DISERTAKAN — itu adalah background
+           gelap utama header (gradient) yang harus tetap visible. v=8/v=9
+           sebelumnya membuatnya transparent → header tampak "kosong/floating". */
         . "{$home} .site-header--sg-portal .site-header__rail.container-global,"
         . "{$home} .site-header--sg-portal .header-inner.container-global,"
         . "{$home} .site-header__inner.header-inner,"

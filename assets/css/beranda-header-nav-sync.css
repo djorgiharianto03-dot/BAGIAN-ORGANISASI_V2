@@ -1,20 +1,24 @@
 /**
- * Beranda — navbar 1:1 dengan Profil (MINIMAL — hanya warna panel).
+ * Beranda — navbar 1:1 dengan Profil.
  *
- * v=9: Versi sebelumnya (v=8) memaksa display/flex/min-height/margin pada
- * banyak wrapper sehingga merusak layout header (navbar mengambang, gap besar).
+ * v=10: Fix layout rusak v=8/v=9 — di versi sebelumnya .site-header__gradient
+ * di-paksa TRANSPARENT, padahal itu BACKGROUND GELAP UTAMA header. Akibatnya
+ * gradient header hilang, hanya navbar-panel saja yang terlihat sebagai
+ * "kotak dark mengambang di tengah" pada area yang seharusnya gelap.
  *
- * Di v=9 file ini sangat minimal: hanya menyamakan WARNA panel Beranda dengan
- * Profil. Layout/positioning/spacing seluruhnya mengikuti
- * smart-governance-portal-nav.css (sama dengan Profil) — TIDAK di-override
- * dari sini sehingga Beranda mengikuti default Profil persis.
+ * v=10:
+ *   - .site-header__gradient TIDAK disentuh — biarkan default Profil (gradient gelap).
+ *   - Wrapper kecil di dalam gradient (rail, topbar, brand-row, navbar-wrapper,
+ *     nav-panel inner, nav-row, nav, actions) DIPAKSA transparent — supaya
+ *     tidak ada panel ke-2 dan gradient yang tertangkap.
+ *   - .navbar-panel dapat background dark navy (Profil look) — satu-satunya panel.
+ *
+ * Layout/spacing/min-height/position TIDAK disentuh dari sini — biar mengikuti
+ * smart-governance-portal-nav.css (sama Profil).
  *
  * Semua selector di-prefix `html body.sg-homepage` — Profil tidak terpengaruh.
  */
 
-/* Variabel CSS — selaras Profil (di-set agar var yang dipakai panel resolve
-   ke nilai yang benar, tetapi rule fisik tetap pakai hard-code di .navbar-panel
-   sehingga kebal terhadap override site_styles.php). */
 html body.sg-homepage.sg-portal-page {
     --layout-max-width: 1320px;
     --portal-content-gutter: clamp(1rem, 2.5vw, 32px);
@@ -33,8 +37,6 @@ html body.sg-homepage.sg-portal-page {
 
 /* ============================================================
    PANEL TUNGGAL — warna 1:1 Profil. Hanya bg/border/radius/shadow.
-   TIDAK mengubah display/position/min-height/margin — biar layout
-   mengikuti default Profil dari smart-governance-portal-nav.css.
    ============================================================ */
 html body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel,
 html body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap.navbar-panel,
@@ -61,11 +63,12 @@ html body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-h
 }
 
 /* ============================================================
-   WRAPPER LUAR — background dipaksa transparent agar tidak terlihat
-   sebagai panel ke-2. Hanya menyentuh property bg/border/shadow,
-   TIDAK menyentuh display/position/margin/padding/min-height.
+   WRAPPER KECIL di DALAM gradient — dipaksa transparent.
+   *** .site-header__gradient TIDAK DISENTUH *** — biarkan default Profil
+   (gradient gelap header utama).
+   Hanya menyentuh property bg/border/shadow, TIDAK menyentuh
+   display/position/margin/padding/min-height.
    ============================================================ */
-html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient,
 html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail.container-global,
 html body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global,
 html body.sg-homepage.sg-portal-page .site-header__inner.header-inner,
