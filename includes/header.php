@@ -164,6 +164,17 @@ if ($orgHeaderBerandaPage) {
 <?php endif; ?>
 <?php require __DIR__ . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'cursor_follower_markup.php'; ?>
 <?php
+/*
+ * Pastikan $smartPortalNav yang di-set oleh org_portal_prepare_page() via
+ * `global $smartPortalNav;` benar-benar terbaca di sini. Tanpa ini, sub
+ * halaman portal (mis. Profil) merender navbar struktur LAMA (tanpa
+ * .site-header--sg-portal) sehingga panel tidak terkena CSS portal-nav.
+ */
+global $smartPortalNav;
+if (!isset($smartPortalNav)) {
+    $smartPortalNav = defined('ORG_SG_PORTAL_PAGE') && ORG_SG_PORTAL_PAGE === true;
+}
+
 /* Pencarian dokumen hanya di halaman Perpustakaan Digital, bukan di header */
 $hideHeaderDocSearch = true;
 $hideHeaderSubtitle = !empty($hideHeaderSubtitle);
