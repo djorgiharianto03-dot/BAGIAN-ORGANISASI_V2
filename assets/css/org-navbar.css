@@ -10,28 +10,28 @@
     box-sizing: border-box;
 }
 
-/* Brand: logo + nama instansi di kanannya — proporsional dengan tinggi logo 56px.
-   Diturunkan sedikit dari tepi atas header dan tinggi total teks (2 baris)
-   sengaja sama dengan tinggi logo. */
+/* Brand: logo + nama instansi.
+   Logo dan teks center-aligned via flex. Tinggi teks auto-mengikuti
+   tinggi natural logo karena align-items:center pada parent. */
 .site-header__brand-row {
-    padding-top: clamp(0.4rem, 0.9vw, 0.7rem) !important;
+    padding-top: clamp(0.45rem, 1vw, 0.75rem) !important;
     padding-bottom: clamp(0.3rem, 0.7vw, 0.55rem) !important;
+    min-width: 0;
 }
 
 .site-header__brand-link {
     display: inline-flex !important;
     align-items: center !important;
-    gap: clamp(0.6rem, 1.1vw, 0.9rem) !important;
+    gap: clamp(0.55rem, 1.1vw, 0.85rem) !important;
     text-decoration: none !important;
     color: inherit;
     min-width: 0;
+    max-width: 100%;
 }
 
-.site-header__logo,
-.org-navbar__logo {
+.site-header__brand-link .org-navbar__logo,
+.site-header__brand-link .site-header__logo {
     flex: 0 0 auto;
-    height: 56px;
-    width: auto;
     display: block;
 }
 
@@ -39,8 +39,6 @@
     display: inline-flex;
     flex-direction: column;
     justify-content: center;
-    /* Tinggi teks total = tinggi logo */
-    height: 56px;
     line-height: 1.1;
     min-width: 0;
     color: #ffffff;
@@ -50,9 +48,9 @@
 .site-header__brand-title {
     font-family: var(--header-font-display, 'Public Sans', 'Inter', system-ui, sans-serif);
     font-weight: 800;
-    font-size: clamp(1rem, 0.78rem + 0.6vw, 1.25rem);
+    font-size: clamp(0.95rem, 0.75rem + 0.55vw, 1.2rem);
     letter-spacing: 0.02em;
-    line-height: 1.12;
+    line-height: 1.1;
     color: #ffffff;
     white-space: nowrap;
     text-shadow: 0 1px 2px rgba(0, 10, 28, 0.32);
@@ -61,44 +59,78 @@
 .site-header__brand-sub {
     font-family: var(--header-font-display, 'Public Sans', 'Inter', system-ui, sans-serif);
     font-weight: 500;
-    font-size: clamp(0.66rem, 0.55rem + 0.2vw, 0.8rem);
-    letter-spacing: 0.04em;
-    line-height: 1.18;
+    font-size: clamp(0.64rem, 0.52rem + 0.2vw, 0.78rem);
+    letter-spacing: 0.035em;
+    line-height: 1.2;
     color: rgba(186, 230, 253, 0.92);
-    margin-top: 0.16rem;
+    margin-top: 0.14rem;
     white-space: nowrap;
     text-shadow: 0 1px 2px rgba(0, 10, 28, 0.28);
 }
 
+/* Tablet — kecilkan sedikit, subtitle masih 1 baris */
 @media (max-width: 991.98px) {
+    .site-header__brand-link {
+        gap: 0.55rem !important;
+    }
+
     .site-header__brand-title {
-        font-size: clamp(0.9rem, 2vw + 0.35rem, 1.05rem);
+        font-size: clamp(0.88rem, 1.6vw + 0.45rem, 1rem);
     }
 
     .site-header__brand-sub {
-        font-size: clamp(0.6rem, 1.2vw + 0.3rem, 0.72rem);
-        letter-spacing: 0.03em;
+        font-size: clamp(0.58rem, 1vw + 0.32rem, 0.7rem);
+        letter-spacing: 0.025em;
     }
 }
 
+/* HP — subtitle boleh wrap 2 baris supaya muat di samping logo */
 @media (max-width: 575.98px) {
+    .site-header__brand-link {
+        gap: 0.5rem !important;
+    }
+
+    .site-header__brand-link .org-navbar__logo,
+    .site-header__brand-link .site-header__logo {
+        max-height: 40px !important;
+        height: 40px !important;
+        width: auto !important;
+    }
+
+    .site-header__brand-title {
+        font-size: clamp(0.82rem, 3vw + 0.3rem, 0.95rem);
+        line-height: 1.08;
+    }
+
     .site-header__brand-sub {
         white-space: normal;
+        font-size: clamp(0.55rem, 2vw + 0.28rem, 0.68rem);
         line-height: 1.15;
+        letter-spacing: 0.02em;
+        margin-top: 0.1rem;
+        /* Maksimal 2 baris saja, sisanya disembunyikan */
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 }
 
-@media (max-width: 419.98px) {
+/* HP sangat sempit — logo lebih kecil lagi, subtitle disembunyikan */
+@media (max-width: 389.98px) {
+    .site-header__brand-link .org-navbar__logo,
+    .site-header__brand-link .site-header__logo {
+        max-height: 36px !important;
+        height: 36px !important;
+    }
+
     .site-header__brand-sub {
         display: none;
     }
 
     .site-header__brand-title {
-        font-size: 0.92rem;
-    }
-
-    .site-header__brand-text {
-        height: auto;
+        font-size: 0.82rem;
+        line-height: 1.1;
     }
 }
 
