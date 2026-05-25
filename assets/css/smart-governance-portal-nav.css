@@ -1268,18 +1268,19 @@ body.sg-portal-page .org-hero--sub .org-hero__bg {
     visibility: visible !important;
 }
 
-/* Transisi halus hero → konten terang (tanpa belang) */
+/* Hero sub-halaman: tanpa shadow/gradient transisi di tepi bawah.
+   (User meminta hilangkan shadow yang terlihat di sub halaman.) */
 body.sg-portal-page:not(.sg-homepage) .sg-subhero::after,
 body.sg-portal-page:not(.sg-homepage) .org-hero.sg-subhero::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: clamp(0.75rem, 1.5vw, 1.25rem);
-    background: linear-gradient(180deg, transparent 0%, var(--sg-portal-surface, #f4f7fb) 100%);
-    pointer-events: none;
-    z-index: 1;
+    content: none !important;
+    display: none !important;
+    background: none !important;
+}
+
+body.sg-portal-page:not(.sg-homepage) .sg-subhero,
+body.sg-portal-page:not(.sg-homepage) .org-hero.sg-subhero {
+    box-shadow: none !important;
+    filter: none !important;
 }
 
 body.sg-portal-page:not(.sg-homepage) .site-layout-main {
