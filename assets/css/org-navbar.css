@@ -10,6 +10,73 @@
     box-sizing: border-box;
 }
 
+/* Brand: logo + nama instansi di kanannya — proporsional dengan tinggi logo 56px */
+.site-header__brand-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: clamp(0.55rem, 1.1vw, 0.85rem) !important;
+    text-decoration: none !important;
+    color: inherit;
+    min-width: 0;
+}
+
+.site-header__brand-text {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.12;
+    min-width: 0;
+    color: #ffffff;
+    text-align: left;
+}
+
+.site-header__brand-title {
+    font-family: var(--header-font-display, 'Public Sans', 'Inter', system-ui, sans-serif);
+    font-weight: 800;
+    font-size: clamp(0.95rem, 0.75rem + 0.55vw, 1.18rem);
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+    color: #ffffff;
+    white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(0, 10, 28, 0.32);
+}
+
+.site-header__brand-sub {
+    font-family: var(--header-font-display, 'Public Sans', 'Inter', system-ui, sans-serif);
+    font-weight: 500;
+    font-size: clamp(0.66rem, 0.55rem + 0.18vw, 0.78rem);
+    letter-spacing: 0.045em;
+    line-height: 1.18;
+    color: rgba(186, 230, 253, 0.92);
+    margin-top: 0.12rem;
+    text-shadow: 0 1px 2px rgba(0, 10, 28, 0.28);
+}
+
+.site-header__brand-sub br {
+    display: inline;
+}
+
+@media (max-width: 767.98px) {
+    .site-header__brand-title {
+        font-size: clamp(0.85rem, 2.4vw + 0.3rem, 0.95rem);
+    }
+
+    .site-header__brand-sub {
+        font-size: clamp(0.62rem, 1.5vw + 0.3rem, 0.72rem);
+        letter-spacing: 0.03em;
+    }
+}
+
+@media (max-width: 419.98px) {
+    .site-header__brand-sub {
+        display: none;
+    }
+
+    .site-header__brand-title {
+        font-size: 0.85rem;
+    }
+}
+
 /* Baris menu: link kiri, aksi (tema/login/dashboard) kanan */
 @media (min-width: 992px) {
     .site-header__nav-row {

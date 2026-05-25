@@ -39,11 +39,15 @@ $headerClass = org_ui_class(
         <div class="container-global site-header__rail header-inner">
             <div class="org-navbar__top site-header__topbar">
                 <div class="org-navbar__brand site-header__brand-row">
-                    <?php if (($logoWebPath ?? '') !== ''): ?>
-                        <a href="<?php echo htmlspecialchars(function_exists('org_home_url') ? org_home_url() : 'index.php', ENT_QUOTES, 'UTF-8'); ?>" class="inline-flex no-underline">
+                    <a href="<?php echo htmlspecialchars(function_exists('org_home_url') ? org_home_url() : 'index.php', ENT_QUOTES, 'UTF-8'); ?>" class="site-header__brand-link no-underline">
+                        <?php if (($logoWebPath ?? '') !== ''): ?>
                             <img src="<?php echo htmlspecialchars($logoWebPath, ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($siteLogoAlt, ENT_QUOTES, 'UTF-8'); ?>" class="org-navbar__logo site-header__logo" width="112" height="56" loading="eager" decoding="async"<?php echo $smartPortalNav ? ' fetchpriority="high"' : ''; ?>>
-                        </a>
-                    <?php endif; ?>
+                        <?php endif; ?>
+                        <span class="site-header__brand-text" aria-hidden="false">
+                            <span class="site-header__brand-title">BAGIAN ORGANISASI</span>
+                            <span class="site-header__brand-sub">SEKRETARIAT DAERAH<br>KABUPATEN KEPULAUAN ARU</span>
+                        </span>
+                    </a>
                 </div>
                 <?php if (empty($hideHeaderDocSearch)): ?>
                     <div class="org-navbar__search site-header__search-wrap">
@@ -144,11 +148,15 @@ $headerClass = org_ui_class(
         <div class="org-navbar__inner org-container site-header__inner container">
             <div class="org-navbar__top site-header__topbar">
                 <div class="org-navbar__brand site-header__brand-row">
-                    <?php if (($logoWebPath ?? '') !== ''): ?>
-                        <a href="<?php echo htmlspecialchars(function_exists('org_home_url') ? org_home_url() : 'index.php', ENT_QUOTES, 'UTF-8'); ?>" class="inline-flex no-underline">
+                    <a href="<?php echo htmlspecialchars(function_exists('org_home_url') ? org_home_url() : 'index.php', ENT_QUOTES, 'UTF-8'); ?>" class="site-header__brand-link no-underline">
+                        <?php if (($logoWebPath ?? '') !== ''): ?>
                             <img src="<?php echo htmlspecialchars($logoWebPath, ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($siteLogoAlt, ENT_QUOTES, 'UTF-8'); ?>" class="org-navbar__logo site-header__logo" width="112" height="56" loading="eager" decoding="async"<?php echo $smartPortalNav ? ' fetchpriority="high"' : ''; ?>>
-                        </a>
-                    <?php endif; ?>
+                        <?php endif; ?>
+                        <span class="site-header__brand-text">
+                            <span class="site-header__brand-title">BAGIAN ORGANISASI</span>
+                            <span class="site-header__brand-sub">SEKRETARIAT DAERAH<br>KABUPATEN KEPULAUAN ARU</span>
+                        </span>
+                    </a>
                 </div>
                 <?php if (empty($hideHeaderDocSearch)): ?>
                     <div class="org-navbar__search site-header__search-wrap">
