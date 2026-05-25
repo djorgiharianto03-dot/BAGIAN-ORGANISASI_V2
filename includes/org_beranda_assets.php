@@ -264,7 +264,7 @@ function org_beranda_mobile_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-mobile.css?v=2');
+    return org_asset_stylesheet_link('assets/css/beranda-mobile.css?v=3');
 }
 
 /** Beranda — design system UI (sync, cascade terakhir). */

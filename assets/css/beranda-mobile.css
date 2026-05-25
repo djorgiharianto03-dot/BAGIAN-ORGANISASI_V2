@@ -207,21 +207,26 @@
         overflow-wrap: anywhere;
     }
 
-    /* Tim target & eksekutif */
+    /* Tim target & eksekutif — rata kiri penuh (override beranda-dashboard-cards.css)
+       Catatan: pakai #beranda-root agar specificity menang dari rule
+       align-items:flex-end di beranda-dashboard-cards.css yang load setelahnya. */
+    body.sg-homepage #beranda-root .gov-team-target-section__header,
     body.sg-homepage .gov-team-target-section__header {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.65rem;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+        gap: 0.65rem !important;
+        text-align: left !important;
     }
 
+    body.sg-homepage #beranda-root .gov-team-target-section__heading,
     body.sg-homepage .gov-team-target-section__heading {
-        width: 100%;
-        align-self: stretch;
-        text-align: left;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
+        width: 100% !important;
+        align-self: stretch !important;
+        text-align: left !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     body.sg-homepage #beranda-root .gov-team-target-section__title,
@@ -231,14 +236,18 @@
         margin-right: 0 !important;
         padding-left: 0 !important;
         padding-right: 0 !important;
-        max-width: 100%;
+        max-width: 100% !important;
+        width: 100% !important;
+        align-self: flex-start !important;
     }
 
+    body.sg-homepage #beranda-root .gov-team-target-section__years,
     body.sg-homepage .gov-team-target-section__years {
-        width: 100%;
-        justify-content: flex-start;
-        margin-left: 0;
-        padding-left: 0;
+        width: 100% !important;
+        justify-content: flex-start !important;
+        align-self: flex-start !important;
+        margin-left: 0 !important;
+        padding-left: 0 !important;
     }
 
     body.sg-homepage .gov-team-target-dash-grid > [class*="col-lg-4"],
