@@ -45,7 +45,7 @@ $headerClass = org_ui_class(
                         <?php endif; ?>
                         <span class="site-header__brand-text" aria-hidden="false">
                             <span class="site-header__brand-title">BAGIAN ORGANISASI</span>
-                            <span class="site-header__brand-sub">SEKRETARIAT DAERAH<br>KABUPATEN KEPULAUAN ARU</span>
+                            <span class="site-header__brand-sub">SEKRETARIAT DAERAH KABUPATEN KEPULAUAN ARU</span>
                         </span>
                     </a>
                 </div>
@@ -154,7 +154,7 @@ $headerClass = org_ui_class(
                         <?php endif; ?>
                         <span class="site-header__brand-text">
                             <span class="site-header__brand-title">BAGIAN ORGANISASI</span>
-                            <span class="site-header__brand-sub">SEKRETARIAT DAERAH<br>KABUPATEN KEPULAUAN ARU</span>
+                            <span class="site-header__brand-sub">SEKRETARIAT DAERAH KABUPATEN KEPULAUAN ARU</span>
                         </span>
                     </a>
                 </div>
