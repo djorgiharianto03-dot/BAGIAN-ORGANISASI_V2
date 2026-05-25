@@ -175,61 +175,128 @@
                 showEmpty(el, 'Belum ada kegiatan untuk grafik tim ini.');
             });
         } else {
+            var REDUCED_MOTION = window.matchMedia
+                && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
             teamKeys.forEach(function (tim) {
                 var pack = teams[tim];
                 if (!pack) return;
                 var el = document.getElementById('govTeamTargetChart-' + tim);
                 if (!el || el.getAttribute('data-chart-ready') === '1') return;
+
                 var pct = Math.max(0, Math.min(100, Number(pack.pct) || 0));
-                var color = pack.color || '#0f2744';
-                var colorLight = pack.colorLight || '#60a5fa';
+
+                /* Donat distribusi status: Direncanakan / Berjalan / Selesai.
+                   Lebih informatif daripada radialBar gauge (yang hanya
+                   menampilkan satu angka), namun tetap sangat ringan
+                   (3 slice maks, tanpa animasi gradient). */
+                var sc = pack.statusCounts || {};
+                var palette = pack.statusPalette || {};
+                var rawSeries = [
+                    Number(sc.direncanakan) || 0,
+                    Number(sc.berjalan) || 0,
+                    Number(sc.selesai) || 0
+                ];
+                var rawLabels = ['Direncanakan', 'Berjalan', 'Selesai'];
+                var rawColors = [
+                    palette.direncanakan || '#8F6524',
+                    palette.berjalan || '#1A3F6E',
+                    palette.selesai || '#0B5E48'
+                ];
+
+                /* Buang slice nol agar tooltip & legend hanya menampilkan
+                   status yang relevan; juga sedikit mempercepat render. */
+                var series = [];
+                var labels = [];
+                var colors = [];
+                rawSeries.forEach(function (v, i) {
+                    if (v > 0) {
+                        series.push(v);
+                        labels.push(rawLabels[i]);
+                        colors.push(rawColors[i]);
+                    }
+                });
+
+                if (series.length === 0) {
+                    /* Fallback: tidak ada slice yang valid — tampilkan donat
+                       polos dengan satu segmen 'Belum ada data'. */
+                    series = [1];
+                    labels = ['Belum ada data'];
+                    colors = ['#cbd5e1'];
+                }
+
+                var fontStack = 'Poppins, system-ui, sans-serif';
+                var totalKegiatan = Number(pack.count) || rawSeries.reduce(function (a, b) { return a + b; }, 0);
+
                 var chart = new ApexCharts(el, {
-                    series: [pct],
+                    series: series,
                     chart: {
-                        type: 'radialBar',
-                        height: 172,
-                        sparkline: { enabled: false },
-                        fontFamily: 'Poppins, system-ui, sans-serif'
+                        type: 'donut',
+                        height: 188,
+                        fontFamily: fontStack,
+                        toolbar: { show: false },
+                        redrawOnParentResize: false,
+                        animations: REDUCED_MOTION
+                            ? { enabled: false }
+                            : { enabled: true, speed: 600, easing: 'easeinout', animateGradually: { enabled: false } }
                     },
+                    labels: labels,
+                    colors: colors,
+                    stroke: { width: 2, colors: ['#ffffff'] },
+                    dataLabels: { enabled: false },
+                    legend: { show: false },
                     plotOptions: {
-                        radialBar: {
-                            startAngle: -90,
-                            endAngle: 90,
-                            hollow: { size: '65%' },
-                            track: {
-                                background: '#e8edf4',
-                                strokeWidth: '100%',
-                                margin: 4
-                            },
-                            dataLabels: {
-                                name: { show: false },
-                                value: {
-                                    offsetY: -4,
-                                    fontSize: '1.4rem',
-                                    fontWeight: 700,
-                                    color: color,
-                                    formatter: function (val) { return Math.round(val) + '%'; }
+                        pie: {
+                            donut: {
+                                size: '68%',
+                                labels: {
+                                    show: true,
+                                    name: {
+                                        show: true,
+                                        fontSize: '11px',
+                                        fontWeight: 500,
+                                        color: '#64748b',
+                                        offsetY: 8,
+                                        formatter: function () { return totalKegiatan + ' kegiatan'; }
+                                    },
+                                    value: {
+                                        show: true,
+                                        fontSize: '1.5rem',
+                                        fontWeight: 700,
+                                        color: '#0f2744',
+                                        offsetY: -6,
+                                        formatter: function () { return Math.round(pct) + '%'; }
+                                    },
+                                    total: {
+                                        show: true,
+                                        showAlways: true,
+                                        label: '',
+                                        color: '#0f2744',
+                                        fontSize: '1.5rem',
+                                        fontWeight: 700,
+                                        formatter: function () { return Math.round(pct) + '%'; }
+                                    }
                                 }
                             }
                         }
                     },
-                    fill: {
-                        type: 'gradient',
-                        gradient: {
-                            shade: 'dark',
-                            type: 'horizontal',
-                            shadeIntensity: 0.5,
-                            gradientFromColors: [colorLight],
-                            gradientToColors: [color],
-                            inverseColors: false,
-                            opacityFrom: 1,
-                            opacityTo: 1,
-                            stops: [0, 45, 100]
+                    tooltip: {
+                        theme: 'light',
+                        y: {
+                            formatter: function (val) { return val + ' kegiatan'; }
                         }
                     },
-                    colors: [color],
-                    stroke: { lineCap: 'round' },
-                    labels: ['Progres']
+                    states: {
+                        hover: { filter: { type: 'darken', value: 0.06 } },
+                        active: { filter: { type: 'none' } }
+                    },
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: { height: 168 },
+                            plotOptions: { pie: { donut: { size: '62%' } } }
+                        }
+                    }]
                 });
                 chart.render().then(function () {
                     if (typeof chart.resize === 'function') {

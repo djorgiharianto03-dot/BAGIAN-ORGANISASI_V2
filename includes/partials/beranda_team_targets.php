@@ -50,6 +50,18 @@ foreach (org_team_targets_tim_list() as $timKey) {
         continue;
     }
     $gaugeStatus = org_team_targets_items_dominant_status($enriched);
+
+    /* Hitung distribusi status untuk donat kapasitas tim. Donat menggantikan
+       radialBar — lebih informatif (memperlihatkan komposisi status) tetapi
+       tetap ringan (hanya 3 slice maksimal). */
+    $statusCounts = ['direncanakan' => 0, 'berjalan' => 0, 'selesai' => 0];
+    foreach ($enriched as $itemRow) {
+        $stRow = org_team_targets_normalize_status((string) ($itemRow['status'] ?? 'direncanakan'));
+        if (isset($statusCounts[$stRow])) {
+            $statusCounts[$stRow]++;
+        }
+    }
+
     $govTeamTargetChartPayload[$timKey] = [
         'label' => org_team_targets_tim_label($timKey),
         'pct' => $avgPct,
@@ -58,6 +70,12 @@ foreach (org_team_targets_tim_list() as $timKey) {
         'colorLight' => org_team_targets_status_accent_color_light($gaugeStatus),
         'count' => count($enriched),
         'items' => $enriched,
+        'statusCounts' => $statusCounts,
+        'statusPalette' => [
+            'direncanakan' => org_team_targets_status_accent_color('direncanakan'),
+            'berjalan' => org_team_targets_status_accent_color('berjalan'),
+            'selesai' => org_team_targets_status_accent_color('selesai'),
+        ],
     ];
 }
 $govTeamTargetChartJson = json_encode(
