@@ -375,7 +375,7 @@ function org_beranda_header_nav_sync_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=4');
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=5');
 }
 
 /**
@@ -428,11 +428,13 @@ HTML;
 function org_beranda_header_nav_critical_footer_markup(): string
 {
     $home = 'body.sg-homepage.sg-portal-page';
-    $rail = 'max-width:1320px!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important;padding-top:0!important;padding-bottom:0!important';
-    $brandRow = 'display:flex!important;align-items:center!important;flex-wrap:nowrap!important;gap:.65rem .85rem!important;flex:1 1 auto!important;min-width:0!important;max-width:none!important;justify-content:flex-start!important;margin:0!important;padding:0!important';
+    /* v=5: rail dapat padding-top dari variabel --sg-beranda-rail-pad-top (di beranda-header-nav-sync.css?v=5)
+       sehingga logo turun sejajar dengan panel navbar — sama Profil. */
+    $rail = 'max-width:1320px!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important;padding-top:var(--sg-beranda-rail-pad-top,clamp(.55rem,1.1vw,.95rem))!important;padding-bottom:var(--sg-beranda-rail-pad-bottom,clamp(.4rem,.9vw,.7rem))!important';
+    $brandRow = 'display:flex!important;align-items:center!important;flex-wrap:nowrap!important;gap:.65rem .85rem!important;flex:1 1 auto!important;min-width:0!important;max-width:none!important;justify-content:flex-start!important;margin:0!important;padding:0!important;align-self:center!important;min-height:var(--sg-nav-panel-min-h,56px)!important';
     $brandAnchor = 'flex-shrink:0!important;align-self:center!important;display:inline-flex!important;align-items:center!important;margin:0!important;padding:0!important';
-    $topbar = 'order:1!important;width:100%!important;max-width:100%!important;flex:0 0 auto!important;align-self:stretch!important;align-items:center!important;gap:.5rem 1rem!important;padding:.2rem 0 .15rem!important;margin:0!important';
-    $logo = 'max-width:none!important;width:auto!important;height:auto!important;object-fit:contain!important;filter:none!important;flex-shrink:0!important;vertical-align:middle!important';
+    $topbar = 'order:1!important;width:100%!important;max-width:100%!important;flex:0 0 auto!important;align-self:stretch!important;align-items:center!important;gap:.5rem 1rem!important;padding:0!important;margin:0!important;min-height:var(--sg-nav-panel-min-h,56px)!important';
+    $logo = 'max-width:none!important;width:auto!important;height:auto!important;object-fit:contain!important;filter:none!important;flex-shrink:0!important;vertical-align:middle!important;align-self:center!important;margin-top:0!important;margin-bottom:0!important';
 
     $css = '<style id="sg-beranda-header-match-profil">'
         . "{$home} .site-header--sg-portal .site-header__rail.container-global,"
