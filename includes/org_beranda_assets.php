@@ -375,10 +375,14 @@ function org_beranda_header_nav_sync_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=3');
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=4');
 }
 
-/** Skrip: kunci ukuran header Beranda = Profil (setelah semua CSS async/bundle). */
+/**
+ * Skrip: hapus inline style/class beranda-only yang dapat menggeser logo.
+ * Aturan header (brand-row, logo, topbar) memakai smart-governance-portal-nav.css
+ * agar 1:1 dengan Profil.
+ */
 function org_beranda_header_nav_relock_script(): string
 {
     return <<<'HTML'
@@ -387,82 +391,77 @@ function org_beranda_header_nav_relock_script(): string
     'use strict';
     if (!document.body || !document.body.classList.contains('sg-homepage')) return;
 
-    var STYLE_ID = 'sg-beranda-header-relock-style';
-
-    function css() {
-        var desktop = window.matchMedia('(min-width:992px)').matches;
-        var mobile = window.matchMedia('(max-width:991.98px)').matches;
-        var logoH = desktop ? '52px' : (window.matchMedia('(max-width:575.98px)').matches ? '48px' : '38px');
-        var logoW = desktop ? 'none' : '36vw';
-        var rules = [
-            'body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient{padding:0!important}',
-            'body.sg-homepage.sg-portal-page .site-header__rail .site-header__topbar,body.sg-homepage.sg-portal-page .header-inner .site-header__topbar{gap:.5rem 1rem!important;padding:.2rem 0 .15rem!important}',
-            'body.sg-homepage.sg-portal-page .site-header__logo,body.sg-homepage.sg-portal-page .org-navbar__logo{max-height:' + logoH + '!important;max-width:' + logoW + '!important;width:auto!important;height:auto!important;object-fit:contain!important;filter:none!important}',
-            'body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail.container-global,body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global{max-width:1320px!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important;padding-top:0!important;padding-bottom:0!important}',
-            'body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-login,body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-logout,body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-dashboard,body.sg-homepage.sg-portal-page .site-header__actions-end .btn{min-height:40px!important;padding:.45rem .75rem!important;border-radius:.75rem!important}'
+    function cleanInline() {
+        var sels = [
+            '.site-header__topbar',
+            '.site-header__brand-row',
+            '.org-navbar__brand',
+            '.site-header__brand-row > a',
+            '.site-header__logo',
+            '.org-navbar__logo'
         ];
-        if (desktop) {
-            rules.push(
-                'body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper{margin-top:clamp(.5rem,1.2vw,1.125rem)!important}',
-                'body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel{min-height:56px!important;border-radius:20px!important;padding:.35rem 0!important;background:rgba(2,22,48,.94)!important;border:1px solid rgba(147,197,253,.18)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 32px rgba(0,10,28,.42)!important}'
-            );
-        }
-        if (mobile) {
-            rules.push('body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient{padding-top:10px!important;padding-bottom:6px!important}');
-        }
-        return rules.join('');
+        sels.forEach(function (sel) {
+            document.querySelectorAll(sel).forEach(function (el) {
+                if (!el || !el.style) return;
+                ['justify-content','align-items','align-self','flex','padding','margin','width','max-width','height','max-height','transform','position','left','right','top'].forEach(function (p) {
+                    el.style.removeProperty(p);
+                });
+            });
+        });
     }
 
-    function apply() {
-        var el = document.getElementById(STYLE_ID);
-        if (!el) {
-            el = document.createElement('style');
-            el.id = STYLE_ID;
-            document.head.appendChild(el);
-        }
-        el.textContent = css();
-    }
-
-    apply();
+    cleanInline();
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', apply);
+        document.addEventListener('DOMContentLoaded', cleanInline);
     }
-    window.addEventListener('load', apply);
-    window.addEventListener('resize', apply, { passive: true });
-    if (typeof ResizeObserver !== 'undefined') {
-        var header = document.querySelector('.site-header--sg-portal');
-        if (header) new ResizeObserver(apply).observe(header);
-    }
-    document.querySelectorAll('link[rel="stylesheet"]').forEach(function (link) {
-        link.addEventListener('load', apply);
-    });
+    window.addEventListener('load', cleanInline);
 })();
 </script>
 
 HTML;
 }
 
-/** Inline lock header Beranda = Profil (footer, setelah semua CSS async). */
+/**
+ * Inline footer override — kunci layout header Beranda = Profil.
+ * Menimpa cache lama bundle/beranda-only di akhir cascade.
+ */
 function org_beranda_header_nav_critical_footer_markup(): string
 {
-    return '<style id="sg-beranda-header-match-profil">'
+    $home = 'body.sg-homepage.sg-portal-page';
+    $rail = 'max-width:1320px!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important;padding-top:0!important;padding-bottom:0!important';
+    $brandRow = 'display:flex!important;align-items:center!important;flex-wrap:nowrap!important;gap:.65rem .85rem!important;flex:1 1 auto!important;min-width:0!important;max-width:none!important;justify-content:flex-start!important;margin:0!important;padding:0!important';
+    $brandAnchor = 'flex-shrink:0!important;align-self:center!important;display:inline-flex!important;align-items:center!important;margin:0!important;padding:0!important';
+    $topbar = 'order:1!important;width:100%!important;max-width:100%!important;flex:0 0 auto!important;align-self:stretch!important;align-items:center!important;gap:.5rem 1rem!important;padding:.2rem 0 .15rem!important;margin:0!important';
+    $logo = 'max-width:none!important;width:auto!important;height:auto!important;object-fit:contain!important;filter:none!important;flex-shrink:0!important;vertical-align:middle!important';
+
+    $css = '<style id="sg-beranda-header-match-profil">'
+        . "{$home} .site-header--sg-portal .site-header__rail.container-global,"
+        . "{$home} .site-header--sg-portal .header-inner.container-global{"
+        . 'display:flex!important;flex-direction:column!important;align-items:stretch!important;flex-wrap:nowrap!important;width:100%!important;' . $rail . '!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box!important}'
+        . "{$home} .site-header__rail .site-header__topbar,"
+        . "{$home} .header-inner .site-header__topbar{" . $topbar . '}'
+        . "{$home} .site-header--sg-portal .site-header__brand-row,"
+        . "{$home} .site-header--sg-portal .org-navbar__brand.site-header__brand-row{" . $brandRow . '}'
+        . "{$home} .site-header--sg-portal .site-header__brand-row > a:first-child{" . $brandAnchor . '}'
+        . "{$home} .site-header__logo,{$home} .org-navbar__logo{max-height:48px!important;" . $logo . '}'
         . '@media(min-width:992px){'
-        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail.container-global,'
-        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global{'
-        . 'max-width:1320px!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important;padding-top:0!important;padding-bottom:0!important'
-        . '}'
-        . 'body.sg-homepage.sg-portal-page .site-header__logo,body.sg-homepage.sg-portal-page .org-navbar__logo{max-height:52px!important}'
-        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,'
-        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel{'
-        . 'min-height:56px!important;border-radius:20px!important;padding:.35rem 0!important;background:rgba(2,22,48,.94)!important'
-        . '}'
-        . 'body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper{margin-top:clamp(.5rem,1.2vw,1.125rem)!important}'
+        . "{$home} .site-header__logo,{$home} .org-navbar__logo{max-height:52px!important}"
+        . "{$home} .site-header__rail .navbar-wrapper,{$home} .site-header__rail .org-navbar__nav-shell,{$home} .navbar-wrapper{"
+        . 'display:block!important;width:100%!important;max-width:100%!important;margin-top:clamp(.5rem,1.2vw,1.125rem)!important;margin-left:0!important;margin-right:0!important;padding:0!important;flex:0 0 auto!important;order:2!important;align-self:stretch!important;box-sizing:border-box!important}'
+        . "{$home} .site-header--sg-portal .site-header__nav-wrap.navbar-panel,"
+        . "{$home} .site-header--sg-portal .navbar-panel{"
+        . 'min-height:56px!important;border-radius:20px!important;padding:.35rem 0!important;background:rgba(2,22,48,.94)!important;border:1px solid rgba(147,197,253,.18)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 32px rgba(0,10,28,.42)!important}'
         . '}'
         . '@media(max-width:991.98px){'
-        . 'body.sg-homepage.sg-portal-page .site-header__logo,body.sg-homepage.sg-portal-page .org-navbar__logo{max-height:38px!important;max-width:36vw!important}'
-        . 'body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient{padding-top:10px!important;padding-bottom:6px!important}'
+        . "{$home} .site-header__logo,{$home} .org-navbar__logo{max-height:38px!important;max-width:36vw!important}"
+        . "{$home} .site-header--sg-portal .site-header__gradient{padding-top:10px!important;padding-bottom:6px!important}"
+        . '}'
+        . '@media(max-width:575.98px){'
+        . "{$home} .site-header__logo,{$home} .org-navbar__logo{max-height:48px!important;max-width:36vw!important}"
         . '}'
         . '</style>' . "\n";
+
+    return $css;
 }
 
 /** Muat ulang CSS navbar paling akhir (timpa bundle async beranda). */
