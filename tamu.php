@@ -237,6 +237,39 @@ $currentPage = max(1, (int) ($_GET['page'] ?? 1));
 $totalRows = 0;
 $totalPages = 1;
 
+/* Sumber utama nama personel: personnel.json (selaras dengan halaman
+   Profil → Struktur & Personel). Dilakukan SEBELUM cek tabel `tamu` agar
+   dropdown personel tetap terisi meski tabel tamu belum ada / gagal dibuat. */
+if (isset($personnelData) && is_array($personnelData)) {
+    foreach ($personnelData as $personItem) {
+        if (!is_array($personItem)) {
+            continue;
+        }
+        $personName = trim((string) ($personItem['name'] ?? $personItem['nama'] ?? ''));
+        if ($personName !== '') {
+            $personnelOptions[] = $personName;
+        }
+    }
+}
+
+$dedupePersonnel = static function (array $options): array {
+    $seen = [];
+    $out = [];
+    foreach ($options as $name) {
+        $key = mb_strtolower(trim((string) $name), 'UTF-8');
+        if ($key === '' || isset($seen[$key])) {
+            continue;
+        }
+        $seen[$key] = true;
+        $out[] = $name;
+    }
+    usort($out, static function (string $a, string $b): int {
+        return strnatcasecmp($a, $b);
+    });
+    return $out;
+};
+$personnelOptions = $dedupePersonnel($personnelOptions);
+
 $db = org_db();
 if (!($db instanceof mysqli)) {
     $message = 'Koneksi database tidak tersedia.';
@@ -244,8 +277,34 @@ if (!($db instanceof mysqli)) {
 } else {
     $tableCheck = $db->query("SHOW TABLES LIKE 'tamu'");
     $tableExists = $tableCheck !== false && $tableCheck->num_rows > 0;
+
+    /* Buat otomatis tabel `tamu` bila belum ada. Mengikuti pola
+       org_dev_bootstrap_once (auto-create tabel users) supaya admin tidak
+       perlu menjalankan SQL manual. Schema mengikuti nama kolom kanonik
+       yang digunakan oleh form & query INSERT di bawah. */
     if (!$tableExists) {
-        $message = "Tabel 'tamu' belum ditemukan pada database.";
+        $createTamuSql = "CREATE TABLE IF NOT EXISTS `tamu` ("
+            . " `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,"
+            . " `nama` VARCHAR(191) NOT NULL DEFAULT '',"
+            . " `no_hp` VARCHAR(40) NOT NULL DEFAULT '',"
+            . " `instansi` VARCHAR(191) NOT NULL DEFAULT '',"
+            . " `tujuan_bertamu` VARCHAR(191) NOT NULL DEFAULT '',"
+            . " `nama_personel` VARCHAR(191) NOT NULL DEFAULT '',"
+            . " `keperluan` TEXT NULL,"
+            . " `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,"
+            . " PRIMARY KEY (`id`),"
+            . " KEY `idx_tamu_created` (`created_at`),"
+            . " KEY `idx_tamu_tujuan` (`tujuan_bertamu`)"
+            . ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
+        if ($db->query($createTamuSql)) {
+            $tableCheck2 = $db->query("SHOW TABLES LIKE 'tamu'");
+            $tableExists = $tableCheck2 !== false && $tableCheck2->num_rows > 0;
+        }
+    }
+
+    if (!$tableExists) {
+        $message = "Tabel 'tamu' belum tersedia dan gagal dibuat otomatis. "
+            . "Periksa hak akses CREATE di database, atau jalankan install/tamu.sql secara manual.";
         $messageType = 'warning';
     } else {
         $columns = [];
@@ -259,23 +318,6 @@ if (!($db instanceof mysqli)) {
             }
         }
         $idField = isset($columns['id']) ? 'id' : (isset($columns['tamu_id']) ? 'tamu_id' : '');
-
-        /* Sumber utama nama personel: personnel.json (selaras dengan halaman
-           Profil → Struktur & Personel). Tabel MySQL `personnel`/`personel`
-           bersifat opsional (mirror untuk migrasi) sehingga dianggap sebagai
-           pelengkap saja. Pendekatan ini memastikan dropdown selalu terisi
-           bila admin mengelola personel dari halaman Profil. */
-        if (isset($personnelData) && is_array($personnelData)) {
-            foreach ($personnelData as $personItem) {
-                if (!is_array($personItem)) {
-                    continue;
-                }
-                $personName = trim((string) ($personItem['name'] ?? $personItem['nama'] ?? ''));
-                if ($personName !== '') {
-                    $personnelOptions[] = $personName;
-                }
-            }
-        }
 
         /* Tambahan opsional: gabungkan personel dari tabel MySQL jika ada
            (mirror data lama / migrasi). Nama yang sudah ada di JSON tidak
@@ -312,24 +354,8 @@ if (!($db instanceof mysqli)) {
                     }
                 }
             }
+            $personnelOptions = $dedupePersonnel($personnelOptions);
         }
-
-        /* Deduplikasi (case-insensitive untuk hindari 'Ali' vs 'ali')
-           lalu urutkan alfabet sesuai locale Indonesia. */
-        $seenLowercase = [];
-        $dedup = [];
-        foreach ($personnelOptions as $optName) {
-            $key = mb_strtolower(trim($optName), 'UTF-8');
-            if ($key === '' || isset($seenLowercase[$key])) {
-                continue;
-            }
-            $seenLowercase[$key] = true;
-            $dedup[] = $optName;
-        }
-        usort($dedup, static function (string $a, string $b): int {
-            return strnatcasecmp($a, $b);
-        });
-        $personnelOptions = $dedup;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && (string) ($_POST['action'] ?? '') === 'delete_tamu') {
             $rowId = trim((string) ($_POST['row_id'] ?? ''));
