@@ -599,10 +599,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'delete_personnel') {
         $shouldRedirect = true;
         $redirectPage = $orgSanitizeReturn((string) ($_POST['return_to'] ?? 'struktur.php'));
+
+        /* Audit log: setiap percobaan delete dicatat ke storage/personnel_audit.log
+           untuk memudahkan diagnosis "data muncul kembali setelah refresh".
+           Log mencakup: timestamp, person id/slug yang diminta, hasil cari,
+           writeOk, persistOk, jumlah baris file sebelum & sesudah, dan
+           ringkasan error. */
+        $auditLog = static function (array $entry) use ($personnelFile): void {
+            $logDir = dirname($personnelFile) . DIRECTORY_SEPARATOR . 'storage';
+            if (!is_dir($logDir)) {
+                @mkdir($logDir, 0775, true);
+            }
+            $logFile = $logDir . DIRECTORY_SEPARATOR . 'personnel_audit.log';
+            $line = '[' . date('Y-m-d H:i:s') . '] '
+                . json_encode($entry, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
+                . PHP_EOL;
+            @file_put_contents($logFile, $line, FILE_APPEND | LOCK_EX);
+        };
+
         if (!org_csrf_validate()) {
+            $auditLog(['op' => 'delete_personnel', 'result' => 'csrf_fail']);
             $_SESSION['flash_message'] = 'Sesi keamanan tidak valid. Muat ulang halaman lalu coba lagi.';
             $_SESSION['flash_type'] = 'danger';
         } elseif (!org_personnel_can_manage()) {
+            $auditLog(['op' => 'delete_personnel', 'result' => 'no_permission']);
             $_SESSION['flash_message'] = 'Akses ditolak. Hanya Admin yang dapat mengelola personel.';
             $_SESSION['flash_type'] = 'danger';
         } else {
@@ -610,6 +630,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $personSlug = trim((string) ($_POST['person_slug'] ?? ''));
             $rowIndex = org_personnel_find_index($personnelData, $personId, $personSlug);
             if ($rowIndex === false) {
+                $auditLog([
+                    'op' => 'delete_personnel',
+                    'result' => 'not_found',
+                    'person_id' => $personId,
+                    'person_slug' => $personSlug,
+                    'data_count' => count($personnelData),
+                ]);
                 $_SESSION['flash_message'] = 'Data personel tidak ditemukan. Halaman mungkin sudah berubah — muat ulang lalu coba lagi.';
                 $_SESSION['flash_type'] = 'warning';
             } else {
@@ -622,25 +649,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 $deletedName = trim((string) ($personnelData[$rowIndex]['name'] ?? ''));
                 $deletedId = (string) ($personnelData[$rowIndex]['id'] ?? '');
+                $beforeCount = count($personnelData);
+
                 /* Atomik: simpan JSON dulu. Hanya jika tulis JSON sukses
-                   barulah file foto dihapus dari disk. Urutan kebalikannya
-                   (hapus foto dulu) berisiko meninggalkan baris personel
-                   tanpa foto jika personnel.json gagal ditulis. */
+                   barulah file foto dihapus dari disk. */
                 $personnelDataAfter = $personnelData;
                 array_splice($personnelDataAfter, $rowIndex, 1);
-                $writeOk = $savePersonnelData($personnelFile, $personnelDataAfter);
+
+                /* Resolve path ke canonical absolute (cegah ambiguitas
+                   working-dir / symlink di Windows). */
+                $personnelFileResolved = $personnelFile;
+                $realPersonnel = @realpath($personnelFile);
+                if ($realPersonnel !== false && $realPersonnel !== '') {
+                    $personnelFileResolved = $realPersonnel;
+                }
+
+                $writeOk = $savePersonnelData($personnelFileResolved, $personnelDataAfter);
+
+                /* Invalidate semua stat cache (bukan hanya file ini) — lebih
+                   defensif di Windows + AV. */
+                clearstatcache(true);
 
                 /* Verifikasi tambahan: baca ulang file dari disk, pastikan
-                   id yang dihapus benar-benar sudah tidak ada. Mencegah
-                   "sukses palsu" akibat penulisan parsial / file dipegang
-                   proses lain pada Windows. */
+                   id yang dihapus benar-benar sudah tidak ada. */
                 $persistOk = false;
+                $afterCount = -1;
                 if ($writeOk) {
-                    clearstatcache(true, $personnelFile);
-                    $verifyRaw = @file_get_contents($personnelFile);
+                    $verifyRaw = @file_get_contents($personnelFileResolved);
                     if ($verifyRaw !== false && $verifyRaw !== '') {
                         $verifyData = json_decode($verifyRaw, true);
                         if (is_array($verifyData)) {
+                            $afterCount = count($verifyData);
                             $persistOk = true;
                             if ($deletedId !== '') {
                                 foreach ($verifyData as $verifyRow) {
@@ -654,17 +693,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
 
+                $auditLog([
+                    'op' => 'delete_personnel',
+                    'person_id' => $deletedId,
+                    'person_name' => $deletedName,
+                    'before_count' => $beforeCount,
+                    'after_count' => $afterCount,
+                    'write_ok' => $writeOk,
+                    'persist_ok' => $persistOk,
+                    'file' => $personnelFileResolved,
+                    'is_writable' => is_writable($personnelFileResolved),
+                    'last_error' => error_get_last(),
+                ]);
+
                 if ($writeOk && $persistOk) {
                     org_personnel_delete_photo_files($fotoStrukturDir, $slug);
+                    /* Gunakan state in-memory yang sudah konsisten dengan
+                       file di disk — JANGAN panggil sync_from_disk lagi
+                       agar tidak ada potensi race-condition / double-write
+                       di request yang sama. Sync akan terjadi otomatis di
+                       request berikutnya (saat redirect → GET). */
                     $personnelData = $personnelDataAfter;
-                    $orgPersonnelRegistryApply(org_personnel_sync_from_disk($personnelFile, $fotoStrukturDir, $slugify, $savePersonnelData));
+                    $personnelIds = array_column($personnelDataAfter, 'id');
+                    $personnelSlugs = array_column($personnelDataAfter, 'slug');
                     $_SESSION['flash_message'] = $deletedName !== ''
                         ? 'Personel "' . $deletedName . '" berhasil dihapus.'
                         : 'Personel berhasil dihapus.';
                     $_SESSION['flash_type'] = 'success';
                 } else {
-                    $_SESSION['flash_message'] = 'Gagal menghapus personel. Pastikan berkas personnel.json di root proyek bisa ditulis, '
-                        . 'dan tidak sedang dibuka oleh program lain (mis. editor / antivirus).';
+                    $reason = !$writeOk ? 'tulis file gagal' : 'verifikasi pasca-tulis gagal';
+                    $_SESSION['flash_message'] = 'Gagal menghapus personel (' . $reason . '). '
+                        . 'Pastikan berkas personnel.json di root proyek bisa ditulis, '
+                        . 'dan tidak sedang dibuka oleh program lain (editor / antivirus). '
+                        . 'Detail tersimpan di storage/personnel_audit.log.';
                     $_SESSION['flash_type'] = 'danger';
                 }
             }

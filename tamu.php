@@ -201,6 +201,24 @@ $extraHeadMarkup = <<<'HTML'
     .page-tamu-dashboard .table > :not(caption) > * > * {
         vertical-align: middle;
     }
+    .page-tamu-dashboard .tamu-twocol > [class*="col-"] {
+        display: flex;
+    }
+    .page-tamu-dashboard .tamu-twocol .tamu-card {
+        width: 100%;
+    }
+    @media (min-width: 768px) {
+        .page-tamu-dashboard .tamu-twocol .tamu-card {
+            height: 100%;
+        }
+        .page-tamu-dashboard .tamu-twocol .card-body {
+            display: flex;
+            flex-direction: column;
+        }
+        .page-tamu-dashboard .tamu-twocol .table-responsive {
+            flex: 1 1 auto;
+        }
+    }
 </style>
 HTML;
 
@@ -660,8 +678,8 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'head
                 </div>
             <?php endif; ?>
 
-            <div class="row g-4">
-                <div class="col-12 col-lg-5">
+            <div class="row g-4 tamu-twocol align-items-stretch">
+                <div class="col-12 col-md-5 col-xl-4">
                     <div class="card tamu-card h-100">
                         <div class="card-body p-4">
                             <h2 class="h4 tamu-title mb-2">Input Buku Tamu</h2>
@@ -729,7 +747,7 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'head
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-7">
+                <div class="col-12 col-md-7 col-xl-8">
                     <div class="card tamu-card h-100">
                         <div class="card-body p-4">
                             <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 tamu-toolbar">
