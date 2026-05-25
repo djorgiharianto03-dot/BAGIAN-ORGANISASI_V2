@@ -621,13 +621,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $slug = $slugify((string) ($personnelData[$rowIndex]['name'] ?? ''));
                 }
                 $deletedName = trim((string) ($personnelData[$rowIndex]['name'] ?? ''));
+                $deletedId = (string) ($personnelData[$rowIndex]['id'] ?? '');
                 /* Atomik: simpan JSON dulu. Hanya jika tulis JSON sukses
                    barulah file foto dihapus dari disk. Urutan kebalikannya
                    (hapus foto dulu) berisiko meninggalkan baris personel
                    tanpa foto jika personnel.json gagal ditulis. */
                 $personnelDataAfter = $personnelData;
                 array_splice($personnelDataAfter, $rowIndex, 1);
-                if ($savePersonnelData($personnelFile, $personnelDataAfter)) {
+                $writeOk = $savePersonnelData($personnelFile, $personnelDataAfter);
+
+                /* Verifikasi tambahan: baca ulang file dari disk, pastikan
+                   id yang dihapus benar-benar sudah tidak ada. Mencegah
+                   "sukses palsu" akibat penulisan parsial / file dipegang
+                   proses lain pada Windows. */
+                $persistOk = false;
+                if ($writeOk) {
+                    clearstatcache(true, $personnelFile);
+                    $verifyRaw = @file_get_contents($personnelFile);
+                    if ($verifyRaw !== false && $verifyRaw !== '') {
+                        $verifyData = json_decode($verifyRaw, true);
+                        if (is_array($verifyData)) {
+                            $persistOk = true;
+                            if ($deletedId !== '') {
+                                foreach ($verifyData as $verifyRow) {
+                                    if (is_array($verifyRow) && (string) ($verifyRow['id'] ?? '') === $deletedId) {
+                                        $persistOk = false;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if ($writeOk && $persistOk) {
                     org_personnel_delete_photo_files($fotoStrukturDir, $slug);
                     $personnelData = $personnelDataAfter;
                     $orgPersonnelRegistryApply(org_personnel_sync_from_disk($personnelFile, $fotoStrukturDir, $slugify, $savePersonnelData));
@@ -636,7 +663,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         : 'Personel berhasil dihapus.';
                     $_SESSION['flash_type'] = 'success';
                 } else {
-                    $_SESSION['flash_message'] = 'Gagal menghapus personel. Periksa izin tulis berkas personnel.json di root proyek.';
+                    $_SESSION['flash_message'] = 'Gagal menghapus personel. Pastikan berkas personnel.json di root proyek bisa ditulis, '
+                        . 'dan tidak sedang dibuka oleh program lain (mis. editor / antivirus).';
                     $_SESSION['flash_type'] = 'danger';
                 }
             }

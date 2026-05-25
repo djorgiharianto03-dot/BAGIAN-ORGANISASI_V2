@@ -25,8 +25,9 @@ function org_personnel_sync_from_disk(
     callable $slugify,
     callable $savePersonnelData
 ): array {
+    clearstatcache(true, $personnelFile);
     $personnelData = [];
-    $raw = is_file($personnelFile) ? file_get_contents($personnelFile) : false;
+    $raw = is_file($personnelFile) ? @file_get_contents($personnelFile) : false;
     if ($raw !== false && $raw !== '') {
         $decoded = json_decode($raw, true);
         if (is_array($decoded)) {
@@ -129,6 +130,17 @@ function org_personnel_row_for_storage(array $person): array
 /**
  * Tulis personnel.json (hanya field inti; foto/slug dihitung ulang saat muat).
  *
+ * Strategi tulis (tahan banting di Windows/Laragon):
+ *   1. Tulis ke berkas .tmp di folder yang sama (LOCK_EX) untuk hindari tulis
+ *      sebagian.
+ *   2. Rename atomik dari .tmp → personnel.json. Pada Windows kadang gagal
+ *      jika file tujuan dipegang proses lain (antivirus / file watcher).
+ *   3. Fallback langsung: file_put_contents() ke target dengan retry singkat.
+ *   4. Verifikasi: baca-ulang file, decode JSON, pastikan jumlah baris sama.
+ *      Jika verifikasi gagal, return false agar pemanggil tidak salah klaim
+ *      sukses.
+ *   5. clearstatcache() supaya pembacaan berikutnya tidak melihat stat lama.
+ *
  * @param list<array<string, mixed>> $items
  */
 function org_personnel_write_file(string $personnelFilePath, array $items): bool
@@ -144,8 +156,9 @@ function org_personnel_write_file(string $personnelFilePath, array $items): bool
         }
         $rows[] = $row;
     }
+    $rows = array_values($rows);
 
-    $json = json_encode(array_values($rows), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    $json = json_encode($rows, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     if ($json === false) {
         return false;
     }
@@ -155,20 +168,64 @@ function org_personnel_write_file(string $personnelFilePath, array $items): bool
         return false;
     }
 
-    $tmp = $personnelFilePath . '.tmp.' . bin2hex(random_bytes(4));
-    if (@file_put_contents($tmp, $json, LOCK_EX) === false) {
-        @unlink($tmp);
+    $expectedCount = count($rows);
+    $expectedIds = array_column($rows, 'id');
+    sort($expectedIds);
 
+    $writeOk = false;
+    $tmp = $personnelFilePath . '.tmp.' . bin2hex(random_bytes(4));
+    if (@file_put_contents($tmp, $json, LOCK_EX) !== false) {
+        clearstatcache(true, $tmp);
+        if (@rename($tmp, $personnelFilePath)) {
+            $writeOk = true;
+        } else {
+            @unlink($tmp);
+            for ($attempt = 0; $attempt < 3 && !$writeOk; $attempt++) {
+                if (@file_put_contents($personnelFilePath, $json, LOCK_EX) !== false) {
+                    $writeOk = true;
+                    break;
+                }
+                usleep(50000);
+            }
+        }
+    } else {
+        @unlink($tmp);
+        for ($attempt = 0; $attempt < 3 && !$writeOk; $attempt++) {
+            if (@file_put_contents($personnelFilePath, $json, LOCK_EX) !== false) {
+                $writeOk = true;
+                break;
+            }
+            usleep(50000);
+        }
+    }
+
+    if (!$writeOk) {
         return false;
     }
-    if (!@rename($tmp, $personnelFilePath)) {
-        @unlink($tmp);
-        if (@file_put_contents($personnelFilePath, $json, LOCK_EX) === false) {
-            return false;
-        }
-        @unlink($tmp);
 
-        return true;
+    clearstatcache(true, $personnelFilePath);
+
+    /* Verifikasi: pastikan file di disk benar-benar mencerminkan data yang
+       diminta. Tanpa verifikasi, kegagalan tulis di Windows kadang lolos
+       (mis. file ditulis sebagian) sehingga delete terlihat sukses tetapi
+       baris yang dihapus muncul kembali setelah refresh. */
+    $verifyRaw = @file_get_contents($personnelFilePath);
+    if ($verifyRaw === false || $verifyRaw === '') {
+        return false;
+    }
+    $verifyData = json_decode($verifyRaw, true);
+    if (!is_array($verifyData) || count($verifyData) !== $expectedCount) {
+        return false;
+    }
+    $verifyIds = [];
+    foreach ($verifyData as $verifyRow) {
+        if (is_array($verifyRow)) {
+            $verifyIds[] = (string) ($verifyRow['id'] ?? '');
+        }
+    }
+    sort($verifyIds);
+    if ($verifyIds !== $expectedIds) {
+        return false;
     }
 
     return true;
