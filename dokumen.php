@@ -2,8 +2,9 @@
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'bootstrap.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_subpage_seo.php';
 
-$pageTitle = 'Perpustakaan Digital — Bagian Organisasi';
+$pageTitle = 'Perpustakaan Digital — Bagian Organisasi Setda Kabupaten Kepulauan Aru';
 $navActive = 'dokumen';
 $includePersonnelModals = false;
 $includeNewsModals = false;
@@ -14,7 +15,12 @@ $digitalLibraryHideIntroHeader = false;
 $digitalLibraryShowMiniHero = false;
 $digitalLibraryHeroSubtitle = 'Bagian Organisasi Sekretariat Daerah Kabupaten Kepulauan Aru';
 
-$extraHeadMarkup = '';
+$extraHeadMarkup = org_subpage_seo_head_markup(
+    $pageTitle,
+    'Perpustakaan Digital Bagian Organisasi Setda Kabupaten Kepulauan Aru: akses Perbup, SAKIP, Analisis Jabatan, SOP, dan dokumen resmi kelembagaan secara terbuka.',
+    'dokumen',
+    'Dokumen'
+);
 $extraFooterMarkup = '';
 org_portal_apply_assets($bodyClass, $extraHeadMarkup, $extraFooterMarkup);
 $__docCenterAssetBase = ORG_WEB_ROOT === '' ? '' : rtrim(ORG_WEB_ROOT, '/');

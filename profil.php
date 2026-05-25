@@ -2,8 +2,9 @@
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'bootstrap.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'profil_org_helpers.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_subpage_seo.php';
 
-$pageTitle = 'Profil — Bagian Organisasi';
+$pageTitle = 'Profil — Bagian Organisasi Setda Kabupaten Kepulauan Aru';
 $bodyClass = 'page-profil-org';
 $profilVisiHtml = org_profil_visi_display_html((string) ($siteSettings['profile_visi'] ?? ''));
 $profilMisiPoints = org_profil_misi_to_points((string) ($siteSettings['profile_misi'] ?? ''));
@@ -58,6 +59,12 @@ ob_start();
 </style>
 <?php
 $extraHeadMarkup = (string) ob_get_clean();
+$extraHeadMarkup = org_subpage_seo_head_markup(
+    $pageTitle,
+    'Profil Bagian Organisasi Setda Kabupaten Kepulauan Aru: visi, misi, struktur organisasi, dan personel pelaksana di lingkungan Sekretariat Daerah.',
+    'profil',
+    'Profil'
+) . $extraHeadMarkup;
 
 $extraFooterMarkup = <<<'HTML'
 <script>

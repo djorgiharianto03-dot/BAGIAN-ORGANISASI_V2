@@ -1,8 +1,9 @@
 <?php
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'bootstrap.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_subpage_seo.php';
 
-$pageTitle = 'Galeri Kegiatan — Bagian Organisasi';
+$pageTitle = 'Galeri Kegiatan — Bagian Organisasi Setda Kabupaten Kepulauan Aru';
 $navActive = 'galeri';
 $includePersonnelModals = false;
 $includeNewsModals = false;
@@ -13,6 +14,12 @@ $galeriRows = org_galeri_kegiatan_load_public($dbApp instanceof mysqli ? $dbApp 
 ob_start();
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'publikasi_premium_styles.php';
 $extraHeadMarkup = (string) ob_get_clean();
+$extraHeadMarkup = org_subpage_seo_head_markup(
+    $pageTitle,
+    'Galeri kegiatan Bagian Organisasi Setda Kabupaten Kepulauan Aru. Dokumentasi foto resmi kegiatan kelembagaan, pelayanan publik, dan reformasi birokrasi.',
+    'galeri',
+    'Galeri'
+) . $extraHeadMarkup;
 $extraHeadMarkup .= '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">' . "\n";
 
 $publikasiPremiumInitSwiper = false;

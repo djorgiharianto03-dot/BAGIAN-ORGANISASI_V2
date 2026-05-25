@@ -2,8 +2,9 @@
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'bootstrap.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'layanan_ui.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_subpage_seo.php';
 
-$pageTitle = 'Layanan Publik — Bagian Organisasi';
+$pageTitle = 'Layanan Publik — Bagian Organisasi Setda Kabupaten Kepulauan Aru';
 $navActive = 'layanan';
 $includePersonnelModals = false;
 $includeNewsModals = false;
@@ -139,6 +140,12 @@ $layananSectionMeta = [
 ob_start();
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'layanan_premium_styles.php';
 $extraHeadMarkup = (string) ob_get_clean();
+$extraHeadMarkup = org_subpage_seo_head_markup(
+    $pageTitle,
+    'Layanan publik digital Bagian Organisasi Setda Kabupaten Kepulauan Aru: kelembagaan, pelayanan publik, kinerja, dan reformasi birokrasi dalam satu portal terintegrasi.',
+    'layanan',
+    'Layanan'
+) . $extraHeadMarkup;
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_vendor_assets.php';
 $extraHeadMarkup .= org_vendor_stylesheet(org_vendor_fancybox_css());
 $extraFooterMarkup = org_vendor_script(org_vendor_fancybox_js(), false);

@@ -1,8 +1,9 @@
 <?php
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'bootstrap.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_subpage_seo.php';
 
-$pageTitle = 'Pusat Informasi & Pengumuman — Bagian Organisasi';
+$pageTitle = 'Informasi & Pengumuman — Bagian Organisasi Setda Kabupaten Kepulauan Aru';
 $navActive = 'berita';
 $includePersonnelModals = false;
 $bodyClass = 'mode-publikasi page-publikasi-premium page-berita-premium';
@@ -10,6 +11,12 @@ $bodyClass = 'mode-publikasi page-publikasi-premium page-berita-premium';
 ob_start();
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'publikasi_premium_styles.php';
 $extraHeadMarkup = (string) ob_get_clean();
+$extraHeadMarkup = org_subpage_seo_head_markup(
+    $pageTitle,
+    'Informasi resmi, pengumuman, dan publikasi terbaru Bagian Organisasi Setda Kabupaten Kepulauan Aru. Pusat berita kelembagaan, pelayanan publik, dan reformasi birokrasi.',
+    'berita',
+    'Informasi'
+) . $extraHeadMarkup;
 
 $publikasiPremiumInitSwiper = false;
 ob_start();
