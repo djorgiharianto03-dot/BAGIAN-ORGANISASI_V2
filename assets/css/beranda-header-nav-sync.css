@@ -1,95 +1,10 @@
 /**
- * Beranda — navbar 1:1 dengan Profil.
+ * Beranda — navbar header.
  *
- * v=10: Fix layout rusak v=8/v=9 — di versi sebelumnya .site-header__gradient
- * di-paksa TRANSPARENT, padahal itu BACKGROUND GELAP UTAMA header. Akibatnya
- * gradient header hilang, hanya navbar-panel saja yang terlihat sebagai
- * "kotak dark mengambang di tengah" pada area yang seharusnya gelap.
+ * v=11: KOSONG. Semua override khusus Beranda dihapus agar semua halaman
+ * (Beranda + Profil + sub halaman) memakai satu desain navbar yang sama
+ * persis: smart-governance-portal-nav.css.
  *
- * v=10:
- *   - .site-header__gradient TIDAK disentuh — biarkan default Profil (gradient gelap).
- *   - Wrapper kecil di dalam gradient (rail, topbar, brand-row, navbar-wrapper,
- *     nav-panel inner, nav-row, nav, actions) DIPAKSA transparent — supaya
- *     tidak ada panel ke-2 dan gradient yang tertangkap.
- *   - .navbar-panel dapat background dark navy (Profil look) — satu-satunya panel.
- *
- * Layout/spacing/min-height/position TIDAK disentuh dari sini — biar mengikuti
- * smart-governance-portal-nav.css (sama Profil).
- *
- * Semua selector di-prefix `html body.sg-homepage` — Profil tidak terpengaruh.
+ * File tetap ada agar referensi <link rel="stylesheet"> di header.php tetap
+ * valid (HTTP 200). Tidak ada rule yang menimpa Profil.
  */
-
-html body.sg-homepage.sg-portal-page {
-    --layout-max-width: 1320px;
-    --portal-content-gutter: clamp(1rem, 2.5vw, 32px);
-    --sg-nav-panel-min-h: 56px;
-    --sg-nav-panel-radius: 20px;
-    --sg-nav-panel-pad-block: 0.35rem;
-    --sg-nav-panel-pad-inline: 0;
-    --sg-nav-panel-bg: rgba(2, 22, 48, 0.94);
-    --sg-nav-panel-bg-scrolled: rgba(2, 22, 48, 0.97);
-    --sg-nav-panel-border: rgba(147, 197, 253, 0.18);
-    --sg-nav-panel-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.07),
-        0 10px 32px rgba(0, 10, 28, 0.42);
-    --sg-nav-wrapper-gap: clamp(0.5rem, 1.2vw, 1.125rem);
-}
-
-/* ============================================================
-   PANEL TUNGGAL — warna 1:1 Profil. Hanya bg/border/radius/shadow.
-   ============================================================ */
-html body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel,
-html body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap.navbar-panel,
-html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
-html body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel {
-    background: rgba(2, 22, 48, 0.94) !important;
-    background-color: rgba(2, 22, 48, 0.94) !important;
-    background-image: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border: 1px solid rgba(147, 197, 253, 0.18) !important;
-    border-radius: 20px !important;
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.07),
-        0 10px 32px rgba(0, 10, 28, 0.42) !important;
-}
-
-html body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,
-html body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .org-navbar__nav-wrap.navbar-panel,
-html body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel {
-    background: rgba(2, 22, 48, 0.97) !important;
-    background-color: rgba(2, 22, 48, 0.97) !important;
-    background-image: none !important;
-}
-
-/* ============================================================
-   WRAPPER KECIL di DALAM gradient — dipaksa transparent.
-   *** .site-header__gradient TIDAK DISENTUH *** — biarkan default Profil
-   (gradient gelap header utama).
-   Hanya menyentuh property bg/border/shadow, TIDAK menyentuh
-   display/position/margin/padding/min-height.
-   ============================================================ */
-html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail.container-global,
-html body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global,
-html body.sg-homepage.sg-portal-page .site-header__inner.header-inner,
-html body.sg-homepage.sg-portal-page .site-header__rail .site-header__topbar,
-html body.sg-homepage.sg-portal-page .header-inner .site-header__topbar,
-html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row,
-html body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__brand.site-header__brand-row,
-html body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper,
-html body.sg-homepage.sg-portal-page .site-header__rail .org-navbar__nav-shell,
-html body.sg-homepage.sg-portal-page .site-header__nav-panel,
-html body.sg-homepage.sg-portal-page .site-header__nav-row,
-html body.sg-homepage.sg-portal-page .org-navbar__nav-row,
-html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav,
-html body.sg-homepage.sg-portal-page .site-header__actions,
-html body.sg-homepage.sg-portal-page .site-header__actions-end,
-html body.sg-homepage.sg-portal-page .org-navbar__actions-end {
-    background: transparent !important;
-    background-color: transparent !important;
-    background-image: none !important;
-    border: 0 !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-}

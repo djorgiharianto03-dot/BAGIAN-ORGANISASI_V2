@@ -375,15 +375,19 @@ function org_beranda_header_nav_sync_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=10');
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=11');
 }
 
 /**
- * Skrip: hapus inline style/class beranda-only yang dapat menggeser logo.
- * Aturan header (brand-row, logo, topbar) memakai smart-governance-portal-nav.css
- * agar 1:1 dengan Profil.
+ * @deprecated v=11: tidak diperlukan lagi karena Beranda tidak punya override
+ *             header. Fungsi tetap ada agar pemanggil di cascade markup tidak rusak.
  */
 function org_beranda_header_nav_relock_script(): string
+{
+    return '';
+}
+
+function org_beranda_header_nav_relock_script_legacy(): string
 {
     return <<<'HTML'
 <script id="sg-beranda-header-relock">
@@ -422,10 +426,16 @@ HTML;
 }
 
 /**
- * Inline footer override — kunci layout header Beranda = Profil.
- * Menimpa cache lama bundle/beranda-only di akhir cascade.
+ * @deprecated v=11: semua halaman pakai satu desain navbar dari
+ *             smart-governance-portal-nav.css. Tidak menghasilkan markup lagi.
+ *             Fungsi tetap ada agar pemanggil di header.php / footer.php tidak rusak.
  */
 function org_beranda_header_nav_critical_footer_markup(): string
+{
+    return '';
+}
+
+function org_beranda_header_nav_critical_footer_markup_legacy(): string
 {
     /* v=9: MINIMAL — hanya samakan warna panel Beranda dengan Profil.
        Layout/positioning/spacing TIDAK diubah dari sini — biar mengikuti
