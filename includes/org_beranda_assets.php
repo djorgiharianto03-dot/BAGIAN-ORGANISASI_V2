@@ -375,7 +375,7 @@ function org_beranda_header_nav_sync_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=7');
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=8');
 }
 
 /**
@@ -427,49 +427,71 @@ HTML;
  */
 function org_beranda_header_nav_critical_footer_markup(): string
 {
-    /* Prefix `html ` agar selector lebih spesifik dari site_styles.php inline + bundle. */
+    /* v=8: SINGLE PANEL fix. Wrapper luar (rail, topbar, nav-shell, gradient,
+       nav-panel inner) DIPAKSA TRANSPARENT — hanya .site-header__nav-wrap.navbar-panel
+       yang punya background/border/shadow. Warna 1:1 dengan computed Profil. */
     $home = 'html body.sg-homepage.sg-portal-page';
-    /* v=6: panel navbar Beranda mengikuti Profil — lebih terang/transparan, compact.
-       Nilai dirujuk via variabel (defined di beranda-header-nav-sync.css?v=6)
-       agar single-source-of-truth dan mudah dirubah.                              */
+
+    $transparent = 'background:transparent!important;background-color:transparent!important;background-image:none!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important';
+
     $rail = 'max-width:1320px!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important;padding-top:var(--sg-beranda-rail-pad-top,clamp(.55rem,1.1vw,.95rem))!important;padding-bottom:var(--sg-beranda-rail-pad-bottom,clamp(.4rem,.9vw,.7rem))!important';
-    $brandRow = 'display:flex!important;align-items:center!important;flex-wrap:nowrap!important;gap:.65rem .85rem!important;flex:1 1 auto!important;min-width:0!important;max-width:none!important;justify-content:flex-start!important;margin:0!important;padding:0!important;align-self:center!important;min-height:var(--sg-nav-panel-min-h,48px)!important';
+    $brandRow = 'display:flex!important;align-items:center!important;flex-wrap:nowrap!important;gap:.65rem .85rem!important;flex:1 1 auto!important;min-width:0!important;max-width:none!important;justify-content:flex-start!important;margin:0!important;padding:0!important;align-self:center!important';
     $brandAnchor = 'flex-shrink:0!important;align-self:center!important;display:inline-flex!important;align-items:center!important;margin:0!important;padding:0!important';
-    $topbar = 'order:1!important;width:100%!important;max-width:100%!important;flex:0 0 auto!important;align-self:stretch!important;align-items:center!important;gap:.5rem 1rem!important;padding:0!important;margin:0!important;min-height:var(--sg-nav-panel-min-h,48px)!important';
+    $topbar = 'order:1!important;width:100%!important;max-width:100%!important;flex:0 0 auto!important;align-self:stretch!important;align-items:center!important;gap:.5rem 1rem!important;padding:0!important;margin:0!important';
     $logo = 'max-width:none!important;width:auto!important;height:auto!important;object-fit:contain!important;filter:none!important;flex-shrink:0!important;vertical-align:middle!important;align-self:center!important;margin-top:0!important;margin-bottom:0!important';
-    /* v=7: HARD-CODE warna panel (TIDAK pakai variabel) — kebal terhadap re-define
-       site_styles.php inline yang mengembalikan --sg-nav-panel-bg ke 0.94. */
-    $panel = 'min-height:48px!important;'
+
+    /* Panel TUNGGAL — nilai 1:1 dengan computed Profil */
+    $panel = 'min-height:56px!important;'
         . 'height:auto!important;margin:0!important;'
-        . 'padding:.25rem .4rem!important;'
-        . 'border-radius:16px!important;'
-        . 'background:rgba(15,32,71,.45)!important;'
-        . 'background-color:rgba(15,32,71,.45)!important;'
+        . 'padding:.35rem 0!important;'
+        . 'border-radius:20px!important;'
+        . 'background:rgba(2,22,48,.94)!important;'
+        . 'background-color:rgba(2,22,48,.94)!important;'
         . 'background-image:none!important;'
-        . '-webkit-backdrop-filter:blur(14px) saturate(1.2)!important;'
-        . 'backdrop-filter:blur(14px) saturate(1.2)!important;'
-        . 'border:1px solid rgba(147,197,253,.22)!important;'
-        . 'box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 6px 20px rgba(0,10,28,.24)!important;'
-        . 'box-sizing:border-box!important';
-    $panelScrolled = 'background:rgba(15,32,71,.6)!important;'
-        . 'background-color:rgba(15,32,71,.6)!important;'
-        . 'background-image:none!important;'
-        . 'box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 8px 26px rgba(0,10,28,.32)!important';
+        . '-webkit-backdrop-filter:none!important;'
+        . 'backdrop-filter:none!important;'
+        . 'border:1px solid rgba(147,197,253,.18)!important;'
+        . 'box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 32px rgba(0,10,28,.42)!important;'
+        . 'box-sizing:border-box!important;'
+        . 'display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:center!important;'
+        . 'position:static!important;width:100%!important;max-width:100%!important';
+    $panelScrolled = 'background:rgba(2,22,48,.97)!important;'
+        . 'background-color:rgba(2,22,48,.97)!important;'
+        . 'background-image:none!important';
 
     $css = '<style id="sg-beranda-header-match-profil">'
+        /* Rail wrapper transparent — hanya kasih padding-top utk logo offset */
         . "{$home} .site-header--sg-portal .site-header__rail.container-global,"
         . "{$home} .site-header--sg-portal .header-inner.container-global{"
-        . 'display:flex!important;flex-direction:column!important;align-items:stretch!important;flex-wrap:nowrap!important;width:100%!important;' . $rail . '!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box!important}'
+        . 'display:flex!important;flex-direction:column!important;align-items:stretch!important;flex-wrap:nowrap!important;width:100%!important;' . $rail . '!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box!important;' . $transparent . '}'
+        /* Gradient luar transparent */
+        . "{$home} .site-header--sg-portal .site-header__gradient{padding:0!important;" . $transparent . '}'
+        /* Topbar transparent */
         . "{$home} .site-header__rail .site-header__topbar,"
-        . "{$home} .header-inner .site-header__topbar{" . $topbar . '}'
+        . "{$home} .header-inner .site-header__topbar{" . $topbar . ';' . $transparent . '}'
+        /* Brand row transparent */
         . "{$home} .site-header--sg-portal .site-header__brand-row,"
-        . "{$home} .site-header--sg-portal .org-navbar__brand.site-header__brand-row{" . $brandRow . '}'
+        . "{$home} .site-header--sg-portal .org-navbar__brand.site-header__brand-row{" . $brandRow . ';' . $transparent . '}'
         . "{$home} .site-header--sg-portal .site-header__brand-row > a:first-child{" . $brandAnchor . '}'
         . "{$home} .site-header__logo,{$home} .org-navbar__logo{max-height:48px!important;" . $logo . '}'
-        /* Panel navbar Beranda — terang/transparan/compact (sama Profil) */
-        . "{$home} .navbar-panel,"
-        . "{$home} .org-navbar__nav-wrap.navbar-panel,"
-        . "{$home} .site-header--sg-portal .site-header__nav-wrap,"
+        /* Wrapper di sekitar panel — transparent (jangan jadi panel ke-2) */
+        . "{$home} .site-header__rail .navbar-wrapper,"
+        . "{$home} .site-header__rail .org-navbar__nav-shell,"
+        . "{$home} .navbar-wrapper,"
+        . "{$home} .org-navbar__nav-shell{"
+        . 'display:block!important;width:100%!important;max-width:100%!important;margin-top:clamp(.5rem,1.2vw,1.125rem)!important;margin-left:0!important;margin-right:0!important;padding:0!important;flex:0 0 auto!important;order:2!important;align-self:stretch!important;box-sizing:border-box!important;' . $transparent . '}'
+        /* Inner element di dalam panel — transparent (no double layer) */
+        . "{$home} .site-header__nav-panel,"
+        . "{$home} .site-header__nav-row,"
+        . "{$home} .org-navbar__nav-row,"
+        . "{$home} .site-header__nav,"
+        . "{$home} .site-header__actions,"
+        . "{$home} .site-header__actions-end,"
+        . "{$home} .org-navbar__nav,"
+        . "{$home} .org-navbar__actions-end{" . $transparent . '}'
+        /* PANEL TUNGGAL — hanya selector ini yang punya bg/border/shadow */
+        . "{$home} .site-header--sg-portal .navbar-panel,"
+        . "{$home} .site-header--sg-portal .org-navbar__nav-wrap.navbar-panel,"
         . "{$home} .site-header--sg-portal .site-header__nav-wrap.navbar-panel,"
         . "{$home} .site-header__nav-wrap.navbar-panel{" . $panel . '}'
         . "{$home} .site-header--sg-portal.is-scrolled .navbar-panel,"
@@ -477,12 +499,9 @@ function org_beranda_header_nav_critical_footer_markup(): string
         . "{$home} .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel{" . $panelScrolled . '}'
         . '@media(min-width:992px){'
         . "{$home} .site-header__logo,{$home} .org-navbar__logo{max-height:52px!important}"
-        . "{$home} .site-header__rail .navbar-wrapper,{$home} .site-header__rail .org-navbar__nav-shell,{$home} .navbar-wrapper{"
-        . 'display:block!important;width:100%!important;max-width:100%!important;margin-top:clamp(.5rem,1.2vw,1.125rem)!important;margin-left:0!important;margin-right:0!important;padding:0!important;flex:0 0 auto!important;order:2!important;align-self:stretch!important;box-sizing:border-box!important}'
         . '}'
         . '@media(max-width:991.98px){'
         . "{$home} .site-header__logo,{$home} .org-navbar__logo{max-height:38px!important;max-width:36vw!important}"
-        . "{$home} .site-header--sg-portal .site-header__gradient{padding-top:10px!important;padding-bottom:6px!important}"
         . '}'
         . '@media(max-width:575.98px){'
         . "{$home} .site-header__logo,{$home} .org-navbar__logo{max-height:48px!important;max-width:36vw!important}"

@@ -1,62 +1,223 @@
 /**
- * Beranda — panel navbar 1:1 dengan Profil.
+ * Beranda — navbar 1:1 dengan Profil (single panel, no double layer).
  *
- * v=7: WARNA panel diperbaiki. Versi sebelumnya pakai variabel
- * --sg-nav-panel-bg yang masih dapat ditimpa oleh inline <style>
- * site_styles.php. Sekarang nilai background di-HARD-CODE pada selector
- * super-spesifik dan ditambah !important agar selalu menang.
+ * v=8:
+ *   - SINGLE PANEL: hanya .site-header__nav-wrap.navbar-panel yang punya
+ *     background + border + box-shadow + border-radius (sama seperti Profil).
+ *   - Wrapper luar (.site-header__rail, .navbar-wrapper, .org-navbar__nav-shell,
+ *     .site-header__topbar, .site-header__gradient) dan elemen dalam
+ *     (.site-header__nav-panel) dipaksa TRANSPARENT — tidak ada border/shadow.
+ *   - Warna panel = COMPUTED Profil = rgba(2,22,48,0.94), border rgba(147,197,253,0.18),
+ *     radius 20px, shadow inset+drop sama Profil. Tidak pakai blur.
  *
- * Target visual:
- *   - panel lebih terang/transparan kebiruan (Profil look)
- *   - radius lebih kecil, lebih compact
- *
- * Semua rule diawali html body.sg-homepage — Profil/sub halaman tidak terpengaruh.
+ * Semua selector prefixed `html body.sg-homepage` — Profil/sub halaman tidak terpengaruh.
  */
 
 html body.sg-homepage.sg-portal-page {
-    /* Variabel untuk komponen lain (logo offset, dst.) — tetap dari v=5/v=6 */
     --layout-max-width: 1320px;
     --portal-content-gutter: clamp(1rem, 2.5vw, 32px);
     --sg-nav-wrapper-gap: clamp(0.5rem, 1.2vw, 1.125rem);
-    --sg-nav-row-min-h: 48px;
     --sg-nav-tap: 40px;
-
     --sg-beranda-rail-pad-top: clamp(0.55rem, 1.1vw, 0.95rem);
     --sg-beranda-rail-pad-bottom: clamp(0.4rem, 0.9vw, 0.7rem);
-
-    /* Panel tokens — namun nilai final di-set HARD-CODE di rule .navbar-panel. */
-    --sg-nav-panel-min-h: 48px;
-    --sg-nav-panel-radius: 16px;
 }
 
 /* ============================================================
-   HEADER RAIL + TOPBAR (vertical position logo)
+   1) WRAPPER LUAR — semuanya TRANSPARENT (tidak boleh jadi panel)
    ============================================================ */
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient {
+    background-color: transparent !important;
+    background-image: none !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding: 0 !important;
+}
+
 html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail.container-global,
 html body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global,
 html body.sg-homepage.sg-portal-page .site-header__inner.header-inner {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
     padding-top: var(--sg-beranda-rail-pad-top) !important;
     padding-bottom: var(--sg-beranda-rail-pad-bottom) !important;
 }
 
 html body.sg-homepage.sg-portal-page .site-header__rail .site-header__topbar,
 html body.sg-homepage.sg-portal-page .header-inner .site-header__topbar {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
     align-items: center !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
     margin: 0 !important;
-    min-height: var(--sg-nav-panel-min-h, 48px) !important;
+}
+
+html body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper,
+html body.sg-homepage.sg-portal-page .site-header__rail .org-navbar__nav-shell,
+html body.sg-homepage.sg-portal-page .navbar-wrapper,
+html body.sg-homepage.sg-portal-page .org-navbar__nav-shell {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    margin-top: var(--sg-nav-wrapper-gap) !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
 }
 
 html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row,
 html body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__brand.site-header__brand-row {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border: 0 !important;
+    box-shadow: none !important;
     align-items: center !important;
-    align-self: center !important;
-    min-height: var(--sg-nav-panel-min-h, 48px) !important;
     padding: 0 !important;
     margin: 0 !important;
 }
 
+/* INNER element di dalam panel — JANGAN ada panel kedua di sini */
+html body.sg-homepage.sg-portal-page .site-header__nav-panel,
+html body.sg-homepage.sg-portal-page .site-header__nav-row,
+html body.sg-homepage.sg-portal-page .org-navbar__nav-row {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+html body.sg-homepage.sg-portal-page .site-header__nav,
+html body.sg-homepage.sg-portal-page .site-header__actions,
+html body.sg-homepage.sg-portal-page .site-header__actions-end,
+html body.sg-homepage.sg-portal-page .org-navbar__nav,
+html body.sg-homepage.sg-portal-page .org-navbar__actions-end {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+/* ============================================================
+   2) PANEL TUNGGAL — hanya .navbar-panel / .site-header__nav-wrap.navbar-panel
+       Nilai 1:1 dengan computed Profil:
+       bg rgba(2,22,48,0.94) — border rgba(147,197,253,0.18) — radius 20px —
+       shadow inset+drop — min-height 56px — padding .35rem 0 — backdrop none
+   ============================================================ */
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .navbar-panel,
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__nav-wrap.navbar-panel,
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
+html body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel {
+    min-height: 56px !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0.35rem 0 !important;
+    border-radius: 20px !important;
+    background: rgba(2, 22, 48, 0.94) !important;
+    background-color: rgba(2, 22, 48, 0.94) !important;
+    background-image: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 1px solid rgba(147, 197, 253, 0.18) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.07),
+        0 10px 32px rgba(0, 10, 28, 0.42) !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: center !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Scrolled — sedikit lebih opaque (sama Profil) */
+html body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,
+html body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .org-navbar__nav-wrap.navbar-panel,
+html body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel {
+    background: rgba(2, 22, 48, 0.97) !important;
+    background-color: rgba(2, 22, 48, 0.97) !important;
+    background-image: none !important;
+}
+
+/* ============================================================
+   3) Layout panel isi & menu — compact, no double border
+   ============================================================ */
+html body.sg-homepage.sg-portal-page .navbar-panel .site-header__nav-row,
+html body.sg-homepage.sg-portal-page .site-header__nav-wrap .site-header__nav-row,
+html body.sg-homepage.sg-portal-page .org-navbar__nav-wrap .site-header__nav-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.45rem 0.75rem !important;
+    min-height: 56px !important;
+    padding: 0.12rem 0 !important;
+    box-sizing: border-box !important;
+}
+
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 0.2rem 0.5rem !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav a {
+    min-height: 40px !important;
+    padding: 0.45rem 0.75rem !important;
+}
+
+html body.sg-homepage.sg-portal-page .site-header__actions,
+html body.sg-homepage.sg-portal-page .site-header__actions-end,
+html body.sg-homepage.sg-portal-page .org-navbar__actions-end {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.4rem !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Tombol header */
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-login,
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-logout,
+html body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-dashboard,
+html body.sg-homepage.sg-portal-page .site-header__actions-end .btn {
+    min-height: var(--sg-nav-tap, 40px) !important;
+    height: auto !important;
+    padding: 0.45rem 0.75rem !important;
+    font-size: clamp(0.8125rem, 0.25vw + 0.78rem, 0.875rem) !important;
+    font-weight: 600 !important;
+    border-radius: 0.75rem !important;
+}
+
+html body.sg-homepage.sg-portal-page .site-header__actions-end .org-theme-toggle {
+    min-height: var(--sg-nav-tap, 40px) !important;
+}
+
+/* Brand row child <a> dan logo */
 html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row > a:first-child {
     align-self: center !important;
     margin: 0 !important;
@@ -69,123 +230,6 @@ html body.sg-homepage.sg-portal-page .org-navbar__logo {
     margin: 0 !important;
 }
 
-html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient {
-    padding: 0 !important;
-}
-
-/* ============================================================
-   PANEL NAVBAR — HARD-CODE warna terang/transparan kebiruan
-   ============================================================ */
-
-/* Wrapper di sekitar panel — gap & spacing */
-html body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper,
-html body.sg-homepage.sg-portal-page .site-header__rail .org-navbar__nav-shell,
-html body.sg-homepage.sg-portal-page .navbar-wrapper {
-    margin-top: var(--sg-nav-wrapper-gap) !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding: 0 !important;
-}
-
-/* Panel utama — HARD-CODED background lighter blueish translucent */
-html body.sg-homepage.sg-portal-page .navbar-panel,
-html body.sg-homepage.sg-portal-page .org-navbar__nav-wrap.navbar-panel,
-html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap,
-html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
-html body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel,
-html body.sg-homepage.sg-portal-page .site-header__nav-panel {
-    min-height: 48px !important;
-    height: auto !important;
-    margin: 0 !important;
-    padding: 0.25rem 0.4rem !important;
-    border-radius: 16px !important;
-    /* HARD-CODE — lighter blueish translucent untuk match Profil */
-    background: rgba(15, 32, 71, 0.45) !important;
-    background-color: rgba(15, 32, 71, 0.45) !important;
-    background-image: none !important;
-    backdrop-filter: blur(14px) saturate(1.2) !important;
-    -webkit-backdrop-filter: blur(14px) saturate(1.2) !important;
-    border: 1px solid rgba(147, 197, 253, 0.22) !important;
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.08),
-        0 6px 20px rgba(0, 10, 28, 0.24) !important;
-    box-sizing: border-box !important;
-}
-
-/* Panel state scrolled — sedikit lebih opaque tapi tetap tembus */
-html body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,
-html body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .org-navbar__nav-wrap.navbar-panel,
-html body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel {
-    background: rgba(15, 32, 71, 0.6) !important;
-    background-color: rgba(15, 32, 71, 0.6) !important;
-    background-image: none !important;
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.08),
-        0 8px 26px rgba(0, 10, 28, 0.32) !important;
-}
-
-/* Baris menu di dalam panel — compact spacing */
-html body.sg-homepage.sg-portal-page .navbar-panel .site-header__nav-row,
-html body.sg-homepage.sg-portal-page .site-header__nav-wrap .site-header__nav-row,
-html body.sg-homepage.sg-portal-page .org-navbar__nav-wrap .site-header__nav-row {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    gap: 0.35rem 0.65rem !important;
-    min-height: 48px !important;
-    padding: 0.1rem 0 !important;
-    box-sizing: border-box !important;
-    background: transparent !important;
-}
-
-/* Daftar menu kiri — gap antar item compact */
-html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    gap: 0.2rem 0.45rem !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    background: transparent !important;
-}
-
-html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav a {
-    min-height: 36px !important;
-    padding: 0.35rem 0.65rem !important;
-    border-radius: 10px !important;
-    font-size: clamp(0.8125rem, 0.25vw + 0.78rem, 0.9rem) !important;
-    line-height: 1.2 !important;
-}
-
-/* Group action kanan — compact gap */
-html body.sg-homepage.sg-portal-page .site-header__actions,
-html body.sg-homepage.sg-portal-page .site-header__actions-end,
-html body.sg-homepage.sg-portal-page .org-navbar__actions-end {
-    display: flex !important;
-    align-items: center !important;
-    gap: 0.4rem !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    background: transparent !important;
-}
-
-/* Tombol header — compact (match Profil) */
-html body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-login,
-html body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-logout,
-html body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-dashboard,
-html body.sg-homepage.sg-portal-page .site-header__actions-end .btn {
-    min-height: var(--sg-nav-tap, 40px) !important;
-    height: auto !important;
-    padding: 0.4rem 0.7rem !important;
-    font-size: clamp(0.8125rem, 0.25vw + 0.78rem, 0.875rem) !important;
-    font-weight: 600 !important;
-    border-radius: 0.75rem !important;
-}
-
-html body.sg-homepage.sg-portal-page .site-header__actions-end .org-theme-toggle {
-    min-height: var(--sg-nav-tap, 40px) !important;
-}
-
 /* ============================================================
    Mobile (≤ 991.98px)
    ============================================================ */
@@ -193,24 +237,14 @@ html body.sg-homepage.sg-portal-page .site-header__actions-end .org-theme-toggle
     html body.sg-homepage.sg-portal-page {
         --sg-beranda-rail-pad-top: 0.4rem;
         --sg-beranda-rail-pad-bottom: 0.3rem;
-        --sg-nav-panel-min-h: 44px;
-    }
-
-    html body.sg-homepage.sg-portal-page .navbar-panel,
-    html body.sg-homepage.sg-portal-page .org-navbar__nav-wrap.navbar-panel,
-    html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
-    html body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel {
-        min-height: 44px !important;
-        border-radius: 14px !important;
-        padding: 0.2rem 0.3rem !important;
     }
 
     html body.sg-homepage.sg-portal-page .site-header__rail .site-header__topbar,
     html body.sg-homepage.sg-portal-page .header-inner .site-header__topbar {
-        min-height: 44px !important;
+        min-height: 48px !important;
     }
 
     html body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row {
-        min-height: 44px !important;
+        min-height: 48px !important;
     }
 }
