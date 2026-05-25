@@ -52,7 +52,7 @@
 }
 
 .site-header__brand-title {
-    font-family: var(--header-font-display, 'Public Sans', 'Inter', system-ui, sans-serif);
+    font-family: var(--header-font-display, 'Inter', 'Public Sans', system-ui, sans-serif);
     font-weight: 800;
     font-size: clamp(0.9rem, 0.7rem + 0.6vw, 1.22rem);
     letter-spacing: 0.02em;
@@ -63,7 +63,7 @@
 }
 
 .site-header__brand-sub {
-    font-family: var(--header-font-display, 'Public Sans', 'Inter', system-ui, sans-serif);
+    font-family: var(--header-font-display, 'Inter', 'Public Sans', system-ui, sans-serif);
     font-weight: 500;
     font-size: clamp(0.62rem, 0.5rem + 0.22vw, 0.8rem);
     letter-spacing: 0.04em;

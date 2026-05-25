@@ -1529,20 +1529,22 @@
         padding: 0.28rem 0.62rem;
         line-height: 1.2;
     }
+    /* Selaras dengan palet donut chart di assets/js/beranda-team-target-charts.js
+       (DIRENCANAKAN #F59E0B / BERJALAN #2563EB / SELESAI #10B981). */
     #beranda-root .gov-team-target-status-badge--direncanakan {
-        background: linear-gradient(135deg, #f5e8c8 0%, #e8d4a0 100%);
-        color: #6b4f14;
-        border-color: rgba(180, 134, 42, 0.28);
+        background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);
+        color: #ffffff;
+        border-color: rgba(180, 83, 9, 0.35);
     }
     #beranda-root .gov-team-target-status-badge--berjalan {
-        background: linear-gradient(135deg, #2a5088 0%, #1a3f6e 100%);
-        color: #f0f6ff;
-        border-color: rgba(26, 63, 110, 0.35);
+        background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+        color: #ffffff;
+        border-color: rgba(29, 78, 216, 0.35);
     }
     #beranda-root .gov-team-target-status-badge--selesai {
-        background: linear-gradient(135deg, #1a7a5c 0%, #0b5e48 100%);
-        color: #ecfdf5;
-        border-color: rgba(11, 94, 72, 0.35);
+        background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+        color: #ffffff;
+        border-color: rgba(4, 120, 87, 0.35);
     }
     #beranda-root .gov-team-target-dash-grid > [class*="col-"] {
         display: flex;
@@ -1659,9 +1661,9 @@
         flex-shrink: 0;
         box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9);
     }
-    #beranda-root .gov-team-target-dot--rencana { background: #c4a574; }
-    #beranda-root .gov-team-target-dot--berjalan { background: #1a3f6e; }
-    #beranda-root .gov-team-target-dot--selesai { background: #0b5e48; }
+    #beranda-root .gov-team-target-dot--rencana { background: #F59E0B; }
+    #beranda-root .gov-team-target-dot--berjalan { background: #2563EB; }
+    #beranda-root .gov-team-target-dot--selesai { background: #10B981; }
     #beranda-root .gov-team-target-accordion__body {
         padding-top: 0.35rem !important;
     }

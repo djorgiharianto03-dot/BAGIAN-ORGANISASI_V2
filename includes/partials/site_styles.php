@@ -25,7 +25,11 @@ org_partial_deny_direct();
             --header-nav-active-glow: rgba(245, 215, 142, 0.55);
             --header-title-size: clamp(1.12rem, 1.9vw + 0.52rem, 1.72rem);
             --header-subtitle-size: clamp(0.74rem, 0.55vw + 0.58rem, 0.9rem);
-            --header-font-display: 'Public Sans', 'Inter', system-ui, sans-serif;
+            /* Disamakan ke 'Inter' agar judul brand di header konsisten di semua
+               halaman. Beranda hanya memuat Inter + Plus Jakarta Sans (bukan
+               Public Sans), sehingga jika Public Sans diprioritaskan akan terjadi
+               pergeseran bentuk huruf (mis. 'G') antara Beranda dan halaman lain. */
+            --header-font-display: 'Inter', 'Public Sans', system-ui, sans-serif;
             --layout-max-width: 1200px;
             --pi-card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.06);
             --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
