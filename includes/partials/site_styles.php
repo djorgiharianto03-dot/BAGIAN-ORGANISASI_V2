@@ -3055,6 +3055,58 @@ org_partial_deny_direct();
         .pi-portal-card-link:hover .pi-portal-card__read-more i {
             transform: translateX(3px);
         }
+        .pi-portal-card__body,
+        .pi-portal-card__meta,
+        .pi-portal-card__meta-date,
+        .pi-portal-card__meta-date i,
+        .pi-portal-card__meta-cat,
+        .pi-portal-card__meta-sep,
+        .pi-portal-card__title,
+        .pi-portal-card__excerpt,
+        .pi-portal-card__read-more {
+            transition: color 0.25s ease, background-color 0.25s ease, opacity 0.25s ease;
+        }
+        .pi-portal-card-link:hover .pi-portal-card__body {
+            background: linear-gradient(160deg, #0f2744 0%, #1e3a5f 100%);
+            opacity: 1;
+        }
+        .pi-portal-card-link:hover .pi-portal-card__title,
+        .pi-portal-card-link:hover .pi-portal-card__excerpt,
+        .pi-portal-card-link:hover .pi-portal-card__meta,
+        .pi-portal-card-link:hover .pi-portal-card__meta-date,
+        .pi-portal-card-link:hover .pi-portal-card__meta-date i,
+        .pi-portal-card-link:hover .pi-portal-card__meta-cat,
+        .pi-portal-card-link:hover .pi-portal-card__meta-sep,
+        .pi-portal-card-link:hover .pi-portal-card__read-more,
+        .pi-portal-card-link:hover .pi-portal-card__read-more i {
+            color: #ffffff !important;
+        }
+        @media (hover: none), (pointer: coarse) {
+            .pi-portal-card-link:hover .pi-portal-card__body {
+                background: transparent;
+            }
+            .pi-portal-card-link:hover .pi-portal-card__title {
+                color: #111827 !important;
+            }
+            .pi-portal-card-link:hover .pi-portal-card__excerpt {
+                color: #4b5563 !important;
+            }
+            .pi-portal-card-link:hover .pi-portal-card__meta,
+            .pi-portal-card-link:hover .pi-portal-card__meta-sep {
+                color: #6b7280 !important;
+            }
+            .pi-portal-card-link:hover .pi-portal-card__meta-cat {
+                color: #b91c1c !important;
+            }
+            .pi-portal-card-link:hover .pi-portal-card__meta-date,
+            .pi-portal-card-link:hover .pi-portal-card__meta-date i {
+                color: #991b1b !important;
+            }
+            .pi-portal-card-link:hover .pi-portal-card__read-more,
+            .pi-portal-card-link:hover .pi-portal-card__read-more i {
+                color: var(--brand-navy) !important;
+            }
+        }
         .pi-portal-empty {
             border-radius: var(--pi-card-radius, 0.75rem);
             background: #ffffff;

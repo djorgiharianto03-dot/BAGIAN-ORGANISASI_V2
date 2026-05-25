@@ -610,7 +610,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $personSlug = trim((string) ($_POST['person_slug'] ?? ''));
             $rowIndex = org_personnel_find_index($personnelData, $personId, $personSlug);
             if ($rowIndex === false) {
-                $_SESSION['flash_message'] = 'Data personel tidak ditemukan.';
+                $_SESSION['flash_message'] = 'Data personel tidak ditemukan. Halaman mungkin sudah berubah — muat ulang lalu coba lagi.';
                 $_SESSION['flash_type'] = 'warning';
             } else {
                 $slug = (string) ($personnelData[$rowIndex]['slug'] ?? '');
@@ -620,14 +620,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($slug === '') {
                     $slug = $slugify((string) ($personnelData[$rowIndex]['name'] ?? ''));
                 }
-                org_personnel_delete_photo_files($fotoStrukturDir, $slug);
-                array_splice($personnelData, $rowIndex, 1);
-                if ($savePersonnelData($personnelFile, $personnelData)) {
+                $deletedName = trim((string) ($personnelData[$rowIndex]['name'] ?? ''));
+                /* Atomik: simpan JSON dulu. Hanya jika tulis JSON sukses
+                   barulah file foto dihapus dari disk. Urutan kebalikannya
+                   (hapus foto dulu) berisiko meninggalkan baris personel
+                   tanpa foto jika personnel.json gagal ditulis. */
+                $personnelDataAfter = $personnelData;
+                array_splice($personnelDataAfter, $rowIndex, 1);
+                if ($savePersonnelData($personnelFile, $personnelDataAfter)) {
+                    org_personnel_delete_photo_files($fotoStrukturDir, $slug);
+                    $personnelData = $personnelDataAfter;
                     $orgPersonnelRegistryApply(org_personnel_sync_from_disk($personnelFile, $fotoStrukturDir, $slugify, $savePersonnelData));
-                    $_SESSION['flash_message'] = 'Personel berhasil dihapus.';
+                    $_SESSION['flash_message'] = $deletedName !== ''
+                        ? 'Personel "' . $deletedName . '" berhasil dihapus.'
+                        : 'Personel berhasil dihapus.';
                     $_SESSION['flash_type'] = 'success';
                 } else {
-                    $_SESSION['flash_message'] = 'Gagal menghapus personel. Periksa izin tulis berkas personnel.json.';
+                    $_SESSION['flash_message'] = 'Gagal menghapus personel. Periksa izin tulis berkas personnel.json di root proyek.';
                     $_SESSION['flash_type'] = 'danger';
                 }
             }

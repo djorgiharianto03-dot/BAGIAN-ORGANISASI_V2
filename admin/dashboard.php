@@ -495,9 +495,13 @@ if ($isPost && $csrfValid && $postedAction === 'delete_file') {
 }
 
 if ($isPost && $csrfValid && $postedAction === 'gallery_upload') {
+    $maxBytesGaleri = 5 * 1024 * 1024;
+    $galFileErr = isset($_FILES['foto_kegiatan']) && is_array($_FILES['foto_kegiatan'])
+        ? (int) ($_FILES['foto_kegiatan']['error'] ?? UPLOAD_ERR_NO_FILE)
+        : UPLOAD_ERR_NO_FILE;
     if ($db === null || !org_galeri_kegiatan_table_exists($db)) {
         $flashErr = 'Tabel galeri tidak tersedia. Periksa koneksi database atau muat ulang halaman.';
-    } elseif (!isset($_FILES['foto_kegiatan']) || !is_array($_FILES['foto_kegiatan'])) {
+    } elseif ($galFileErr === UPLOAD_ERR_NO_FILE) {
         $flashErr = 'Pilih file gambar terlebih dahulu.';
     } else {
         $judul = org_sanitize_plain((string) ($_POST['judul_kegiatan'] ?? ''));
@@ -506,13 +510,14 @@ if ($isPost && $csrfValid && $postedAction === 'gallery_upload') {
         }
         if ($judul === '') {
             $flashErr = 'Judul kegiatan wajib diisi.';
+        } elseif ($galFileErr !== UPLOAD_ERR_OK) {
+            $flashErr = org_upload_error_message($galFileErr, $maxBytesGaleri);
         } else {
             $file = $_FILES['foto_kegiatan'];
-            $maxBytes = 2 * 1024 * 1024;
-            if ($file['error'] !== UPLOAD_ERR_OK) {
-                $flashErr = 'Gagal mengunggah file. Pastikan format gambar didukung dan ukuran maksimal 2MB.';
-            } elseif (($file['size'] ?? 0) > $maxBytes) {
-                $flashErr = 'Ukuran gambar melebihi 2MB.';
+            if (($file['size'] ?? 0) > $maxBytesGaleri) {
+                $flashErr = 'Ukuran gambar melebihi 5 MB.';
+            } elseif (($file['size'] ?? 0) <= 0 || !is_uploaded_file((string) ($file['tmp_name'] ?? ''))) {
+                $flashErr = 'Berkas tidak valid. Pilih ulang gambar.';
             } else {
                 $finfo = finfo_open(FILEINFO_MIME_TYPE);
                 $mime = $finfo ? (string) finfo_file($finfo, $file['tmp_name']) : '';
@@ -531,11 +536,15 @@ if ($isPost && $csrfValid && $postedAction === 'gallery_upload') {
                 }
                 if ($ext === '') {
                     $flashErr = 'Hanya file gambar JPG, JPEG, PNG, WebP, atau GIF yang diperbolehkan.';
+                } elseif (!is_dir($galeriImgDir) && !@mkdir($galeriImgDir, 0775, true) && !is_dir($galeriImgDir)) {
+                    $flashErr = 'Folder assets/img/galeri/ tidak dapat dibuat. Periksa izin folder.';
+                } elseif (!is_writable($galeriImgDir)) {
+                    $flashErr = 'Folder assets/img/galeri/ tidak dapat ditulisi. Periksa izin folder di server.';
                 } else {
                     $baseName = 'gal_' . date('Ymd_His') . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
                     $targetPath = $galeriImgDir . DIRECTORY_SEPARATOR . $baseName;
                     if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
-                        $flashErr = 'Gagal menyimpan file ke folder assets/img/galeri/.';
+                        $flashErr = 'Gagal menyimpan file ke folder assets/img/galeri/. Periksa izin folder.';
                     } elseif (!org_galeri_kegiatan_insert($db, $judul, $baseName)) {
                         @unlink($targetPath);
                         $flashErr = 'Gagal menyimpan data ke database.';
@@ -914,44 +923,51 @@ if ($isPost && $csrfValid && $postedAction === 'pusat_informasi_tambah') {
             $katPi = 'berita';
         }
         $teksPi = org_sanitize_plain(trim((string) ($_POST['pusat_isi'] ?? '')));
+        $maxBytesPi = 4 * 1024 * 1024;
+        $piFileErr = isset($_FILES['pusat_gambar']) && is_array($_FILES['pusat_gambar'])
+            ? (int) ($_FILES['pusat_gambar']['error'] ?? UPLOAD_ERR_NO_FILE)
+            : UPLOAD_ERR_NO_FILE;
         if ($judulPi === '' || strlen($judulPi) > 255) {
             $flashErr = 'Judul wajib diisi (maksimal 255 karakter).';
         } elseif ($teksPi === '') {
             $flashErr = 'Isi teks wajib diisi.';
-        } elseif (!isset($_FILES['pusat_gambar']) || !is_array($_FILES['pusat_gambar'])) {
+        } elseif ($piFileErr === UPLOAD_ERR_NO_FILE) {
             $flashErr = 'Unggah gambar brosur atau poster (JPG, PNG, WebP, atau GIF).';
+        } elseif ($piFileErr !== UPLOAD_ERR_OK) {
+            $flashErr = org_upload_error_message($piFileErr, $maxBytesPi);
         } else {
             $gf = $_FILES['pusat_gambar'];
-            if ($gf['error'] !== UPLOAD_ERR_OK) {
-                $flashErr = 'Gagal mengunggah gambar.';
+            if (($gf['size'] ?? 0) > $maxBytesPi) {
+                $flashErr = 'Ukuran gambar maksimal 4 MB.';
+            } elseif (($gf['size'] ?? 0) <= 0 || !is_uploaded_file((string) ($gf['tmp_name'] ?? ''))) {
+                $flashErr = 'Berkas tidak valid. Pilih ulang gambar.';
             } else {
-                $maxB = 4 * 1024 * 1024;
-                if (($gf['size'] ?? 0) > $maxB) {
-                    $flashErr = 'Ukuran gambar maksimal 4 MB.';
+                $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                $mime = $finfo !== false ? (string) finfo_file($finfo, $gf['tmp_name']) : '';
+                if ($finfo !== false) {
+                    finfo_close($finfo);
+                }
+                $allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+                if (!in_array($mime, $allowed, true)) {
+                    $flashErr = 'Format gambar tidak didukung. Gunakan JPG, PNG, WebP, atau GIF.';
                 } else {
-                    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-                    $mime = $finfo !== false ? (string) finfo_file($finfo, $gf['tmp_name']) : '';
-                    if ($finfo !== false) {
-                        finfo_close($finfo);
+                    $ext = match ($mime) {
+                        'image/jpeg' => 'jpg',
+                        'image/png' => 'png',
+                        'image/webp' => 'webp',
+                        default => 'gif',
+                    };
+                    $piDir = org_pusat_informasi_upload_dir_fs();
+                    if (!is_dir($piDir)) {
+                        @mkdir($piDir, 0775, true);
                     }
-                    $allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
-                    if (!in_array($mime, $allowed, true)) {
-                        $flashErr = 'Format gambar tidak didukung.';
+                    if (!is_dir($piDir) || !is_writable($piDir)) {
+                        $flashErr = 'Folder uploads/pusat_informasi/ tidak dapat ditulisi. Periksa izin folder di server.';
                     } else {
-                        $ext = match ($mime) {
-                            'image/jpeg' => 'jpg',
-                            'image/png' => 'png',
-                            'image/webp' => 'webp',
-                            default => 'gif',
-                        };
-                        $piDir = org_pusat_informasi_upload_dir_fs();
-                        if (!is_dir($piDir)) {
-                            @mkdir($piDir, 0777, true);
-                        }
                         $safeBase = 'pi_' . bin2hex(random_bytes(6)) . '.' . $ext;
                         $dest = $piDir . DIRECTORY_SEPARATOR . $safeBase;
                         if (!move_uploaded_file($gf['tmp_name'], $dest)) {
-                            $flashErr = 'Gagal menyimpan gambar ke server.';
+                            $flashErr = 'Gagal menyimpan gambar ke server. Periksa izin folder uploads/pusat_informasi/.';
                         } elseif (org_pusat_informasi_insert($db, $judulPi, $katPi, $teksPi, $safeBase)) {
                             org_audit_log_insert($db, $idAdminSess, $namaAdminSess, 'Admin menambah entri Pusat Informasi: «' . $judulPi . '» (' . $katPi . ').');
                             $flashOk = 'Entri Pusat Informasi berhasil ditambahkan.';

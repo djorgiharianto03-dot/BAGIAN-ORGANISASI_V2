@@ -266,10 +266,11 @@
                     <p class="text-muted small mb-0">Tabel <code>galeri</code> tidak dapat diakses. Pastikan MySQL berjalan dan <code>config/database.php</code> benar, lalu muat ulang halaman ini.</p>
                 <?php else: ?>
                     <h3 class="h6 fw-semibold mb-3">Unggah foto kegiatan</h3>
-                    <p class="text-muted small mb-3">File disimpan di <code>assets/img/galeri/</code> dan metadata di tabel <code>galeri</code>. Format: JPG, JPEG, PNG, WebP, atau GIF. Maksimal 2MB per file.</p>
+                    <p class="text-muted small mb-3">File disimpan di <code>assets/img/galeri/</code> dan metadata di tabel <code>galeri</code>. Format: JPG, JPEG, PNG, WebP, atau GIF. Maksimal 5 MB per file.</p>
                     <form method="post" enctype="multipart/form-data" class="border-bottom pb-4 mb-4">
                         <input type="hidden" name="action" value="gallery_upload">
                         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
+                        <input type="hidden" name="MAX_FILE_SIZE" value="5242880">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label fw-semibold" for="judul_kegiatan">Judul kegiatan</label>
@@ -278,6 +279,7 @@
                             <div class="col-md-6">
                                 <label class="form-label fw-semibold" for="foto_kegiatan">File gambar</label>
                                 <input class="form-control" type="file" id="foto_kegiatan" name="foto_kegiatan" accept=".jpg,.jpeg,.png,.gif,.webp,image/jpeg,image/png,image/gif,image/webp" required>
+                                <div class="form-text">JPG, PNG, WebP, atau GIF. Maks. 5 MB.</div>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary mt-3"><i class="fa-solid fa-cloud-arrow-up me-1" aria-hidden="true"></i>Unggah ke galeri</button>
@@ -666,6 +668,7 @@
                     <form method="post" enctype="multipart/form-data" class="border-bottom pb-4 mb-4" autocomplete="off">
                         <input type="hidden" name="action" value="pusat_informasi_tambah">
                         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
+                        <input type="hidden" name="MAX_FILE_SIZE" value="4194304">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label" for="pusat_judul">Judul</label>
