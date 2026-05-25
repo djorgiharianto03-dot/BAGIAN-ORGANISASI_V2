@@ -375,7 +375,7 @@ function org_beranda_header_nav_sync_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=5');
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=6');
 }
 
 /**
@@ -428,13 +428,26 @@ HTML;
 function org_beranda_header_nav_critical_footer_markup(): string
 {
     $home = 'body.sg-homepage.sg-portal-page';
-    /* v=5: rail dapat padding-top dari variabel --sg-beranda-rail-pad-top (di beranda-header-nav-sync.css?v=5)
-       sehingga logo turun sejajar dengan panel navbar — sama Profil. */
+    /* v=6: panel navbar Beranda mengikuti Profil — lebih terang/transparan, compact.
+       Nilai dirujuk via variabel (defined di beranda-header-nav-sync.css?v=6)
+       agar single-source-of-truth dan mudah dirubah.                              */
     $rail = 'max-width:1320px!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important;padding-top:var(--sg-beranda-rail-pad-top,clamp(.55rem,1.1vw,.95rem))!important;padding-bottom:var(--sg-beranda-rail-pad-bottom,clamp(.4rem,.9vw,.7rem))!important';
-    $brandRow = 'display:flex!important;align-items:center!important;flex-wrap:nowrap!important;gap:.65rem .85rem!important;flex:1 1 auto!important;min-width:0!important;max-width:none!important;justify-content:flex-start!important;margin:0!important;padding:0!important;align-self:center!important;min-height:var(--sg-nav-panel-min-h,56px)!important';
+    $brandRow = 'display:flex!important;align-items:center!important;flex-wrap:nowrap!important;gap:.65rem .85rem!important;flex:1 1 auto!important;min-width:0!important;max-width:none!important;justify-content:flex-start!important;margin:0!important;padding:0!important;align-self:center!important;min-height:var(--sg-nav-panel-min-h,48px)!important';
     $brandAnchor = 'flex-shrink:0!important;align-self:center!important;display:inline-flex!important;align-items:center!important;margin:0!important;padding:0!important';
-    $topbar = 'order:1!important;width:100%!important;max-width:100%!important;flex:0 0 auto!important;align-self:stretch!important;align-items:center!important;gap:.5rem 1rem!important;padding:0!important;margin:0!important;min-height:var(--sg-nav-panel-min-h,56px)!important';
+    $topbar = 'order:1!important;width:100%!important;max-width:100%!important;flex:0 0 auto!important;align-self:stretch!important;align-items:center!important;gap:.5rem 1rem!important;padding:0!important;margin:0!important;min-height:var(--sg-nav-panel-min-h,48px)!important';
     $logo = 'max-width:none!important;width:auto!important;height:auto!important;object-fit:contain!important;filter:none!important;flex-shrink:0!important;vertical-align:middle!important;align-self:center!important;margin-top:0!important;margin-bottom:0!important';
+    $panel = 'min-height:var(--sg-nav-panel-min-h,48px)!important;'
+        . 'height:auto!important;margin:0!important;'
+        . 'padding:var(--sg-nav-panel-pad-block,.25rem) var(--sg-nav-panel-pad-inline,.35rem)!important;'
+        . 'border-radius:var(--sg-nav-panel-radius,16px)!important;'
+        . 'background:var(--sg-nav-panel-bg,rgba(2,22,48,.62))!important;'
+        . '-webkit-backdrop-filter:blur(var(--sg-nav-panel-blur,12px)) saturate(1.1)!important;'
+        . 'backdrop-filter:blur(var(--sg-nav-panel-blur,12px)) saturate(1.1)!important;'
+        . 'border:1px solid var(--sg-nav-panel-border,rgba(255,255,255,.14))!important;'
+        . 'box-shadow:var(--sg-nav-panel-shadow,inset 0 1px 0 rgba(255,255,255,.08),0 6px 20px rgba(0,10,28,.28))!important;'
+        . 'box-sizing:border-box!important';
+    $panelScrolled = 'background:var(--sg-nav-panel-bg-scrolled,rgba(2,22,48,.72))!important;'
+        . 'box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 8px 26px rgba(0,10,28,.32)!important';
 
     $css = '<style id="sg-beranda-header-match-profil">'
         . "{$home} .site-header--sg-portal .site-header__rail.container-global,"
@@ -446,13 +459,19 @@ function org_beranda_header_nav_critical_footer_markup(): string
         . "{$home} .site-header--sg-portal .org-navbar__brand.site-header__brand-row{" . $brandRow . '}'
         . "{$home} .site-header--sg-portal .site-header__brand-row > a:first-child{" . $brandAnchor . '}'
         . "{$home} .site-header__logo,{$home} .org-navbar__logo{max-height:48px!important;" . $logo . '}'
+        /* Panel navbar Beranda — terang/transparan/compact (sama Profil) */
+        . "{$home} .navbar-panel,"
+        . "{$home} .org-navbar__nav-wrap.navbar-panel,"
+        . "{$home} .site-header--sg-portal .site-header__nav-wrap,"
+        . "{$home} .site-header--sg-portal .site-header__nav-wrap.navbar-panel,"
+        . "{$home} .site-header__nav-wrap.navbar-panel{" . $panel . '}'
+        . "{$home} .site-header--sg-portal.is-scrolled .navbar-panel,"
+        . "{$home} .site-header--sg-portal.is-scrolled .org-navbar__nav-wrap.navbar-panel,"
+        . "{$home} .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel{" . $panelScrolled . '}'
         . '@media(min-width:992px){'
         . "{$home} .site-header__logo,{$home} .org-navbar__logo{max-height:52px!important}"
         . "{$home} .site-header__rail .navbar-wrapper,{$home} .site-header__rail .org-navbar__nav-shell,{$home} .navbar-wrapper{"
         . 'display:block!important;width:100%!important;max-width:100%!important;margin-top:clamp(.5rem,1.2vw,1.125rem)!important;margin-left:0!important;margin-right:0!important;padding:0!important;flex:0 0 auto!important;order:2!important;align-self:stretch!important;box-sizing:border-box!important}'
-        . "{$home} .site-header--sg-portal .site-header__nav-wrap.navbar-panel,"
-        . "{$home} .site-header--sg-portal .navbar-panel{"
-        . 'min-height:56px!important;border-radius:20px!important;padding:.35rem 0!important;background:rgba(2,22,48,.94)!important;border:1px solid rgba(147,197,253,.18)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 32px rgba(0,10,28,.42)!important}'
         . '}'
         . '@media(max-width:991.98px){'
         . "{$home} .site-header__logo,{$home} .org-navbar__logo{max-height:38px!important;max-width:36vw!important}"

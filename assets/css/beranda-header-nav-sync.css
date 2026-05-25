@@ -1,44 +1,49 @@
 /**
- * Beranda — header identik Profil.
+ * Beranda — panel navbar 1:1 dengan Profil/sub halaman.
  *
- * v=5: target khusus VERTICAL POSITION logo Beranda agar 1:1 dengan Profil.
- * Profil mempunyai breathing space di atas topbar (sehingga logo "lebih turun"
- * dan sejajar dengan panel navbar). Beranda sebelumnya kompres ke atas
- * sehingga logo terlalu mepet ke top:0 dari header fixed.
+ * v=6: PANEL NAVBAR Beranda saat ini terlihat terlalu gelap & padat.
+ * Profil menampilkan panel yang lebih terang/transparan, lebih compact,
+ * radius lebih kecil, dan tinggi minimum lebih kecil. File ini menimpa
+ * variabel + selector spesifik agar Beranda mengikuti tampilan Profil.
  *
- * Strategi:
- *   - Tambah padding-top pada .site-header__rail (rail flex column).
- *   - Tidak ubah halaman lain — semua selector di-prefix body.sg-homepage.
- *   - File ini dimuat paling akhir via org_beranda_header_nav_sync_stylesheet_link()
- *     (lihat org_portal_navbar_footer_cascade_markup di footer).
+ * Catatan:
+ *   - SELURUH rule diawali `body.sg-homepage` — Profil dan halaman lain
+ *     tidak akan terpengaruh.
+ *   - Dimuat paling akhir via org_beranda_navbar_footer_cascade_markup()
+ *     (di footer.php), setelah bundle async + smart-governance-portal-nav.css.
+ *   - v=5 sebelumnya hanya menyentuh vertical position logo; v=6 fokus
+ *     ke styling panel navbar.
  */
 
 body.sg-homepage.sg-portal-page {
+    /* Variabel global (selaras portal-nav.css) */
     --layout-max-width: 1320px;
     --portal-content-gutter: clamp(1rem, 2.5vw, 32px);
-    --sg-nav-panel-min-h: 56px;
-    --sg-nav-panel-radius: 20px;
-    --sg-nav-panel-pad-block: 0.35rem;
-    --sg-nav-panel-pad-inline: 0;
-    --sg-nav-panel-bg: rgba(2, 22, 48, 0.94);
-    --sg-nav-panel-bg-scrolled: rgba(2, 22, 48, 0.97);
-    --sg-nav-panel-border: rgba(147, 197, 253, 0.18);
-    --sg-nav-panel-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.07),
-        0 10px 32px rgba(0, 10, 28, 0.42);
     --sg-nav-wrapper-gap: clamp(0.5rem, 1.2vw, 1.125rem);
-    --sg-nav-row-min-h: 56px;
+    --sg-nav-row-min-h: 48px;
     --sg-nav-tap: 40px;
-    /* Breathing space di atas logo — selaras Profil */
+
+    /* Panel navbar — versi terang/transparan & compact (Profil look). */
+    --sg-nav-panel-min-h: 48px;
+    --sg-nav-panel-radius: 16px;
+    --sg-nav-panel-pad-block: 0.25rem;
+    --sg-nav-panel-pad-inline: 0.35rem;
+    --sg-nav-panel-bg: rgba(2, 22, 48, 0.62);
+    --sg-nav-panel-bg-scrolled: rgba(2, 22, 48, 0.72);
+    --sg-nav-panel-border: rgba(255, 255, 255, 0.14);
+    --sg-nav-panel-blur: 12px;
+    --sg-nav-panel-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 6px 20px rgba(0, 10, 28, 0.28);
+
+    /* Breathing space header (tetap dari v=5 — logo sejajar panel). */
     --sg-beranda-rail-pad-top: clamp(0.55rem, 1.1vw, 0.95rem);
     --sg-beranda-rail-pad-bottom: clamp(0.4rem, 0.9vw, 0.7rem);
 }
 
 /* ============================================================
-   VERTICAL POSITION LOGO — Beranda mengikuti rendering Profil
+   HEADER RAIL + TOPBAR (vertical position logo)
    ============================================================ */
-
-/* Rail: tambah padding-top/bottom yang sama dengan computed value Profil. */
 body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__rail.container-global,
 body.sg-homepage.sg-portal-page .site-header--sg-portal .header-inner.container-global,
 body.sg-homepage.sg-portal-page .site-header__inner.header-inner {
@@ -46,74 +51,162 @@ body.sg-homepage.sg-portal-page .site-header__inner.header-inner {
     padding-bottom: var(--sg-beranda-rail-pad-bottom) !important;
 }
 
-/* Topbar: pastikan center-vertical dengan gap yang stabil */
 body.sg-homepage.sg-portal-page .site-header__rail .site-header__topbar,
 body.sg-homepage.sg-portal-page .header-inner .site-header__topbar {
     align-items: center !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
     margin: 0 !important;
-    min-height: var(--sg-nav-panel-min-h, 56px) !important;
+    min-height: var(--sg-nav-panel-min-h, 48px) !important;
 }
 
-/* Brand row: logo vertikal-center di topbar dengan tinggi minimum sama panel */
 body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row,
 body.sg-homepage.sg-portal-page .site-header--sg-portal .org-navbar__brand.site-header__brand-row {
     align-items: center !important;
     align-self: center !important;
-    min-height: var(--sg-nav-panel-min-h, 56px) !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
+    min-height: var(--sg-nav-panel-min-h, 48px) !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row > a:first-child {
     align-self: center !important;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
+    margin: 0 !important;
 }
 
-/* Logo itself: jaga ukuran konsisten Profil dan vertical-align middle */
 body.sg-homepage.sg-portal-page .site-header__logo,
 body.sg-homepage.sg-portal-page .org-navbar__logo {
     align-self: center !important;
     vertical-align: middle !important;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
+    margin: 0 !important;
 }
 
-/* Gradient (background dark blue) — biar padding ada di rail, gradient tetap 0 */
 body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__gradient {
     padding: 0 !important;
 }
 
-/* Batalkan polish beranda-only pada tombol header (sama Profil) */
+/* ============================================================
+   PANEL NAVBAR — lighter / glass / compact (sama Profil)
+   ============================================================ */
+
+/* Wrapper di sekitar panel — gap & spacing */
+body.sg-homepage.sg-portal-page .site-header__rail .navbar-wrapper,
+body.sg-homepage.sg-portal-page .site-header__rail .org-navbar__nav-shell,
+body.sg-homepage.sg-portal-page .navbar-wrapper {
+    margin-top: var(--sg-nav-wrapper-gap) !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+}
+
+/* Panel utama (state default) */
+body.sg-homepage.sg-portal-page .navbar-panel,
+body.sg-homepage.sg-portal-page .org-navbar__nav-wrap.navbar-panel,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap,
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav-wrap.navbar-panel,
+body.sg-homepage.sg-portal-page .site-header__nav-wrap.navbar-panel {
+    min-height: var(--sg-nav-panel-min-h) !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: var(--sg-nav-panel-pad-block) var(--sg-nav-panel-pad-inline) !important;
+    border-radius: var(--sg-nav-panel-radius) !important;
+    background: var(--sg-nav-panel-bg) !important;
+    backdrop-filter: blur(var(--sg-nav-panel-blur)) saturate(1.1) !important;
+    -webkit-backdrop-filter: blur(var(--sg-nav-panel-blur)) saturate(1.1) !important;
+    border: 1px solid var(--sg-nav-panel-border) !important;
+    box-shadow: var(--sg-nav-panel-shadow) !important;
+    box-sizing: border-box !important;
+}
+
+/* Panel state scrolled — sedikit lebih opaque tapi tetap tembus */
+body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .navbar-panel,
+body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .org-navbar__nav-wrap.navbar-panel,
+body.sg-homepage.sg-portal-page .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel {
+    background: var(--sg-nav-panel-bg-scrolled) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 8px 26px rgba(0, 10, 28, 0.32) !important;
+}
+
+/* Baris menu di dalam panel — compact spacing */
+body.sg-homepage.sg-portal-page .navbar-panel .site-header__nav-row,
+body.sg-homepage.sg-portal-page .site-header__nav-wrap .site-header__nav-row,
+body.sg-homepage.sg-portal-page .org-navbar__nav-wrap .site-header__nav-row {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.35rem 0.65rem !important;
+    min-height: var(--sg-nav-row-min-h, 48px) !important;
+    padding: 0.1rem 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* Daftar menu kiri — gap antar item compact */
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 0.2rem 0.45rem !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__nav a {
+    min-height: 36px !important;
+    padding: 0.35rem 0.65rem !important;
+    border-radius: 10px !important;
+    font-size: clamp(0.8125rem, 0.25vw + 0.78rem, 0.9rem) !important;
+    line-height: 1.2 !important;
+}
+
+/* Group action kanan (theme toggle + Dashboard + Logout) — compact gap */
+body.sg-homepage.sg-portal-page .site-header__actions,
+body.sg-homepage.sg-portal-page .site-header__actions-end,
+body.sg-homepage.sg-portal-page .org-navbar__actions-end {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.4rem !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Tombol header — match Profil (compact) */
 body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-login,
 body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-logout,
 body.sg-homepage.sg-portal-page .site-header--sg-portal .btn-header-dashboard,
 body.sg-homepage.sg-portal-page .site-header__actions-end .btn {
     min-height: var(--sg-nav-tap, 40px) !important;
     height: auto !important;
-    padding: 0.45rem 0.75rem !important;
+    padding: 0.4rem 0.7rem !important;
     font-size: clamp(0.8125rem, 0.25vw + 0.78rem, 0.875rem) !important;
     font-weight: 600 !important;
     border-radius: 0.75rem !important;
 }
 
-/* Mobile: rail padding lebih ringkas (selaras gradient padding mobile Profil) */
+/* Theme toggle — pastikan tidak terlalu besar */
+body.sg-homepage.sg-portal-page .site-header__actions-end .org-theme-toggle {
+    min-height: var(--sg-nav-tap, 40px) !important;
+}
+
+/* ============================================================
+   Mobile (≤ 991.98px)
+   ============================================================ */
 @media (max-width: 991.98px) {
     body.sg-homepage.sg-portal-page {
         --sg-beranda-rail-pad-top: 0.4rem;
         --sg-beranda-rail-pad-bottom: 0.3rem;
+        --sg-nav-panel-min-h: 44px;
+        --sg-nav-panel-radius: 14px;
+        --sg-nav-panel-pad-block: 0.2rem;
+        --sg-nav-panel-pad-inline: 0.3rem;
     }
 
     body.sg-homepage.sg-portal-page .site-header__rail .site-header__topbar,
     body.sg-homepage.sg-portal-page .header-inner .site-header__topbar {
-        min-height: 48px !important;
+        min-height: 44px !important;
     }
 
     body.sg-homepage.sg-portal-page .site-header--sg-portal .site-header__brand-row {
-        min-height: 48px !important;
+        min-height: 44px !important;
     }
 }
