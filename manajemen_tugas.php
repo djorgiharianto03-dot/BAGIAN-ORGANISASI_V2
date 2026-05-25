@@ -542,6 +542,10 @@ $extraHeadMarkup = <<<'HTML'
 </style>
 HTML;
 
+$extraFooterMarkup = $extraFooterMarkup ?? '';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
+org_portal_apply_assets($bodyClass, $extraHeadMarkup, $extraFooterMarkup, true);
+
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'header.php';
 ?>
 

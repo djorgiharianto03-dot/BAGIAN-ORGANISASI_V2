@@ -852,6 +852,11 @@ if ($isExportExcel) {
     exit;
 }
 
+$extraHeadMarkup = $extraHeadMarkup ?? '';
+$extraFooterMarkup = $extraFooterMarkup ?? '';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
+org_portal_apply_assets($bodyClass, $extraHeadMarkup, $extraFooterMarkup, true);
+
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'header.php';
 $arsipTotalRows = count($arsipRows);
 $arsipTotalPages = max(1, (int) ceil($arsipTotalRows / $arsipPerPage));

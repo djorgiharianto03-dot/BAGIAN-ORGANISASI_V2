@@ -131,6 +131,17 @@ org_partial_deny_direct();
         body.mode-eorganisasi .site-header__nav a:hover {
             color: #ffffff;
         }
+        /* E-Organisasi sub-modul (Buku Tamu / Arsip / Manajemen Tugas / Monitoring / Disposisi / Dashboard Grafik):
+           navbar smart portal bersifat position:fixed seperti beranda. Halaman-halaman ini memakai hero kustom
+           (bukan .sg-subhero), sehingga butuh padding-top manual agar konten tidak tertutup navbar. */
+        body.mode-eorganisasi.sg-portal-page:not(.page-eorg-hub):not(.sg-homepage) .site-layout-main {
+            padding-top: calc(var(--sg-portal-header-offset, 5.5rem) + clamp(0.5rem, 1vw, 0.85rem)) !important;
+        }
+        body.mode-eorganisasi.sg-portal-page:not(.page-eorg-hub):not(.sg-homepage) .site-layout-main > .container,
+        body.mode-eorganisasi.sg-portal-page:not(.page-eorg-hub):not(.sg-homepage) .site-layout-main > .container-fluid,
+        body.mode-eorganisasi.sg-portal-page:not(.page-eorg-hub):not(.sg-homepage) .site-layout-main > .container-global {
+            padding-top: 0;
+        }
         html,
         body {
             width: 100%;

@@ -249,6 +249,11 @@ $suratMonthLabels = array_map(static fn(string $ym): string => date('M Y', strto
 $suratMasukSeries = array_map(static fn(array $row): int => (int) ($row['masuk'] ?? 0), array_values($suratMonthly));
 $suratKeluarSeries = array_map(static fn(array $row): int => (int) ($row['keluar'] ?? 0), array_values($suratMonthly));
 
+$extraHeadMarkup = $extraHeadMarkup ?? '';
+$extraFooterMarkup = $extraFooterMarkup ?? '';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
+org_portal_apply_assets($bodyClass, $extraHeadMarkup, $extraFooterMarkup, true);
+
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'header.php';
 ?>
 <div class="container site-main">
