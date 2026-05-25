@@ -32,10 +32,11 @@
 .site-header__logo,
 .org-navbar__logo {
     flex: 0 0 auto;
-    /* 40px di HP kecil -> 56px di desktop, scaling halus */
-    height: clamp(40px, 3.2vw + 24px, 56px);
     width: auto;
     display: block;
+    /* Tinggi logo final di-handle smart-governance-portal-nav.css per breakpoint
+       (48px desktop, 52px >=1200px, 38px <=991px). Di sini cukup pastikan tidak
+       di-stretch oleh flexbox. */
 }
 
 .site-header__brand-text {
@@ -46,6 +47,8 @@
     min-width: 0;
     color: #ffffff;
     text-align: left;
+    /* Tidak dipaksa fixed-height: align-items:center pada .brand-link bakal
+       menengahkan blok teks (sekitar 39-42px) dengan logo (48px) otomatis. */
 }
 
 .site-header__brand-title {
@@ -70,12 +73,8 @@
     text-shadow: 0 1px 2px rgba(0, 10, 28, 0.28);
 }
 
-/* Desktop: subtitle pasti 1 baris, tinggi blok teks = tinggi logo */
+/* Desktop: subtitle pasti 1 baris (cukup ruang untuk "SEKRETARIAT DAERAH KABUPATEN KEPULAUAN ARU") */
 @media (min-width: 992px) {
-    .site-header__brand-text {
-        height: 56px;
-    }
-
     .site-header__brand-sub {
         white-space: nowrap;
     }
