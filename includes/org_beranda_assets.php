@@ -375,7 +375,7 @@ function org_beranda_header_nav_sync_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=8');
+    return org_asset_stylesheet_link('assets/css/beranda-header-nav-sync.css?v=9');
 }
 
 /**
@@ -427,69 +427,52 @@ HTML;
  */
 function org_beranda_header_nav_critical_footer_markup(): string
 {
-    /* v=8: SINGLE PANEL fix. Wrapper luar (rail, topbar, nav-shell, gradient,
-       nav-panel inner) DIPAKSA TRANSPARENT — hanya .site-header__nav-wrap.navbar-panel
-       yang punya background/border/shadow. Warna 1:1 dengan computed Profil. */
+    /* v=9: MINIMAL — hanya samakan warna panel Beranda dengan Profil.
+       Layout/positioning/spacing TIDAK diubah dari sini — biar mengikuti
+       smart-governance-portal-nav.css (sama Profil). Versi v=8 sebelumnya
+       merusak layout karena memaksa display/flex/margin-top/min-height/
+       position di banyak wrapper. */
     $home = 'html body.sg-homepage.sg-portal-page';
 
     $transparent = 'background:transparent!important;background-color:transparent!important;background-image:none!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important';
 
-    $rail = 'max-width:1320px!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important;padding-top:var(--sg-beranda-rail-pad-top,clamp(.55rem,1.1vw,.95rem))!important;padding-bottom:var(--sg-beranda-rail-pad-bottom,clamp(.4rem,.9vw,.7rem))!important';
-    $brandRow = 'display:flex!important;align-items:center!important;flex-wrap:nowrap!important;gap:.65rem .85rem!important;flex:1 1 auto!important;min-width:0!important;max-width:none!important;justify-content:flex-start!important;margin:0!important;padding:0!important;align-self:center!important';
-    $brandAnchor = 'flex-shrink:0!important;align-self:center!important;display:inline-flex!important;align-items:center!important;margin:0!important;padding:0!important';
-    $topbar = 'order:1!important;width:100%!important;max-width:100%!important;flex:0 0 auto!important;align-self:stretch!important;align-items:center!important;gap:.5rem 1rem!important;padding:0!important;margin:0!important';
-    $logo = 'max-width:none!important;width:auto!important;height:auto!important;object-fit:contain!important;filter:none!important;flex-shrink:0!important;vertical-align:middle!important;align-self:center!important;margin-top:0!important;margin-bottom:0!important';
-
-    /* Panel TUNGGAL — nilai 1:1 dengan computed Profil */
-    $panel = 'min-height:56px!important;'
-        . 'height:auto!important;margin:0!important;'
-        . 'padding:.35rem 0!important;'
-        . 'border-radius:20px!important;'
-        . 'background:rgba(2,22,48,.94)!important;'
+    /* Panel TUNGGAL — hanya warna/border/shadow/radius (TIDAK menyentuh
+       display/position/min-height/margin/padding/flex). */
+    $panel = 'background:rgba(2,22,48,.94)!important;'
         . 'background-color:rgba(2,22,48,.94)!important;'
         . 'background-image:none!important;'
         . '-webkit-backdrop-filter:none!important;'
         . 'backdrop-filter:none!important;'
         . 'border:1px solid rgba(147,197,253,.18)!important;'
-        . 'box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 32px rgba(0,10,28,.42)!important;'
-        . 'box-sizing:border-box!important;'
-        . 'display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:center!important;'
-        . 'position:static!important;width:100%!important;max-width:100%!important';
+        . 'border-radius:20px!important;'
+        . 'box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 32px rgba(0,10,28,.42)!important';
     $panelScrolled = 'background:rgba(2,22,48,.97)!important;'
         . 'background-color:rgba(2,22,48,.97)!important;'
         . 'background-image:none!important';
 
     $css = '<style id="sg-beranda-header-match-profil">'
-        /* Rail wrapper transparent — hanya kasih padding-top utk logo offset */
+        /* Wrapper luar — paksa transparent (hanya property bg/border/shadow). */
+        . "{$home} .site-header--sg-portal .site-header__gradient,"
         . "{$home} .site-header--sg-portal .site-header__rail.container-global,"
-        . "{$home} .site-header--sg-portal .header-inner.container-global{"
-        . 'display:flex!important;flex-direction:column!important;align-items:stretch!important;flex-wrap:nowrap!important;width:100%!important;' . $rail . '!important;margin-left:auto!important;margin-right:auto!important;box-sizing:border-box!important;' . $transparent . '}'
-        /* Gradient luar transparent */
-        . "{$home} .site-header--sg-portal .site-header__gradient{padding:0!important;" . $transparent . '}'
-        /* Topbar transparent */
+        . "{$home} .site-header--sg-portal .header-inner.container-global,"
+        . "{$home} .site-header__inner.header-inner,"
         . "{$home} .site-header__rail .site-header__topbar,"
-        . "{$home} .header-inner .site-header__topbar{" . $topbar . ';' . $transparent . '}'
-        /* Brand row transparent */
+        . "{$home} .header-inner .site-header__topbar,"
         . "{$home} .site-header--sg-portal .site-header__brand-row,"
-        . "{$home} .site-header--sg-portal .org-navbar__brand.site-header__brand-row{" . $brandRow . ';' . $transparent . '}'
-        . "{$home} .site-header--sg-portal .site-header__brand-row > a:first-child{" . $brandAnchor . '}'
-        . "{$home} .site-header__logo,{$home} .org-navbar__logo{max-height:48px!important;" . $logo . '}'
-        /* Wrapper di sekitar panel — transparent (jangan jadi panel ke-2) */
+        . "{$home} .site-header--sg-portal .org-navbar__brand.site-header__brand-row,"
         . "{$home} .site-header__rail .navbar-wrapper,"
         . "{$home} .site-header__rail .org-navbar__nav-shell,"
         . "{$home} .navbar-wrapper,"
-        . "{$home} .org-navbar__nav-shell{"
-        . 'display:block!important;width:100%!important;max-width:100%!important;margin-top:clamp(.5rem,1.2vw,1.125rem)!important;margin-left:0!important;margin-right:0!important;padding:0!important;flex:0 0 auto!important;order:2!important;align-self:stretch!important;box-sizing:border-box!important;' . $transparent . '}'
-        /* Inner element di dalam panel — transparent (no double layer) */
+        . "{$home} .org-navbar__nav-shell,"
         . "{$home} .site-header__nav-panel,"
         . "{$home} .site-header__nav-row,"
         . "{$home} .org-navbar__nav-row,"
-        . "{$home} .site-header__nav,"
+        . "{$home} .site-header--sg-portal .site-header__nav,"
         . "{$home} .site-header__actions,"
         . "{$home} .site-header__actions-end,"
         . "{$home} .org-navbar__nav,"
         . "{$home} .org-navbar__actions-end{" . $transparent . '}'
-        /* PANEL TUNGGAL — hanya selector ini yang punya bg/border/shadow */
+        /* PANEL TUNGGAL — hanya warna/border/shadow/radius */
         . "{$home} .site-header--sg-portal .navbar-panel,"
         . "{$home} .site-header--sg-portal .org-navbar__nav-wrap.navbar-panel,"
         . "{$home} .site-header--sg-portal .site-header__nav-wrap.navbar-panel,"
@@ -497,15 +480,6 @@ function org_beranda_header_nav_critical_footer_markup(): string
         . "{$home} .site-header--sg-portal.is-scrolled .navbar-panel,"
         . "{$home} .site-header--sg-portal.is-scrolled .org-navbar__nav-wrap.navbar-panel,"
         . "{$home} .site-header--sg-portal.is-scrolled .site-header__nav-wrap.navbar-panel{" . $panelScrolled . '}'
-        . '@media(min-width:992px){'
-        . "{$home} .site-header__logo,{$home} .org-navbar__logo{max-height:52px!important}"
-        . '}'
-        . '@media(max-width:991.98px){'
-        . "{$home} .site-header__logo,{$home} .org-navbar__logo{max-height:38px!important;max-width:36vw!important}"
-        . '}'
-        . '@media(max-width:575.98px){'
-        . "{$home} .site-header__logo,{$home} .org-navbar__logo{max-height:48px!important;max-width:36vw!important}"
-        . '}'
         . '</style>' . "\n";
 
     return $css;
