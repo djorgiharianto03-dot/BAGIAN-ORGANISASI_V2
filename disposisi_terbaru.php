@@ -496,7 +496,7 @@ function dpt_render_arsip_masuk_belum_dispo_cards_html(array $list): void
             $smBtnLabel = str_contains($monSm, 'disposisi_awal_kabag') ? 'Input disposisi awal' : 'Monitoring — Surat Masuk';
             echo '<a class="btn btn-sm btn-success" href="', htmlspecialchars($monSm, ENT_QUOTES, 'UTF-8'), '">', htmlspecialchars($smBtnLabel, ENT_QUOTES, 'UTF-8'), '</a>';
         }
-        echo '<a class="btn btn-sm btn-light border" href="<?php echo org_href('arsip.php'); ?>">Arsip</a>';
+        echo '<a class="btn btn-sm btn-light border" href="' . org_href('arsip.php') . '">Arsip</a>';
         echo '</div></div></article></li>';
     }
 }
