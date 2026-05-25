@@ -1041,3 +1041,218 @@
         flex: 1 1 auto;
     }
 }
+
+/* ===== Halaman Dokumen v9 — desain "Perpustakaan Digital" sesuai referensi gambar ===== */
+
+/* Tidak ada subhero biru di halaman ini. Beri padding-top ke main supaya
+   konten tidak menempel navbar. */
+.page-digital-library--hero-panel .sg-portal-main-inner {
+    padding-top: calc(var(--sg-portal-header-offset, 5.5rem) + 0.75rem);
+}
+
+/* Panel light-blue yang berisi judul + subtitle + search */
+.digital-library--hero-panel .doc-center__hero-panel {
+    background: linear-gradient(180deg, #eaf3fc 0%, #dfeaf6 100%);
+    border: 1px solid rgba(15, 76, 129, 0.08);
+    border-radius: clamp(18px, 2vw, 28px);
+    padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 4vw, 3rem) clamp(1.5rem, 3.5vw, 2.5rem);
+    margin: 0 0 clamp(1.25rem, 3vw, 2rem);
+    text-align: center;
+    box-shadow: 0 4px 22px rgba(15, 23, 42, 0.04);
+}
+
+.digital-library--hero-panel .doc-center__hero-panel .doc-center__intro {
+    margin: 0 auto clamp(1rem, 2.5vw, 1.5rem);
+    text-align: center;
+    max-width: 60rem;
+}
+
+.digital-library--hero-panel .doc-center__hero-panel .doc-center__title {
+    font-family: 'Plus Jakarta Sans', 'Public Sans', 'Inter', system-ui, sans-serif;
+    font-weight: 800;
+    color: #0f2c4a;
+    text-transform: uppercase;
+    letter-spacing: -0.015em;
+    font-size: clamp(1.5rem, 1.8vw + 1rem, 2.65rem);
+    line-height: 1.12;
+    margin: 0 0 0.55rem;
+}
+
+.digital-library--hero-panel .doc-center__hero-panel .doc-center__subtitle {
+    margin: 0 auto;
+    color: #475569;
+    font-size: clamp(0.875rem, 0.32vw + 0.78rem, 1rem);
+    line-height: 1.55;
+    max-width: 44rem;
+}
+
+/* Search bar di dalam hero panel — pill rounded, putih, tombol CARI biru tua */
+.digital-library--hero-panel .doc-center__hero-search-block {
+    max-width: 44rem;
+    margin: 0 auto;
+}
+
+.digital-library--hero-panel .library-doc-search-header--pill .library-doc-search-header__combo {
+    background: #ffffff !important;
+    border: 1px solid #d6e2ee !important;
+    border-radius: 999px !important;
+    padding: 0.35rem 0.4rem 0.35rem 0.85rem !important;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06) !important;
+    gap: 0.5rem;
+}
+
+.digital-library--hero-panel .library-doc-search-header--pill .library-doc-search-header__combo:focus-within {
+    border-color: #1e3a8a !important;
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.18), 0 4px 18px rgba(15, 23, 42, 0.06) !important;
+}
+
+.digital-library--hero-panel .library-doc-search-header--pill .library-doc-search-header__field {
+    padding: 0.35rem 0 !important;
+    background: transparent !important;
+    border-radius: 999px !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.digital-library--hero-panel .library-doc-search-header--pill .library-doc-search-header__icon {
+    color: #94a3b8;
+    margin-right: 0.45rem;
+    background: transparent !important;
+}
+
+.digital-library--hero-panel .library-doc-search-header--pill .library-doc-search-header__input {
+    background: transparent !important;
+    border: 0 !important;
+    font-size: clamp(0.9375rem, 0.4vw + 0.82rem, 1rem) !important;
+    padding: 0.55rem 0.25rem !important;
+    color: #1e293b;
+}
+
+.digital-library--hero-panel .library-doc-search-header--pill .library-doc-search-header__submit {
+    background: #1e3a8a !important;
+    color: #ffffff !important;
+    border-radius: 999px !important;
+    padding: 0.7rem clamp(1.25rem, 2.5vw, 2rem) !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    font-size: 0.875rem !important;
+    border: 0 !important;
+    box-shadow: 0 4px 14px rgba(30, 58, 138, 0.25) !important;
+    margin: 0 !important;
+}
+
+.digital-library--hero-panel .library-doc-search-header--pill .library-doc-search-header__submit:hover {
+    background: #1a3275 !important;
+    box-shadow: 0 6px 18px rgba(30, 58, 138, 0.32) !important;
+}
+
+/* Heading "Daftar dokumen" di atas filter chips */
+.digital-library--hero-panel .doc-center__filters-row {
+    margin: 0 0 1rem;
+}
+
+.digital-library--hero-panel .doc-center__filters-heading {
+    font-family: 'Plus Jakarta Sans', 'Public Sans', 'Inter', system-ui, sans-serif;
+    font-size: clamp(1.1rem, 0.4vw + 1rem, 1.35rem);
+    font-weight: 800;
+    color: #0f2c4a;
+    margin: 0 0 0.9rem;
+    letter-spacing: -0.01em;
+}
+
+/* Sembunyikan heading "Arsip dokumen" lama di panel (karena sudah pindah ke filters-row) */
+.digital-library--hero-panel .doc-center__panel-head {
+    display: none;
+}
+
+/* Chip kategori — match referensi: bg putih, border tipis, ikon biru, label + count */
+.digital-library--hero-panel .library-doc-category-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+}
+
+.digital-library--hero-panel .library-doc-category-filter__btn {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: #334155;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, color 0.18s ease;
+    cursor: pointer;
+}
+
+.digital-library--hero-panel .library-doc-category-filter__btn:hover {
+    border-color: #1e3a8a;
+    color: #1e3a8a;
+}
+
+.digital-library--hero-panel .library-doc-category-filter__btn.is-active,
+.digital-library--hero-panel .library-doc-category-filter__btn[aria-selected="true"] {
+    background: #1e3a8a;
+    border-color: #1e3a8a;
+    color: #ffffff;
+    box-shadow: 0 6px 18px rgba(30, 58, 138, 0.25);
+}
+
+.digital-library--hero-panel .library-doc-category-filter__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: currentColor;
+}
+
+.digital-library--hero-panel .library-doc-category-filter__text-wrap {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+}
+
+.digital-library--hero-panel .library-doc-category-filter__label {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1.2;
+}
+
+.digital-library--hero-panel .library-doc-category-filter__count {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: inherit;
+    opacity: 0.85;
+    background: transparent;
+    padding: 0;
+    border: 0;
+}
+
+/* Tabel — header uppercase, lebih bersih */
+.digital-library--hero-panel .doc-center-table thead th {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.78rem;
+    color: #475569;
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+@media (max-width: 575.98px) {
+    .digital-library--hero-panel .doc-center__hero-panel {
+        padding: 1.5rem 1rem 1.25rem;
+    }
+
+    .digital-library--hero-panel .library-doc-search-header--pill .library-doc-search-header__combo {
+        flex-wrap: wrap !important;
+        padding: 0.4rem !important;
+        border-radius: 24px !important;
+    }
+
+    .digital-library--hero-panel .library-doc-search-header--pill .library-doc-search-header__submit {
+        width: 100%;
+        border-radius: 999px !important;
+    }
+}

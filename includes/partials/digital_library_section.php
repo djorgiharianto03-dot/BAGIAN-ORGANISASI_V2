@@ -62,15 +62,41 @@ foreach ($libRows as $countFile) {
 ?>
         <section class="<?php echo htmlspecialchars($sectionClasses, ENT_QUOTES, 'UTF-8'); ?>"<?php echo $sectionIdAttr; ?> aria-labelledby="digital-library-heading">
             <?php if (!$hideIntroHeader): ?>
-            <header class="doc-center__intro">
-                <?php if (!$hideIntroEyebrow): ?>
-                    <p class="doc-center__eyebrow">Perpustakaan digital</p>
-                <?php endif; ?>
-                <h2 id="digital-library-heading" class="doc-center__title"><?php echo htmlspecialchars($heroTitle, ENT_QUOTES, 'UTF-8'); ?></h2>
-                <?php if ($heroSubtitle !== ''): ?>
-                    <p class="doc-center__subtitle"><?php echo htmlspecialchars($heroSubtitle, ENT_QUOTES, 'UTF-8'); ?></p>
-                <?php endif; ?>
-            </header>
+            <div class="doc-center__hero-panel">
+                <header class="doc-center__intro">
+                    <h2 id="digital-library-heading" class="doc-center__title"><?php echo htmlspecialchars($heroTitle, ENT_QUOTES, 'UTF-8'); ?></h2>
+                    <?php if ($heroSubtitle !== ''): ?>
+                        <p class="doc-center__subtitle"><?php echo htmlspecialchars($heroSubtitle, ENT_QUOTES, 'UTF-8'); ?></p>
+                    <?php endif; ?>
+                </header>
+
+                <div class="doc-center__hero-search-block">
+                    <div id="library-document-search" class="doc-center-search library-doc-search-header library-doc-search-header--prominent library-doc-search-header--pill">
+                        <label class="visually-hidden" for="libraryDocumentSearch">Cari dokumen</label>
+                        <div class="library-doc-search-header__combo doc-center-search__combo" role="search">
+                            <div class="library-doc-search-header__field doc-center-search__field">
+                                <span class="library-doc-search-header__icon doc-center-search__icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <path d="m21 21-4.3-4.3"></path>
+                                    </svg>
+                                </span>
+                                <input
+                                    type="search"
+                                    id="libraryDocumentSearch"
+                                    class="library-doc-search-header__input doc-center-search__input"
+                                    placeholder="Cari dokumen (Contoh: Perbup, Keputusan Bupati, dll...)"
+                                    autocomplete="off"
+                                    value="<?php echo htmlspecialchars($searchQuery, ENT_QUOTES, 'UTF-8'); ?>"
+                                    aria-controls="libraryDocTableBody"
+                                >
+                                <button type="button" class="library-doc-search-header__clear doc-center-search__clear d-none" id="libraryDocumentSearchClear" aria-label="Hapus pencarian">×</button>
+                            </div>
+                            <button type="button" class="library-doc-search-header__submit doc-center-search__submit" id="libraryDocumentSearchSubmit">CARI</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <?php else: ?>
             <h2 id="digital-library-heading" class="visually-hidden"><?php echo htmlspecialchars($heroTitle, ENT_QUOTES, 'UTF-8'); ?></h2>
             <?php endif; ?>
@@ -100,33 +126,8 @@ foreach ($libRows as $countFile) {
             </div>
             <?php endif; ?>
 
-            <div class="doc-center__sticky">
-                <div class="doc-center__search-block">
-                    <div id="library-document-search" class="doc-center-search library-doc-search-header library-doc-search-header--prominent">
-                        <label class="visually-hidden" for="libraryDocumentSearch">Cari dokumen</label>
-                        <div class="library-doc-search-header__combo doc-center-search__combo" role="search">
-                            <div class="library-doc-search-header__field doc-center-search__field">
-                                <span class="library-doc-search-header__icon doc-center-search__icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true">
-                                        <circle cx="11" cy="11" r="8"></circle>
-                                        <path d="m21 21-4.3-4.3"></path>
-                                    </svg>
-                                </span>
-                                <input
-                                    type="search"
-                                    id="libraryDocumentSearch"
-                                    class="library-doc-search-header__input doc-center-search__input"
-                                    placeholder="Cari judul, jenis dokumen, atau kata kunci (mis. Perbup, Perda, SAKIP, Anjab…)"
-                                    autocomplete="off"
-                                    value="<?php echo htmlspecialchars($searchQuery, ENT_QUOTES, 'UTF-8'); ?>"
-                                    aria-controls="libraryDocTableBody"
-                                >
-                                <button type="button" class="library-doc-search-header__clear doc-center-search__clear d-none" id="libraryDocumentSearchClear" aria-label="Hapus pencarian">×</button>
-                            </div>
-                            <button type="button" class="library-doc-search-header__submit doc-center-search__submit" id="libraryDocumentSearchSubmit">Cari</button>
-                        </div>
-                    </div>
-                </div>
+            <div class="doc-center__filters-row">
+                <h3 class="doc-center__filters-heading">Daftar dokumen</h3>
 
                 <div class="library-doc-category-filter doc-center__pills" role="tablist" aria-label="Filter kategori dokumen">
                     <button type="button" class="library-doc-category-filter__btn is-active" data-lib-cat="semua" role="tab" aria-selected="true">
@@ -138,8 +139,8 @@ foreach ($libRows as $countFile) {
                             </svg>
                         </span>
                         <span class="library-doc-category-filter__text-wrap">
-                            <span class="library-doc-category-filter__label">Semua</span>
-                            <span class="library-doc-category-filter__count"><?php echo (int) ($kategoriCounts['semua'] ?? 0); ?></span>
+                            <span class="library-doc-category-filter__label">Semua dokumen</span>
+                            <span class="library-doc-category-filter__count"><?php echo (int) ($kategoriCounts['semua'] ?? 0); ?> data</span>
                         </span>
                     </button>
                     <button type="button" class="library-doc-category-filter__btn" data-lib-cat="kelembagaan" role="tab" aria-selected="false">
@@ -150,8 +151,8 @@ foreach ($libRows as $countFile) {
                             </svg>
                         </span>
                         <span class="library-doc-category-filter__text-wrap">
-                            <span class="library-doc-category-filter__label">Kelembagaan</span>
-                            <span class="library-doc-category-filter__count"><?php echo (int) ($kategoriCounts['kelembagaan'] ?? 0); ?></span>
+                            <span class="library-doc-category-filter__label">Kelembagaan dan Anjab</span>
+                            <span class="library-doc-category-filter__count"><?php echo (int) ($kategoriCounts['kelembagaan'] ?? 0); ?> data</span>
                         </span>
                     </button>
                     <button type="button" class="library-doc-category-filter__btn" data-lib-cat="pelayanan-publik" role="tab" aria-selected="false">
@@ -163,8 +164,8 @@ foreach ($libRows as $countFile) {
                             </svg>
                         </span>
                         <span class="library-doc-category-filter__text-wrap">
-                            <span class="library-doc-category-filter__label">Pelayanan</span>
-                            <span class="library-doc-category-filter__count"><?php echo (int) ($kategoriCounts['pelayanan-publik'] ?? 0); ?></span>
+                            <span class="library-doc-category-filter__label">Pelayanan Publik dan Tata Laksana</span>
+                            <span class="library-doc-category-filter__count"><?php echo (int) ($kategoriCounts['pelayanan-publik'] ?? 0); ?> data</span>
                         </span>
                     </button>
                     <button type="button" class="library-doc-category-filter__btn" data-lib-cat="sakip-rb" role="tab" aria-selected="false">
@@ -175,8 +176,8 @@ foreach ($libRows as $countFile) {
                             </svg>
                         </span>
                         <span class="library-doc-category-filter__text-wrap">
-                            <span class="library-doc-category-filter__label">SAKIP &amp; RB</span>
-                            <span class="library-doc-category-filter__count"><?php echo (int) ($kategoriCounts['sakip-rb'] ?? 0); ?></span>
+                            <span class="library-doc-category-filter__label">Kinerja dan RB</span>
+                            <span class="library-doc-category-filter__count"><?php echo (int) ($kategoriCounts['sakip-rb'] ?? 0); ?> data</span>
                         </span>
                     </button>
                     <button type="button" class="library-doc-category-filter__btn" data-lib-cat="regulasi" role="tab" aria-selected="false">
@@ -189,7 +190,7 @@ foreach ($libRows as $countFile) {
                         </span>
                         <span class="library-doc-category-filter__text-wrap">
                             <span class="library-doc-category-filter__label">Regulasi</span>
-                            <span class="library-doc-category-filter__count"><?php echo (int) ($kategoriCounts['regulasi'] ?? 0); ?></span>
+                            <span class="library-doc-category-filter__count"><?php echo (int) ($kategoriCounts['regulasi'] ?? 0); ?> data</span>
                         </span>
                     </button>
                     <button type="button" class="library-doc-category-filter__btn" data-lib-cat="lainnya" role="tab" aria-selected="false">
@@ -202,7 +203,7 @@ foreach ($libRows as $countFile) {
                         </span>
                         <span class="library-doc-category-filter__text-wrap">
                             <span class="library-doc-category-filter__label">Lainnya</span>
-                            <span class="library-doc-category-filter__count"><?php echo (int) ($kategoriCounts['lainnya'] ?? 0); ?></span>
+                            <span class="library-doc-category-filter__count"><?php echo (int) ($kategoriCounts['lainnya'] ?? 0); ?> data</span>
                         </span>
                     </button>
                 </div>
