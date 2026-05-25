@@ -6,7 +6,7 @@ function org_navbar_stylesheet_link(): string
         require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_app.php';
     }
 
-    return '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/org-navbar.css?v=23'), ENT_QUOTES, 'UTF-8') . '">' . "\n";
+    return '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/org-navbar.css?v=24'), ENT_QUOTES, 'UTF-8') . '">' . "\n";
 }
 
 function org_navbar_script_tag(): string
