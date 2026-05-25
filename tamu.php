@@ -259,6 +259,27 @@ if (!($db instanceof mysqli)) {
             }
         }
         $idField = isset($columns['id']) ? 'id' : (isset($columns['tamu_id']) ? 'tamu_id' : '');
+
+        /* Sumber utama nama personel: personnel.json (selaras dengan halaman
+           Profil → Struktur & Personel). Tabel MySQL `personnel`/`personel`
+           bersifat opsional (mirror untuk migrasi) sehingga dianggap sebagai
+           pelengkap saja. Pendekatan ini memastikan dropdown selalu terisi
+           bila admin mengelola personel dari halaman Profil. */
+        if (isset($personnelData) && is_array($personnelData)) {
+            foreach ($personnelData as $personItem) {
+                if (!is_array($personItem)) {
+                    continue;
+                }
+                $personName = trim((string) ($personItem['name'] ?? $personItem['nama'] ?? ''));
+                if ($personName !== '') {
+                    $personnelOptions[] = $personName;
+                }
+            }
+        }
+
+        /* Tambahan opsional: gabungkan personel dari tabel MySQL jika ada
+           (mirror data lama / migrasi). Nama yang sudah ada di JSON tidak
+           akan diduplikasi. */
         $personnelTable = '';
         foreach (['personnel', 'personel'] as $candidateTable) {
             $personnelTableCheck = $db->query("SHOW TABLES LIKE '" . $db->real_escape_string($candidateTable) . "'");
@@ -292,18 +313,23 @@ if (!($db instanceof mysqli)) {
                 }
             }
         }
-        if (count($personnelOptions) === 0 && isset($personnelData) && is_array($personnelData)) {
-            foreach ($personnelData as $personItem) {
-                if (!is_array($personItem)) {
-                    continue;
-                }
-                $personName = trim((string) ($personItem['name'] ?? $personItem['nama'] ?? ''));
-                if ($personName !== '') {
-                    $personnelOptions[] = $personName;
-                }
+
+        /* Deduplikasi (case-insensitive untuk hindari 'Ali' vs 'ali')
+           lalu urutkan alfabet sesuai locale Indonesia. */
+        $seenLowercase = [];
+        $dedup = [];
+        foreach ($personnelOptions as $optName) {
+            $key = mb_strtolower(trim($optName), 'UTF-8');
+            if ($key === '' || isset($seenLowercase[$key])) {
+                continue;
             }
+            $seenLowercase[$key] = true;
+            $dedup[] = $optName;
         }
-        $personnelOptions = array_values(array_unique($personnelOptions));
+        usort($dedup, static function (string $a, string $b): int {
+            return strnatcasecmp($a, $b);
+        });
+        $personnelOptions = $dedup;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && (string) ($_POST['action'] ?? '') === 'delete_tamu') {
             $rowId = trim((string) ($_POST['row_id'] ?? ''));
@@ -652,7 +678,10 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'head
                                     </select>
                                     <div id="namaPersonelHint" class="form-text text-muted">Ketik di dropdown untuk mencari nama personel.</div>
                                     <?php if (count($personnelOptions) === 0): ?>
-                                        <div class="form-text text-warning">Data personel belum tersedia di tabel <code>personel</code> / <code>personnel</code>.</div>
+                                        <div class="form-text text-warning">
+                                            Data personel belum tersedia. Tambahkan personel terlebih dahulu di
+                                            <a href="<?php echo function_exists('org_page_url') ? htmlspecialchars(org_page_url('profil.php') . '#profil-daftar-personel', ENT_QUOTES, 'UTF-8') : 'profil.php#profil-daftar-personel'; ?>">Profil → Daftar Personel</a>.
+                                        </div>
                                     <?php endif; ?>
                                 </div>
                                 <div class="mb-3">
