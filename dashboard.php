@@ -17,6 +17,79 @@ $extraHeadMarkup = <<<'HTML'
     .eorg-card { border: 0; border-radius: 15px; box-shadow: 0 16px 34px rgba(15, 23, 42, 0.1); }
     .eorg-stat { background: linear-gradient(135deg, #1d4ed8, #0ea5e9); color: #fff; }
     .eorg-stat__num { font-size: 1.9rem; font-weight: 700; line-height: 1; }
+    .eorg-chart-title {
+        margin: 0 0 0.75rem;
+        font-size: 0.95rem;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        color: #0f2744;
+    }
+    .eorg-chart-wrap {
+        position: relative;
+        width: 100%;
+        height: clamp(200px, 28vw, 260px);
+    }
+    .eorg-chart-wrap--md { height: clamp(220px, 30vw, 300px); }
+    .eorg-chart-wrap--donut { height: clamp(180px, 22vw, 220px); }
+    .eorg-chart-wrap canvas {
+        position: absolute;
+        inset: 0;
+        width: 100% !important;
+        height: 100% !important;
+    }
+    .eorg-donut-center {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.1rem;
+        pointer-events: none;
+        font-family: 'Inter', 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+    .eorg-donut-center__num {
+        font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+        font-weight: 800;
+        color: #0f2744;
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+    }
+    .eorg-donut-center__label {
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #64748b;
+    }
+    .eorg-donut-legend {
+        list-style: none;
+        margin: 0.75rem 0 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem 1rem;
+        justify-content: center;
+        font-size: 0.8rem;
+        color: #475569;
+    }
+    .eorg-donut-legend li {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+    .eorg-donut-legend strong {
+        color: #0f2744;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+        margin-left: 0.15rem;
+    }
+    .eorg-donut-legend__dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
     .eorg-kiosk-bar {
         border: 1px solid #dbe7f8;
         border-radius: 12px;
@@ -291,38 +364,249 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'head
         </div>
         <div class="row g-4">
             <div class="col-12 col-xl-8">
-                <div class="card eorg-card"><div class="card-body"><h2 class="h5">Grafik Kunjungan Web</h2><canvas id="chartWebVisit" height="120"></canvas></div></div>
+                <div class="card eorg-card"><div class="card-body">
+                    <h2 class="h5 eorg-chart-title">Grafik Kunjungan Web</h2>
+                    <div class="eorg-chart-wrap"><canvas id="chartWebVisit" aria-label="Grafik kunjungan web 14 hari"></canvas></div>
+                </div></div>
             </div>
             <div class="col-12 col-xl-4">
                 <div class="card eorg-card"><div class="card-body">
-                    <h2 class="h5">Ringkasan Surat</h2>
-                    <canvas id="chartSuratPie" height="150"></canvas>
+                    <h2 class="h5 eorg-chart-title">Ringkasan Surat</h2>
+                    <div class="eorg-chart-wrap eorg-chart-wrap--donut">
+                        <canvas id="chartSuratPie" aria-label="Ringkasan surat masuk dan surat keluar"></canvas>
+                        <div class="eorg-donut-center" aria-hidden="true">
+                            <span class="eorg-donut-center__num"><?php echo number_format($totalSuratMasuk + $totalSuratKeluar, 0, ',', '.'); ?></span>
+                            <span class="eorg-donut-center__label">Total Surat</span>
+                        </div>
+                    </div>
+                    <ul class="eorg-donut-legend" role="list">
+                        <li><span class="eorg-donut-legend__dot" style="background:#2563eb"></span>Masuk <strong><?php echo number_format($totalSuratMasuk, 0, ',', '.'); ?></strong></li>
+                        <li><span class="eorg-donut-legend__dot" style="background:#22c55e"></span>Keluar <strong><?php echo number_format($totalSuratKeluar, 0, ',', '.'); ?></strong></li>
+                    </ul>
                 </div></div>
             </div>
             <div class="col-12">
-                <div class="card eorg-card"><div class="card-body"><h2 class="h5">Tamu Offline (Kantor) per Tujuan</h2><canvas id="chartTamuBar" height="110"></canvas></div></div>
+                <div class="card eorg-card"><div class="card-body">
+                    <h2 class="h5 eorg-chart-title">Tamu Offline (Kantor) per Tujuan</h2>
+                    <div class="eorg-chart-wrap eorg-chart-wrap--md"><canvas id="chartTamuBar" aria-label="Jumlah tamu offline per tujuan"></canvas></div>
+                </div></div>
             </div>
             <div class="col-12">
-                <div class="card eorg-card"><div class="card-body"><h2 class="h5">Tren Surat Masuk & Keluar per Bulan</h2><canvas id="chartSuratMonthly" height="110"></canvas></div></div>
+                <div class="card eorg-card"><div class="card-body">
+                    <h2 class="h5 eorg-chart-title">Tren Surat Masuk &amp; Keluar per Bulan</h2>
+                    <div class="eorg-chart-wrap eorg-chart-wrap--md"><canvas id="chartSuratMonthly" aria-label="Tren surat masuk dan keluar per bulan"></canvas></div>
+                </div></div>
             </div>
         </div>
     </section>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="<?php echo htmlspecialchars(org_asset_url('assets/vendor/chartjs/chart.umd.min.js'), ENT_QUOTES, 'UTF-8'); ?>" defer></script>
 <script>
-const webLabels = <?php echo json_encode($webVisitLabels); ?>;
-const webData = <?php echo json_encode($webVisitValues); ?>;
-const tujuanLabels = <?php echo json_encode(array_keys($tamuByTujuan)); ?>;
-const tujuanData = <?php echo json_encode(array_values($tamuByTujuan)); ?>;
-const suratPie = <?php echo json_encode([$totalSuratMasuk, $totalSuratKeluar]); ?>;
-const suratMonthLabels = <?php echo json_encode($suratMonthLabels); ?>;
-const suratMasukSeries = <?php echo json_encode($suratMasukSeries); ?>;
-const suratKeluarSeries = <?php echo json_encode($suratKeluarSeries); ?>;
-
-new Chart(document.getElementById('chartWebVisit'), {type:'line', data:{labels:webLabels,datasets:[{label:'Kunjungan',data:webData,borderColor:'#2563eb',backgroundColor:'rgba(37,99,235,.15)',fill:true,tension:.35}]}, options:{responsive:true}});
-new Chart(document.getElementById('chartTamuBar'), {type:'bar', data:{labels:tujuanLabels,datasets:[{label:'Jumlah Tamu',data:tujuanData,backgroundColor:'#0ea5e9'}]}, options:{responsive:true}});
-new Chart(document.getElementById('chartSuratPie'), {type:'pie', data:{labels:['Surat Masuk','Surat Keluar'],datasets:[{data:suratPie,backgroundColor:['#2563eb','#22c55e']}]}, options:{responsive:true}});
-new Chart(document.getElementById('chartSuratMonthly'), {type:'bar', data:{labels:suratMonthLabels,datasets:[{label:'Masuk',data:suratMasukSeries,backgroundColor:'#2563eb'},{label:'Keluar',data:suratKeluarSeries,backgroundColor:'#22c55e'}]}, options:{responsive:true}});
+window.EORG_CHART_DATA = {
+    web: { labels: <?php echo json_encode($webVisitLabels); ?>, data: <?php echo json_encode($webVisitValues); ?> },
+    tujuan: { labels: <?php echo json_encode(array_keys($tamuByTujuan)); ?>, data: <?php echo json_encode(array_values($tamuByTujuan)); ?> },
+    suratPie: <?php echo json_encode([$totalSuratMasuk, $totalSuratKeluar]); ?>,
+    suratMonth: { labels: <?php echo json_encode($suratMonthLabels); ?>, masuk: <?php echo json_encode($suratMasukSeries); ?>, keluar: <?php echo json_encode($suratKeluarSeries); ?> }
+};
+(function () {
+    var data = window.EORG_CHART_DATA || {};
+    var inited = {};
+    var defaults = {
+        font: { family: "Inter, 'Plus Jakarta Sans', system-ui, sans-serif", size: 11 },
+        color: '#475569'
+    };
+    var nf = new Intl.NumberFormat('id-ID');
+    function applyChartDefaults() {
+        if (typeof Chart === 'undefined' || !Chart.defaults) return;
+        Chart.defaults.font.family = defaults.font.family;
+        Chart.defaults.font.size = defaults.font.size;
+        Chart.defaults.color = defaults.color;
+        Chart.defaults.devicePixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+        Chart.defaults.animation = { duration: 350, easing: 'easeOutQuart' };
+        Chart.defaults.plugins = Chart.defaults.plugins || {};
+        Chart.defaults.plugins.legend = Object.assign({}, Chart.defaults.plugins.legend, {
+            labels: { boxWidth: 10, boxHeight: 10, padding: 12, usePointStyle: true, font: { size: 11 } }
+        });
+        Chart.defaults.plugins.tooltip = Object.assign({}, Chart.defaults.plugins.tooltip, {
+            backgroundColor: 'rgba(15, 23, 42, 0.94)',
+            titleFont: { size: 11, weight: '600' },
+            bodyFont: { size: 11 },
+            padding: 10,
+            cornerRadius: 8,
+            displayColors: true,
+            boxPadding: 4,
+            callbacks: {
+                label: function (ctx) {
+                    var lbl = ctx.dataset.label || ctx.label || '';
+                    var v = ctx.parsed && typeof ctx.parsed.y === 'number' ? ctx.parsed.y : (typeof ctx.parsed === 'number' ? ctx.parsed : ctx.raw);
+                    return (lbl ? lbl + ': ' : '') + nf.format(v || 0);
+                }
+            }
+        });
+    }
+    function buildWeb() {
+        var c = document.getElementById('chartWebVisit');
+        if (!c) return;
+        return new Chart(c, {
+            type: 'line',
+            data: {
+                labels: data.web.labels || [],
+                datasets: [{
+                    label: 'Kunjungan',
+                    data: data.web.data || [],
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37,99,235,0.14)',
+                    fill: true,
+                    tension: 0.35,
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    pointHoverRadius: 4,
+                    pointHoverBackgroundColor: '#2563eb'
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                interaction: { intersect: false, mode: 'index' },
+                scales: {
+                    x: { grid: { display: false }, ticks: { maxRotation: 0, autoSkipPadding: 12 } },
+                    y: { beginAtZero: true, grid: { color: 'rgba(148,163,184,0.18)' }, ticks: { precision: 0, callback: function (v) { return nf.format(v); } } }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+    }
+    function buildTujuan() {
+        var c = document.getElementById('chartTamuBar');
+        if (!c) return;
+        return new Chart(c, {
+            type: 'bar',
+            data: {
+                labels: data.tujuan.labels || [],
+                datasets: [{
+                    label: 'Jumlah Tamu',
+                    data: data.tujuan.data || [],
+                    backgroundColor: 'rgba(14, 165, 233, 0.78)',
+                    borderRadius: 6,
+                    maxBarThickness: 30
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: {
+                    x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+                    y: { beginAtZero: true, grid: { color: 'rgba(148,163,184,0.18)' }, ticks: { precision: 0, callback: function (v) { return nf.format(v); } } }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+    }
+    function buildPie() {
+        var c = document.getElementById('chartSuratPie');
+        if (!c) return;
+        var v = data.suratPie || [0, 0];
+        var hasData = (Number(v[0]) || 0) + (Number(v[1]) || 0) > 0;
+        return new Chart(c, {
+            type: 'doughnut',
+            data: {
+                labels: ['Surat Masuk', 'Surat Keluar'],
+                datasets: [{
+                    data: hasData ? v : [1, 1],
+                    backgroundColor: hasData ? ['#2563eb', '#22c55e'] : ['#e2e8f0', '#f1f5f9'],
+                    borderWidth: 0,
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                cutout: '68%',
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        enabled: hasData,
+                        callbacks: {
+                            label: function (ctx) {
+                                var total = (data.suratPie[0] || 0) + (data.suratPie[1] || 0);
+                                var val = ctx.parsed || 0;
+                                var pct = total > 0 ? Math.round((val / total) * 1000) / 10 : 0;
+                                return ctx.label + ': ' + nf.format(val) + ' (' + String(pct).replace('.', ',') + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+    function buildMonthly() {
+        var c = document.getElementById('chartSuratMonthly');
+        if (!c) return;
+        return new Chart(c, {
+            type: 'bar',
+            data: {
+                labels: data.suratMonth.labels || [],
+                datasets: [
+                    { label: 'Masuk', data: data.suratMonth.masuk || [], backgroundColor: 'rgba(37, 99, 235, 0.85)', borderRadius: 5, maxBarThickness: 22 },
+                    { label: 'Keluar', data: data.suratMonth.keluar || [], backgroundColor: 'rgba(34, 197, 94, 0.85)', borderRadius: 5, maxBarThickness: 22 }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                interaction: { intersect: false, mode: 'index' },
+                scales: {
+                    x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+                    y: { beginAtZero: true, grid: { color: 'rgba(148,163,184,0.18)' }, ticks: { precision: 0, callback: function (v) { return nf.format(v); } } }
+                },
+                plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, boxHeight: 10, padding: 14, usePointStyle: true } } }
+            }
+        });
+    }
+    var builders = {
+        chartWebVisit: buildWeb,
+        chartTamuBar: buildTujuan,
+        chartSuratPie: buildPie,
+        chartSuratMonthly: buildMonthly
+    };
+    function initWhenReady(id) {
+        if (inited[id]) return;
+        var el = document.getElementById(id);
+        if (!el || typeof Chart === 'undefined') return;
+        inited[id] = true;
+        try { builders[id](); } catch (e) { /* noop */ }
+    }
+    function start() {
+        applyChartDefaults();
+        var ids = Object.keys(builders);
+        if (!('IntersectionObserver' in window)) {
+            ids.forEach(initWhenReady);
+            return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) {
+                if (en.isIntersecting) {
+                    var id = en.target.id;
+                    initWhenReady(id);
+                    io.unobserve(en.target);
+                }
+            });
+        }, { rootMargin: '120px 0px' });
+        ids.forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) io.observe(el);
+        });
+    }
+    function waitForChart() {
+        if (typeof Chart !== 'undefined') { start(); return; }
+        var t = 0;
+        var iv = setInterval(function () {
+            if (typeof Chart !== 'undefined') { clearInterval(iv); start(); return; }
+            if (++t > 50) { clearInterval(iv); }
+        }, 100);
+    }
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', waitForChart);
+    } else {
+        waitForChart();
+    }
+}());
 
 (function () {
     const elHari = document.getElementById('eorgDashHari');

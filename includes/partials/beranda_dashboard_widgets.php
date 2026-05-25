@@ -88,7 +88,7 @@ if ($govKpiModalJson === false) {
                                             <h3 class="gov-kpi-card__title"><?php echo htmlspecialchars($wJudul, ENT_QUOTES, 'UTF-8'); ?></h3>
                                             <div class="gov-kpi-card__head-aside">
                                                 <?php if (!$isCompare): ?>
-                                                    <span class="gov-kpi-card__pct" aria-label="<?php echo htmlspecialchars($pctDisplay . ' persen', ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($pctDisplay, ENT_QUOTES, 'UTF-8'); ?><span class="gov-kpi-card__pct-unit">%</span></span>
+                                                    <span class="gov-kpi-card__pct" aria-label="<?php echo htmlspecialchars($pctDisplay . ' persen', ENT_QUOTES, 'UTF-8'); ?>" data-gov-kpi-num="<?php echo htmlspecialchars((string) $pct, ENT_QUOTES, 'UTF-8'); ?>"><span class="gov-kpi-card__pct-val"><?php echo htmlspecialchars($pctDisplay, ENT_QUOTES, 'UTF-8'); ?></span><span class="gov-kpi-card__pct-unit">%</span></span>
                                                 <?php endif; ?>
                                                 <span class="gov-kpi-card__badge gov-kpi-card__badge--<?php echo htmlspecialchars($isCompare ? 'compare' : $status['tone'], ENT_QUOTES, 'UTF-8'); ?>">
                                                     <?php echo $isCompare ? 'Perbandingan' : htmlspecialchars($status['label'], ENT_QUOTES, 'UTF-8'); ?>
@@ -125,7 +125,7 @@ if ($govKpiModalJson === false) {
                                                  aria-valuemin="0"
                                                  aria-valuemax="100"
                                                  aria-label="<?php echo htmlspecialchars($wJudul . ': ' . $pctDisplay . ' persen', ENT_QUOTES, 'UTF-8'); ?>">
-                                                <span class="gov-kpi-card__progress-fill" style="--gov-kpi-pct: <?php echo htmlspecialchars((string) $pct, ENT_QUOTES, 'UTF-8'); ?>%;"></span>
+                                                <span class="gov-kpi-card__progress-fill" style="--gov-kpi-pct: 0%;" data-gov-kpi-target="<?php echo htmlspecialchars((string) $pct, ENT_QUOTES, 'UTF-8'); ?>"></span>
                                             </div>
                                             <div class="gov-kpi-card__actions">
                                                 <div class="gov-kpi-card__trend gov-kpi-card__trend--<?php echo htmlspecialchars($trend['dir'], ENT_QUOTES, 'UTF-8'); ?>">
@@ -266,5 +266,66 @@ if ($govKpiModalJson === false) {
                     }
                 });
             });
+        }());
+        </script>
+        <script>
+        /* KPI count-up & progress reveal — ringan: rAF + IntersectionObserver, sekali jalan per kartu. */
+        (function () {
+            var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var bars = document.querySelectorAll('.gov-kpi-card__progress-fill[data-gov-kpi-target]');
+            var nums = document.querySelectorAll('.gov-kpi-card__pct[data-gov-kpi-num]');
+            if (!bars.length && !nums.length) return;
+
+            function fmtIdNum(v) {
+                var s = (Math.round(v * 10) / 10).toString();
+                s = s.replace('.', ',');
+                if (s.endsWith(',0')) s = s.slice(0, -2);
+                return s;
+            }
+            function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+            function animateBar(el) {
+                var target = parseFloat(el.getAttribute('data-gov-kpi-target') || '0') || 0;
+                if (prefersReduced) { el.style.setProperty('--gov-kpi-pct', target + '%'); return; }
+                requestAnimationFrame(function () { el.style.setProperty('--gov-kpi-pct', target + '%'); });
+            }
+            function animateNum(span) {
+                var target = parseFloat(span.getAttribute('data-gov-kpi-num') || '0') || 0;
+                var valEl = span.querySelector('.gov-kpi-card__pct-val');
+                if (!valEl) return;
+                if (prefersReduced || target <= 0) { valEl.textContent = fmtIdNum(target); return; }
+                var duration = Math.min(900, 400 + target * 5);
+                var start = null;
+                valEl.textContent = '0';
+                function step(ts) {
+                    if (start === null) start = ts;
+                    var p = Math.min(1, (ts - start) / duration);
+                    valEl.textContent = fmtIdNum(easeOutCubic(p) * target);
+                    if (p < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+            }
+
+            function revealCard(article) {
+                if (article._kpiRevealed) return;
+                article._kpiRevealed = true;
+                article.querySelectorAll('.gov-kpi-card__progress-fill[data-gov-kpi-target]').forEach(animateBar);
+                article.querySelectorAll('.gov-kpi-card__pct[data-gov-kpi-num]').forEach(animateNum);
+            }
+
+            var cards = document.querySelectorAll('.gov-kpi-card');
+            if (!('IntersectionObserver' in window)) {
+                cards.forEach(revealCard);
+                return;
+            }
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (en) {
+                    if (en.isIntersecting) {
+                        revealCard(en.target);
+                        io.unobserve(en.target);
+                    }
+                });
+            }, { rootMargin: '60px 0px', threshold: 0.18 });
+            cards.forEach(function (c) { io.observe(c); });
         }());
         </script>
