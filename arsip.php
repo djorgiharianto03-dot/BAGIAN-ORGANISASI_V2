@@ -18,12 +18,9 @@ if (!defined('ORG_ARSIP_MAX_UPLOAD_BYTES')) {
     define('ORG_ARSIP_MAX_UPLOAD_BYTES', 20 * 1024 * 1024);
 }
 $extraHeadMarkup = <<<'HTML'
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
     .page-arsip-dashboard {
-        font-family: 'Poppins', sans-serif;
+        font-family: var(--font-sans);
         background:
             radial-gradient(900px 380px at 8% -8%, rgba(37, 99, 235, 0.16), rgba(37, 99, 235, 0)),
             radial-gradient(880px 360px at 98% -4%, rgba(14, 165, 233, 0.14), rgba(14, 165, 233, 0)),

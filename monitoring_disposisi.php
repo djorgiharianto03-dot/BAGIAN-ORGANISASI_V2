@@ -1671,11 +1671,8 @@ if ($isKabag) {
 }
 
 $extraHeadMarkup = <<<'HTML'
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-.page-mdisp { font-family: 'Poppins', sans-serif; background: #f8f9fa; min-height: 100vh; }
+.page-mdisp { font-family: var(--font-sans); background: #f8f9fa; min-height: 100vh; }
 .page-mdisp .site-main { max-width: 1280px; }
 .mdisp-page-hero { padding: 0.25rem 0 0.15rem; border-bottom: 1px solid rgba(37, 99, 235, 0.12); }
 .mdisp-page-hero h1 { letter-spacing: -0.02em; }

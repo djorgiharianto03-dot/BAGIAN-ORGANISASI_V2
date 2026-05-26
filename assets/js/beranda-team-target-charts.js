@@ -68,7 +68,7 @@
                         type: 'bar',
                         height: Math.max(280, overview.length * 84 + 56),
                         toolbar: { show: false },
-                        fontFamily: 'Poppins, system-ui, sans-serif',
+                        fontFamily: 'Plus Jakarta Sans, Inter, system-ui, sans-serif',
                         animations: {
                             enabled: true,
                             easing: 'easeinout',
@@ -109,7 +109,7 @@
                         style: {
                             fontSize: '12px',
                             fontWeight: 700,
-                            fontFamily: 'Poppins, system-ui, sans-serif',
+                            fontFamily: 'Plus Jakarta Sans, Inter, system-ui, sans-serif',
                             colors: overviewLabelColors,
                             textShadow: '0 1px 2px rgba(15, 39, 68, 0.22)'
                         }
@@ -153,7 +153,7 @@
                             var full = overviewFull[i] || overviewLabels[i] || '';
                             var dot = overviewColorsDeep[i] || '#1A3F6E';
                             var dotLight = overviewColors[i] || '#8CB8EB';
-                            return '<div style="padding:11px 14px;background:linear-gradient(165deg,#fff 0%,#f8fafc 100%);border:1px solid #d8e2ef;border-radius:12px;box-shadow:0 10px 28px rgba(15,39,68,.12);font-family:Poppins,system-ui,sans-serif;">'
+                            return '<div style="padding:11px 14px;background:linear-gradient(165deg,#fff 0%,#f8fafc 100%);border:1px solid #d8e2ef;border-radius:12px;box-shadow:0 10px 28px rgba(15,39,68,.12);font-family:var(--font-sans,system-ui);">'
                                 + '<div style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:#0f2744;margin-bottom:6px;"><span style="width:11px;height:11px;border-radius:4px;background:linear-gradient(135deg,' + dotLight + ',' + dot + ');box-shadow:0 1px 4px rgba(15,39,68,.2);"></span>' + full + '</div>'
                                 + '<div style="font-size:16px;font-weight:700;color:#0a2f63;letter-spacing:-0.02em;">' + Math.round(pct) + '%</div>'
                                 + '<div style="font-size:11px;color:#64748b;margin-top:4px;">' + cnt + ' kegiatan</div>'
@@ -224,7 +224,7 @@
                     colors = ['#cbd5e1'];
                 }
 
-                var fontStack = 'Poppins, system-ui, sans-serif';
+                var fontStack = 'Plus Jakarta Sans, Inter, system-ui, sans-serif';
 
                 /* Konfigurasi center label mengikuti perilaku natural ApexCharts:
                      - IDLE (tanpa hover) → tampilkan `total` saja:

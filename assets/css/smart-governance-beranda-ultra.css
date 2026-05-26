@@ -4,7 +4,7 @@
  */
 
 .sg-homepage.sg-portal-page {
-    --sg-font-display: 'Poppins', 'Inter', system-ui, sans-serif;
+    --sg-font-display: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
     --sg-font-body: 'Inter', system-ui, sans-serif;
     --sg-neon: #22d3ee;
     --sg-neon-soft: rgba(34, 211, 238, 0.45);

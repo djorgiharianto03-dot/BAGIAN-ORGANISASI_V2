@@ -1,0 +1,250 @@
+/**
+ * Org Typography (2026-05-26)
+ * -----------------------------------------------------------------------------
+ * Sistem tipografi global: Plus Jakarta Sans sebagai font primer, dengan
+ * responsive font-size (clamp) + line-height yang konsisten untuk semua
+ * elemen teks (heading, body, list, button, form).
+ *
+ * Strategi:
+ *   - `font-family` di-set lewat variabel --font-sans (site_styles.php).
+ *   - Sizing pakai `clamp(min, fluid, max)` agar skalabel 320px → 1920px.
+ *   - Line-height: 1.2 untuk display/heading, 1.55 body, 1.65 paragraf panjang.
+ *   - Tracking (letter-spacing) ringan negatif untuk display besar (mengikuti
+ *     ciri Plus Jakarta Sans yang bertubuh lebar).
+ *   - Font-smoothing aktif (WebKit + Firefox) supaya glyph terlihat clean
+ *     pada display retina/macOS dan high-dpi Windows.
+ *   - Tabular numerals untuk angka di KPI/dashboard (variant-numeric).
+ *
+ * NB: rule ini sengaja tidak pakai !important kecuali untuk override hardcode
+ *     lama 'Inter, ...' / 'Poppins, ...' di file lain. Default cascade tetap
+ *     berlaku agar komponen specific (mis. badge mono) bisa override secara
+ *     normal.
+ */
+
+:root {
+    /* Skala tipografi fluid — selaras dengan token --font-sans di site_styles. */
+    --org-fs-2xs: clamp(0.6875rem, 0.65rem + 0.18vw, 0.75rem);   /* 11→12 */
+    --org-fs-xs:  clamp(0.75rem, 0.7rem + 0.22vw, 0.8125rem);    /* 12→13 */
+    --org-fs-sm:  clamp(0.8125rem, 0.78rem + 0.18vw, 0.875rem);  /* 13→14 */
+    --org-fs-base: clamp(0.9375rem, 0.9rem + 0.18vw, 1rem);      /* 15→16 */
+    --org-fs-md:  clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);      /* 16→17 */
+    --org-fs-lg:  clamp(1.0625rem, 1rem + 0.32vw, 1.1875rem);    /* 17→19 */
+    --org-fs-xl:  clamp(1.125rem, 1.04rem + 0.42vw, 1.3125rem);  /* 18→21 */
+    --org-fs-h6:  clamp(0.9375rem, 0.9rem + 0.25vw, 1.0625rem);  /* 15→17 */
+    --org-fs-h5:  clamp(1.0625rem, 1rem + 0.32vw, 1.1875rem);    /* 17→19 */
+    --org-fs-h4:  clamp(1.1875rem, 1.1rem + 0.4vw, 1.375rem);    /* 19→22 */
+    --org-fs-h3:  clamp(1.3125rem, 1.18rem + 0.65vw, 1.625rem);  /* 21→26 */
+    --org-fs-h2:  clamp(1.5rem, 1.3rem + 0.95vw, 2rem);          /* 24→32 */
+    --org-fs-h1:  clamp(1.875rem, 1.55rem + 1.5vw, 2.625rem);    /* 30→42 */
+    --org-fs-display: clamp(2.25rem, 1.7rem + 2.5vw, 3.5rem);    /* 36→56 */
+
+    /* Line heights */
+    --org-lh-tight: 1.2;     /* display & H1-H3 */
+    --org-lh-snug:  1.3;     /* H4-H6, badge, label */
+    --org-lh-base:  1.55;    /* body default */
+    --org-lh-relaxed: 1.65;  /* paragraf panjang & list */
+    --org-lh-loose: 1.75;    /* lead text & quote */
+
+    /* Letter spacing (tracking) — Plus Jakarta Sans relatif lebar, sedikit
+       negatif pada display besar agar lebih kompak. */
+    --org-tracking-tight: -0.02em;
+    --org-tracking-snug:  -0.01em;
+    --org-tracking-normal: 0;
+    --org-tracking-wide:  0.02em;
+    --org-tracking-caps:  0.06em;
+}
+
+/* ============================================================================
+   Smoothing & rendering — clean di high-DPI + macOS
+   ============================================================================ */
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* ============================================================================
+   Body & default text
+   ============================================================================ */
+body {
+    font-family: var(--font-sans);
+    font-size: var(--org-fs-base);
+    line-height: var(--org-lh-base);
+    font-feature-settings: "ss01", "ss02", "cv11"; /* PJS stylistic alt tipis */
+}
+
+/* Paragraf & list → line-height lebih lega (mudah dibaca) */
+p,
+ul,
+ol,
+dl,
+blockquote {
+    line-height: var(--org-lh-relaxed);
+}
+
+/* Lead paragraph (intro / hero subtitle) */
+.lead,
+.org-lead,
+.text-lead {
+    font-size: var(--org-fs-lg);
+    line-height: var(--org-lh-loose);
+    font-weight: 400;
+    color: var(--text-muted, #64748b);
+}
+
+/* ============================================================================
+   Heading hierarchy — fluid + tight line-height + tracking
+   ============================================================================ */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: var(--font-sans);
+    line-height: var(--org-lh-tight);
+    letter-spacing: var(--org-tracking-tight);
+    color: inherit;
+    text-wrap: balance; /* hindari "single-word orphan line" di browser modern */
+}
+
+h1, .h1 { font-size: var(--org-fs-h1); font-weight: 800; }
+h2, .h2 { font-size: var(--org-fs-h2); font-weight: 800; }
+h3, .h3 { font-size: var(--org-fs-h3); font-weight: 700; letter-spacing: var(--org-tracking-snug); }
+h4, .h4 { font-size: var(--org-fs-h4); font-weight: 700; letter-spacing: var(--org-tracking-snug); line-height: var(--org-lh-snug); }
+h5, .h5 { font-size: var(--org-fs-h5); font-weight: 600; letter-spacing: var(--org-tracking-normal); line-height: var(--org-lh-snug); }
+h6, .h6 { font-size: var(--org-fs-h6); font-weight: 600; letter-spacing: var(--org-tracking-normal); line-height: var(--org-lh-snug); }
+
+/* Display oversize (hero / landing) */
+.display-1, .display-2,
+.org-display,
+.org-display-lg {
+    font-family: var(--font-sans);
+    font-size: var(--org-fs-display);
+    font-weight: 800;
+    letter-spacing: var(--org-tracking-tight);
+    line-height: var(--org-lh-tight);
+}
+
+/* ============================================================================
+   Form controls — selaras dengan body, line-height cukup utk touch
+   ============================================================================ */
+input,
+select,
+textarea,
+button,
+.form-control,
+.form-select,
+.btn {
+    font-family: var(--font-sans);
+    font-size: var(--org-fs-base);
+    line-height: 1.4;
+}
+
+textarea {
+    line-height: var(--org-lh-base);
+}
+
+/* Label & helper text */
+label,
+.form-label {
+    font-family: var(--font-sans);
+    font-size: var(--org-fs-sm);
+    font-weight: 600;
+    line-height: var(--org-lh-snug);
+    letter-spacing: var(--org-tracking-normal);
+}
+
+.form-text,
+.help-block,
+small,
+.small {
+    font-size: var(--org-fs-xs);
+    line-height: var(--org-lh-base);
+}
+
+/* ============================================================================
+   Numerik (KPI, dashboard, tabel angka) — pakai tabular-nums supaya digit
+   sejajar vertikal (rapi di kolom).
+   ============================================================================ */
+.org-num,
+[data-gov-kpi-num],
+[data-counter],
+.gov-kpi-card__pct,
+.gov-team-target-dash-card__pct,
+.beranda-visit-stat__value {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+/* ============================================================================
+   Table — ukuran kompak, tabular nums utk kolom angka
+   ============================================================================ */
+table,
+.table {
+    font-family: var(--font-sans);
+    font-size: var(--org-fs-sm);
+    line-height: var(--org-lh-base);
+}
+
+th {
+    font-weight: 600;
+    letter-spacing: var(--org-tracking-normal);
+}
+
+/* ============================================================================
+   Caps / eyebrow / badge — letter-spacing positif kecil
+   ============================================================================ */
+.eyebrow,
+.org-eyebrow,
+.gov-kpi-section__live,
+.beranda-section__eyebrow {
+    font-family: var(--font-sans);
+    font-size: var(--org-fs-2xs);
+    font-weight: 700;
+    letter-spacing: var(--org-tracking-caps);
+    line-height: var(--org-lh-snug);
+    text-transform: uppercase;
+}
+
+/* ============================================================================
+   Override file lama yang masih hardcode 'Inter' / 'Poppins'
+   (selectors paling spesifik agar kalah cascade override)
+   ============================================================================ */
+body[class],
+body[class] :is(
+    h1, h2, h3, h4, h5, h6,
+    p, li, span, a, strong, em, label,
+    button, input, select, textarea,
+    .btn, .navbar, .nav, .form-control, .form-select,
+    .card-title, .card-text, .modal-title, .alert
+) {
+    font-family: var(--font-sans);
+}
+
+/* Khusus blok yang sengaja monospace tetap dihormati */
+code, kbd, pre, samp, tt,
+.font-monospace,
+[class*="font-monospace"] {
+    font-family: ui-monospace, SFMono-Regular, "Cascadia Code", "Source Code Pro", "Menlo", monospace !important;
+}
+
+/* ============================================================================
+   Reduced motion → tidak ada animasi spesifik di sini, tapi tetap dijaga
+   agar konsisten dengan motion policy global.
+   ============================================================================ */
+
+/* ============================================================================
+   Print — body lebih kecil, line-height nyaman dibaca di kertas
+   ============================================================================ */
+@media print {
+    body {
+        font-size: 11.5pt;
+        line-height: 1.45;
+    }
+    h1 { font-size: 22pt; }
+    h2 { font-size: 18pt; }
+    h3 { font-size: 15pt; }
+    h4 { font-size: 13pt; }
+    h5 { font-size: 11.5pt; }
+    h6 { font-size: 10.5pt; }
+    p, ul, ol, blockquote {
+        line-height: 1.5;
+    }
+}

@@ -8,11 +8,8 @@ $includePersonnelModals = false;
 $includeNewsModals = false;
 $bodyClass = 'page-eorg-dashboard mode-eorganisasi';
 $extraHeadMarkup = <<<'HTML'
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-    .page-eorg-dashboard { font-family: 'Poppins', sans-serif; background: #f3f7fd; }
+    .page-eorg-dashboard { font-family: var(--font-sans); background: #f3f7fd; }
     .page-eorg-dashboard .site-main { max-width: 1280px; }
     .eorg-card { border: 0; border-radius: 15px; box-shadow: 0 16px 34px rgba(15, 23, 42, 0.1); }
     .eorg-stat { background: linear-gradient(135deg, #1d4ed8, #0ea5e9); color: #fff; }

@@ -289,11 +289,8 @@ if ($tablesOk && $db instanceof mysqli) {
 }
 
 $extraHeadMarkup = <<<'HTML'
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-.page-mdisp { font-family: 'Poppins', sans-serif; background: #f3f7fd; }
+.page-mdisp { font-family: var(--font-sans); background: #f3f7fd; }
 .page-mdisp .site-main { max-width: 1280px; }
 .page-mdisp .nav-tabs .nav-link { font-weight: 600; }
 .page-mdisp .table-wrap { overflow-x: auto; }

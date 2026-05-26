@@ -34,6 +34,18 @@ function org_theme_stylesheet_link(): string
     return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '">' . "\n";
 }
 
+/**
+ * Org typography (Plus Jakarta Sans + responsive sizes + line-heights).
+ * Dimuat di semua halaman (Beranda, Portal, Admin) supaya konsisten.
+ * Versi di-bump bila isi org-typography.css berubah agar cache browser bersih.
+ */
+function org_typography_stylesheet_link(): string
+{
+    $href = org_theme_asset_base() . 'assets/css/org-typography.css?v=1';
+
+    return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '">' . "\n";
+}
+
 function org_theme_script_tag(): string
 {
     $src = org_theme_asset_base() . 'assets/js/org-theme-switcher.js?v=1';

@@ -33,7 +33,7 @@
     }
 
     body.sg-dashboard {
-        font-family: 'Inter', 'Poppins', system-ui, sans-serif;
+        font-family: var(--font-sans, 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif);
         background: var(--sg-bg);
         color: var(--sg-dark);
         overflow-x: hidden;

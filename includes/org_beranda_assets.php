@@ -156,6 +156,7 @@ function org_beranda_header_vendor_markup(): string
     $out .= org_beranda_portal_header_stylesheet_links();
     $out .= org_motion_stylesheet_link();
     $out .= org_theme_stylesheet_link();
+    $out .= org_typography_stylesheet_link();
     $out .= org_modal_layer_stylesheet_link();
 
     if (!org_assets_beranda_css_bundle_available()) {
@@ -223,24 +224,18 @@ function org_beranda_sections_stylesheet_markup(): string
 }
 
 /**
- * Head tambahan index.php: section CSS + Fancybox (+ Poppins hanya jika chart/KPI).
+ * Head tambahan index.php: section CSS + Fancybox.
+ *
+ * Catatan (2026-05-26): parameter $loadPoppinsFont dipertahankan untuk
+ * kompatibilitas tanda tangan lama, tetapi Poppins tidak lagi dimuat — seluruh
+ * tipografi situs sudah diseragamkan ke Plus Jakarta Sans (lihat
+ * assets/css/org-typography.css + token --font-sans).
  */
 function org_beranda_index_extra_head_markup(bool $loadPoppinsFont = false): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    $out = org_beranda_sections_stylesheet_markup();
-
-    if ($loadPoppinsFont) {
-        $out .= org_asset_preload_link(
-            'https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap',
-            'style',
-            true
-        );
-        $out .= '<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap"></noscript>' . "\n";
-    }
-
-    return $out;
+    return org_beranda_sections_stylesheet_markup();
 }
 
 /** Layout beranda — max-width & tipografi normal (muat sinkron, setelah lite). */

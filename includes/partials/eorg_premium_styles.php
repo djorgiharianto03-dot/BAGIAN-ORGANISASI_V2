@@ -23,7 +23,7 @@ org_partial_deny_direct();
         --eo-amber: #d97706;
         --eo-slate: #475569;
         --page-bg: #f0f6fc;
-        font-family: 'Inter', 'Public Sans', 'Poppins', system-ui, sans-serif;
+        font-family: var(--font-sans, 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif);
     }
 
     /* Header: gunakan gaya global site_styles (sama beranda), tanpa override khusus. */

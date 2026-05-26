@@ -8,13 +8,10 @@ $includePersonnelModals = false;
 $includeNewsModals = false;
 $bodyClass = 'page-tamu-dashboard mode-eorganisasi';
 $extraHeadMarkup = <<<'HTML'
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
 <style>
     .page-tamu-dashboard {
-        font-family: 'Poppins', sans-serif;
+        font-family: var(--font-sans);
         background:
             radial-gradient(900px 380px at 8% -8%, rgba(37, 99, 235, 0.16), rgba(37, 99, 235, 0)),
             radial-gradient(880px 360px at 98% -4%, rgba(14, 165, 233, 0.14), rgba(14, 165, 233, 0)),

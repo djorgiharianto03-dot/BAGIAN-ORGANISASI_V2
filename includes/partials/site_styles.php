@@ -25,14 +25,15 @@ org_partial_deny_direct();
             --header-nav-active-glow: rgba(245, 215, 142, 0.55);
             --header-title-size: clamp(1.12rem, 1.9vw + 0.52rem, 1.72rem);
             --header-subtitle-size: clamp(0.74rem, 0.55vw + 0.58rem, 0.9rem);
-            /* Disamakan ke 'Inter' agar judul brand di header konsisten di semua
-               halaman. Beranda hanya memuat Inter + Plus Jakarta Sans (bukan
-               Public Sans), sehingga jika Public Sans diprioritaskan akan terjadi
-               pergeseran bentuk huruf (mis. 'G') antara Beranda dan halaman lain. */
-            --header-font-display: 'Inter', 'Public Sans', system-ui, sans-serif;
+            /* Typography utama (2026-05): Plus Jakarta Sans sebagai font primer
+               untuk seluruh halaman (Beranda + Portal + Admin). Fallback ke
+               Inter agar tetap konsisten bila Google Fonts gagal load (mis.
+               offline / blokir jaringan). Sistemnya: Plus Jakarta untuk display
+               & body, Inter sebagai metric-compatible fallback. */
+            --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+            --header-font-display: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
             --layout-max-width: 1200px;
             --pi-card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.06);
-            --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
             --org-bp-tablet: 768px;
             --org-bp-desktop: 1024px;
             --org-touch: 44px;
@@ -1700,7 +1701,7 @@ org_partial_deny_direct();
             border: none;
             background: #001a2e;
             box-shadow: none;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+            font-family: var(--font-sans);
         }
         .site-footer__cta-band {
             background:
@@ -2022,7 +2023,7 @@ org_partial_deny_direct();
             display: block;
         }
         .site-footer__copyright-text {
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+            font-family: var(--font-sans);
             font-size: 13.5px;
             font-weight: 400;
             color: #cbd5e1;
@@ -2639,7 +2640,7 @@ org_partial_deny_direct();
             background: transparent;
             padding: 14px 14px 14px 8px;
             font-size: 1rem;
-            font-family: 'Inter', system-ui, sans-serif;
+            font-family: var(--font-sans);
             color: #111827;
             outline: none;
             -webkit-appearance: none;
@@ -2676,7 +2677,7 @@ org_partial_deny_direct();
         }
         .library-doc-search-header__input::placeholder {
             color: #9ca3af;
-            font-family: 'Inter', system-ui, sans-serif;
+            font-family: var(--font-sans);
         }
         .library-doc-search-header__input:focus::placeholder {
             color: transparent;

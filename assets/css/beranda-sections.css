@@ -1,5 +1,5 @@
-ï»¿/**
- * Beranda â€” section widgets (#beranda-root). Dipisah dari index.php agar bisa di-cache.
+/**
+ * Beranda — section widgets (#beranda-root). Dipisah dari index.php agar bisa di-cache.
  */
     #beranda-root {
         --beranda-radius: 10px;
@@ -40,7 +40,7 @@
     #beranda-root .alert {
         border-radius: var(--beranda-radius);
     }
-    /* Pita portal â€” selaras aksen pemerintahan */
+    /* Pita portal — selaras aksen pemerintahan */
     .beranda-portal-strip {
         width: 100%;
         margin: 0;
@@ -108,7 +108,7 @@
     #beranda-root .beranda-section__link-all:hover {
         color: #00264d !important;
     }
-    /* Ringkasan eksekutif â€” glassmorphism futuristik */
+    /* Ringkasan eksekutif — glassmorphism futuristik */
     #beranda-root #beranda-ringkasan-eksekutif {
         position: relative;
         overflow: hidden;
@@ -336,7 +336,7 @@
         border-color: transparent;
         box-shadow: 0 8px 22px rgba(5, 150, 105, 0.28);
     }
-    /* Mini diagram hierarki â€” Struktur */
+    /* Mini diagram hierarki — Struktur */
     .beranda-exec-org {
         display: flex;
         flex-direction: column;
@@ -820,7 +820,7 @@
             min-width: 78px;
         }
     }
-    /* Statistik Kunjungan Tamu â€” premium clean dashboard */
+    /* Statistik Kunjungan Tamu — premium clean dashboard */
     #beranda-root #beranda-kunjungan-web .beranda-visit-card {
         border: 1px solid rgba(226, 232, 240, 0.95);
         border-radius: 20px;
@@ -979,13 +979,13 @@
     #beranda-root #beranda-pusat-informasi { order: 4; }
     #beranda-root #beranda-galeri-kegiatan { order: 5; }
     #beranda-root #beranda-kunjungan-web { order: 6; }
-    /* â€”â€” Indikator & Statistik: gov digital KPI dashboard â€”â€” */
+    /* —— Indikator & Statistik: gov digital KPI dashboard —— */
     #beranda-root #beranda-dashboard-widgets.gov-kpi-section {
         padding: 0.35rem 0 0.5rem;
         margin-bottom: 0;
     }
     #beranda-root .gov-kpi-section__shell {
-        font-family: 'Poppins', var(--font-sans, system-ui, sans-serif);
+        font-family: var(--font-sans, system-ui, sans-serif);
         background: linear-gradient(160deg, #e8f1fa 0%, #f4f8fc 48%, #eef2f7 100%);
         border: 1px solid rgba(12, 74, 110, 0.07);
         border-radius: 20px;
@@ -1268,7 +1268,7 @@
         margin-top: 0.35rem;
     }
     #beranda-root .gov-kpi-card__detail-btn {
-        font-family: 'Poppins', var(--font-sans, system-ui, sans-serif);
+        font-family: var(--font-sans, system-ui, sans-serif);
         font-size: 0.72rem;
         font-weight: 600;
         padding: 0.28rem 0.65rem;
@@ -1316,7 +1316,7 @@
         overflow-y: auto;
     }
     .gov-kpi-modal__panel-title {
-        font-family: 'Poppins', var(--font-sans, system-ui, sans-serif);
+        font-family: var(--font-sans, system-ui, sans-serif);
         font-size: 0.82rem;
         font-weight: 700;
         margin: 0 0 0.65rem;
@@ -1425,7 +1425,7 @@
         margin-bottom: 1.25rem;
     }
     #beranda-root .gov-team-target-section__title {
-        font-family: 'Poppins', var(--font-sans, system-ui, sans-serif);
+        font-family: var(--font-sans, system-ui, sans-serif);
         font-size: clamp(1.1rem, 2vw, 1.35rem);
         font-weight: 700;
         color: #0f2744;
@@ -1593,7 +1593,7 @@
         color: #0b5e48;
     }
     #beranda-root .gov-team-target-dash-card__title {
-        font-family: 'Poppins', var(--font-sans, system-ui, sans-serif);
+        font-family: var(--font-sans, system-ui, sans-serif);
         font-size: 0.9rem;
         font-weight: 700;
         color: #0f2744;
@@ -1706,7 +1706,7 @@
         z-index: 1;
     }
 
-    /* â€”â€” Beranda: pusat informasi (berita & pengumuman) + galeri scroll â€”â€” */
+    /* —— Beranda: pusat informasi (berita & pengumuman) + galeri scroll —— */
     body.sg-homepage #beranda-pusat-informasi,
     body.sg-homepage #beranda-galeri-kegiatan {
         display: block !important;

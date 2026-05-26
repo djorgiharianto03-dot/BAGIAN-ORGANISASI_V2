@@ -347,12 +347,9 @@ function manajemen_tugas_render_table_row(array $row, bool $isKabag, bool $canEd
 $csrfToken = org_csrf_token();
 
 $extraHeadMarkup = <<<'HTML'
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
     .page-manajemen-tugas {
-        font-family: 'Poppins', sans-serif;
+        font-family: var(--font-sans);
         background:
             radial-gradient(900px 380px at 8% -8%, rgba(99, 102, 241, 0.14), transparent),
             radial-gradient(880px 360px at 98% -4%, rgba(14, 165, 233, 0.12), transparent),

@@ -742,11 +742,8 @@ $dptCountKeStaf = count($itemsKeStaf);
 $dptCountSurat = count($suratMasukItems);
 $dptShowAny = $dptCountMasuk > 0 || $dptCountKeStaf > 0 || $dptCountSurat > 0;
 $extraHeadMarkup = <<<'HTML'
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-.page-disposisi-terbaru { font-family: 'Poppins', system-ui, sans-serif; background: #eef2f9; }
+.page-disposisi-terbaru { font-family: var(--font-sans); background: #eef2f9; }
 .page-disposisi-terbaru .site-main { max-width: 48rem; }
 .dpt-nav-tabs { flex-wrap: nowrap; overflow-x: auto; border-bottom-color: rgba(15, 23, 42, 0.1); }
 .dpt-nav-tabs .nav-link {
