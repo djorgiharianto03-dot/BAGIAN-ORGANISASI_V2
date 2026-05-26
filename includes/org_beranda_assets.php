@@ -176,6 +176,10 @@ function org_beranda_header_vendor_markup(): string
        Selalu dimuat (ringan, ~2KB), scope ketat ke body.sg-homepage. */
     $out .= org_beranda_hero_identity_stylesheet_link();
 
+    /* Section Title Polish — aksen bar gold + eyebrow + link pill konsisten
+       untuk semua judul section beranda. Ringan ~3KB, scope ketat. */
+    $out .= org_beranda_section_titles_stylesheet_link();
+
     $rail = 'max-width:1320px!important;width:100%!important;margin-left:auto!important;margin-right:auto!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important;box-sizing:border-box!important';
     $out .= '<style id="sg-beranda-head-critical">'
         . 'html.sg-portal-html-home,body.sg-homepage.sg-portal-page{background:#f4f7fb!important;--layout-max-width:1320px;--sg-rail-width:1320px;--portal-content-gutter:clamp(1rem,2.5vw,32px);--sg-portal-header-offset:5.5rem}'
@@ -351,6 +355,21 @@ function org_beranda_hero_identity_stylesheet_link(): string
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
     return org_asset_stylesheet_link('assets/css/beranda-hero-identity.css?v=1');
+}
+
+/**
+ * Beranda — Section Title Polish (judul section beranda lebih bagus).
+ *
+ * Menambah aksen bar gold di atas judul, eyebrow small-caps, dan "Lihat semua"
+ * pill. Semua via pseudo-element ::before / ::after, tanpa perubahan HTML.
+ * Scope ketat ke `body.sg-homepage #beranda-root` agar tidak menabrak
+ * halaman subpage lain. Ukuran file ~3KB.
+ */
+function org_beranda_section_titles_stylesheet_link(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+
+    return org_asset_stylesheet_link('assets/css/beranda-section-titles.css?v=1');
 }
 
 /** Beranda — layout compact hero, quick access, spacing (cascade terakhir). */

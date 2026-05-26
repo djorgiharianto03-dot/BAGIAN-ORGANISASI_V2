@@ -1,0 +1,207 @@
+/**
+ * Beranda — Section Title Polish
+ * -----------------------------------------------------------------------------
+ * Membuat semua judul section di beranda terlihat lebih bagus & konsisten:
+ *   - Indikator & Statistik           (.gov-kpi-section__title)
+ *   - Target Tahun 2026               (.gov-team-target-section__title)
+ *   - Rata-rata Capaian Tim Kerja     (.gov-team-target-overview-card__title)
+ *   - Ringkasan eksekutif             (.beranda-section__title)
+ *   - Pusat Informasi & Pengumuman    (.beranda-section__title)
+ *   - Galeri Kegiatan Terbaru         (.beranda-section__title)
+ *   - Statistik Kunjungan Tamu Web    (.beranda-section__title)
+ *
+ * Filosofi:
+ *   - ZERO perubahan HTML — semua dekorasi via ::before / ::after pseudo.
+ *   - Scope ketat ke `body.sg-homepage #beranda-root` → tidak menabrak
+ *     halaman dalam (Profil, Berita, Publikasi, dsb).
+ *   - Aksen gold yang sama dengan hero → konsistensi brand pemerintahan.
+ *   - Ringan: ~3 KB, nol gambar, nol JS, nol library.
+ *   - Aksesibel: ukuran responsif fluid, focus tetap utuh, motion-safe.
+ * -----------------------------------------------------------------------------
+ */
+
+body.sg-homepage #beranda-root {
+    --org-title-ink: #0a1f3a;
+    --org-title-muted: #475569;
+    --org-title-line: linear-gradient(90deg, #f2b33d 0%, #d39423 70%, rgba(211, 148, 35, 0) 100%);
+    --org-title-line-cool: linear-gradient(90deg, #0a57b7 0%, #1d4ed8 70%, rgba(29, 78, 216, 0) 100%);
+}
+
+/* ============================================================================
+   1. AKSEN BAR DI ATAS JUDUL — pseudo ::before (zero HTML change)
+      Garis gold pendek (28px), tegas, kesan editorial pemerintahan.
+   ============================================================================ */
+body.sg-homepage #beranda-root .beranda-section__title,
+body.sg-homepage #beranda-root .gov-kpi-section__title,
+body.sg-homepage #beranda-root .gov-team-target-section__title {
+    position: relative;
+    padding-top: 0.85rem;
+    font-weight: 800 !important;
+    letter-spacing: -0.018em !important;
+    line-height: 1.22 !important;
+    color: var(--org-title-ink) !important;
+    text-wrap: balance;
+}
+
+body.sg-homepage #beranda-root .beranda-section__title::before,
+body.sg-homepage #beranda-root .gov-kpi-section__title::before,
+body.sg-homepage #beranda-root .gov-team-target-section__title::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 32px;
+    height: 3px;
+    background: var(--org-title-line);
+    border-radius: 999px;
+    box-shadow: 0 1px 2px rgba(201, 139, 20, 0.25);
+}
+
+/* ============================================================================
+   2. RATA-RATA CAPAIAN TIM KERJA — judul dalam card (treatment berbeda,
+      karena sudah ada eyebrow text di atasnya). Pakai accent biru dingin
+      agar tidak tabrakan dengan eyebrow gold global.
+   ============================================================================ */
+body.sg-homepage #beranda-root .gov-team-target-overview-card__title {
+    position: relative;
+    font-weight: 800 !important;
+    letter-spacing: -0.018em !important;
+    line-height: 1.25 !important;
+    color: var(--org-title-ink) !important;
+    text-wrap: balance;
+}
+
+/* (Tidak menambah ::before di sini — eyebrow text di atasnya sudah cukup
+    sebagai pemisah visual.) */
+
+/* ============================================================================
+   3. SUBTITLE / DESCRIPTION — konsisten warna, line-height, max-width
+   ============================================================================ */
+body.sg-homepage #beranda-root .beranda-section__desc,
+body.sg-homepage #beranda-root .gov-kpi-section__subtitle,
+body.sg-homepage #beranda-root .gov-team-target-section__subtitle,
+body.sg-homepage #beranda-root .gov-team-target-overview-card__meta,
+body.sg-homepage #beranda-root .beranda-exec-section__eyebrow {
+    color: var(--org-title-muted) !important;
+    line-height: 1.55 !important;
+    letter-spacing: 0.002em;
+    margin-top: 0.3rem !important;
+    max-width: 46rem;
+}
+
+/* ============================================================================
+   4. EYEBROW di Ringkasan Eksekutif — beri perlakuan small-caps tegas
+   ============================================================================ */
+body.sg-homepage #beranda-root .beranda-exec-section__eyebrow {
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.16em !important;
+    color: #c98b14 !important;
+    margin: 0 0 0.4rem !important;
+}
+
+/* ============================================================================
+   5. EYEBROW di Overview Card (Rata-rata Capaian) — small-caps tegas
+   ============================================================================ */
+body.sg-homepage #beranda-root .gov-team-target-overview-card__eyebrow {
+    font-size: 0.7rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.16em !important;
+    color: #c98b14 !important;
+    margin: 0 0 0.45rem !important;
+}
+
+/* ============================================================================
+   6. "Lihat semua" link — diperhalus jadi pill kecil dengan arrow
+   ============================================================================ */
+body.sg-homepage #beranda-root .beranda-section__link-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.01em;
+    color: #0a57b7 !important;
+    background: rgba(10, 87, 183, 0.07);
+    border: 1px solid rgba(10, 87, 183, 0.18);
+    border-radius: 999px;
+    text-decoration: none !important;
+    transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+    white-space: nowrap;
+}
+
+body.sg-homepage #beranda-root .beranda-section__link-all:hover,
+body.sg-homepage #beranda-root .beranda-section__link-all:focus-visible {
+    background: rgba(10, 87, 183, 0.12);
+    border-color: rgba(10, 87, 183, 0.35);
+    color: #073d7a !important;
+    transform: translateX(2px);
+    text-decoration: none !important;
+}
+
+body.sg-homepage #beranda-root .beranda-section__link-all i {
+    transition: transform 180ms ease;
+}
+
+body.sg-homepage #beranda-root .beranda-section__link-all:hover i {
+    transform: translateX(2px);
+}
+
+/* ============================================================================
+   7. HEAD-ROW alignment — pastikan judul & link "Lihat semua" rapi sejajar
+   ============================================================================ */
+body.sg-homepage #beranda-root .beranda-section__head-row {
+    align-items: flex-start;
+    margin-bottom: 1.1rem;
+}
+
+body.sg-homepage #beranda-root .beranda-section__head-row > div:first-child {
+    min-width: 0;
+}
+
+/* ============================================================================
+   8. RESPONSIVE — di mobile, accent bar sedikit lebih kecil & rapat
+   ============================================================================ */
+@media (max-width: 575.98px) {
+    body.sg-homepage #beranda-root .beranda-section__title,
+    body.sg-homepage #beranda-root .gov-kpi-section__title,
+    body.sg-homepage #beranda-root .gov-team-target-section__title {
+        padding-top: 0.7rem;
+    }
+    body.sg-homepage #beranda-root .beranda-section__title::before,
+    body.sg-homepage #beranda-root .gov-kpi-section__title::before,
+    body.sg-homepage #beranda-root .gov-team-target-section__title::before {
+        width: 24px;
+        height: 2.5px;
+    }
+    body.sg-homepage #beranda-root .beranda-section__head-row {
+        gap: 0.5rem;
+        margin-bottom: 0.85rem;
+    }
+    body.sg-homepage #beranda-root .beranda-section__link-all {
+        padding: 0.3rem 0.7rem;
+        font-size: 0.74rem !important;
+    }
+    body.sg-homepage #beranda-root .beranda-exec-section__eyebrow,
+    body.sg-homepage #beranda-root .gov-team-target-overview-card__eyebrow {
+        letter-spacing: 0.13em !important;
+    }
+}
+
+/* ============================================================================
+   9. MOTION-REDUCE — hormati preferensi user
+   ============================================================================ */
+@media (prefers-reduced-motion: reduce) {
+    body.sg-homepage #beranda-root .beranda-section__link-all,
+    body.sg-homepage #beranda-root .beranda-section__link-all i {
+        transition: none !important;
+        transform: none !important;
+    }
+    body.sg-homepage #beranda-root .beranda-section__link-all:hover,
+    body.sg-homepage #beranda-root .beranda-section__link-all:focus-visible {
+        transform: none !important;
+    }
+}
