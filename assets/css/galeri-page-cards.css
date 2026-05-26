@@ -174,12 +174,23 @@ body.page-galeri-premium .gl-item.beranda-galeri-card:hover .beranda-galeri-card
    ============================================================================ */
 body.page-galeri-premium .beranda-galeri-card__body {
     flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    /* `!important` defensif: paksa flex column + center supaya tidak
+       di-override aturan global `.gl-item *` / `.text-start` Bootstrap
+       atau warisan dari sub-page mode lain. */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    text-align: center !important;
     gap: 0.4rem;
     padding: clamp(0.9rem, 1.2vw + 0.4rem, 1.25rem) clamp(0.85rem, 1.1vw + 0.35rem, 1.15rem);
+}
+
+/* Anak-anak body juga di-paksa center supaya rule turunan apapun
+   (mis. <h3> Bootstrap heading reset) tidak menggeser ke kiri. */
+body.page-galeri-premium .beranda-galeri-card__body > * {
+    text-align: center !important;
+    align-self: center !important;
 }
 
 body.page-galeri-premium .beranda-galeri-card__title {
@@ -190,6 +201,7 @@ body.page-galeri-premium .beranda-galeri-card__title {
     line-height: 1.32;
     color: var(--gal-ink);
     letter-spacing: -0.015em;
+    text-align: center !important;
     /* Maksimal 2 baris */
     display: -webkit-box;
     -webkit-line-clamp: 2;

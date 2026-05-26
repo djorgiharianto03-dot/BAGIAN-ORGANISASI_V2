@@ -22,8 +22,10 @@ $extraHeadMarkup = org_subpage_seo_head_markup(
 ) . $extraHeadMarkup;
 $extraHeadMarkup .= '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">' . "\n";
 /* Card galeri page disamakan dengan card beranda — load setelah
-   publikasi_premium_styles agar override aturan legacy .gl-item / .gl-masonry. */
-$extraHeadMarkup .= '<link rel="stylesheet" href="' . htmlspecialchars(org_href('assets/css/galeri-page-cards.css?v=1'), ENT_QUOTES, 'UTF-8') . '">' . "\n";
+   publikasi_premium_styles agar override aturan legacy .gl-item / .gl-masonry.
+   Gunakan org_asset_url() (BUKAN org_href) karena ini static asset, bukan PHP page,
+   agar query string ?v= tidak ter-URL-encode jadi %3F%3D. */
+$extraHeadMarkup .= '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/galeri-page-cards.css?v=3'), ENT_QUOTES, 'UTF-8') . '">' . "\n";
 
 $publikasiPremiumInitSwiper = false;
 ob_start();
