@@ -234,7 +234,34 @@ $defaultPersonnelSeed = [
     ['position' => 'PENGADMINISTRASI PERKANTORAN', 'name' => 'Inda Lenora Uniplaita'],
 ];
 
-if (!file_exists($personnelFile)) {
+/* -----------------------------------------------------------------------------
+ * SEED PERSONEL — sekali per instalasi
+ * -----------------------------------------------------------------------------
+ * BUG SEBELUMNYA: blok seed lama menulis ulang $defaultPersonnelSeed setiap
+ * kali `file_exists($personnelFile)` mengembalikan false. Di Windows/Laragon
+ * `file_exists()` bisa sesaat memberikan false ketika:
+ *   - terjadi race antara rename(.tmp → personnel.json) saat tulis atomik
+ *   - antivirus / file scanner mengunci file beberapa milidetik
+ *   - editor / OS sentuh file (touch) saat dibaca
+ * Akibatnya, baris yang baru saja dihapus oleh admin akan muncul kembali
+ * setelah beberapa menit karena seed otomatis re-fire.
+ *
+ * FIX: gunakan flag-file `storage/personnel_seeded.flag` sebagai penanda
+ * bahwa seed sudah pernah jalan. Seed HANYA aktif jika:
+ *   (a) personnel.json belum ada DAN
+ *   (b) flag-file juga belum ada
+ * Setelah seed sukses (atau saat file ditemukan sudah ada di disk), flag
+ * dibuat. Mulai saat itu, walau personnel.json terhapus, sistem tidak lagi
+ * meng-re-seed otomatis — admin harus tambahkan ulang lewat UI.
+ * -------------------------------------------------------------------------- */
+$personnelSeedFlagDir  = ORG_ROOT . DIRECTORY_SEPARATOR . 'storage';
+$personnelSeedFlagFile = $personnelSeedFlagDir . DIRECTORY_SEPARATOR . 'personnel_seeded.flag';
+
+clearstatcache(true, $personnelFile);
+clearstatcache(true, $personnelSeedFlagFile);
+
+if (!file_exists($personnelFile) && !file_exists($personnelSeedFlagFile)) {
+    /* Instalasi pertama: belum ada file & belum ada flag → seed dari default. */
     $seedWithId = [];
     foreach ($defaultPersonnelSeed as $seed) {
         $nipSeed = isset($seed['nip']) ? substr((string) $seed['nip'], 0, 20) : '';
@@ -245,7 +272,21 @@ if (!file_exists($personnelFile)) {
             'position' => $seed['position'],
         ];
     }
-    file_put_contents($personnelFile, json_encode($seedWithId, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    @file_put_contents($personnelFile, json_encode($seedWithId, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX);
+}
+
+/* Setelah memastikan personnel.json ADA (baik karena seed barusan atau memang
+   sudah ada dari sebelumnya), tetapkan flag agar seed tidak pernah re-fire. */
+if (file_exists($personnelFile) && !file_exists($personnelSeedFlagFile)) {
+    if (!is_dir($personnelSeedFlagDir)) {
+        @mkdir($personnelSeedFlagDir, 0775, true);
+    }
+    @file_put_contents(
+        $personnelSeedFlagFile,
+        "Personnel seeded. Do NOT delete this file unless you intentionally want to allow re-seed.\n"
+        . 'First-seen at: ' . date('Y-m-d H:i:s') . PHP_EOL,
+        LOCK_EX
+    );
 }
 
 $personnelData = [];
