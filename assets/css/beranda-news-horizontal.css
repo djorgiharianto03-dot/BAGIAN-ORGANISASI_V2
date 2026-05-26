@@ -234,7 +234,9 @@
 
 #beranda-pusat-informasi .org-news-card__title {
     margin: 0.1rem 0 0;
-    font-family: var(--font-sans);
+    /* !important untuk memastikan tidak ditimpa rule legacy yang masih
+       memaksakan Inter via var(--ds-font) di beranda-design-system.css. */
+    font-family: var(--font-sans, 'Plus Jakarta Sans', system-ui, sans-serif) !important;
     font-size: clamp(0.95rem, 0.85rem + 0.32vw, 1.125rem);
     font-weight: 700;
     line-height: 1.32;

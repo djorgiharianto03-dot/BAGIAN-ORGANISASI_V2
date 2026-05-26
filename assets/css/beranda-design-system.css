@@ -4,7 +4,9 @@
  */
 
 body.sg-homepage.sg-portal-page {
-    --ds-font: 'Inter', system-ui, -apple-system, sans-serif;
+    /* Pulled dari --font-sans global (Plus Jakarta Sans, lihat site_styles.php).
+       Inter + system-ui dipertahankan sebagai fallback chain. */
+    --ds-font: var(--font-sans, 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif);
     --ds-navy: #0f2744;
     --ds-navy-muted: #1e3a5f;
     --ds-text: #1e293b;

@@ -341,7 +341,7 @@ function org_beranda_news_horizontal_stylesheet_link(): string
 {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
-    return org_asset_stylesheet_link('assets/css/beranda-news-horizontal.css?v=1');
+    return org_asset_stylesheet_link('assets/css/beranda-news-horizontal.css?v=2');
 }
 
 /**

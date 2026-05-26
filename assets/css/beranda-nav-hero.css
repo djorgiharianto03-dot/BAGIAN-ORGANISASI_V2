@@ -71,7 +71,7 @@ body.sg-homepage .sg-hero.sg-hero--ultra .sg-hero__title {
 
 body.sg-homepage .sg-hero__title-primary,
 body.sg-homepage .sg-hero.sg-hero--ultra .sg-hero__title-primary {
-    font-family: var(--ds-font, 'Inter', system-ui, sans-serif);
+    font-family: var(--ds-font, var(--font-sans, 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif));
     font-size: clamp(1.625rem, 1.35rem + 0.9vw, 2.125rem) !important;
     font-weight: 700 !important;
     line-height: 1.12 !important;
@@ -82,7 +82,7 @@ body.sg-homepage .sg-hero.sg-hero--ultra .sg-hero__title-primary {
 
 body.sg-homepage .sg-hero__title-org,
 body.sg-homepage .sg-hero.sg-hero--ultra .sg-hero__title-org {
-    font-family: var(--ds-font, 'Inter', system-ui, sans-serif);
+    font-family: var(--ds-font, var(--font-sans, 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif));
     font-size: clamp(0.9375rem, 0.875rem + 0.25vw, 1.0625rem) !important;
     font-weight: 500 !important;
     line-height: 1.4 !important;
