@@ -1,0 +1,596 @@
+/* ==========================================================================
+   Beranda Premium Refresh — Final cascade overlay
+   --------------------------------------------------------------------------
+   Tujuan: tampilan portal smart-governance yang clean, modern, ringan, dan
+   profesional. Stylesheet ini SENGAJA dimuat paling akhir agar dapat
+   menetralkan glow biru berlebihan, blur berat, dan ornamen dekoratif
+   peninggalan stylesheet sebelumnya, TANPA harus menghapus file lama
+   (resiko regresi minimal).
+
+   Hanya berdampak pada body.sg-portal-page (homepage & subpages portal).
+   Tidak menyentuh admin/dashboard back-office.
+   ========================================================================== */
+
+/* --------- Design tokens ------------------------------------------------- */
+body.sg-portal-page {
+    /* Shadow scale lembut — meniru govtech kelas nasional (sg.gov, gov.uk) */
+    --bpr-shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+    --bpr-shadow-sm: 0 2px 6px -2px rgba(15, 23, 42, 0.08);
+    --bpr-shadow-md: 0 8px 22px -14px rgba(15, 23, 42, 0.18);
+    --bpr-shadow-lg: 0 18px 38px -22px rgba(15, 23, 42, 0.22);
+
+    /* Border tipis modern */
+    --bpr-border-hairline: rgba(15, 23, 42, 0.06);
+    --bpr-border-soft: rgba(15, 23, 42, 0.08);
+    --bpr-border-firm: rgba(15, 23, 42, 0.12);
+
+    /* Surface */
+    --bpr-surface: #ffffff;
+    --bpr-surface-muted: #fbfcfe;
+    --bpr-surface-tint: #f6f9fd;
+
+    /* Typography palette */
+    --bpr-ink: #0f172a;
+    --bpr-ink-soft: #334155;
+    --bpr-ink-muted: #64748b;
+    --bpr-accent: #1d4ed8;
+    --bpr-accent-soft: #3b82f6;
+
+    /* Spacing */
+    --bpr-section-gap-y: clamp(2.75rem, 5vw, 4.5rem);
+    --bpr-card-padding: clamp(1.25rem, 2vw, 1.75rem);
+    --bpr-radius-card: 14px;
+    --bpr-radius-card-lg: 18px;
+}
+
+/* ============================================================
+   1. HERO — kurangi ornamen, glow, dan pattern; fokus typography
+   ============================================================ */
+body.sg-portal-page .sg-subhero,
+body.sg-portal-page .org-hero--sub {
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%) !important;
+    box-shadow: inset 0 -1px 0 var(--bpr-border-hairline) !important;
+    overflow: hidden;
+}
+
+/* Background dekoratif (radial glow / pattern) dihilangkan total */
+body.sg-portal-page .sg-subhero__bg,
+body.sg-portal-page .org-hero__bg {
+    background: transparent !important;
+    box-shadow: none !important;
+    filter: none !important;
+    opacity: 0 !important;
+    pointer-events: none;
+}
+
+body.sg-portal-page .sg-subhero::before,
+body.sg-portal-page .sg-subhero::after,
+body.sg-portal-page .org-hero--sub::before,
+body.sg-portal-page .org-hero--sub::after {
+    display: none !important;
+    content: none !important;
+}
+
+/* Eyebrow dot ornamen disembunyikan */
+body.sg-portal-page .sg-hero__eyebrow-dot,
+body.sg-portal-page .org-eyebrow__dot,
+body.sg-portal-page .sg-subhero__eyebrow .org-eyebrow__dot {
+    display: none !important;
+}
+
+body.sg-portal-page .sg-subhero__eyebrow,
+body.sg-portal-page .org-eyebrow {
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.14em !important;
+    text-transform: uppercase !important;
+    color: var(--bpr-accent) !important;
+    margin-bottom: 1rem !important;
+}
+
+body.sg-portal-page .sg-subhero__title,
+body.sg-portal-page .org-hero__title {
+    font-size: clamp(1.6rem, 3.4vw, 2.4rem) !important;
+    font-weight: 800 !important;
+    line-height: 1.18 !important;
+    letter-spacing: -0.015em !important;
+    color: var(--bpr-ink) !important;
+    text-shadow: none !important;
+    margin-bottom: 0.85rem !important;
+}
+
+body.sg-portal-page .sg-subhero__title-accent {
+    color: var(--bpr-accent) !important;
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    -webkit-text-fill-color: var(--bpr-accent) !important;
+    text-shadow: none !important;
+}
+
+body.sg-portal-page .sg-subhero__lead,
+body.sg-portal-page .org-hero__lead {
+    font-size: clamp(0.95rem, 1.05vw + 0.7rem, 1.1rem) !important;
+    line-height: 1.6 !important;
+    color: var(--bpr-ink-soft) !important;
+    max-width: 56ch !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* CTA hero — shadow lembut, bukan glow neon */
+body.sg-portal-page .sg-subhero__cta {
+    box-shadow: 0 6px 18px -10px rgba(29, 78, 216, 0.45) !important;
+    border: 0 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+body.sg-portal-page .sg-subhero__cta:hover {
+    box-shadow: 0 10px 24px -10px rgba(29, 78, 216, 0.55) !important;
+    transform: translateY(-1px);
+}
+
+/* Stats hero — kartu tenang */
+body.sg-portal-page .sg-subhero__stats,
+body.sg-portal-page .org-hero__stats {
+    gap: 0.85rem !important;
+}
+
+body.sg-portal-page .sg-subhero__stat,
+body.sg-portal-page .org-hero__stat {
+    background: rgba(255, 255, 255, 0.92) !important;
+    border: 1px solid var(--bpr-border-hairline) !important;
+    border-radius: var(--bpr-radius-card) !important;
+    box-shadow: var(--bpr-shadow-sm) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding: 0.85rem 1rem !important;
+}
+
+body.sg-portal-page .sg-subhero__stat-num,
+body.sg-portal-page .org-hero__stat-value {
+    color: var(--bpr-ink) !important;
+    font-weight: 800 !important;
+    text-shadow: none !important;
+}
+
+body.sg-portal-page .sg-subhero__stat-label,
+body.sg-portal-page .org-hero__stat-label {
+    color: var(--bpr-ink-muted) !important;
+    font-weight: 600 !important;
+    text-shadow: none !important;
+}
+
+/* Stat dengan nilai 0 — disamarkan supaya tidak menarik perhatian palsu */
+body.sg-portal-page .sg-subhero__stat-num[data-sg-count="0"],
+body.sg-portal-page .org-hero__stat-value[data-sg-count="0"] {
+    color: rgba(15, 23, 42, 0.32) !important;
+    font-weight: 700 !important;
+}
+
+/* Breadcrumb hero */
+body.sg-portal-page .sg-subhero__breadcrumb,
+body.sg-portal-page .org-hero__breadcrumb {
+    color: var(--bpr-ink-muted) !important;
+    font-size: 0.84rem !important;
+}
+
+/* ============================================================
+   2. SECTIONS — whitespace, hierarchy, surface
+   ============================================================ */
+body.sg-portal-page .beranda-section {
+    padding-top: var(--bpr-section-gap-y) !important;
+    padding-bottom: var(--bpr-section-gap-y) !important;
+    position: relative;
+}
+
+body.sg-portal-page .beranda-section + .beranda-section {
+    border-top: 1px solid var(--bpr-border-hairline) !important;
+}
+
+body.sg-portal-page .beranda-section--surface-muted {
+    background: var(--bpr-surface-muted) !important;
+}
+
+body.sg-portal-page .beranda-section--surface-white {
+    background: var(--bpr-surface) !important;
+}
+
+/* Section title & subtitle */
+body.sg-portal-page .beranda-section__title {
+    font-size: clamp(1.35rem, 2.2vw, 1.65rem) !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.012em !important;
+    line-height: 1.25 !important;
+    color: var(--bpr-ink) !important;
+    text-shadow: none !important;
+}
+
+body.sg-portal-page .beranda-section__desc {
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+    line-height: 1.55 !important;
+    color: var(--bpr-ink-muted) !important;
+    margin-top: 0.4rem !important;
+    text-shadow: none !important;
+}
+
+body.sg-portal-page .beranda-exec-section__eyebrow {
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    color: var(--bpr-accent) !important;
+    margin-top: 0.3rem !important;
+    margin-bottom: 0 !important;
+}
+
+body.sg-portal-page .beranda-section__head-row {
+    margin-bottom: 1.5rem !important;
+}
+
+body.sg-portal-page .beranda-section__link-all {
+    font-weight: 700 !important;
+    color: var(--bpr-accent) !important;
+    transition: color 160ms ease, transform 160ms ease;
+}
+
+body.sg-portal-page .beranda-section__link-all:hover {
+    color: var(--bpr-ink) !important;
+    transform: translateX(2px);
+}
+
+/* ============================================================
+   3. CARDS GLOBAL — netralkan glow biru, gunakan shadow lembut
+   ============================================================ */
+body.sg-portal-page .beranda-visit-card,
+body.sg-portal-page .beranda-visit-stat,
+body.sg-portal-page .np-hero__card,
+body.sg-portal-page .np-card,
+body.sg-portal-page .org-news-card,
+body.sg-portal-page .pub-pi-card,
+body.sg-portal-page .sg-stat-card,
+body.sg-portal-page .beranda-team-target-stat,
+body.sg-portal-page .beranda-team-target-card,
+body.sg-portal-page .beranda-dashboard-card,
+body.sg-portal-page .org-news-card-wrap,
+body.sg-portal-page .card.section-card,
+body.sg-portal-page .beranda-galeri-card {
+    background: var(--bpr-surface) !important;
+    border: 1px solid var(--bpr-border-soft) !important;
+    border-radius: var(--bpr-radius-card) !important;
+    box-shadow: var(--bpr-shadow-sm) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    transition: box-shadow 220ms ease, border-color 220ms ease,
+        transform 220ms ease;
+}
+
+body.sg-portal-page .beranda-visit-card:hover,
+body.sg-portal-page .np-card:hover,
+body.sg-portal-page .org-news-card:hover,
+body.sg-portal-page .pub-pi-card:hover,
+body.sg-portal-page .beranda-galeri-card:hover {
+    box-shadow: var(--bpr-shadow-md) !important;
+    border-color: var(--bpr-border-firm) !important;
+    transform: translateY(-2px);
+}
+
+/* Padding internal kartu */
+body.sg-portal-page .beranda-visit-card > .card-body {
+    padding: var(--bpr-card-padding) !important;
+}
+
+body.sg-portal-page .beranda-visit-stat {
+    padding: 1rem 1.15rem !important;
+}
+
+body.sg-portal-page .beranda-visit-stat__num {
+    color: var(--bpr-ink) !important;
+    font-weight: 800 !important;
+    text-shadow: none !important;
+}
+
+body.sg-portal-page .beranda-visit-stat__num[data-sg-count="0"] {
+    color: rgba(15, 23, 42, 0.32) !important;
+}
+
+body.sg-portal-page .beranda-visit-stat__label {
+    color: var(--bpr-ink-muted) !important;
+    font-weight: 600 !important;
+}
+
+body.sg-portal-page .beranda-visit-stat__icon {
+    box-shadow: none !important;
+    filter: none !important;
+}
+
+body.sg-portal-page .beranda-visit-caption {
+    color: var(--bpr-ink-muted) !important;
+    margin: 1.25rem 0 1rem !important;
+    font-size: 0.88rem !important;
+}
+
+/* ============================================================
+   4. KILL SWITCH — netralkan semua glow/neon kelas global
+   ============================================================ */
+body.sg-portal-page [class*="-glow"],
+body.sg-portal-page [class*="glow-"],
+body.sg-portal-page .sg-glow,
+body.sg-portal-page .sg-glow-soft,
+body.sg-portal-page .sg-orbit,
+body.sg-portal-page .sg-sparkle {
+    box-shadow: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+}
+
+/* Hapus radial pattern dekoratif yang sering dipakai sebagai bg */
+body.sg-portal-page .sg-pattern,
+body.sg-portal-page .sg-pattern-grid,
+body.sg-portal-page .sg-pattern-dots,
+body.sg-portal-page .sg-ornament,
+body.sg-portal-page .sg-deco-circle {
+    opacity: 0.35 !important;
+    filter: saturate(0.6) !important;
+}
+
+/* Drop-shadow biru tebal di icon-icon umum */
+body.sg-portal-page i[class*="fa-"] {
+    text-shadow: none !important;
+    filter: none !important;
+}
+
+/* ============================================================
+   5. PUSAT INFORMASI cards di beranda — konsistensi visual
+   ============================================================ */
+body.sg-portal-page .org-news-card-wrap {
+    border-radius: var(--bpr-radius-card-lg) !important;
+}
+
+body.sg-portal-page .org-news-card__title {
+    color: var(--bpr-ink) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.005em !important;
+}
+
+body.sg-portal-page .org-news-card__excerpt {
+    color: var(--bpr-ink-muted) !important;
+    line-height: 1.55 !important;
+}
+
+body.sg-portal-page .org-news-card__cta {
+    color: var(--bpr-accent) !important;
+    font-weight: 700 !important;
+}
+
+/* ============================================================
+   6. FLOATING AI ASSISTANT — kecil, subtle, premium
+   ============================================================ */
+body .ai-chat__toggle {
+    padding: 0.5rem 0.85rem 0.5rem 0.55rem !important;
+    background: var(--bpr-surface, #ffffff) !important;
+    color: var(--bpr-ink, #0f172a) !important;
+    border: 1px solid rgba(15, 23, 42, 0.10) !important;
+    box-shadow: 0 8px 22px -10px rgba(15, 23, 42, 0.22) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    transition: box-shadow 200ms ease, transform 200ms ease !important;
+}
+
+body .ai-chat__toggle:hover {
+    box-shadow: 0 14px 30px -12px rgba(15, 23, 42, 0.28) !important;
+    transform: translateY(-1px) !important;
+}
+
+body .ai-chat__toggle-icon {
+    width: 1.7rem !important;
+    height: 1.7rem !important;
+    background: linear-gradient(135deg, #3b82f6, #6366f1) !important;
+    color: #ffffff !important;
+    font-size: 0.88rem !important;
+    box-shadow: none !important;
+}
+
+body .ai-chat__toggle-label {
+    font-size: 0.78rem !important;
+    color: var(--bpr-ink, #0f172a) !important;
+    font-weight: 600 !important;
+    text-shadow: none !important;
+}
+
+/* Sembunyikan label di layar sangat sempit agar FAB sebatas ikon */
+@media (max-width: 419.98px) {
+    body .ai-chat__toggle {
+        padding: 0.5rem !important;
+        border-radius: 50% !important;
+        width: 2.65rem;
+        height: 2.65rem;
+        justify-content: center;
+    }
+    body .ai-chat__toggle-label {
+        display: none !important;
+    }
+    body .ai-chat__toggle-icon {
+        margin: 0 !important;
+    }
+}
+
+/* ============================================================
+   7. KPI CARDS & TEAM TARGET — kartu kalem, hover halus
+   ============================================================ */
+body.sg-portal-page .gov-kpi-card,
+body.sg-portal-page .gov-team-target-dash-card,
+body.sg-portal-page .gov-team-target-overview-card {
+    background: var(--bpr-surface) !important;
+    border: 1px solid var(--bpr-border-soft) !important;
+    border-radius: var(--bpr-radius-card-lg) !important;
+    box-shadow: var(--bpr-shadow-sm) !important;
+    transform: none !important;
+    transition: box-shadow 240ms ease, border-color 240ms ease,
+        transform 240ms ease !important;
+}
+
+body.sg-portal-page .gov-kpi-card:hover,
+body.sg-portal-page .gov-team-target-dash-card:hover,
+body.sg-portal-page .gov-team-target-overview-card:hover {
+    transform: translateY(-2px) !important;
+    border-color: var(--bpr-border-firm) !important;
+    box-shadow: var(--bpr-shadow-md) !important;
+}
+
+body.sg-portal-page .gov-kpi-card::after,
+body.sg-portal-page .gov-kpi-card:hover::after {
+    opacity: 0 !important;
+}
+
+/* Progress bar — kurangi neon glow */
+body.sg-portal-page .gov-kpi-card .progress {
+    background: rgba(15, 23, 42, 0.06) !important;
+}
+
+body.sg-portal-page .gov-kpi-card .progress-bar {
+    background: linear-gradient(90deg, #3b82f6, #6366f1) !important;
+    box-shadow: none !important;
+}
+
+/* Live indicator dot — kalemkan glow */
+body.sg-portal-page .gov-kpi-section__live-dot {
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.16) !important;
+    filter: none !important;
+    animation: none !important;
+}
+
+body.sg-portal-page .gov-kpi-section__live {
+    color: var(--bpr-ink-muted) !important;
+    font-weight: 600 !important;
+    text-shadow: none !important;
+}
+
+body.sg-portal-page .gov-kpi-section__count {
+    color: var(--bpr-ink-muted) !important;
+    font-weight: 600 !important;
+}
+
+body.sg-portal-page .gov-kpi-section__title {
+    font-size: clamp(1.35rem, 2.2vw, 1.65rem) !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.012em !important;
+    color: var(--bpr-ink) !important;
+    text-shadow: none !important;
+}
+
+body.sg-portal-page .gov-kpi-section__subtitle {
+    color: var(--bpr-ink-muted) !important;
+    font-weight: 500 !important;
+    font-size: 0.95rem !important;
+}
+
+/* Team target dot indicators */
+body.sg-portal-page .gov-team-target-dash-card__stat-dot,
+body.sg-portal-page .gov-team-target-dot {
+    box-shadow: none !important;
+    filter: none !important;
+}
+
+body.sg-portal-page .beranda-team-target-stat__num,
+body.sg-portal-page .beranda-team-target-card__num,
+body.sg-portal-page .gov-team-target-dash-card__stat-num {
+    color: var(--bpr-ink) !important;
+    text-shadow: none !important;
+}
+
+body.sg-portal-page .beranda-team-target-stat__label,
+body.sg-portal-page .beranda-team-target-card__label,
+body.sg-portal-page .gov-team-target-dash-card__stat-label {
+    color: var(--bpr-ink-muted) !important;
+}
+
+body.sg-portal-page .gov-team-target-dash-card__title {
+    color: var(--bpr-ink) !important;
+    font-weight: 700 !important;
+}
+
+body.sg-portal-page .gov-team-target-dash-card__meta {
+    color: var(--bpr-ink-muted) !important;
+}
+
+/* ============================================================
+   8. MOBILE (≤ 575px) — stack vertikal, full-width, lega
+   ============================================================ */
+@media (max-width: 575.98px) {
+    body.sg-portal-page .beranda-section {
+        padding-top: 2.25rem !important;
+        padding-bottom: 2.25rem !important;
+    }
+
+    body.sg-portal-page .sg-subhero {
+        padding-top: 1.5rem !important;
+        padding-bottom: 2rem !important;
+    }
+
+    body.sg-portal-page .sg-subhero__title,
+    body.sg-portal-page .org-hero__title {
+        font-size: clamp(1.45rem, 5.5vw + 0.5rem, 2rem) !important;
+        line-height: 1.2 !important;
+    }
+
+    body.sg-portal-page .sg-subhero__lead,
+    body.sg-portal-page .org-hero__lead {
+        font-size: 0.95rem !important;
+        line-height: 1.55 !important;
+        max-width: 100% !important;
+    }
+
+    body.sg-portal-page .sg-subhero__stats,
+    body.sg-portal-page .org-hero__stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 0.55rem !important;
+    }
+
+    body.sg-portal-page .sg-subhero__stat {
+        padding: 0.7rem 0.85rem !important;
+    }
+
+    /* Kolom statistik kunjungan → 1 kolom penuh */
+    body.sg-portal-page .beranda-visit-stats > [class*="col-"] {
+        width: 100% !important;
+    }
+
+    body.sg-portal-page .beranda-section__head-row {
+        margin-bottom: 1.15rem !important;
+        gap: 0.5rem !important;
+    }
+
+    body.sg-portal-page .beranda-section__title {
+        font-size: 1.25rem !important;
+    }
+
+    body.sg-portal-page .beranda-section__desc {
+        font-size: 0.9rem !important;
+    }
+}
+
+/* ============================================================
+   9. TABLET (576px–991.98px)
+   ============================================================ */
+@media (min-width: 576px) and (max-width: 991.98px) {
+    body.sg-portal-page .beranda-section {
+        padding-top: clamp(2.5rem, 5vw, 3.5rem) !important;
+        padding-bottom: clamp(2.5rem, 5vw, 3.5rem) !important;
+    }
+}
+
+/* ============================================================
+   10. REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+    body.sg-portal-page .beranda-visit-card,
+    body.sg-portal-page .np-card,
+    body.sg-portal-page .org-news-card,
+    body.sg-portal-page .sg-subhero__cta,
+    body .ai-chat__toggle {
+        transition: none !important;
+        animation: none !important;
+    }
+}

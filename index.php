@@ -169,14 +169,16 @@ $extraHeadMarkup .= org_share_assets_html();
 /** Portal beranda: lebar shell header/hero — org-container-global.css */
 $htmlClass = 'sg-portal-html-home';
 
+/* Hero stats di-trim: hanya 2 metrik portal yang TIDAK duplikat dengan
+   section "Statistik Kunjungan Tamu Website" di bawah. Statistik tamu &
+   kunjungan tetap muncul di section khususnya beserta grafik 14 hari,
+   sehingga hero lebih fokus dan tidak terkesan ramai. */
 org_portal_set_hero(
     'Portal Smart Governance Bagian Organisasi',
     'Mewujudkan Tata Kelola Pemerintahan Digital.',
     'SEKRETARIAT DAERAH · KEPULAUAN ARU',
     'fa-building-columns',
     [
-        ['value' => (int) $berandaTotalToday, 'label' => 'Tamu Hari Ini'],
-        ['value' => (int) $berandaTotalWeek, 'label' => 'Kunjungan 7 Hari'],
         ['value' => (int) $sgPortalDocCount, 'label' => 'Dokumen Digital'],
         ['value' => (int) $sgPortalInfoCount, 'label' => 'Publikasi Aktif'],
     ],

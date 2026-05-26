@@ -128,6 +128,20 @@ function org_portal_head_markup_beranda(string $existing = ''): string
 
     /* portal-nav + beranda-header-nav-sync dimuat paling akhir di header.php */
 
+    /* Premium refresh overlay — dimuat sebagai cascade TERAKHIR agar
+       menetralkan glow biru, blur berat, dan ornamen yang masih tersisa
+       dari lapisan-lapisan stylesheet sebelumnya. File ini ringan
+       (≈ 12 KB) dan hanya berlaku untuk body.sg-portal-page. */
+    if (!function_exists('org_asset_url')) {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_app.php';
+    }
+    $refreshHref = htmlspecialchars(
+        org_asset_url('assets/css/beranda-premium-refresh.css?v=1'),
+        ENT_QUOTES,
+        'UTF-8'
+    );
+    $base .= '<link rel="stylesheet" href="' . $refreshHref . '">' . "\n";
+
     return $base . $existing;
 }
 
