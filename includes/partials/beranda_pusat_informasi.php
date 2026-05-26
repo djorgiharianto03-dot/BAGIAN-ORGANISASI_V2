@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'org_share_helpers.php';
+
 /**
  * Beranda — Pusat Informasi & Pengumuman
  * -----------------------------------------------------------------------------
@@ -84,6 +86,7 @@ $bulanMap = [
             $aria    = $piJudul !== '' ? ($piJudul . ' — baca selengkapnya') : 'Baca selengkapnya';
             ?>
             <article class="org-news-card-wrap" role="listitem">
+                <?php echo org_share_button_html($pi, 'card'); ?>
                 <a class="org-news-card" href="<?php echo org_href('informasi.php', 'id=' . $piId); ?>" aria-label="<?php echo htmlspecialchars($aria, ENT_QUOTES, 'UTF-8'); ?>">
                     <div class="org-news-card__media">
                         <?php if ($dayNum > 0): ?>

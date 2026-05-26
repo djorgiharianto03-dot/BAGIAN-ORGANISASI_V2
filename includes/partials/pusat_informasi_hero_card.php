@@ -7,12 +7,14 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'pusat_informasi_card_data.php';
 if (!is_array($pi) || $piId < 1) {
     return;
 }
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'org_share_helpers.php';
 ?>
 <section class="np-hero" aria-labelledby="np-hero-title">
     <div class="np-hero__label">
         <span class="np-hero__label-dot" aria-hidden="true"></span>
         <span id="np-hero-title"><?php echo $isFeatured ? 'Sorotan Utama' : 'Terbaru'; ?></span>
     </div>
+    <?php echo org_share_button_html($pi, 'hero'); ?>
     <a href="<?php echo org_href('informasi.php', 'id=' . $piId); ?>" class="np-hero__link" aria-label="<?php echo htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'); ?>">
         <article class="np-hero__card<?php echo $isFeatured ? ' np-hero__card--featured' : ''; ?>">
             <div class="np-hero__media">

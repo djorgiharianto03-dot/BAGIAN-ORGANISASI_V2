@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'bootstrap.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'portal_page_helpers.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_share_helpers.php';
 
 $id = (int) ($_GET['id'] ?? 0);
 $post = null;
@@ -24,7 +25,7 @@ if ($post === null) {
 $includePersonnelModals = false;
 $includeNewsModals = false;
 $bodyClass = 'mode-publikasi page-informasi-detail';
-$extraHeadMarkup = '';
+$extraHeadMarkup = org_share_assets_html();
 $extraFooterMarkup = '';
 org_portal_apply_assets($bodyClass, $extraHeadMarkup, $extraFooterMarkup);
 
@@ -81,6 +82,17 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'head
                     <?php endif; ?>
                     <h1 class="h3 mb-4 text-dark"><?php echo htmlspecialchars((string) ($post['judul'] ?? ''), ENT_QUOTES, 'UTF-8'); ?></h1>
                     <div class="pi-detail-body text-secondary" style="line-height: 1.7;"><?php echo nl2br(htmlspecialchars((string) ($post['isi_teks'] ?? ''), ENT_QUOTES, 'UTF-8')); ?></div>
+
+                    <div class="org-share-section" role="region" aria-label="Bagikan publikasi">
+                        <p class="org-share-section__title">
+                            <i class="fa-solid fa-share-nodes" aria-hidden="true"></i>
+                            <span>Bagikan <?php echo htmlspecialchars(strtolower($badgeLabel), ENT_QUOTES, 'UTF-8'); ?> ini</span>
+                        </p>
+                        <p class="org-share-section__hint">
+                            Sebarkan informasi resmi ini melalui WhatsApp, media sosial, email, atau salin URL.
+                        </p>
+                        <?php echo org_share_button_html($post, 'inline-detail'); ?>
+                    </div>
                 </div>
             </article>
         <?php endif; ?>

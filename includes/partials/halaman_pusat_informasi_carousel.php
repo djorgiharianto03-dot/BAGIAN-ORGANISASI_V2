@@ -4,6 +4,7 @@
 /** @var callable(string, string): string|null $pusatHighlightSearch */
 
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'pusat_informasi_ui.php';
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'org_share_helpers.php';
 
 $posts = $pusatCarouselPosts ?? [];
 $highlight = $pusatHighlightSearch ?? null;
@@ -40,6 +41,7 @@ $highlight = $pusatHighlightSearch ?? null;
                                 $tglFmt = $tgl !== '' ? date('d M Y', strtotime($tgl)) : '';
                                 ?>
                                 <div class="swiper-slide" data-aos="fade-up" data-aos-delay="<?php echo min(300, (int) $slideIdx * 60); ?>">
+                                    <?php echo org_share_button_html($pi, 'carousel'); ?>
                                     <a href="<?php echo org_href('informasi.php', 'id=' . $piId); ?>" class="pub-pi-card-link" aria-label="<?php echo htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'); ?>">
                                         <article class="pub-pi-card<?php echo $isFeatured ? ' pub-pi-card--featured' : ''; ?>">
                                             <div class="pub-pi-card__media">

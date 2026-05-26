@@ -163,6 +163,9 @@ $extraHeadMarkup = org_beranda_seo_head_markup((string) ($logoWebPath ?? ''))
 $extraFooterMarkup = org_portal_footer_markup('');
 
 $extraHeadMarkup = org_portal_head_markup_beranda($extraHeadMarkup);
+
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_share_helpers.php';
+$extraHeadMarkup .= org_share_assets_html();
 /** Portal beranda: lebar shell header/hero — org-container-global.css */
 $htmlClass = 'sg-portal-html-home';
 

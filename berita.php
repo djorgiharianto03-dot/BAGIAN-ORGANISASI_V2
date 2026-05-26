@@ -18,6 +18,9 @@ $extraHeadMarkup = org_subpage_seo_head_markup(
     'Informasi'
 ) . $extraHeadMarkup;
 
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'org_share_helpers.php';
+$extraHeadMarkup .= org_share_assets_html();
+
 $publikasiPremiumInitSwiper = false;
 ob_start();
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'publikasi_premium_footer.php';

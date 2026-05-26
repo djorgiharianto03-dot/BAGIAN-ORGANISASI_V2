@@ -1,0 +1,400 @@
+/* =========================================================================
+   Tombol Share — Pusat Informasi (berita & pengumuman).
+   - Tombol ikon kecil di kartu list (varian card/hero/carousel)
+   - Tombol "Bagikan" inline di halaman detail (varian inline-detail)
+   - Popover share (modal-like) saat Web Share API tidak tersedia
+   - Toast feedback saat copy-link sukses
+   ========================================================================= */
+
+/* ---------- Parent positioning context (defensive) -------------------- */
+/* Tombol share di kartu posisinya `position: absolute`. Pastikan pembungkus
+   memiliki `position: relative` agar koordinat top/right dihitung dari
+   kotak kartu, bukan dari elemen positioned terdekat di atasnya. */
+.np-grid__cell,
+.np-hero,
+.pub-pi-swiper .swiper-slide,
+.org-news-card-wrap {
+    position: relative;
+}
+
+/* ---------- Base button ---------------------------------------------- */
+.org-share-btn {
+    --share-bg: rgba(255, 255, 255, 0.92);
+    --share-color: #1f2937;
+    --share-border: rgba(15, 23, 42, 0.08);
+    --share-shadow: 0 8px 22px -10px rgba(15, 23, 42, 0.32);
+    --share-bg-hover: #ffffff;
+    --share-color-hover: #2563eb;
+
+    position: absolute;
+    z-index: 4;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid var(--share-border);
+    background: var(--share-bg);
+    color: var(--share-color);
+    font-size: 0.92rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: var(--share-shadow);
+    transition: background 180ms ease, color 180ms ease, transform 180ms ease,
+        box-shadow 180ms ease, border-color 180ms ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.org-share-btn:hover,
+.org-share-btn:focus-visible {
+    background: var(--share-bg-hover);
+    color: var(--share-color-hover);
+    border-color: rgba(37, 99, 235, 0.32);
+    transform: translateY(-1px);
+    box-shadow: 0 12px 26px -10px rgba(37, 99, 235, 0.45);
+}
+
+.org-share-btn:focus-visible {
+    outline: 2px solid #60a5fa;
+    outline-offset: 2px;
+}
+
+.org-share-btn:active {
+    transform: translateY(0);
+}
+
+.org-share-btn i {
+    pointer-events: none;
+    line-height: 1;
+}
+
+/* ---------- Variants di kartu list ----------------------------------- */
+.org-share-btn--card {
+    top: 0.65rem;
+    right: 0.65rem;
+}
+
+.org-share-btn--hero {
+    top: 0.85rem;
+    right: 0.85rem;
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+    --share-bg: rgba(255, 255, 255, 0.96);
+}
+
+.org-share-btn--carousel {
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 32px;
+    height: 32px;
+    font-size: 0.82rem;
+}
+
+/* ---------- Variant inline (halaman detail) -------------------------- */
+.org-share-btn--inline {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: auto;
+    height: auto;
+    padding: 0.55rem 1.05rem;
+    border-radius: 999px;
+    gap: 0.55rem;
+    font-weight: 700;
+    font-size: 0.92rem;
+    background: linear-gradient(135deg, #38bdf8, #6366f1);
+    color: #ffffff !important;
+    border: 0;
+    box-shadow: 0 10px 24px -10px rgba(99, 102, 241, 0.55);
+    letter-spacing: 0.01em;
+}
+
+.org-share-btn--inline:hover,
+.org-share-btn--inline:focus-visible {
+    background: linear-gradient(135deg, #0ea5e9, #4f46e5);
+    color: #ffffff !important;
+    transform: translateY(-1px);
+    box-shadow: 0 14px 30px -10px rgba(99, 102, 241, 0.6);
+}
+
+.org-share-btn__label {
+    line-height: 1;
+}
+
+/* Wrapper section di halaman detail */
+.org-share-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+    padding: 1rem 1.1rem;
+    margin-top: 1.5rem;
+    border-radius: 14px;
+    background: linear-gradient(135deg,
+        rgba(56, 189, 248, 0.08),
+        rgba(99, 102, 241, 0.08));
+    border: 1px solid rgba(99, 102, 241, 0.12);
+}
+
+.org-share-section__title {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #1e3a8a;
+}
+
+.org-share-section__title i {
+    color: #6366f1;
+}
+
+.org-share-section__hint {
+    margin: 0;
+    color: #475569;
+    font-size: 0.82rem;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+/* ---------- Popover overlay ----------------------------------------- */
+.org-share-popover-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 12, 24, 0.55);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    z-index: 1180;
+    opacity: 0;
+    transition: opacity 200ms ease;
+    pointer-events: none;
+}
+
+.org-share-popover-backdrop.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.org-share-popover {
+    position: fixed;
+    z-index: 1190;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -48%) scale(0.96);
+    width: min(420px, calc(100vw - 2rem));
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 30px 60px -20px rgba(15, 23, 42, 0.45),
+        0 8px 20px -8px rgba(15, 23, 42, 0.2);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 220ms ease, transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.org-share-popover.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.org-share-popover__head {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem 1.15rem 0.6rem;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.org-share-popover__title {
+    margin: 0;
+    font-weight: 800;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #0f172a;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.org-share-popover__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    background: rgba(15, 23, 42, 0.04);
+    color: #64748b;
+    cursor: pointer;
+    transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.org-share-popover__close:hover,
+.org-share-popover__close:focus-visible {
+    background: rgba(248, 113, 113, 0.14);
+    color: #b91c1c;
+    transform: rotate(90deg);
+}
+
+.org-share-popover__body {
+    padding: 0.85rem 1.15rem 1.1rem;
+}
+
+.org-share-popover__url {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.85rem;
+    padding: 0.55rem 0.7rem;
+    background: rgba(15, 23, 42, 0.04);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 10px;
+    font-size: 0.82rem;
+    color: #334155;
+    overflow: hidden;
+}
+
+.org-share-popover__url-text {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.78rem;
+}
+
+.org-share-popover__copy {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.32rem 0.65rem;
+    border-radius: 7px;
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    background: #ffffff;
+    color: #0f172a;
+    font-weight: 700;
+    font-size: 0.76rem;
+    cursor: pointer;
+    transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.org-share-popover__copy:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+}
+
+.org-share-popover__copy.is-copied {
+    background: #dcfce7 !important;
+    border-color: #16a34a !important;
+    color: #15803d !important;
+}
+
+.org-share-popover__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.65rem;
+}
+
+@media (max-width: 380px) {
+    .org-share-popover__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.org-share-popover__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.85rem 0.55rem;
+    border-radius: 12px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    background: #ffffff;
+    color: #0f172a;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.78rem;
+    line-height: 1;
+    transition: background 160ms ease, border-color 160ms ease,
+        transform 160ms ease, box-shadow 160ms ease;
+    cursor: pointer;
+}
+
+.org-share-popover__item:hover,
+.org-share-popover__item:focus-visible {
+    background: #f8fafc;
+    border-color: rgba(37, 99, 235, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px -8px rgba(37, 99, 235, 0.3);
+    color: #0f172a;
+    text-decoration: none;
+}
+
+.org-share-popover__item-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    color: #ffffff;
+    font-size: 1.1rem;
+}
+
+.org-share-popover__item-icon--whatsapp { background: #25d366; }
+.org-share-popover__item-icon--facebook { background: #1877f2; }
+.org-share-popover__item-icon--x        { background: #0f172a; }
+.org-share-popover__item-icon--telegram { background: #229ed9; }
+.org-share-popover__item-icon--email    { background: #6366f1; }
+.org-share-popover__item-icon--copy     { background: #475569; }
+
+/* ---------- Toast feedback ------------------------------------------ */
+.org-share-toast {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translate(-50%, 14px);
+    z-index: 1200;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.7rem 1.1rem;
+    border-radius: 999px;
+    background: #0f172a;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.88rem;
+    box-shadow: 0 18px 36px -12px rgba(15, 23, 42, 0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 220ms ease, transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.org-share-toast.is-visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.org-share-toast i {
+    color: #4ade80;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .org-share-btn,
+    .org-share-popover,
+    .org-share-popover__item,
+    .org-share-toast,
+    .org-share-popover-backdrop {
+        transition: none !important;
+    }
+}

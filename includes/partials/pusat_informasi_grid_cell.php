@@ -8,10 +8,12 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'pusat_informasi_card_data.php';
 if (!is_array($pi) || $piId < 1) {
     return;
 }
+require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'org_share_helpers.php';
 
 $aosDelay = min(320, (int) ($cardIdx ?? 0) * 48);
 ?>
                             <div class="np-grid__cell" data-aos="fade-up" data-aos-delay="<?php echo $aosDelay; ?>">
+                                <?php echo org_share_button_html($pi, 'card'); ?>
                                 <a href="<?php echo org_href('informasi.php', 'id=' . $piId); ?>" class="np-card__link" aria-label="<?php echo htmlspecialchars($judul, ENT_QUOTES, 'UTF-8'); ?>">
                                     <article class="np-card<?php echo $isFeatured ? ' np-card--featured' : ''; ?>">
                                         <div class="np-card__media">
