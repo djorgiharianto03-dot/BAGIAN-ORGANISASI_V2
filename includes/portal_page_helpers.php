@@ -229,3 +229,19 @@ function org_portal_set_hero(
     $portalHeroIcon = $icon;
     $portalHeroStats = $stats;
 }
+
+/**
+ * Primary CTA opsional untuk subhero (hanya dipakai di beranda saat ini).
+ * Aman jika tidak dipanggil — hero.php akan skip render bila label/href kosong.
+ *
+ * @param string $label Teks tombol (mis. "Profil Bagian Organisasi")
+ * @param string $href  Tujuan link
+ * @param string $icon  Ikon Font Awesome opsional (mis. 'fa-arrow-right')
+ */
+function org_portal_set_hero_cta(string $label, string $href, string $icon = 'fa-arrow-right'): void
+{
+    global $portalHeroCtaLabel, $portalHeroCtaHref, $portalHeroCtaIcon;
+    $portalHeroCtaLabel = trim($label);
+    $portalHeroCtaHref  = trim($href);
+    $portalHeroCtaIcon  = trim($icon);
+}

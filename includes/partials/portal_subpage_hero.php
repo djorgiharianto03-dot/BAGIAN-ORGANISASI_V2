@@ -11,7 +11,8 @@
  * $smartPortalNav di includes/header.php.
  */
 global $portalHeroEyebrow, $portalHeroTitle, $portalHeroTitleHtml,
-       $portalHeroLead, $portalHeroIcon, $portalHeroStats, $portalHeroBreadcrumb;
+       $portalHeroLead, $portalHeroIcon, $portalHeroStats, $portalHeroBreadcrumb,
+       $portalHeroCtaLabel, $portalHeroCtaHref, $portalHeroCtaIcon;
 
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'org_tailwind_assets.php';
 org_tailwind_bootstrap();
@@ -22,4 +23,7 @@ org_component('hero', [
     'portalHeroLead' => $portalHeroLead ?? '',
     'portalHeroStats' => $portalHeroStats ?? [],
     'portalHeroBreadcrumb' => $portalHeroBreadcrumb ?? '',
+    'portalHeroCtaLabel' => $portalHeroCtaLabel ?? '',
+    'portalHeroCtaHref' => $portalHeroCtaHref ?? '',
+    'portalHeroCtaIcon' => $portalHeroCtaIcon ?? '',
 ]);

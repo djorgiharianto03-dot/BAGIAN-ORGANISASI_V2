@@ -184,6 +184,14 @@ org_portal_set_hero(
 );
 $portalHeroBreadcrumb = '';
 
+/* Primary CTA hero — sekali klik ke informasi/profil bagian organisasi.
+   Aman: helper baru, tidak mengubah signature org_portal_set_hero(). */
+org_portal_set_hero_cta(
+    'Profil Bagian Organisasi',
+    org_href('profil.php'),
+    'fa-arrow-right'
+);
+
 define('ORG_DEFER_LAYOUT_MAIN', true);
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'header.php';
 echo '<main class="site-layout-main">';

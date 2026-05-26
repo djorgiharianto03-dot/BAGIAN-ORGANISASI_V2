@@ -18,6 +18,10 @@ $portalHeroTitleHtml = trim((string) ($portalHeroTitleHtml ?? ''));
 $portalHeroEyebrow = (string) ($portalHeroEyebrow ?? '');
 $portalHeroBreadcrumb = trim((string) ($portalHeroBreadcrumb ?? $portalHeroTitle ?? ''));
 $portalHeroAriaLabel = $portalHeroTitle !== '' ? $portalHeroTitle : ($portalHeroBreadcrumb !== '' ? $portalHeroBreadcrumb : 'Halaman portal');
+$portalHeroCtaLabel = trim((string) ($portalHeroCtaLabel ?? ''));
+$portalHeroCtaHref  = trim((string) ($portalHeroCtaHref ?? ''));
+$portalHeroCtaIcon  = trim((string) ($portalHeroCtaIcon ?? 'fa-arrow-right'));
+$portalHeroHasCta   = $portalHeroCtaLabel !== '' && $portalHeroCtaHref !== '';
 ?>
 <section class="org-hero org-hero--sub sg-subhero" aria-label="<?php echo htmlspecialchars($portalHeroAriaLabel, ENT_QUOTES, 'UTF-8'); ?>">
     <div class="org-hero__bg sg-subhero__bg" aria-hidden="true"></div>
@@ -37,6 +41,16 @@ $portalHeroAriaLabel = $portalHeroTitle !== '' ? $portalHeroTitle : ($portalHero
                 <?php endif; ?>
                 <?php if ($portalHeroLead !== ''): ?>
                     <p class="org-hero__lead org-text-lead sg-subhero__lead"><?php echo htmlspecialchars($portalHeroLead, ENT_QUOTES, 'UTF-8'); ?></p>
+                <?php endif; ?>
+                <?php if ($portalHeroHasCta): ?>
+                    <div class="sg-subhero__cta-row">
+                        <a class="sg-subhero__cta" href="<?php echo htmlspecialchars($portalHeroCtaHref, ENT_QUOTES, 'UTF-8'); ?>">
+                            <span class="sg-subhero__cta-label"><?php echo htmlspecialchars($portalHeroCtaLabel, ENT_QUOTES, 'UTF-8'); ?></span>
+                            <?php if ($portalHeroCtaIcon !== ''): ?>
+                                <i class="fa-solid <?php echo htmlspecialchars($portalHeroCtaIcon, ENT_QUOTES, 'UTF-8'); ?> sg-subhero__cta-icon" aria-hidden="true"></i>
+                            <?php endif; ?>
+                        </a>
+                    </div>
                 <?php endif; ?>
                 <?php if ($portalHeroBreadcrumb !== ''): ?>
                 <nav class="org-hero__breadcrumb sg-subhero__breadcrumb" aria-label="Breadcrumb">

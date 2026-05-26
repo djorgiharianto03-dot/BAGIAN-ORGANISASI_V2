@@ -1,0 +1,155 @@
+/**
+ * Beranda — Hero Identity Upgrade
+ * -----------------------------------------------------------------------------
+ * Tambahan visual kecil tapi tegas pada subhero halaman beranda:
+ *   1. Aksen gold/amber sebagai warna sekunder (kesan resmi pemerintahan)
+ *   2. Eyebrow lebih tegas (typography uppercase + letter-spacing)
+ *   3. Primary CTA pill dengan gradient gold + arrow icon
+ *
+ * Filosofi:
+ *   - Scope ketat ke `body.sg-homepage` + `.sg-subhero` → tidak menyentuh
+ *     hero subhalaman lain (Profil, Publikasi, dsb).
+ *   - Aksen biru "Smart Governance" yang sudah ada (sky-300) DIPERTAHANKAN
+ *     agar identitas brand existing tidak rusak.
+ *   - Gold hanya hadir di: eyebrow dot, garis aksen di bawah eyebrow,
+ *     dan tombol CTA. Bukan dominan, hanya komplementer.
+ *   - Zero dependency (CSS native), zero gambar, zero JS.
+ * -----------------------------------------------------------------------------
+ */
+
+body.sg-homepage {
+    --org-accent-gold: #f2b33d;        /* warm amber-gold (mirip referensi DISHUB) */
+    --org-accent-gold-deep: #c98b14;
+    --org-accent-gold-soft: rgba(242, 179, 61, 0.18);
+    --org-accent-gold-text: #1a1409;   /* teks pada tombol gold */
+}
+
+/* ============================================================================
+   #1 — Eyebrow lebih tegas (dot gold + spacing rapi)
+   ============================================================================ */
+body.sg-homepage .sg-subhero .org-eyebrow,
+body.sg-homepage .sg-subhero .sg-subhero__eyebrow {
+    color: rgba(255, 255, 255, 0.92);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+body.sg-homepage .sg-subhero .sg-hero__eyebrow-dot,
+body.sg-homepage .sg-subhero .org-eyebrow__dot {
+    background: var(--org-accent-gold) !important;
+    box-shadow: 0 0 0 3px rgba(242, 179, 61, 0.22);
+}
+
+/* ============================================================================
+   #5 — Slogan/lead: sedikit lebih lega + warna kontras yang nyaman
+   ============================================================================ */
+body.sg-homepage .sg-subhero .sg-subhero__lead,
+body.sg-homepage .sg-subhero .org-hero__lead {
+    color: rgba(226, 232, 240, 0.92);
+    max-width: 38rem;
+    line-height: 1.55;
+}
+
+/* ============================================================================
+   #4 — Primary CTA pill (gold gradient, hover ringan)
+   ============================================================================ */
+body.sg-homepage .sg-subhero__cta-row {
+    margin-top: clamp(0.85rem, 1.5vw, 1.15rem);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+}
+
+body.sg-homepage .sg-subhero__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.7rem 1.3rem;
+    font-family: var(--font-sans, 'Plus Jakarta Sans', system-ui, sans-serif);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--org-accent-gold-text);
+    background: linear-gradient(135deg, #ffd76b 0%, var(--org-accent-gold) 55%, var(--org-accent-gold-deep) 100%);
+    border: 1px solid rgba(255, 215, 107, 0.45);
+    border-radius: 999px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.45),
+        0 6px 18px rgba(201, 139, 20, 0.32),
+        0 1px 2px rgba(0, 0, 0, 0.18);
+    text-decoration: none;
+    transition:
+        transform 180ms ease,
+        box-shadow 180ms ease,
+        filter 180ms ease;
+    will-change: transform;
+    cursor: pointer;
+}
+
+body.sg-homepage .sg-subhero__cta:hover,
+body.sg-homepage .sg-subhero__cta:focus-visible {
+    transform: translateY(-2px);
+    filter: brightness(1.04);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        0 10px 24px rgba(201, 139, 20, 0.42),
+        0 2px 4px rgba(0, 0, 0, 0.18);
+    color: var(--org-accent-gold-text);
+    text-decoration: none;
+}
+
+body.sg-homepage .sg-subhero__cta:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 3px;
+}
+
+body.sg-homepage .sg-subhero__cta:active {
+    transform: translateY(0);
+    filter: brightness(0.98);
+}
+
+body.sg-homepage .sg-subhero__cta-icon {
+    font-size: 0.78rem;
+    transition: transform 220ms ease;
+}
+
+body.sg-homepage .sg-subhero__cta:hover .sg-subhero__cta-icon {
+    transform: translateX(3px);
+}
+
+/* ============================================================================
+   #2 — Garis aksen gold tipis di bawah eyebrow (touch-up halus, opsional efek)
+   ============================================================================ */
+body.sg-homepage .sg-subhero__title-accent {
+    /* Pertahankan aksen biru (sky-300) yang sudah ada — tidak diubah agar
+       brand "Smart Governance" tetap konsisten. Selektor ini sengaja kosong
+       untuk dokumentasi & titik ekstensi masa depan. */
+}
+
+/* ============================================================================
+   Responsive — mobile: CTA lebih ringkas
+   ============================================================================ */
+@media (max-width: 575.98px) {
+    body.sg-homepage .sg-subhero__cta {
+        font-size: 0.8rem;
+        padding: 0.6rem 1.1rem;
+        letter-spacing: 0.03em;
+    }
+}
+
+/* ============================================================================
+   Reduced motion — matikan transform/transisi sesuai preferensi user
+   ============================================================================ */
+@media (prefers-reduced-motion: reduce) {
+    body.sg-homepage .sg-subhero__cta,
+    body.sg-homepage .sg-subhero__cta-icon {
+        transition: none !important;
+        transform: none !important;
+    }
+    body.sg-homepage .sg-subhero__cta:hover,
+    body.sg-homepage .sg-subhero__cta:focus-visible {
+        transform: none !important;
+    }
+}
