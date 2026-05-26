@@ -765,7 +765,90 @@ function org_tugas_resolve_file_path(string $storedFilename): ?string
 function org_tugas_unlink_file(string $storedFilename): void
 {
     $path = org_tugas_resolve_file_path($storedFilename);
-    if ($path !== null) {
-        @unlink($path);
+    if ($path === null) {
+        return;
     }
+    /* Di Windows/Laragon, file kadang masih dipegang oleh preview-iframe,
+       antivirus, atau handle Apache → unlink() pertama gagal. Coba ulang
+       dengan jeda kecil sebelum menyerah. Pakai `@` agar tidak memutus
+       alur kalau ternyata akhirnya tetap gagal — sweeper orphan di bawah
+       akan mengejar pada request berikutnya. */
+    if (@unlink($path)) {
+        return;
+    }
+    for ($attempt = 0; $attempt < 3; $attempt++) {
+        usleep(40000);
+        clearstatcache(true, $path);
+        if (!is_file($path)) {
+            return;
+        }
+        if (@unlink($path)) {
+            return;
+        }
+    }
+}
+
+/**
+ * Sapu (purge) file orphan di folder upload tugas — yaitu file fisik yang
+ * tidak punya baris padanannya di tabel `tugas_pegawai`.
+ *
+ * Aman dipanggil setelah aksi apapun (upload/edit/validasi/hapus) karena:
+ *   - hanya menghapus file yang TIDAK terdaftar di DB
+ *   - tidak melempar exception
+ *   - operasinya ringan: 1 query + scandir folder (folder kecil, < ratusan
+ *     file dalam praktik nyata)
+ *
+ * @return int jumlah file orphan yang berhasil dihapus
+ */
+function org_tugas_purge_orphan_files(mysqli $db): int
+{
+    if (!org_tugas_table_exists($db)) {
+        return 0;
+    }
+    $dir = org_tugas_upload_dir_fs();
+    if (!is_dir($dir)) {
+        return 0;
+    }
+
+    $known = [];
+    $res = @$db->query('SELECT `file_tugas` FROM `tugas_pegawai`');
+    if ($res instanceof mysqli_result) {
+        while ($row = $res->fetch_row()) {
+            $fname = basename((string) ($row[0] ?? ''));
+            if ($fname !== '') {
+                $known[strtolower($fname)] = true;
+            }
+        }
+        $res->close();
+    }
+
+    $entries = @scandir($dir);
+    if ($entries === false) {
+        return 0;
+    }
+    $purged = 0;
+    foreach ($entries as $entry) {
+        if ($entry === '.' || $entry === '..' || $entry === '.gitkeep') {
+            continue;
+        }
+        $full = $dir . DIRECTORY_SEPARATOR . $entry;
+        if (!is_file($full)) {
+            continue;
+        }
+        if (isset($known[strtolower($entry)])) {
+            continue;
+        }
+        /* Lewati file yang sangat baru (< 60 detik) untuk menghindari race
+           kondisi: file baru dipindah `move_uploaded_file()` tapi baris DB
+           belum sempat dicommit. */
+        $mtime = @filemtime($full);
+        if ($mtime !== false && (time() - $mtime) < 60) {
+            continue;
+        }
+        if (@unlink($full)) {
+            $purged++;
+        }
+    }
+
+    return $purged;
 }

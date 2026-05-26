@@ -73,6 +73,7 @@ if (!($db instanceof mysqli)) {
                             $viewerName,
                             'Mengunggah tugas: «' . $judul . '».'
                         );
+                        @org_tugas_purge_orphan_files($db);
                         $message = 'Tugas berhasil diunggah dan menunggu validasi Kabag.';
                         $messageType = 'success';
                     } else {
@@ -111,6 +112,11 @@ if (!($db instanceof mysqli)) {
                             $viewerName,
                             'Memvalidasi tugas id ' . $tugasId . ' → status «' . org_tugas_status_label($statusBaru) . '».'
                         );
+                        /* Validasi Kabag TIDAK mengubah file_tugas — hanya
+                           status + catatan. Sapu orphan file untuk berjaga2
+                           bila ada sisa dari aksi sebelumnya yang sempat
+                           gagal `unlink()` (file lock Windows). */
+                        @org_tugas_purge_orphan_files($db);
                         $message = 'Status tugas berhasil diperbarui.';
                         $messageType = 'success';
                     } else {
@@ -164,6 +170,7 @@ if (!($db instanceof mysqli)) {
                                     $viewerName,
                                     'Mengubah tugas id ' . $tugasId . ': «' . $judul . '».'
                                 );
+                                @org_tugas_purge_orphan_files($db);
                                 $message = $resetPending
                                     ? 'Tugas berhasil diperbarui dan dikirim ulang untuk validasi Kabag.'
                                     : 'Tugas berhasil diperbarui.';
@@ -207,6 +214,7 @@ if (!($db instanceof mysqli)) {
                             $viewerName,
                             'Menghapus tugas id ' . $tugasId . ($judulLog !== '' ? ': «' . $judulLog . '».' : '.')
                         );
+                        @org_tugas_purge_orphan_files($db);
                         $message = 'Tugas berhasil dihapus.';
                         $messageType = 'success';
                     } else {
