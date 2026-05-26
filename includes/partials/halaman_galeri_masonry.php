@@ -66,7 +66,11 @@ if ($hasLainnya && !isset($filterTabs['lainnya'])) {
                         <p class="gl-empty__text mb-0">Tidak ada foto yang cocok dengan filter atau pencarian.</p>
                     </div>
 
-                    <div class="org-gallery__grid gl-masonry" id="halamanGaleriGrid">
+                    <!-- Desain card disamakan dengan beranda: media atas + body (judul,
+                         tanggal, CTA) di bawah. Class `gl-item` DIPERTAHANKAN agar
+                         filter JS (search/year) tetap berfungsi (lihat
+                         `galeri.php` → bindVisibleFancybox / applyFilters). -->
+                    <div class="org-gallery__grid beranda-galeri-cards" id="halamanGaleriGrid">
                         <?php foreach ($items as $idx => $gItem): ?>
                             <?php
                             if (!is_array($gItem)) {
@@ -79,39 +83,46 @@ if ($hasLainnya && !isset($filterTabs['lainnya'])) {
                             $gImgSrc = org_galeri_kegiatan_image_url($gFile);
                             $gCaption = trim($gJudul . ($gTglFmt !== '' ? "\n" . $gTglFmt : ''));
                             $yearSlug = org_galeri_portal_item_year_slug($gItem);
-                            $sizeClass = org_galeri_portal_item_size_class((int) $idx);
                             $searchBlob = strtolower($gJudul . ' ' . $gTglFmt . ' ' . $yearSlug);
+                            $gAria = $gJudul !== '' ? ($gJudul . ' — perbesar foto') : 'Perbesar foto kegiatan';
                             ?>
                             <a
                                 href="<?php echo htmlspecialchars($gImgSrc, ENT_QUOTES, 'UTF-8'); ?>"
-                                class="gl-item<?php echo htmlspecialchars($sizeClass, ENT_QUOTES, 'UTF-8'); ?>"
+                                class="gl-item beranda-galeri-card"
                                 data-fancybox="galeri-kegiatan"
                                 data-caption="<?php echo htmlspecialchars($gCaption, ENT_QUOTES, 'UTF-8'); ?>"
                                 data-gl-year="<?php echo htmlspecialchars($yearSlug, ENT_QUOTES, 'UTF-8'); ?>"
                                 data-gl-search="<?php echo htmlspecialchars($searchBlob, ENT_QUOTES, 'UTF-8'); ?>"
+                                aria-label="<?php echo htmlspecialchars($gAria, ENT_QUOTES, 'UTF-8'); ?>"
                             >
-                                <figure class="gl-item__frame">
+                                <div class="beranda-galeri-card__media">
                                     <img
-                                        class="gl-item__img"
+                                        class="beranda-galeri-card__img"
                                         src="<?php echo htmlspecialchars($gImgSrc, ENT_QUOTES, 'UTF-8'); ?>"
                                         alt="<?php echo htmlspecialchars($gJudul !== '' ? $gJudul : 'Foto kegiatan', ENT_QUOTES, 'UTF-8'); ?>"
                                         width="640"
                                         height="480"
                                         loading="lazy"
+                                        decoding="async"
                                     >
-                                    <figcaption class="gl-item__overlay">
-                                        <span class="gl-item__overlay-icon" aria-hidden="true"><i class="fa-solid fa-expand"></i></span>
-                                        <?php if ($gJudul !== ''): ?>
-                                            <span class="gl-item__title"><?php echo htmlspecialchars($gJudul, ENT_QUOTES, 'UTF-8'); ?></span>
-                                        <?php endif; ?>
-                                        <?php if ($gTglFmt !== ''): ?>
-                                            <time class="gl-item__date" datetime="<?php echo htmlspecialchars($gTglRaw, ENT_QUOTES, 'UTF-8'); ?>">
-                                                <i class="fa-regular fa-calendar" aria-hidden="true"></i>
-                                                <?php echo htmlspecialchars($gTglFmt, ENT_QUOTES, 'UTF-8'); ?>
-                                            </time>
-                                        <?php endif; ?>
-                                    </figcaption>
-                                </figure>
+                                    <span class="beranda-galeri-card__zoom" aria-hidden="true" title="Perbesar">
+                                        <i class="fa-solid fa-magnifying-glass-plus"></i>
+                                    </span>
+                                </div>
+                                <div class="beranda-galeri-card__body">
+                                    <?php if ($gJudul !== ''): ?>
+                                        <h3 class="beranda-galeri-card__title"><?php echo htmlspecialchars($gJudul, ENT_QUOTES, 'UTF-8'); ?></h3>
+                                    <?php endif; ?>
+                                    <?php if ($gTglFmt !== ''): ?>
+                                        <p class="beranda-galeri-card__date">
+                                            <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                                            <time datetime="<?php echo htmlspecialchars($gTglRaw, ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($gTglFmt, ENT_QUOTES, 'UTF-8'); ?></time>
+                                        </p>
+                                    <?php endif; ?>
+                                    <span class="beranda-galeri-card__cta">
+                                        Lihat foto <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                                    </span>
+                                </div>
                             </a>
                         <?php endforeach; ?>
                     </div>
