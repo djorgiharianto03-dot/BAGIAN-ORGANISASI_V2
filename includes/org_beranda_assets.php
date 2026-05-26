@@ -180,6 +180,10 @@ function org_beranda_header_vendor_markup(): string
        untuk semua judul section beranda. Ringan ~3KB, scope ketat. */
     $out .= org_beranda_section_titles_stylesheet_link();
 
+    /* Galeri Kegiatan Terbaru — grid 3 kolom kartu foto modern.
+       Ringan ~3KB, scope ketat ke #beranda-galeri-kegiatan. */
+    $out .= org_beranda_galeri_grid_stylesheet_link();
+
     $rail = 'max-width:1320px!important;width:100%!important;margin-left:auto!important;margin-right:auto!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important;box-sizing:border-box!important';
     $out .= '<style id="sg-beranda-head-critical">'
         . 'html.sg-portal-html-home,body.sg-homepage.sg-portal-page{background:#f4f7fb!important;--layout-max-width:1320px;--sg-rail-width:1320px;--portal-content-gutter:clamp(1rem,2.5vw,32px);--sg-portal-header-offset:5.5rem}'
@@ -370,6 +374,20 @@ function org_beranda_section_titles_stylesheet_link(): string
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
     return org_asset_stylesheet_link('assets/css/beranda-section-titles.css?v=1');
+}
+
+/**
+ * Beranda — Galeri Kegiatan Terbaru (grid 3 kolom kartu foto modern).
+ *
+ * Scope ketat ke `#beranda-galeri-kegiatan`. Tidak menabrak komponen lama
+ * `.beranda-galeri-item` / `.beranda-galeri-scroll` yang masih dipakai oleh
+ * halaman galeri lain. Ukuran file ~3.5KB.
+ */
+function org_beranda_galeri_grid_stylesheet_link(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+
+    return org_asset_stylesheet_link('assets/css/beranda-galeri-grid.css?v=1');
 }
 
 /** Beranda — layout compact hero, quick access, spacing (cascade terakhir). */
