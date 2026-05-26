@@ -168,6 +168,10 @@ function org_beranda_header_vendor_markup(): string
         $out .= org_beranda_home_layout_stylesheet_link();
     }
 
+    /* Horizontal News Card untuk section Pusat Informasi & Pengumuman.
+       Dimuat di luar branch bundle agar selalu tersedia tanpa rebuild bundle. */
+    $out .= org_beranda_news_horizontal_stylesheet_link();
+
     $rail = 'max-width:1320px!important;width:100%!important;margin-left:auto!important;margin-right:auto!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important;box-sizing:border-box!important';
     $out .= '<style id="sg-beranda-head-critical">'
         . 'html.sg-portal-html-home,body.sg-homepage.sg-portal-page{background:#f4f7fb!important;--layout-max-width:1320px;--sg-rail-width:1320px;--portal-content-gutter:clamp(1rem,2.5vw,32px);--sg-portal-header-offset:5.5rem}'
@@ -316,6 +320,20 @@ function org_beranda_dashboard_cards_stylesheet_link(): string
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
     return org_asset_stylesheet_link('assets/css/beranda-dashboard-cards.css');
+}
+
+/**
+ * Beranda — Horizontal News Card (Pusat Informasi & Pengumuman).
+ *
+ * Selalu dimuat dari file terpisah agar tidak tergantung status bundle.
+ * Prefix kelas `org-news-card` + scope `#beranda-pusat-informasi` menjamin
+ * selektor menang cascade tanpa menyentuh komponen lain.
+ */
+function org_beranda_news_horizontal_stylesheet_link(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+
+    return org_asset_stylesheet_link('assets/css/beranda-news-horizontal.css?v=1');
 }
 
 /** Beranda — layout compact hero, quick access, spacing (cascade terakhir). */
