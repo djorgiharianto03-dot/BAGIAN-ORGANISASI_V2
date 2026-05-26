@@ -253,6 +253,16 @@ function org_personnel_write_file(string $personnelFilePath, array $items): bool
         return false;
     }
 
+    /* Mirror ke DB (tabel `personel`). Kegagalan sync DB TIDAK boleh
+       membatalkan tulis JSON yang sudah sukses — JSON adalah sumber
+       kebenaran. DB hanya bayangan baca untuk laporan/query SQL. */
+    if (is_file(__DIR__ . DIRECTORY_SEPARATOR . 'org_personnel_db.php')) {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_personnel_db.php';
+        if (function_exists('org_personnel_db_sync_safe')) {
+            @org_personnel_db_sync_safe($rows);
+        }
+    }
+
     return true;
 }
 

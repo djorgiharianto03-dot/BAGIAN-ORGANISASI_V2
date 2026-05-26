@@ -308,6 +308,18 @@ $orgPersonnelRegistryApply = static function (array $registry) use (&$personnelD
 
 if (!org_beranda_is_light_page()) {
     $orgPersonnelRegistryApply(org_personnel_sync_from_disk($personnelFile, $fotoStrukturDir, $slugify, $savePersonnelData));
+
+    /* Pastikan tabel `personel` di MySQL ada dan terisi awal dari
+       personnel.json. Idempoten: kalau tabel sudah ada isinya, ini tidak
+       melakukan apa-apa. Aman dijalankan tiap request (hanya satu
+       SELECT COUNT(*) yang sangat ringan). */
+    if (is_file(__DIR__ . DIRECTORY_SEPARATOR . 'org_personnel_db.php')) {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_personnel_db.php';
+        $dbForPersonel = ($dbApp instanceof mysqli) ? $dbApp : (function_exists('org_db') ? org_db() : null);
+        if ($dbForPersonel instanceof mysqli) {
+            @org_personnel_db_init_from_json($dbForPersonel, $personnelFile);
+        }
+    }
 }
 
 if (isset($_SESSION['flash_message'], $_SESSION['flash_type'])) {
