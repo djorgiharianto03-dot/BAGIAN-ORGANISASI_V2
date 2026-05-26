@@ -113,13 +113,6 @@ $bulanMap = [
                     </div>
                     <div class="org-news-card__body">
                         <div>
-                            <div class="org-news-card__meta">
-                                <?php if ($tglFmt !== ''): ?>
-                                    <span class="org-news-card__meta-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> <?php echo htmlspecialchars($tglFmt, ENT_QUOTES, 'UTF-8'); ?></span>
-                                    <span class="org-news-card__meta-sep" aria-hidden="true">·</span>
-                                <?php endif; ?>
-                                <span class="org-news-card__meta-cat"><?php echo htmlspecialchars($metaCat, ENT_QUOTES, 'UTF-8'); ?></span>
-                            </div>
                             <h3 class="org-news-card__title"><?php echo htmlspecialchars($piJudul, ENT_QUOTES, 'UTF-8'); ?></h3>
                             <?php if ($excerpt !== ''): ?>
                                 <p class="org-news-card__excerpt"><?php echo htmlspecialchars($excerpt, ENT_QUOTES, 'UTF-8'); ?></p>
