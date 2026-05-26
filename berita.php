@@ -107,11 +107,14 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'head
             </div>
         <?php endif; ?>
 
-        <div class="sg-portal-toolbar">
-            <form method="get" class="d-flex flex-wrap gap-2 align-items-center">
+        <div class="sg-portal-toolbar pi-search-toolbar">
+            <form method="get" class="pi-search-bar" role="search" aria-label="Pencarian Pusat Informasi">
                 <label class="visually-hidden" for="piSearchQ">Cari di Pusat Informasi</label>
-                <input type="search" class="form-control" id="piSearchQ" name="q" value="<?php echo htmlspecialchars($searchQuery, ENT_QUOTES, 'UTF-8'); ?>" placeholder="Cari judul atau isi…" style="max-width:min(100%, 28rem);">
-                <button type="submit" class="btn btn-primary rounded-pill px-4">Cari</button>
+                <span class="pi-search-bar__icon" aria-hidden="true">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input type="search" class="form-control pi-search-bar__input" id="piSearchQ" name="q" value="<?php echo htmlspecialchars($searchQuery, ENT_QUOTES, 'UTF-8'); ?>" placeholder="Cari judul atau isi…" autocomplete="off">
+                <button type="submit" class="btn btn-primary pi-search-bar__btn">Cari</button>
             </form>
         </div>
 

@@ -379,6 +379,113 @@
 .page-berita-premium .sg-portal-toolbar {
     margin-bottom: 1.75rem;
 }
+
+/* ============================================================================
+ * Pencarian Pusat Informasi — pill tunggal, anti-tumpuk.
+ * ----------------------------------------------------------------------------
+ * Latar belakang: secara default toolbar di halaman ini ter-cascade jadi
+ *   1. "kartu luar" (padding/bg/border/shadow) dari .sg-portal-page .sg-portal-toolbar
+ *   2. "pill input" (border + shadow) dari .sg-portal-subpage .sg-portal-toolbar .form-control
+ * Tumpukan ini terlihat seperti dua kolom pencarian — diperbaiki di sini.
+ * ============================================================================ */
+.page-berita-premium .sg-portal-toolbar.pi-search-toolbar {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 0 1.5rem !important;
+}
+.page-berita-premium .pi-search-bar {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    max-width: min(100%, 36rem);
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 999px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+    padding: 0.3rem 0.4rem 0.3rem 1.05rem;
+    gap: 0.4rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.page-berita-premium .pi-search-bar:focus-within {
+    border-color: #1d4ed8;
+    box-shadow: 0 6px 24px rgba(29, 78, 216, 0.18);
+}
+.page-berita-premium .pi-search-bar__icon {
+    display: inline-flex;
+    align-items: center;
+    color: #94a3b8;
+    font-size: 0.95rem;
+    flex: 0 0 auto;
+}
+.page-berita-premium .pi-search-bar__input.form-control {
+    flex: 1 1 auto;
+    min-width: 0;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0.35rem 0.5rem !important;
+    border-radius: 0 !important;
+    min-height: auto !important;
+    max-width: none !important;
+    font-size: 0.97rem;
+    color: #0f172a;
+    font-family: var(--font-sans, 'Plus Jakarta Sans', system-ui, sans-serif);
+}
+.page-berita-premium .pi-search-bar__input.form-control::placeholder {
+    color: #94a3b8;
+    opacity: 1;
+}
+.page-berita-premium .pi-search-bar__input.form-control:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+.page-berita-premium .pi-search-bar__btn.btn-primary {
+    flex: 0 0 auto;
+    border: none !important;
+    border-radius: 999px !important;
+    padding: 0.5rem 1.25rem !important;
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 60%, #0c4ab5 100%) !important;
+    color: #ffffff !important;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(29, 78, 216, 0.25);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.page-berita-premium .pi-search-bar__btn.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(29, 78, 216, 0.32);
+}
+.page-berita-premium .pi-search-bar__btn.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Sembunyikan kontrol native browser (X clear + magnifier) pada input
+   type=search agar tidak menambah lapisan visual di dalam pill. */
+.page-berita-premium .pi-search-bar__input::-webkit-search-decoration,
+.page-berita-premium .pi-search-bar__input::-webkit-search-cancel-button,
+.page-berita-premium .pi-search-bar__input::-webkit-search-results-button,
+.page-berita-premium .pi-search-bar__input::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+@media (max-width: 575.98px) {
+    .page-berita-premium .pi-search-bar {
+        padding: 0.25rem 0.3rem 0.25rem 0.9rem;
+    }
+    .page-berita-premium .pi-search-bar__btn.btn-primary {
+        padding: 0.4rem 1rem !important;
+        font-size: 0.9rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-berita-premium .pi-search-bar,
+    .page-berita-premium .pi-search-bar__btn.btn-primary {
+        transition: none !important;
+    }
+}
 .page-berita-premium .news-portal {
     display: flex;
     flex-direction: column;
