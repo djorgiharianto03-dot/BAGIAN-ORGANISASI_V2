@@ -184,6 +184,11 @@ function org_beranda_header_vendor_markup(): string
        Ringan ~3KB, scope ketat ke #beranda-galeri-kegiatan. */
     $out .= org_beranda_galeri_grid_stylesheet_link();
 
+    /* Team Target Stats Sidebar — isi ruang kosong samping donut dengan
+       breakdown status (Selesai/Berjalan/Rencana). Ringan ~2.5KB, scope
+       ketat ke #beranda-team-targets. */
+    $out .= org_beranda_team_target_stats_stylesheet_link();
+
     $rail = 'max-width:1320px!important;width:100%!important;margin-left:auto!important;margin-right:auto!important;padding-left:clamp(1rem,2.5vw,32px)!important;padding-right:clamp(1rem,2.5vw,32px)!important;box-sizing:border-box!important';
     $out .= '<style id="sg-beranda-head-critical">'
         . 'html.sg-portal-html-home,body.sg-homepage.sg-portal-page{background:#f4f7fb!important;--layout-max-width:1320px;--sg-rail-width:1320px;--portal-content-gutter:clamp(1rem,2.5vw,32px);--sg-portal-header-offset:5.5rem}'
@@ -388,6 +393,20 @@ function org_beranda_galeri_grid_stylesheet_link(): string
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
 
     return org_asset_stylesheet_link('assets/css/beranda-galeri-grid.css?v=1');
+}
+
+/**
+ * Beranda — Team Target Stats Sidebar.
+ *
+ * Mengisi ruang kosong di sisi donut chart kartu target tim kerja dengan
+ * breakdown status (Selesai/Berjalan/Rencana). Data dihitung dari payload
+ * existing — tidak menambah request server. ~2.5KB, scope ketat.
+ */
+function org_beranda_team_target_stats_stylesheet_link(): string
+{
+    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_assets_perf.php';
+
+    return org_asset_stylesheet_link('assets/css/beranda-team-target-stats.css?v=1');
 }
 
 /** Beranda — layout compact hero, quick access, spacing (cascade terakhir). */

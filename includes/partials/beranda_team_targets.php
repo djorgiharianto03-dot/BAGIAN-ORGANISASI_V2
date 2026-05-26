@@ -131,6 +131,30 @@ $baseUrl = strtok($_SERVER['REQUEST_URI'] ?? 'index.php', '?') ?: 'index.php';
                             $accordionId = 'govTeamTargetAcc-' . $tim;
                             $avgPct = (int) ($pack['pct'] ?? 0);
                             $gaugeStatus = (string) ($pack['status'] ?? org_team_targets_status_from_avg_pct($avgPct));
+
+                            /* Breakdown status — hitung dari item yang sudah tersedia
+                               di $pack['items']. Tidak butuh data tambahan.
+                               Dipakai untuk panel kanan donut chart agar ruang kosong
+                               kiri/kanan donut terisi info berguna. */
+                            $cntSelesai = 0;
+                            $cntBerjalan = 0;
+                            $cntDirencanakan = 0;
+                            foreach (($pack['items'] ?? []) as $bdItem) {
+                                if (!is_array($bdItem)) {
+                                    continue;
+                                }
+                                switch ((string) ($bdItem['status'] ?? '')) {
+                                    case 'selesai':
+                                        $cntSelesai++;
+                                        break;
+                                    case 'berjalan':
+                                        $cntBerjalan++;
+                                        break;
+                                    default:
+                                        $cntDirencanakan++;
+                                        break;
+                                }
+                            }
                             ?>
                             <div class="col-12 col-md-4 d-flex">
                                 <article class="gov-team-target-dash-card gov-team-target-dash-card--<?php echo htmlspecialchars($tim, ENT_QUOTES, 'UTF-8'); ?> gov-team-target-dash-card--status-<?php echo htmlspecialchars($gaugeStatus, ENT_QUOTES, 'UTF-8'); ?> w-100">
@@ -150,6 +174,23 @@ $baseUrl = strtok($_SERVER['REQUEST_URI'] ?? 'index.php', '?') ?: 'index.php';
                                              data-tim="<?php echo htmlspecialchars($tim, ENT_QUOTES, 'UTF-8'); ?>"
                                              role="img"
                                              aria-label="Grafik progres rata-rata <?php echo htmlspecialchars((string) $pack['label'], ENT_QUOTES, 'UTF-8'); ?>: <?php echo $avgPct; ?> persen"></div>
+                                        <ul class="gov-team-target-dash-card__stats" aria-label="Rincian status kegiatan">
+                                            <li class="gov-team-target-dash-card__stat gov-team-target-dash-card__stat--selesai">
+                                                <span class="gov-team-target-dash-card__stat-dot" aria-hidden="true"></span>
+                                                <span class="gov-team-target-dash-card__stat-num"><?php echo (int) $cntSelesai; ?></span>
+                                                <span class="gov-team-target-dash-card__stat-label">Selesai</span>
+                                            </li>
+                                            <li class="gov-team-target-dash-card__stat gov-team-target-dash-card__stat--berjalan">
+                                                <span class="gov-team-target-dash-card__stat-dot" aria-hidden="true"></span>
+                                                <span class="gov-team-target-dash-card__stat-num"><?php echo (int) $cntBerjalan; ?></span>
+                                                <span class="gov-team-target-dash-card__stat-label">Berjalan</span>
+                                            </li>
+                                            <li class="gov-team-target-dash-card__stat gov-team-target-dash-card__stat--direncanakan">
+                                                <span class="gov-team-target-dash-card__stat-dot" aria-hidden="true"></span>
+                                                <span class="gov-team-target-dash-card__stat-num"><?php echo (int) $cntDirencanakan; ?></span>
+                                                <span class="gov-team-target-dash-card__stat-label">Rencana</span>
+                                            </li>
+                                        </ul>
                                     </div>
 
                                     <div class="accordion gov-team-target-accordion" id="<?php echo htmlspecialchars($accordionId, ENT_QUOTES, 'UTF-8'); ?>">

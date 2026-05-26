@@ -1,0 +1,178 @@
+/**
+ * Beranda — Team Target Card · Stats Sidebar
+ * -----------------------------------------------------------------------------
+ * Mengisi ruang kosong di sebelah donut chart kartu "Target Tahun YYYY"
+ * dengan rincian status (Selesai / Berjalan / Rencana). Data dihitung di
+ * PHP dari $pack['items'] yang sudah tersedia (tanpa request baru).
+ *
+ * Tata letak:
+ *   - Desktop : donut KIRI + stats KANAN, sejajar vertikal
+ *   - Mobile  : donut atas + stats di bawah dalam 1 baris compact
+ *
+ * Filosofi: nol gambar, nol JS, nol library. Scope ketat ke
+ * `body.sg-homepage #beranda-team-targets` agar tidak mengganggu komponen lain.
+ * -----------------------------------------------------------------------------
+ */
+
+body.sg-homepage #beranda-team-targets {
+    --gtt-stat-ink: #0f2744;
+    --gtt-stat-muted: #64748b;
+    --gtt-stat-bg: rgba(248, 250, 252, 0.6);
+    --gtt-stat-border: rgba(15, 39, 68, 0.08);
+
+    /* Warna dot status — selaras dengan donut chart (beranda-team-target-charts.js) */
+    --gtt-color-selesai: #10b981;
+    --gtt-color-selesai-soft: rgba(16, 185, 129, 0.14);
+    --gtt-color-berjalan: #2563eb;
+    --gtt-color-berjalan-soft: rgba(37, 99, 235, 0.14);
+    --gtt-color-direncanakan: #f59e0b;
+    --gtt-color-direncanakan-soft: rgba(245, 158, 11, 0.16);
+}
+
+/* ============================================================================
+   CHART-WRAP — donut kiri + stats kanan, centered vertikal
+   ============================================================================ */
+body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__chart-wrap {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: clamp(0.5rem, 1vw + 0.25rem, 1.1rem);
+    padding: 0.35rem 0.5rem;
+    background: var(--gtt-stat-bg);
+    border-radius: 12px;
+    border: 1px solid var(--gtt-stat-border);
+}
+
+body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__chart {
+    flex: 0 0 auto;
+    width: clamp(140px, 48%, 180px);
+    min-width: 140px;
+    min-height: 150px !important;
+}
+
+/* ============================================================================
+   STATS — daftar 3 baris (selesai / berjalan / rencana)
+   ============================================================================ */
+body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__stats {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    align-self: center;
+}
+
+body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__stat {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    align-items: center;
+    column-gap: 0.55rem;
+    padding: 0.42rem 0.6rem;
+    background: #ffffff;
+    border: 1px solid rgba(15, 39, 68, 0.07);
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(15, 39, 68, 0.04);
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__stat:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(15, 39, 68, 0.08);
+    border-color: rgba(15, 39, 68, 0.14);
+}
+
+body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__stat-dot {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 999px;
+    flex: 0 0 auto;
+}
+
+body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__stat-num {
+    font-family: var(--font-sans, 'Plus Jakarta Sans', system-ui, sans-serif);
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--gtt-stat-ink);
+    font-feature-settings: "tnum" 1;
+    letter-spacing: -0.02em;
+    min-width: 1.4rem;
+    text-align: center;
+}
+
+body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__stat-label {
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--gtt-stat-muted);
+    letter-spacing: 0.02em;
+    text-transform: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ============================================================================
+   Warna per status — sinkron dengan donut chart
+   ============================================================================ */
+body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__stat--selesai .gov-team-target-dash-card__stat-dot {
+    background: var(--gtt-color-selesai);
+    box-shadow: 0 0 0 3px var(--gtt-color-selesai-soft);
+}
+
+body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__stat--berjalan .gov-team-target-dash-card__stat-dot {
+    background: var(--gtt-color-berjalan);
+    box-shadow: 0 0 0 3px var(--gtt-color-berjalan-soft);
+}
+
+body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__stat--direncanakan .gov-team-target-dash-card__stat-dot {
+    background: var(--gtt-color-direncanakan);
+    box-shadow: 0 0 0 3px var(--gtt-color-direncanakan-soft);
+}
+
+/* ============================================================================
+   Responsive — mobile: donut ATAS, stats BAWAH dalam 1 baris compact
+   ============================================================================ */
+@media (max-width: 575.98px) {
+    body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__chart-wrap {
+        flex-direction: column !important;
+        gap: 0.4rem;
+        padding: 0.4rem;
+    }
+    body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__chart {
+        width: clamp(150px, 60vw, 200px);
+    }
+    body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__stats {
+        flex-direction: row;
+        gap: 0.35rem;
+        width: 100%;
+    }
+    body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__stat {
+        flex: 1 1 0;
+        padding: 0.35rem 0.45rem;
+        grid-template-columns: auto 1fr;
+        column-gap: 0.4rem;
+    }
+    body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__stat-label {
+        font-size: 0.66rem;
+    }
+    body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__stat-num {
+        font-size: 0.95rem;
+        min-width: 1.1rem;
+    }
+}
+
+/* ============================================================================
+   Reduced motion
+   ============================================================================ */
+@media (prefers-reduced-motion: reduce) {
+    body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__stat {
+        transition: none !important;
+    }
+    body.sg-homepage #beranda-team-targets .gov-team-target-dash-card__stat:hover {
+        transform: none !important;
+    }
+}
