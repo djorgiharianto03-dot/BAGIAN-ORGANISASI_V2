@@ -92,6 +92,23 @@
             }
         });
 
+        /* Tap di luar panel & di luar tombol hamburger = tutup drawer.
+           Mendukung perilaku backdrop pseudo-element pada body. Pakai
+           `pointerdown` (lebih responsif dari `click`) di fase capture
+           agar tidak diganggu modal Bootstrap. */
+        document.addEventListener('pointerdown', function (e) {
+            if (desktopMq.matches || !isOpen()) {
+                return;
+            }
+            if (e.target.closest('.site-header__nav-panel')) {
+                return;
+            }
+            if (e.target.closest('.site-header__nav-toggle')) {
+                return;
+            }
+            setOpen(false);
+        }, true);
+
         desktopMq.addEventListener('change', function () {
             if (desktopMq.matches) {
                 setOpen(false);

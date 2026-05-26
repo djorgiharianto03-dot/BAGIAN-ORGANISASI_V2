@@ -15,5 +15,5 @@ function org_navbar_script_tag(): string
         require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_app.php';
     }
 
-    return '<script src="' . htmlspecialchars(org_asset_url('assets/js/org-navbar.js?v=9'), ENT_QUOTES, 'UTF-8') . '" defer></script>' . "\n";
+    return '<script src="' . htmlspecialchars(org_asset_url('assets/js/org-navbar.js?v=10'), ENT_QUOTES, 'UTF-8') . '" defer></script>' . "\n";
 }
