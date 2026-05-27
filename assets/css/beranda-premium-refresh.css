@@ -824,32 +824,46 @@ body.sg-portal-page .beranda-info-galeri-grid__col {
         gap: 0.85rem !important;
     }
 
-    /* PROPORSIONAL — batasi tinggi gambar galeri agar tidak dominan
-       vs. news card horizontal di kolom kiri. Aspect ratio diubah ke
-       16:9 (lebih landscape) hanya dalam konteks 2-kolom homepage,
-       supaya tinggi total kartu galeri ≈ tinggi news card. Card design
-       tetap (foto di atas, teks di bawah) — hanya proporsi gambar yang
-       diatur. */
+    /* PROPORSIONAL — karena hanya 1 foto galeri di kolom kanan vs
+       3 news card di kolom kiri, biarkan foto galeri berukuran "hero":
+       aspect ratio 4:3 default + dijaga proporsional terhadap tinggi
+       gabungan 3 news card. Tinggi total kolom kanan dengan 1 foto
+       besar ≈ tinggi 3 news card stack di kiri → seimbang & elegan.
+       Card design tetap (foto di atas, teks di bawah). */
     body.sg-portal-page .beranda-info-galeri-grid #beranda-galeri-kegiatan .beranda-galeri-card__media {
-        aspect-ratio: 16 / 9 !important;
-        max-height: 220px !important;
+        aspect-ratio: 4 / 3 !important;
     }
 
-    /* SEJAJAR — batasi jumlah item yang tampil agar kedua kolom punya
-       jumlah kartu seimbang. Pusat Informasi & Galeri dibatasi 3 item
-       teratas di homepage; sisanya tetap dapat dilihat via "Lihat semua"
-       / "Lihat galeri" yang sudah ada di head-row. */
-    body.sg-portal-page .beranda-info-galeri-grid #beranda-pusat-informasi .org-news-grid > article:nth-child(n+4),
-    body.sg-portal-page .beranda-info-galeri-grid #beranda-galeri-kegiatan .beranda-galeri-cards > a:nth-child(n+4) {
+    /* Galeri card "tumbuh" mengisi tinggi kolom — supaya tidak ada
+       gap kosong di bawah saat news card lebih tinggi. */
+    body.sg-portal-page .beranda-info-galeri-grid #beranda-galeri-kegiatan {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    body.sg-portal-page .beranda-info-galeri-grid #beranda-galeri-kegiatan .beranda-galeri-cards {
+        flex: 1 1 auto !important;
+        align-content: start !important;
+    }
+
+    /* SEJAJAR — batasi jumlah item yang tampil per section.
+       Permintaan user: berita & pengumuman = 3 item, galeri = 1 foto.
+       Sisanya tetap dapat dilihat via "Lihat semua" / "Lihat galeri"
+       di head-row. */
+    body.sg-portal-page .beranda-info-galeri-grid #beranda-pusat-informasi .org-news-grid > article:nth-child(n+4) {
+        display: none !important;
+    }
+    body.sg-portal-page .beranda-info-galeri-grid #beranda-galeri-kegiatan .beranda-galeri-cards > a:nth-child(n+2) {
         display: none !important;
     }
 }
 
-/* Tablet 768-991px: walau wrapper masih stack vertikal, batasi item
-   yang tampil agar tidak terlalu panjang. */
-@media (min-width: 768px) and (max-width: 991.98px) {
-    body.sg-portal-page .beranda-info-galeri-grid #beranda-pusat-informasi .org-news-grid > article:nth-child(n+5),
-    body.sg-portal-page .beranda-info-galeri-grid #beranda-galeri-kegiatan .beranda-galeri-cards > a:nth-child(n+5) {
+/* Tablet & mobile (≤991px): konsisten dengan desktop —
+   3 berita/pengumuman + 1 foto galeri. */
+@media (max-width: 991.98px) {
+    body.sg-portal-page .beranda-info-galeri-grid #beranda-pusat-informasi .org-news-grid > article:nth-child(n+4) {
+        display: none !important;
+    }
+    body.sg-portal-page .beranda-info-galeri-grid #beranda-galeri-kegiatan .beranda-galeri-cards > a:nth-child(n+2) {
         display: none !important;
     }
 }

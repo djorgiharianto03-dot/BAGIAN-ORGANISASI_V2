@@ -136,7 +136,7 @@ function org_portal_head_markup_beranda(string $existing = ''): string
         require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_app.php';
     }
     $refreshHref = htmlspecialchars(
-        org_asset_url('assets/css/beranda-premium-refresh.css?v=6'),
+        org_asset_url('assets/css/beranda-premium-refresh.css?v=7'),
         ENT_QUOTES,
         'UTF-8'
     );
