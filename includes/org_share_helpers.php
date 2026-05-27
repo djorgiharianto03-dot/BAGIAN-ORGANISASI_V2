@@ -14,6 +14,7 @@
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_app.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_seo.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'pusat_informasi_db.php';
 
 if (!function_exists('org_share_build_post_url')) {
     /**
@@ -121,6 +122,171 @@ if (!function_exists('org_share_button_html')) {
         $html .= '</button>';
 
         return $html;
+    }
+}
+
+if (!function_exists('org_share_post_image_absolute_url')) {
+    /**
+     * URL absolut gambar post (siap dipakai sebagai og:image).
+     * Mengembalikan string kosong jika post tidak punya gambar — caller
+     * boleh fallback ke logo situs.
+     */
+    function org_share_post_image_absolute_url(array $post): string
+    {
+        $gfile = trim((string) ($post['nama_gambar'] ?? ''));
+        if ($gfile === '') {
+            return '';
+        }
+        $base = rtrim(org_beranda_seo_public_base_url(), '/');
+        $home = function_exists('org_home_url') ? org_home_url() : '/';
+        $home = $home === '' ? '/' : $home;
+        if ($home !== '/' && substr($home, -1) !== '/') {
+            $home .= '/';
+        }
+        $prefix = function_exists('org_pusat_informasi_upload_web_prefix')
+            ? org_pusat_informasi_upload_web_prefix()
+            : 'uploads/pusat_informasi/';
+        return $base . $home . ltrim($prefix, '/') . rawurlencode($gfile);
+    }
+}
+
+if (!function_exists('org_share_post_image_dimensions')) {
+    /**
+     * Dimensi & MIME gambar post untuk og:image:width / height / type.
+     * Membaca langsung dari disk (ringan, hanya getimagesize). Mengembalikan
+     * array kosong kalau gambar tidak ada atau gagal dibaca.
+     *
+     * @return array{width:int, height:int, mime:string}|array{}
+     */
+    function org_share_post_image_dimensions(array $post): array
+    {
+        $gfile = trim((string) ($post['nama_gambar'] ?? ''));
+        if ($gfile === '') {
+            return [];
+        }
+        $rootDir = defined('ORG_ROOT') ? ORG_ROOT : dirname(__DIR__);
+        $prefix = function_exists('org_pusat_informasi_upload_web_prefix')
+            ? org_pusat_informasi_upload_web_prefix()
+            : 'uploads/pusat_informasi/';
+        $absPath = $rootDir . DIRECTORY_SEPARATOR
+            . str_replace('/', DIRECTORY_SEPARATOR, rtrim($prefix, '/')) . DIRECTORY_SEPARATOR . $gfile;
+        if (!is_file($absPath)) {
+            return [];
+        }
+        $info = @getimagesize($absPath);
+        if (!is_array($info) || count($info) < 2) {
+            return [];
+        }
+        return [
+            'width'  => (int) $info[0],
+            'height' => (int) $info[1],
+            'mime'   => (string) ($info['mime'] ?? 'image/jpeg'),
+        ];
+    }
+}
+
+if (!function_exists('org_share_post_meta_html')) {
+    /**
+     * Render Open Graph + Twitter Card meta tags untuk detail post.
+     * Aman dipanggil dari informasi.php BEFORE `org_portal_apply_assets()`
+     * — tinggal di-prepend ke `$extraHeadMarkup` agar muncul di <head>.
+     *
+     * Hasilnya memastikan crawler WhatsApp/Facebook/Telegram/X menampilkan
+     * preview lengkap (judul, deskripsi, GAMBAR post — bukan logo) saat
+     * URL informasi dibagikan.
+     *
+     * @param array<string, mixed> $post Baris pusat_informasi (id, judul, isi_teks, kategori, nama_gambar, created_at)
+     */
+    function org_share_post_meta_html(array $post): string
+    {
+        $id = (int) ($post['id'] ?? 0);
+        if ($id < 1) {
+            return '';
+        }
+        $judul = trim((string) ($post['judul'] ?? ''));
+        if ($judul === '') {
+            $judul = 'Pusat Informasi';
+        }
+        $label = org_share_label_for($post);
+        $excerpt = org_share_excerpt_for($post);
+        if ($excerpt === '') {
+            $excerpt = $label . ' resmi dari Bagian Organisasi Setda Kabupaten Kepulauan Aru.';
+        }
+        $url = org_share_build_post_url($id);
+        $siteName = 'Bagian Organisasi Setda Kepulauan Aru';
+
+        /* Gambar absolut — pakai gambar post; fallback ke logo situs supaya
+           crawler tetap dapat preview meskipun post belum punya gambar. */
+        $imgAbs = org_share_post_image_absolute_url($post);
+        $imgDims = $imgAbs !== '' ? org_share_post_image_dimensions($post) : [];
+        $imgAlt = $judul;
+        $imgIsLogo = false;
+        if ($imgAbs === '') {
+            $logoPath = function_exists('org_site_logo_web_path') ? org_site_logo_web_path() : '';
+            if ($logoPath !== '') {
+                $imgAbs = org_beranda_seo_logo_absolute_url($logoPath, false);
+                $imgAlt = function_exists('org_beranda_seo_logo_alt') ? org_beranda_seo_logo_alt() : $siteName;
+                $imgIsLogo = true;
+            }
+        }
+
+        $tglRaw = (string) ($post['created_at'] ?? '');
+        $publishedIso = '';
+        if ($tglRaw !== '') {
+            $ts = strtotime($tglRaw);
+            if ($ts !== false) {
+                $publishedIso = date('c', $ts);
+            }
+        }
+
+        $esc = static fn(string $s): string => htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
+
+        /* Description meta — banyak crawler & search engine juga membaca ini
+           selain og:description. */
+        $out = '<meta name="description" content="' . $esc($excerpt) . '">' . "\n"
+            . '<link rel="canonical" href="' . $esc($url) . '">' . "\n"
+            . '<meta property="og:type" content="article">' . "\n"
+            . '<meta property="og:site_name" content="' . $esc($siteName) . '">' . "\n"
+            . '<meta property="og:locale" content="id_ID">' . "\n"
+            . '<meta property="og:title" content="' . $esc($judul) . '">' . "\n"
+            . '<meta property="og:description" content="' . $esc($excerpt) . '">' . "\n"
+            . '<meta property="og:url" content="' . $esc($url) . '">' . "\n"
+            . '<meta property="article:section" content="' . $esc($label) . '">' . "\n";
+
+        if ($publishedIso !== '') {
+            $out .= '<meta property="article:published_time" content="' . $esc($publishedIso) . '">' . "\n";
+        }
+
+        if ($imgAbs !== '') {
+            $out .= '<meta property="og:image" content="' . $esc($imgAbs) . '">' . "\n"
+                . '<meta property="og:image:secure_url" content="' . $esc($imgAbs) . '">' . "\n"
+                . '<meta property="og:image:alt" content="' . $esc($imgAlt) . '">' . "\n";
+            if (!empty($imgDims['mime'])) {
+                $out .= '<meta property="og:image:type" content="' . $esc((string) $imgDims['mime']) . '">' . "\n";
+            }
+            if (!empty($imgDims['width']) && !empty($imgDims['height'])) {
+                $out .= '<meta property="og:image:width" content="' . (int) $imgDims['width'] . '">' . "\n"
+                    . '<meta property="og:image:height" content="' . (int) $imgDims['height'] . '">' . "\n";
+            }
+
+            /* Twitter Card — summary_large_image hanya jika gambar cukup besar
+               (≥ 300×157 sesuai spec); kalau pakai logo (kecil) jatuh ke summary. */
+            $twCard = 'summary_large_image';
+            if ($imgIsLogo || (!empty($imgDims['width']) && (int) $imgDims['width'] < 300)) {
+                $twCard = 'summary';
+            }
+            $out .= '<meta name="twitter:card" content="' . $esc($twCard) . '">' . "\n"
+                . '<meta name="twitter:title" content="' . $esc($judul) . '">' . "\n"
+                . '<meta name="twitter:description" content="' . $esc($excerpt) . '">' . "\n"
+                . '<meta name="twitter:image" content="' . $esc($imgAbs) . '">' . "\n"
+                . '<meta name="twitter:image:alt" content="' . $esc($imgAlt) . '">' . "\n";
+        } else {
+            $out .= '<meta name="twitter:card" content="summary">' . "\n"
+                . '<meta name="twitter:title" content="' . $esc($judul) . '">' . "\n"
+                . '<meta name="twitter:description" content="' . $esc($excerpt) . '">' . "\n";
+        }
+
+        return $out;
     }
 }
 

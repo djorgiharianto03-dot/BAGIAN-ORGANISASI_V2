@@ -25,7 +25,16 @@ if ($post === null) {
 $includePersonnelModals = false;
 $includeNewsModals = false;
 $bodyClass = 'mode-publikasi page-informasi-detail';
-$extraHeadMarkup = org_share_assets_html();
+
+/* OG/Twitter meta tags untuk preview share (WhatsApp/FB/Telegram/X)
+   HARUS sebelum org_portal_apply_assets() agar masuk ke <head> melalui
+   $extraHeadMarkup. Kalau post tidak ditemukan, lewati — biarkan SEO
+   default situs yang berlaku. */
+$postMetaHtml = '';
+if ($post !== null) {
+    $postMetaHtml = org_share_post_meta_html($post);
+}
+$extraHeadMarkup = $postMetaHtml . org_share_assets_html();
 $extraFooterMarkup = '';
 org_portal_apply_assets($bodyClass, $extraHeadMarkup, $extraFooterMarkup);
 
