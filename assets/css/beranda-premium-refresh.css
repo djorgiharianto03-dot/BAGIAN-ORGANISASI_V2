@@ -763,6 +763,117 @@ body.sg-portal-page .beranda-info-galeri-grid__col .beranda-section__head-row {
 }
 
 /* ============================================================
+   14. TEAM TARGET — 3 KARTU BERDAMPINGAN (kiri-tengah-kanan)
+   --------------------------------------------------------------
+   Override Bootstrap grid agar selalu 3-kolom di desktop (≥992px)
+   tanpa peduli col-md-4 behavior. Memakai CSS grid native untuk
+   kontrol penuh, lalu menyesuaikan layout internal donut-chart
+   agar muat di kolom yang lebih sempit.
+   ============================================================ */
+@media (min-width: 992px) {
+    body.sg-portal-page #beranda-team-targets .gov-team-target-dash-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 1rem !important;
+        --bs-gutter-x: 0 !important;
+        --bs-gutter-y: 0 !important;
+        align-items: stretch !important;
+    }
+
+    body.sg-portal-page #beranda-team-targets .gov-team-target-dash-grid > [class*="col-"],
+    body.sg-portal-page #beranda-team-targets .gov-team-target-dash-grid > .col-12,
+    body.sg-portal-page #beranda-team-targets .gov-team-target-dash-grid > .col-md-4 {
+        flex: unset !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: flex !important;
+    }
+
+    /* Di kolom 1/3 viewport, chart-wrap horizontal (donut kiri + stats kanan)
+       sering tertekan. Switch ke layout vertikal: donut di atas, stats di bawah
+       agar konten card tetap nyaman dibaca. */
+    body.sg-portal-page #beranda-team-targets .gov-team-target-dash-card__chart-wrap {
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+        align-items: stretch !important;
+    }
+
+    body.sg-portal-page #beranda-team-targets .gov-team-target-dash-card__chart {
+        width: 100% !important;
+        max-width: 180px !important;
+        margin: 0 auto !important;
+    }
+
+    body.sg-portal-page #beranda-team-targets .gov-team-target-dash-card__stats {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+
+    /* Padding internal kartu — sedikit lebih ramping untuk kolom sempit */
+    body.sg-portal-page #beranda-team-targets .gov-team-target-dash-card {
+        padding: 1.1rem !important;
+    }
+
+    body.sg-portal-page #beranda-team-targets .gov-team-target-dash-card__title {
+        font-size: 0.98rem !important;
+        line-height: 1.3 !important;
+    }
+
+    body.sg-portal-page #beranda-team-targets .gov-team-target-dash-card__meta {
+        font-size: 0.78rem !important;
+    }
+}
+
+/* Tablet (768–991px): tetap 3 kolom tapi lebih kompak (donut lebih kecil).
+   Tanpa ini, di viewport sempit-ish kartunya muncul stack vertikal karena
+   col-md-4 menghasilkan kolom yang terlalu sempit untuk konten internal. */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    body.sg-portal-page #beranda-team-targets .gov-team-target-dash-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 0.75rem !important;
+        --bs-gutter-x: 0 !important;
+    }
+
+    body.sg-portal-page #beranda-team-targets .gov-team-target-dash-grid > [class*="col-"] {
+        flex: unset !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        display: flex !important;
+    }
+
+    body.sg-portal-page #beranda-team-targets .gov-team-target-dash-card {
+        padding: 0.9rem !important;
+    }
+
+    body.sg-portal-page #beranda-team-targets .gov-team-target-dash-card__chart-wrap {
+        flex-direction: column !important;
+        gap: 0.55rem !important;
+    }
+
+    body.sg-portal-page #beranda-team-targets .gov-team-target-dash-card__chart {
+        max-width: 140px !important;
+        margin: 0 auto !important;
+    }
+
+    body.sg-portal-page #beranda-team-targets .gov-team-target-dash-card__title {
+        font-size: 0.92rem !important;
+    }
+
+    body.sg-portal-page #beranda-team-targets .gov-team-target-dash-card__stat-label {
+        font-size: 0.78rem !important;
+    }
+
+    body.sg-portal-page #beranda-team-targets .gov-team-target-dash-card__icon {
+        width: 2.2rem !important;
+        height: 2.2rem !important;
+    }
+}
+
+/* ============================================================
    13. KPI GRID MOBILE — pastikan 2 col di mobile (bukan 1)
    ============================================================ */
 @media (max-width: 575.98px) {
