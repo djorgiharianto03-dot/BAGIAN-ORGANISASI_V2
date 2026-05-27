@@ -233,15 +233,9 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'part
             </div>
         <?php endif; ?>
 
-        <section class="section-spacing beranda-section beranda-section--surface-white" id="beranda-ringkasan-eksekutif" aria-labelledby="beranda-exec-title">
-            <header class="beranda-exec-section__head" data-aos="fade-up" data-aos-duration="700">
-                <h2 id="beranda-exec-title" class="beranda-section__title mb-0">Ringkasan eksekutif</h2>
-                <p class="beranda-exec-section__eyebrow">Visi · Misi · Struktur organisasi</p>
-                <p class="beranda-section__desc mb-0 mt-2">Gambaran singkat arah organisasi dan tata kelola unit kerja.</p>
-            </header>
-            <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_ringkasan_eksekutif.php'; ?>
-            <p class="small text-muted mb-0 mt-3 position-relative beranda-exec-section__foot" style="z-index:1" data-aos="fade-up" data-aos-delay="150"><a href="<?php echo org_href('profil.php'); ?>" class="text-decoration-none">Halaman Profil</a> berisi Visi, Misi, struktur, dan ringkasan organisasi secara lengkap.</p>
-        </section>
+        <?php /* Section "Ringkasan eksekutif" (Visi, Misi, Struktur Organisasi)
+                 sengaja TIDAK ditampilkan di beranda atas permintaan user — informasi
+                 tersebut tersedia lengkap di halaman /profil. */ ?>
 
         <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_dashboard_widgets.php'; ?>
 
