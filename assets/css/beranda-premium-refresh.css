@@ -773,6 +773,36 @@ body.sg-portal-page .beranda-info-galeri-grid__col {
     }
     body.sg-portal-page #beranda-galeri-kegiatan .beranda-galeri-cards {
         grid-template-columns: 1fr !important;
+        gap: 0.85rem !important;
+    }
+
+    /* PROPORSIONAL — batasi tinggi gambar galeri agar tidak dominan
+       vs. news card horizontal di kolom kiri. Aspect ratio diubah ke
+       16:9 (lebih landscape) hanya dalam konteks 2-kolom homepage,
+       supaya tinggi total kartu galeri ≈ tinggi news card. Card design
+       tetap (foto di atas, teks di bawah) — hanya proporsi gambar yang
+       diatur. */
+    body.sg-portal-page .beranda-info-galeri-grid #beranda-galeri-kegiatan .beranda-galeri-card__media {
+        aspect-ratio: 16 / 9 !important;
+        max-height: 220px !important;
+    }
+
+    /* SEJAJAR — batasi jumlah item yang tampil agar kedua kolom punya
+       jumlah kartu seimbang. Pusat Informasi & Galeri dibatasi 3 item
+       teratas di homepage; sisanya tetap dapat dilihat via "Lihat semua"
+       / "Lihat galeri" yang sudah ada di head-row. */
+    body.sg-portal-page .beranda-info-galeri-grid #beranda-pusat-informasi .org-news-grid > article:nth-child(n+4),
+    body.sg-portal-page .beranda-info-galeri-grid #beranda-galeri-kegiatan .beranda-galeri-cards > a:nth-child(n+4) {
+        display: none !important;
+    }
+}
+
+/* Tablet 768-991px: walau wrapper masih stack vertikal, batasi item
+   yang tampil agar tidak terlalu panjang. */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    body.sg-portal-page .beranda-info-galeri-grid #beranda-pusat-informasi .org-news-grid > article:nth-child(n+5),
+    body.sg-portal-page .beranda-info-galeri-grid #beranda-galeri-kegiatan .beranda-galeri-cards > a:nth-child(n+5) {
+        display: none !important;
     }
 }
 
