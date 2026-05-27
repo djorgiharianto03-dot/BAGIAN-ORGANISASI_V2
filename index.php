@@ -247,30 +247,28 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'part
 
         <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_team_targets.php'; ?>
 
-        <section class="section-spacing beranda-section beranda-section--surface-white" id="beranda-info-galeri" aria-labelledby="home-pusat-title">
-            <div class="beranda-info-galeri-grid">
-                <div class="beranda-info-galeri-grid__col">
-                    <div class="beranda-section__head-row d-flex flex-wrap justify-content-between align-items-end gap-2" data-aos="fade-up" data-aos-duration="700">
-                        <div>
-                            <h2 id="home-pusat-title" class="beranda-section__title mb-0">Pusat Informasi &amp; Pengumuman</h2>
-                            <p class="beranda-section__desc">Informasi terbaru dari Bagian Organisasi.</p>
-                        </div>
-                        <a class="small text-decoration-none beranda-section__link-all" href="<?php echo org_href('berita.php'); ?>">Lihat semua <i class="fa-solid fa-arrow-right ms-1 small" aria-hidden="true"></i></a>
+        <div class="beranda-info-galeri-grid">
+            <section class="section-spacing beranda-section beranda-section--surface-white beranda-info-galeri-grid__col" id="beranda-pusat-informasi" aria-labelledby="home-pusat-title">
+                <div class="beranda-section__head-row d-flex flex-wrap justify-content-between align-items-end gap-2" data-aos="fade-up" data-aos-duration="700">
+                    <div>
+                        <h2 id="home-pusat-title" class="beranda-section__title mb-0">Pusat Informasi &amp; Pengumuman</h2>
+                        <p class="beranda-section__desc">Informasi terbaru dari Bagian Organisasi.</p>
                     </div>
-                    <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_pusat_informasi.php'; ?>
+                    <a class="small text-decoration-none beranda-section__link-all" href="<?php echo org_href('berita.php'); ?>">Lihat semua <i class="fa-solid fa-arrow-right ms-1 small" aria-hidden="true"></i></a>
                 </div>
-                <div class="beranda-info-galeri-grid__col">
-                    <div class="beranda-section__head-row d-flex flex-wrap justify-content-between align-items-end gap-2">
-                        <div>
-                            <h2 id="beranda-galeri-title" class="beranda-section__title mb-0">Galeri Kegiatan Terbaru</h2>
-                            <p class="beranda-section__desc mb-0 mt-1">Dokumentasi kegiatan Bagian Organisasi.</p>
-                        </div>
-                        <a class="small text-decoration-none beranda-section__link-all" href="<?php echo org_href('galeri.php'); ?>">Lihat galeri <i class="fa-solid fa-arrow-right ms-1 small" aria-hidden="true"></i></a>
+                <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_pusat_informasi.php'; ?>
+            </section>
+            <section class="section-spacing beranda-section beranda-section--surface-white beranda-info-galeri-grid__col" id="beranda-galeri-kegiatan" aria-labelledby="beranda-galeri-title">
+                <div class="beranda-section__head-row d-flex flex-wrap justify-content-between align-items-end gap-2">
+                    <div>
+                        <h2 id="beranda-galeri-title" class="beranda-section__title mb-0">Galeri Kegiatan Terbaru</h2>
+                        <p class="beranda-section__desc mb-0 mt-1">Dokumentasi kegiatan Bagian Organisasi.</p>
                     </div>
-                    <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_galeri_kegiatan.php'; ?>
+                    <a class="small text-decoration-none beranda-section__link-all" href="<?php echo org_href('galeri.php'); ?>">Lihat galeri <i class="fa-solid fa-arrow-right ms-1 small" aria-hidden="true"></i></a>
                 </div>
-            </div>
-        </section>
+                <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_galeri_kegiatan.php'; ?>
+            </section>
+        </div>
 
     </div>
 </div>

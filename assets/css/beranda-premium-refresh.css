@@ -724,15 +724,20 @@ body.sg-portal-page .gov-kpi-section__header {
 }
 
 /* ============================================================
-   12. PUSAT INFORMASI + GALERI — grid 2 kolom sejajar (desktop)
+   12. PUSAT INFORMASI + GALERI — POSISI sejajar (kiri & kanan)
    --------------------------------------------------------------
-   Mengikuti referensi: kedua section berdampingan agar homepage
-   lebih padat informasi tapi tetap rapi. Stack vertikal di mobile.
+   PENTING: stylesheet ini HANYA mengatur POSISI 2 section yang
+   sebelumnya stack vertikal menjadi sejajar (2 kolom desktop /
+   1 kolom mobile). Tampilan kartu di dalamnya (.org-news-card &
+   .beranda-galeri-card) TIDAK diubah — semua CSS card asli tetap
+   berlaku karena kita mempertahankan ID asli section masing-masing
+   (#beranda-pusat-informasi dan #beranda-galeri-kegiatan).
    ============================================================ */
 body.sg-portal-page .beranda-info-galeri-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: clamp(1.5rem, 3vw, 2.25rem);
+    align-items: start;
 }
 
 @media (min-width: 992px) {
@@ -742,22 +747,36 @@ body.sg-portal-page .beranda-info-galeri-grid {
 }
 
 body.sg-portal-page .beranda-info-galeri-grid__col {
-    min-width: 0; /* prevent overflow inside grid track */
+    min-width: 0; /* prevent grid track overflow saat konten panjang */
 }
 
-/* Galeri di grid 2-kolom → batasi tinggi gambar agar konsisten */
-body.sg-portal-page .beranda-info-galeri-grid .beranda-galeri-cards {
-    display: grid !important;
-    grid-template-columns: 1fr;
-    gap: 1rem;
+/* Border-top antar section yang berasal dari rule .beranda-section
+   + .beranda-section dimatikan ketika keduanya bersanding di grid,
+   karena visual pemisah kolom tidak lagi diperlukan. */
+@media (min-width: 992px) {
+    body.sg-portal-page .beranda-info-galeri-grid .beranda-section + .beranda-section {
+        border-top: 0 !important;
+    }
 }
 
-/* News card di grid 2-kolom → tetap 1 kolom internal */
-body.sg-portal-page .beranda-info-galeri-grid .np-grid {
-    grid-template-columns: 1fr !important;
+/* INTERNAL GRID DI DALAM KOLOM
+   --------------------------------------------------------------
+   Karena lebar kolom hanya ~50% viewport, internal grid bawaan
+   (Pusat Informasi: 2-col, Galeri: 3-col) akan membuat kartu jadi
+   sangat sempit. Override ke 1 kolom internal supaya setiap kartu
+   tetap lega dan TAMPILANNYA SAMA seperti versi full-width.
+   Spec selector ID + class agar match dengan rule asli yang juga
+   pakai #beranda-pusat-informasi / #beranda-galeri-kegiatan. */
+@media (min-width: 992px) {
+    body.sg-portal-page #beranda-pusat-informasi .org-news-grid {
+        grid-template-columns: 1fr !important;
+    }
+    body.sg-portal-page #beranda-galeri-kegiatan .beranda-galeri-cards {
+        grid-template-columns: 1fr !important;
+    }
 }
 
-/* Spacing untuk head-row kedua (galeri) agar sejajar dengan kolom kiri */
+/* Spacing antar head-row kedua section disamakan */
 body.sg-portal-page .beranda-info-galeri-grid__col .beranda-section__head-row {
     margin-bottom: 1rem !important;
 }
