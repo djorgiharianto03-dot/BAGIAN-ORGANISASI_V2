@@ -528,6 +528,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $newPersonId = uniqid('staff_', true);
                 $newPersonSlug = $slugify($name);
+
+                /* UN-TOMBSTONE — kalau admin menambahkan ulang nama/slug
+                   yang dulu pernah dihapus, lepaskan dari tombstone agar
+                   filter tidak menghapus baris baru ini. ID baru juga
+                   dilepas walau biasanya unik. */
+                if (is_file(__DIR__ . DIRECTORY_SEPARATOR . 'org_personnel_tombstone.php')) {
+                    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_personnel_tombstone.php';
+                    if (function_exists('org_personnel_tombstone_remove')) {
+                        @org_personnel_tombstone_remove($newPersonId, $newPersonSlug);
+                    }
+                }
+
                 $personnelData[] = [
                     'id' => $newPersonId,
                     'name' => $name,
@@ -715,6 +727,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $realPersonnel = @realpath($personnelFile);
                 if ($realPersonnel !== false && $realPersonnel !== '') {
                     $personnelFileResolved = $realPersonnel;
+                }
+
+                /* TOMBSTONE — catat ID/slug yang dihapus SEBELUM tulis JSON.
+                   Pencatatan ini bersifat permanen: kalau JSON dikembalikan
+                   oleh seed/proses lain di masa depan, filter di
+                   sync_from_disk akan tetap menyingkirkan entry ini. */
+                if (is_file(__DIR__ . DIRECTORY_SEPARATOR . 'org_personnel_tombstone.php')) {
+                    require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_personnel_tombstone.php';
+                    if (function_exists('org_personnel_tombstone_add')) {
+                        @org_personnel_tombstone_add($deletedId, $slug, $deletedName);
+                    }
                 }
 
                 $writeOk = $savePersonnelData($personnelFileResolved, $personnelDataAfter);

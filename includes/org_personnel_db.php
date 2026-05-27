@@ -90,6 +90,22 @@ function org_personnel_db_sync_all(mysqli $db, array $items): bool
 {
     org_personnel_db_ensure_table($db);
 
+    /* TOMBSTONE — buang entry yang sudah pernah dihapus admin sebelum
+       di-mirror ke DB. Tanpa ini, kalau JSON sempat ter-restore (seed
+       race / file watcher), tabel personel akan diisi ulang dengan baris
+       yang seharusnya tidak ada. */
+    if (is_file(__DIR__ . DIRECTORY_SEPARATOR . 'org_personnel_tombstone.php')) {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_personnel_tombstone.php';
+        if (function_exists('org_personnel_tombstone_filter_db_rows')) {
+            $slugifyForDb = static function (string $s): string {
+                $s = strtolower(trim($s));
+                $s = preg_replace('/[^a-z0-9]+/u', '-', $s);
+                return trim((string) $s, '-');
+            };
+            $items = org_personnel_tombstone_filter_db_rows($items, $slugifyForDb);
+        }
+    }
+
     $clean = [];
     foreach ($items as $row) {
         if (!is_array($row)) {

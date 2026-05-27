@@ -35,6 +35,33 @@ function org_personnel_sync_from_disk(
         }
     }
 
+    /* TOMBSTONE FILTER — buang entry yang sudah pernah dihapus admin.
+       Penting: dilakukan SEBELUM normalisasi (slug/id/photo) agar baris
+       yang mestinya tidak ada tidak ikut menghasilkan side-effect (mis.
+       photo placeholder). Kalau JSON dikembalikan oleh seed/race/sync
+       eksternal, filter ini akan tetap menahan mereka. */
+    if (is_file(__DIR__ . DIRECTORY_SEPARATOR . 'org_personnel_tombstone.php')) {
+        require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_personnel_tombstone.php';
+        if (function_exists('org_personnel_tombstone_filter')) {
+            /* Slug belum dihitung saat ini — siapkan slug sementara
+               supaya filter bisa cocokkan by slug juga. Catatan: hasil
+               filter berdasarkan slug yang sama dengan yang akan dipakai
+               nanti, sehingga tidak ada selisih. */
+            $withSlug = [];
+            foreach ($personnelData as $person) {
+                if (!is_array($person)) {
+                    continue;
+                }
+                $tmp = $person;
+                if (!isset($tmp['slug']) || (string) $tmp['slug'] === '') {
+                    $tmp['slug'] = $slugify((string) ($tmp['name'] ?? ''));
+                }
+                $withSlug[] = $tmp;
+            }
+            $personnelData = org_personnel_tombstone_filter($withSlug);
+        }
+    }
+
     $defaultProfileImage = "data:image/svg+xml;utf8," . rawurlencode(
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320">'
         . '<rect width="400" height="320" fill="#e5edf8"/>'
