@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 /** @var list<array{id: string, judul: string, tipe_data: string, nilai_kiri: string, nilai_kanan: string, warna_tema: string, urutan: int, aktif: int}> $berandaDashboardWidgets */
 /** @var array<string, array{selesai: list<array{id: string, nama_opd: string, alasan: string}>, belum: list<array{id: string, nama_opd: string, alasan: string}>, dalam_pengerjaan: list<array{id: string, nama_opd: string, alasan: string}>}> $berandaWidgetDetailsMap */
+/** @var list<array{icon: string, tone: string, label: string, value: int, unit: string}> $berandaIndikatorPortalCards */
 $berandaDashboardWidgets = $berandaDashboardWidgets ?? [];
 $berandaWidgetDetailsMap = $berandaWidgetDetailsMap ?? [];
-if (count($berandaDashboardWidgets) === 0) {
+$berandaIndikatorPortalCards = $berandaIndikatorPortalCards ?? [];
+if (count($berandaDashboardWidgets) === 0 && count($berandaIndikatorPortalCards) === 0) {
     ?>
         <section class="beranda-section gov-kpi-section gov-kpi-section--empty" id="beranda-dashboard-widgets" aria-labelledby="beranda-dashboard-widgets-title">
             <div class="gov-kpi-section__shell">
@@ -51,11 +53,21 @@ if ($govKpiModalJson === false) {
                     </div>
                     <div class="gov-kpi-section__meta" aria-hidden="true">
                         <span class="gov-kpi-section__live"><span class="gov-kpi-section__live-dot"></span>Live</span>
-                        <span class="gov-kpi-section__count"><?php echo (int) $widgetCount; ?> indikator</span>
+                        <?php if ($widgetCount > 0): ?>
+                            <span class="gov-kpi-section__count"><?php echo (int) $widgetCount; ?> indikator</span>
+                        <?php endif; ?>
                     </div>
                 </header>
 
-                <div class="row g-3 gov-kpi-grid row-cols-1<?php echo $widgetCount > 1 ? ' row-cols-lg-2' : ''; ?>">
+                <?php
+                /* Grid kompak: di desktop 4 kolom (KPI + portal stats),
+                   tablet 2 kolom, mobile 1 kolom. Mengikuti referensi
+                   visual yang diminta user. */
+                $totalCardsRow = $widgetCount + count($berandaIndikatorPortalCards);
+                $colMd = $totalCardsRow > 1 ? ' row-cols-md-2' : '';
+                $colXl = $totalCardsRow >= 4 ? ' row-cols-xl-4' : ($totalCardsRow >= 3 ? ' row-cols-xl-3' : ($totalCardsRow >= 2 ? ' row-cols-xl-2' : ''));
+                ?>
+                <div class="row g-3 gov-kpi-grid row-cols-1<?php echo $colMd . $colXl; ?>">
                     <?php foreach ($berandaDashboardWidgets as $w): ?>
                         <?php
                         $wId = (string) ($w['id'] ?? '');
@@ -144,6 +156,36 @@ if ($govKpiModalJson === false) {
                                                     </button>
                                                 <?php endif; ?>
                                             </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    <?php endforeach; ?>
+
+                    <?php foreach ($berandaIndikatorPortalCards as $pCard): ?>
+                        <?php
+                        $pIcon = (string) ($pCard['icon'] ?? 'fa-circle-info');
+                        $pTone = (string) ($pCard['tone'] ?? 'neutral');
+                        $pLabel = (string) ($pCard['label'] ?? '');
+                        $pUnit = (string) ($pCard['unit'] ?? '');
+                        $pValue = (int) ($pCard['value'] ?? 0);
+                        ?>
+                        <div class="col">
+                            <article class="gov-kpi-card gov-kpi-card--portal-stat gov-kpi-card--tone-<?php echo htmlspecialchars($pTone, ENT_QUOTES, 'UTF-8'); ?>">
+                                <div class="gov-kpi-card__row">
+                                    <div class="gov-kpi-card__icon" aria-hidden="true">
+                                        <i class="fa-solid <?php echo htmlspecialchars($pIcon, ENT_QUOTES, 'UTF-8'); ?>"></i>
+                                    </div>
+                                    <div class="gov-kpi-card__content">
+                                        <div class="gov-kpi-card__head">
+                                            <h3 class="gov-kpi-card__title"><?php echo htmlspecialchars($pLabel, ENT_QUOTES, 'UTF-8'); ?></h3>
+                                        </div>
+                                        <p class="gov-kpi-card__portal-num mb-0" data-sg-count="<?php echo $pValue; ?>">
+                                            <span class="gov-kpi-card__portal-num-val"><?php echo $pValue; ?></span>
+                                        </p>
+                                        <?php if ($pUnit !== ''): ?>
+                                            <p class="gov-kpi-card__portal-unit mb-0"><?php echo htmlspecialchars($pUnit, ENT_QUOTES, 'UTF-8'); ?></p>
                                         <?php endif; ?>
                                     </div>
                                 </div>

@@ -198,6 +198,27 @@ org_portal_set_hero_cta(
 );
 
 define('ORG_DEFER_LAYOUT_MAIN', true);
+
+/* Portal stat cards yang akan ditambahkan ke baris Indikator & Statistik
+   sebagai pengganti section "Statistik Kunjungan" yang terpisah. Konsisten
+   dengan referensi visual: 4 kartu kompak dalam satu baris. */
+$berandaIndikatorPortalCards = [
+    [
+        'icon' => 'fa-newspaper',
+        'tone' => 'info',
+        'label' => 'Publikasi Informasi',
+        'value' => (int) $sgPortalInfoCount,
+        'unit'  => 'Dokumen',
+    ],
+    [
+        'icon' => 'fa-user',
+        'tone' => 'neutral',
+        'label' => 'Tamu Hari Ini',
+        'value' => (int) $berandaTotalToday,
+        'unit'  => 'Orang',
+    ],
+];
+
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'header.php';
 echo '<main class="site-layout-main">';
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_portal_loader.php';
@@ -212,59 +233,7 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'part
             </div>
         <?php endif; ?>
 
-        <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_dashboard_widgets.php'; ?>
-
-        <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_team_targets.php'; ?>
-
-        <section class="section-spacing beranda-section beranda-section--surface-muted sg-reveal-section" id="beranda-kunjungan-web" aria-labelledby="beranda-kunjungan-web-title">
-            <div class="beranda-section__head-row d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
-                <div>
-                    <h2 id="beranda-kunjungan-web-title" class="beranda-section__title mb-0">Statistik Kunjungan Tamu Website</h2>
-                    <p class="beranda-section__desc mb-0 mt-1">Pemantauan aktivitas pengunjung portal secara ringkas.</p>
-                </div>
-            </div>
-            <div class="card beranda-visit-card border-0">
-                <div class="card-body">
-                    <div class="row g-3 beranda-visit-stats">
-                        <div class="col-12 col-sm-6">
-                            <article class="beranda-visit-stat beranda-visit-stat--today">
-                                <span class="beranda-visit-stat__icon" aria-hidden="true"><i class="fa-solid fa-user"></i></span>
-                                <span class="beranda-visit-stat__label">Tamu Hari Ini</span>
-                                <p class="beranda-visit-stat__num mb-0" data-sg-count="<?php echo (int) $berandaTotalToday; ?>"><?php echo (int) $berandaTotalToday; ?></p>
-                            </article>
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <article class="beranda-visit-stat beranda-visit-stat--week">
-                                <span class="beranda-visit-stat__icon" aria-hidden="true"><i class="fa-solid fa-calendar-week"></i></span>
-                                <span class="beranda-visit-stat__label">7 Hari Terakhir</span>
-                                <p class="beranda-visit-stat__num mb-0" data-sg-count="<?php echo (int) $berandaTotalWeek; ?>"><?php echo (int) $berandaTotalWeek; ?></p>
-                            </article>
-                        </div>
-                    </div>
-                    <p class="beranda-visit-caption">Tren kunjungan 14 hari terakhir untuk pemantauan aktivitas pengunjung.</p>
-                    <div class="beranda-visit-chart-shell">
-                        <div class="beranda-visit-chart-wrap">
-                            <canvas id="berandaVisitChart" aria-label="Grafik kunjungan tamu website"></canvas>
-                        </div>
-                        <div id="berandaVisitChartError" class="beranda-visit-chart-error" role="status" aria-live="polite">
-                            Grafik statistik sementara belum dapat dimuat. Coba refresh halaman.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section-spacing beranda-section beranda-section--surface-white" id="beranda-pusat-informasi" aria-labelledby="home-pusat-title">
-            <div class="beranda-section__head-row d-flex flex-wrap justify-content-between align-items-end gap-2" data-aos="fade-up" data-aos-duration="700">
-                <div>
-                    <h2 id="home-pusat-title" class="beranda-section__title mb-0">Pusat Informasi &amp; Pengumuman</h2>
-                    <p class="beranda-section__desc">Pengumuman resmi, berita, dan informasi terbaru dari Bagian Organisasi.</p>
-                </div>
-                <a class="small text-decoration-none beranda-section__link-all" href="<?php echo org_href('berita.php'); ?>">Lihat semua <i class="fa-solid fa-arrow-right ms-1 small" aria-hidden="true"></i></a>
-            </div>
-            <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_pusat_informasi.php'; ?>
-        </section>
-        <section class="section-spacing beranda-section beranda-section--surface-muted" id="beranda-ringkasan-eksekutif" aria-labelledby="beranda-exec-title">
+        <section class="section-spacing beranda-section beranda-section--surface-white" id="beranda-ringkasan-eksekutif" aria-labelledby="beranda-exec-title">
             <header class="beranda-exec-section__head" data-aos="fade-up" data-aos-duration="700">
                 <h2 id="beranda-exec-title" class="beranda-section__title mb-0">Ringkasan eksekutif</h2>
                 <p class="beranda-exec-section__eyebrow">Visi · Misi · Struktur organisasi</p>
@@ -274,22 +243,37 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'part
             <p class="small text-muted mb-0 mt-3 position-relative beranda-exec-section__foot" style="z-index:1" data-aos="fade-up" data-aos-delay="150"><a href="<?php echo org_href('profil.php'); ?>" class="text-decoration-none">Halaman Profil</a> berisi Visi, Misi, struktur, dan ringkasan organisasi secara lengkap.</p>
         </section>
 
-        <section class="section-spacing beranda-section beranda-section--surface-muted" id="beranda-galeri-kegiatan" aria-labelledby="beranda-galeri-title">
-            <div class="beranda-section__head-row d-flex flex-wrap justify-content-between align-items-end gap-2 mb-4">
-                <div>
-                    <h2 id="beranda-galeri-title" class="beranda-section__title mb-0">Galeri Kegiatan Terbaru</h2>
-                    <p class="beranda-section__desc mb-0 mt-1">Dokumentasi visual kegiatan dan program Bagian Organisasi.</p>
+        <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_dashboard_widgets.php'; ?>
+
+        <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_team_targets.php'; ?>
+
+        <section class="section-spacing beranda-section beranda-section--surface-white" id="beranda-info-galeri" aria-labelledby="home-pusat-title">
+            <div class="beranda-info-galeri-grid">
+                <div class="beranda-info-galeri-grid__col">
+                    <div class="beranda-section__head-row d-flex flex-wrap justify-content-between align-items-end gap-2" data-aos="fade-up" data-aos-duration="700">
+                        <div>
+                            <h2 id="home-pusat-title" class="beranda-section__title mb-0">Pusat Informasi &amp; Pengumuman</h2>
+                            <p class="beranda-section__desc">Informasi terbaru dari Bagian Organisasi.</p>
+                        </div>
+                        <a class="small text-decoration-none beranda-section__link-all" href="<?php echo org_href('berita.php'); ?>">Lihat semua <i class="fa-solid fa-arrow-right ms-1 small" aria-hidden="true"></i></a>
+                    </div>
+                    <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_pusat_informasi.php'; ?>
                 </div>
-                <a class="small text-decoration-none beranda-section__link-all" href="<?php echo org_href('galeri.php'); ?>">Lihat galeri lengkap <i class="fa-solid fa-arrow-right ms-1 small" aria-hidden="true"></i></a>
+                <div class="beranda-info-galeri-grid__col">
+                    <div class="beranda-section__head-row d-flex flex-wrap justify-content-between align-items-end gap-2">
+                        <div>
+                            <h2 id="beranda-galeri-title" class="beranda-section__title mb-0">Galeri Kegiatan Terbaru</h2>
+                            <p class="beranda-section__desc mb-0 mt-1">Dokumentasi kegiatan Bagian Organisasi.</p>
+                        </div>
+                        <a class="small text-decoration-none beranda-section__link-all" href="<?php echo org_href('galeri.php'); ?>">Lihat galeri <i class="fa-solid fa-arrow-right ms-1 small" aria-hidden="true"></i></a>
+                    </div>
+                    <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_galeri_kegiatan.php'; ?>
+                </div>
             </div>
-            <?php require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_galeri_kegiatan.php'; ?>
         </section>
 
     </div>
 </div>
 <?php
-ob_start();
-require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'partials' . DIRECTORY_SEPARATOR . 'beranda_visit_chart_script.php';
-$extraFooterMarkup .= ob_get_clean();
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'footer.php';
 ?>

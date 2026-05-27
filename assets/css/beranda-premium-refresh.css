@@ -594,3 +594,207 @@ body.sg-portal-page .gov-team-target-dash-card__meta {
         animation: none !important;
     }
 }
+
+/* ============================================================
+   11. INDIKATOR & STATISTIK — kartu kompak (4 kartu / baris)
+   --------------------------------------------------------------
+   Mengikuti referensi visual user: kartu pendek, ikon kiri, label
+   kecil, nilai besar berwarna, sub-info kecil di bawah. Cocok
+   untuk dashboard portal government kelas nasional.
+   ============================================================ */
+body.sg-portal-page .gov-kpi-section__shell {
+    padding: clamp(1.25rem, 2vw, 1.75rem) !important;
+    background: var(--bpr-surface) !important;
+    border: 1px solid var(--bpr-border-soft) !important;
+    border-radius: var(--bpr-radius-card-lg) !important;
+    box-shadow: var(--bpr-shadow-sm) !important;
+}
+
+body.sg-portal-page .gov-kpi-card {
+    padding: 1rem 1.1rem !important;
+    border-radius: var(--bpr-radius-card) !important;
+}
+
+body.sg-portal-page .gov-kpi-card__row {
+    gap: 0.85rem !important;
+}
+
+body.sg-portal-page .gov-kpi-card__icon {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    border-radius: 10px !important;
+    font-size: 0.95rem !important;
+    flex: 0 0 2.5rem !important;
+    box-shadow: none !important;
+}
+
+body.sg-portal-page .gov-kpi-card__title {
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    color: var(--bpr-ink-muted) !important;
+    letter-spacing: 0 !important;
+    line-height: 1.3 !important;
+    margin-bottom: 0.25rem !important;
+}
+
+body.sg-portal-page .gov-kpi-card__pct {
+    font-size: 1.45rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.02em !important;
+    line-height: 1 !important;
+}
+
+body.sg-portal-page .gov-kpi-card__pct-unit {
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    margin-left: 0.1rem !important;
+}
+
+body.sg-portal-page .gov-kpi-card__info {
+    font-size: 0.78rem !important;
+    color: var(--bpr-ink-muted) !important;
+    margin: 0.35rem 0 0.55rem !important;
+    line-height: 1.35 !important;
+}
+
+body.sg-portal-page .gov-kpi-card__progress {
+    height: 4px !important;
+    border-radius: 999px !important;
+    background: rgba(15, 23, 42, 0.06) !important;
+    margin-top: 0.4rem !important;
+}
+
+body.sg-portal-page .gov-kpi-card__actions {
+    margin-top: 0.55rem !important;
+}
+
+body.sg-portal-page .gov-kpi-card__badge {
+    font-size: 0.65rem !important;
+    padding: 0.18rem 0.5rem !important;
+    border-radius: 999px !important;
+}
+
+body.sg-portal-page .gov-kpi-card__detail-btn {
+    font-size: 0.72rem !important;
+    padding: 0.25rem 0.55rem !important;
+}
+
+body.sg-portal-page .gov-kpi-card__trend {
+    font-size: 0.72rem !important;
+    color: var(--bpr-ink-muted) !important;
+}
+
+/* Portal-stat variant — kartu sederhana (Publikasi, Tamu Hari Ini) */
+body.sg-portal-page .gov-kpi-card--portal-stat {
+    background: var(--bpr-surface) !important;
+}
+
+body.sg-portal-page .gov-kpi-card--portal-stat .gov-kpi-card__icon {
+    background: rgba(59, 130, 246, 0.10) !important;
+    color: var(--bpr-accent) !important;
+}
+
+body.sg-portal-page .gov-kpi-card--portal-stat.gov-kpi-card--tone-neutral .gov-kpi-card__icon {
+    background: rgba(100, 116, 139, 0.12) !important;
+    color: var(--bpr-ink-soft) !important;
+}
+
+body.sg-portal-page .gov-kpi-card__portal-num {
+    font-size: 1.6rem !important;
+    font-weight: 800 !important;
+    color: var(--bpr-ink) !important;
+    line-height: 1.1 !important;
+    margin: 0.1rem 0 0.1rem !important;
+    letter-spacing: -0.02em !important;
+}
+
+body.sg-portal-page .gov-kpi-card__portal-num[data-sg-count="0"] {
+    color: rgba(15, 23, 42, 0.42) !important;
+}
+
+body.sg-portal-page .gov-kpi-card__portal-unit {
+    font-size: 0.78rem !important;
+    color: var(--bpr-ink-muted) !important;
+    font-weight: 500 !important;
+}
+
+/* Section header indikator: lebih ramping */
+body.sg-portal-page .gov-kpi-section__header {
+    margin-bottom: 1.15rem !important;
+}
+
+/* ============================================================
+   12. PUSAT INFORMASI + GALERI — grid 2 kolom sejajar (desktop)
+   --------------------------------------------------------------
+   Mengikuti referensi: kedua section berdampingan agar homepage
+   lebih padat informasi tapi tetap rapi. Stack vertikal di mobile.
+   ============================================================ */
+body.sg-portal-page .beranda-info-galeri-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+@media (min-width: 992px) {
+    body.sg-portal-page .beranda-info-galeri-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+body.sg-portal-page .beranda-info-galeri-grid__col {
+    min-width: 0; /* prevent overflow inside grid track */
+}
+
+/* Galeri di grid 2-kolom → batasi tinggi gambar agar konsisten */
+body.sg-portal-page .beranda-info-galeri-grid .beranda-galeri-cards {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+/* News card di grid 2-kolom → tetap 1 kolom internal */
+body.sg-portal-page .beranda-info-galeri-grid .np-grid {
+    grid-template-columns: 1fr !important;
+}
+
+/* Spacing untuk head-row kedua (galeri) agar sejajar dengan kolom kiri */
+body.sg-portal-page .beranda-info-galeri-grid__col .beranda-section__head-row {
+    margin-bottom: 1rem !important;
+}
+
+/* ============================================================
+   13. KPI GRID MOBILE — pastikan 2 col di mobile (bukan 1)
+   ============================================================ */
+@media (max-width: 575.98px) {
+    body.sg-portal-page .gov-kpi-grid {
+        --bs-gutter-x: 0.6rem !important;
+    }
+
+    body.sg-portal-page .gov-kpi-card {
+        padding: 0.85rem 0.95rem !important;
+    }
+
+    body.sg-portal-page .gov-kpi-card__row {
+        gap: 0.65rem !important;
+    }
+
+    body.sg-portal-page .gov-kpi-card__icon {
+        width: 2.2rem !important;
+        height: 2.2rem !important;
+        font-size: 0.85rem !important;
+        flex: 0 0 2.2rem !important;
+    }
+
+    body.sg-portal-page .gov-kpi-card__title {
+        font-size: 0.75rem !important;
+    }
+
+    body.sg-portal-page .gov-kpi-card__pct,
+    body.sg-portal-page .gov-kpi-card__portal-num {
+        font-size: 1.25rem !important;
+    }
+
+    body.sg-portal-page .gov-kpi-card__badge {
+        display: none !important; /* hemat ruang horizontal di mobile sempit */
+    }
+}
