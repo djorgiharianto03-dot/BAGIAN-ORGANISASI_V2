@@ -1050,7 +1050,15 @@
 /* Tidak ada subhero biru di halaman ini. Beri padding-top ke main supaya
    konten tidak menempel navbar. */
 .page-digital-library--hero-panel .sg-portal-main-inner {
-    padding-top: calc(var(--sg-portal-header-offset, 5.5rem) + 0.75rem);
+    /* Tambah breathing room agar hero "PERPUSTAKAAN DIGITAL" tidak terlalu rapat
+       dengan header sticky di halaman dokumen. */
+    padding-top: calc(var(--sg-portal-header-offset, 5.5rem) + 1.35rem);
+}
+
+@media (max-width: 767.98px) {
+    .page-digital-library--hero-panel .sg-portal-main-inner {
+        padding-top: calc(var(--sg-portal-header-offset, 4.6rem) + 1rem);
+    }
 }
 
 /* Panel light-blue yang berisi judul + subtitle + search */
