@@ -27,6 +27,7 @@ function org_personnel_sync_from_disk(
 ): array {
     clearstatcache(true, $personnelFile);
     $personnelData = [];
+    $filteredByTombstone = false;
     $raw = is_file($personnelFile) ? @file_get_contents($personnelFile) : false;
     if ($raw !== false && $raw !== '') {
         $decoded = json_decode($raw, true);
@@ -58,7 +59,9 @@ function org_personnel_sync_from_disk(
                 }
                 $withSlug[] = $tmp;
             }
+            $beforeFilterCount = count($withSlug);
             $personnelData = org_personnel_tombstone_filter($withSlug);
+            $filteredByTombstone = count($personnelData) !== $beforeFilterCount;
         }
     }
 
@@ -70,7 +73,7 @@ function org_personnel_sync_from_disk(
         . '</svg>'
     );
 
-    $needsSave = false;
+    $needsSave = $filteredByTombstone;
     foreach ($personnelData as $idx => $person) {
         if (!is_array($person)) {
             unset($personnelData[$idx]);

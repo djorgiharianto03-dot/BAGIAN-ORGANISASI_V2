@@ -235,24 +235,19 @@ $defaultPersonnelSeed = [
 ];
 
 /* -----------------------------------------------------------------------------
- * SEED PERSONEL — sekali per instalasi
+ * PERSONEL FILE BOOTSTRAP (hardened)
  * -----------------------------------------------------------------------------
- * BUG SEBELUMNYA: blok seed lama menulis ulang $defaultPersonnelSeed setiap
- * kali `file_exists($personnelFile)` mengembalikan false. Di Windows/Laragon
- * `file_exists()` bisa sesaat memberikan false ketika:
- *   - terjadi race antara rename(.tmp → personnel.json) saat tulis atomik
- *   - antivirus / file scanner mengunci file beberapa milidetik
- *   - editor / OS sentuh file (touch) saat dibaca
- * Akibatnya, baris yang baru saja dihapus oleh admin akan muncul kembali
- * setelah beberapa menit karena seed otomatis re-fire.
+ * Tujuan utama: mencegah "personel kembali muncul" akibat auto-seed.
  *
- * FIX: gunakan flag-file `storage/personnel_seeded.flag` sebagai penanda
- * bahwa seed sudah pernah jalan. Seed HANYA aktif jika:
- *   (a) personnel.json belum ada DAN
- *   (b) flag-file juga belum ada
- * Setelah seed sukses (atau saat file ditemukan sudah ada di disk), flag
- * dibuat. Mulai saat itu, walau personnel.json terhapus, sistem tidak lagi
- * meng-re-seed otomatis — admin harus tambahkan ulang lewat UI.
+ * Kebijakan baru:
+ *   1) Default: AUTO-SEED DIMATIKAN.
+ *      Jika personnel.json hilang, sistem membuat file kosong [].
+ *   2) Auto-seed default personel hanya boleh jalan bila eksplisit diizinkan
+ *      (set constant ORG_ALLOW_PERSONNEL_AUTO_SEED = true di environment).
+ *
+ * Catatan:
+ * - Ini lebih aman untuk data produksi karena menghilangkan risiko resurrect.
+ * - Admin tetap bisa menambah personel dari UI kapan saja.
  * -------------------------------------------------------------------------- */
 $personnelSeedFlagDir  = ORG_ROOT . DIRECTORY_SEPARATOR . 'storage';
 $personnelSeedFlagFile = $personnelSeedFlagDir . DIRECTORY_SEPARATOR . 'personnel_seeded.flag';
@@ -261,18 +256,24 @@ clearstatcache(true, $personnelFile);
 clearstatcache(true, $personnelSeedFlagFile);
 
 if (!file_exists($personnelFile) && !file_exists($personnelSeedFlagFile)) {
-    /* Instalasi pertama: belum ada file & belum ada flag → seed dari default. */
-    $seedWithId = [];
-    foreach ($defaultPersonnelSeed as $seed) {
-        $nipSeed = isset($seed['nip']) ? substr((string) $seed['nip'], 0, 20) : '';
-        $seedWithId[] = [
-            'id' => uniqid('staff_', true),
-            'name' => $seed['name'],
-            'nip' => $nipSeed,
-            'position' => $seed['position'],
-        ];
+    $allowAutoSeed = defined('ORG_ALLOW_PERSONNEL_AUTO_SEED') && ORG_ALLOW_PERSONNEL_AUTO_SEED === true;
+    if ($allowAutoSeed) {
+        /* Mode opsional (explicit opt-in): seed default personel. */
+        $seedWithId = [];
+        foreach ($defaultPersonnelSeed as $seed) {
+            $nipSeed = isset($seed['nip']) ? substr((string) $seed['nip'], 0, 20) : '';
+            $seedWithId[] = [
+                'id' => uniqid('staff_', true),
+                'name' => $seed['name'],
+                'nip' => $nipSeed,
+                'position' => $seed['position'],
+            ];
+        }
+        @file_put_contents($personnelFile, json_encode($seedWithId, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX);
+    } else {
+        /* Default hardened mode: jangan restore personel lama otomatis. */
+        @file_put_contents($personnelFile, json_encode([], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX);
     }
-    @file_put_contents($personnelFile, json_encode($seedWithId, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX);
 }
 
 /* Setelah memastikan personnel.json ADA (baik karena seed barusan atau memang
@@ -283,7 +284,7 @@ if (file_exists($personnelFile) && !file_exists($personnelSeedFlagFile)) {
     }
     @file_put_contents(
         $personnelSeedFlagFile,
-        "Personnel seeded. Do NOT delete this file unless you intentionally want to allow re-seed.\n"
+        "Personnel bootstrap marker. Do NOT delete this file unless you intentionally want to allow re-seed/bootstrap reset.\n"
         . 'First-seen at: ' . date('Y-m-d H:i:s') . PHP_EOL,
         LOCK_EX
     );
@@ -733,14 +734,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                    Pencatatan ini bersifat permanen: kalau JSON dikembalikan
                    oleh seed/proses lain di masa depan, filter di
                    sync_from_disk akan tetap menyingkirkan entry ini. */
+                $tombstoneOk = true;
                 if (is_file(__DIR__ . DIRECTORY_SEPARATOR . 'org_personnel_tombstone.php')) {
                     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_personnel_tombstone.php';
                     if (function_exists('org_personnel_tombstone_add')) {
-                        @org_personnel_tombstone_add($deletedId, $slug, $deletedName);
+                        $tombstoneOk = (bool) @org_personnel_tombstone_add($deletedId, $slug, $deletedName);
                     }
                 }
 
-                $writeOk = $savePersonnelData($personnelFileResolved, $personnelDataAfter);
+                /* Penting: jika tombstone gagal disimpan, JANGAN lanjutkan delete.
+                   Tujuannya agar tidak ada kasus "hapus terlihat sukses" namun
+                   tidak punya proteksi anti-resurrection saat seed/race terjadi. */
+                $writeOk = $tombstoneOk ? $savePersonnelData($personnelFileResolved, $personnelDataAfter) : false;
 
                 /* Invalidate semua stat cache (bukan hanya file ini) — lebih
                    defensif di Windows + AV. */
@@ -777,6 +782,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'after_count' => $afterCount,
                     'write_ok' => $writeOk,
                     'persist_ok' => $persistOk,
+                    'tombstone_ok' => $tombstoneOk,
                     'file' => $personnelFileResolved,
                     'is_writable' => is_writable($personnelFileResolved),
                     'last_error' => error_get_last(),
@@ -797,7 +803,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         : 'Personel berhasil dihapus.';
                     $_SESSION['flash_type'] = 'success';
                 } else {
-                    $reason = !$writeOk ? 'tulis file gagal' : 'verifikasi pasca-tulis gagal';
+                    $reason = !$tombstoneOk
+                        ? 'gagal simpan tombstone'
+                        : (!$writeOk ? 'tulis file gagal' : 'verifikasi pasca-tulis gagal');
                     $_SESSION['flash_message'] = 'Gagal menghapus personel (' . $reason . '). '
                         . 'Pastikan berkas personnel.json di root proyek bisa ditulis, '
                         . 'dan tidak sedang dibuka oleh program lain (editor / antivirus). '
