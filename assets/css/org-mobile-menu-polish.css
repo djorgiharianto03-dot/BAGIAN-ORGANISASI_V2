@@ -198,8 +198,8 @@
 
     .site-header__nav-panel.is-open .site-header__nav a {
         position: relative;
-        gap: 0.8rem;
-        padding: 0.72rem 0.95rem 0.72rem 0.9rem !important;
+        gap: 0 !important;
+        padding: 0.72rem 0.95rem !important;
         font-weight: 600;
         font-size: 0.96rem;
         letter-spacing: 0.005em;
@@ -221,48 +221,21 @@
     /* Ikon kontekstual via Font Awesome 6 — tidak ada perubahan markup,
        cukup match `href` substring tiap item. */
     .site-header__nav-panel.is-open .site-header__nav a::before {
-        font-family: "Font Awesome 6 Free";
-        font-weight: 900;
-        content: "\f0c8";
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 30px;
-        height: 30px;
-        flex: 0 0 30px;
-        border-radius: 9px;
-        background: linear-gradient(135deg,
-            rgba(96, 165, 250, 0.18),
-            rgba(56, 189, 248, 0.14));
-        color: rgba(186, 220, 255, 0.95);
-        font-size: 0.82rem;
-        transition: background 200ms ease, color 200ms ease,
-            box-shadow 200ms ease;
+        content: none !important;
+        display: none !important;
     }
 
     /* Match URL → ikon */
     .site-header__nav-panel.is-open .site-header__nav a[href$="index.php"]::before,
     .site-header__nav-panel.is-open .site-header__nav a[href="/"]::before,
-    .site-header__nav-panel.is-open .site-header__nav a[href$="/index.php"]::before {
-        content: "\f015"; /* fa-house */
-    }
-    .site-header__nav-panel.is-open .site-header__nav a[href*="profil"]::before {
-        content: "\f007"; /* fa-user */
-    }
-    .site-header__nav-panel.is-open .site-header__nav a[href*="layanan"]::before {
-        content: "\f0b1"; /* fa-briefcase */
-    }
-    .site-header__nav-panel.is-open .site-header__nav a[href*="dokumen"]::before {
-        content: "\f15c"; /* fa-file-lines */
-    }
-    .site-header__nav-panel.is-open .site-header__nav a[href*="berita"]::before {
-        content: "\f1ea"; /* fa-newspaper */
-    }
-    .site-header__nav-panel.is-open .site-header__nav a[href*="galeri"]::before {
-        content: "\f03e"; /* fa-image */
-    }
+    .site-header__nav-panel.is-open .site-header__nav a[href$="/index.php"]::before,
+    .site-header__nav-panel.is-open .site-header__nav a[href*="profil"]::before,
+    .site-header__nav-panel.is-open .site-header__nav a[href*="layanan"]::before,
+    .site-header__nav-panel.is-open .site-header__nav a[href*="dokumen"]::before,
+    .site-header__nav-panel.is-open .site-header__nav a[href*="berita"]::before,
+    .site-header__nav-panel.is-open .site-header__nav a[href*="galeri"]::before,
     .site-header__nav-panel.is-open .site-header__nav a[href*="e_organisasi"]::before {
-        content: "\f0e4"; /* fa-gauge-high */
+        content: none !important;
     }
 
     /* ---------- 5. State aktif: bg gradient + stripe kiri --------------- */
@@ -275,11 +248,7 @@
         box-shadow: 0 6px 18px -8px rgba(56, 189, 248, 0.55);
     }
 
-    .site-header__nav-panel.is-open .site-header__nav a.is-active::before {
-        background: linear-gradient(135deg, #38bdf8, #6366f1) !important;
-        color: #ffffff !important;
-        box-shadow: 0 3px 10px rgba(56, 189, 248, 0.55);
-    }
+    .site-header__nav-panel.is-open .site-header__nav a.is-active::before { content: none !important; }
 
     /* Stripe vertikal di sisi kiri sebagai penanda aktif.
        `!important` di sini diperlukan untuk override `::after` underline yang
