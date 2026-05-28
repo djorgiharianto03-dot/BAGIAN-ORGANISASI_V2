@@ -41,7 +41,7 @@ function org_theme_stylesheet_link(): string
  */
 function org_typography_stylesheet_link(): string
 {
-    $href = org_theme_asset_base() . 'assets/css/org-typography.css?v=1';
+    $href = org_theme_asset_base() . 'assets/css/org-typography.css?v=2';
 
     return '<link rel="stylesheet" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '">' . "\n";
 }

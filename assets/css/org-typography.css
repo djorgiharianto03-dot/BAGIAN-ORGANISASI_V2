@@ -52,6 +52,15 @@
     --org-tracking-normal: 0;
     --org-tracking-wide:  0.02em;
     --org-tracking-caps:  0.06em;
+
+    /* Vertical rhythm / spacing tokens global */
+    --org-space-2xs: clamp(0.2rem, 0.18rem + 0.08vw, 0.3rem);
+    --org-space-xs: clamp(0.3rem, 0.26rem + 0.12vw, 0.4rem);
+    --org-space-sm: clamp(0.4rem, 0.34rem + 0.18vw, 0.6rem);
+    --org-space-md: clamp(0.55rem, 0.48rem + 0.22vw, 0.8rem);
+    --org-space-lg: clamp(0.75rem, 0.65rem + 0.32vw, 1.1rem);
+    --org-space-xl: clamp(0.95rem, 0.8rem + 0.45vw, 1.4rem);
+    --org-space-2xl: clamp(1.2rem, 1rem + 0.65vw, 1.9rem);
 }
 
 /* ============================================================================
@@ -71,6 +80,7 @@ body {
     font-size: var(--org-fs-base);
     line-height: var(--org-lh-base);
     font-feature-settings: "ss01", "ss02", "cv11"; /* PJS stylistic alt tipis */
+    letter-spacing: 0;
 }
 
 /* Paragraf & list → line-height lebih lega (mudah dibaca) */
@@ -80,6 +90,16 @@ ol,
 dl,
 blockquote {
     line-height: var(--org-lh-relaxed);
+    margin-top: 0;
+    margin-bottom: var(--org-space-md);
+}
+
+ul, ol {
+    padding-left: 1.2em;
+}
+
+li + li {
+    margin-top: var(--org-space-2xs);
 }
 
 /* Lead paragraph (intro / hero subtitle) */
@@ -102,6 +122,8 @@ h1, h2, h3, h4, h5, h6,
     letter-spacing: var(--org-tracking-tight);
     color: inherit;
     text-wrap: balance; /* hindari "single-word orphan line" di browser modern */
+    margin-top: 0;
+    margin-bottom: var(--org-space-sm);
 }
 
 h1, .h1 { font-size: var(--org-fs-h1); font-weight: 800; }
@@ -215,7 +237,69 @@ body[class] :is(
     .btn, .navbar, .nav, .form-control, .form-select,
     .card-title, .card-text, .modal-title, .alert
 ) {
-    font-family: var(--font-sans);
+    font-family: var(--font-sans) !important;
+}
+
+/* Pastikan pseudo-element pada komponen lama ikut konsisten font-nya */
+body[class] :is(
+    h1, h2, h3, h4, h5, h6,
+    p, li, span, a, strong, em, label,
+    button, input, select, textarea,
+    .btn, .navbar, .nav, .form-control, .form-select,
+    .card-title, .card-text, .modal-title, .alert
+)::before,
+body[class] :is(
+    h1, h2, h3, h4, h5, h6,
+    p, li, span, a, strong, em, label,
+    button, input, select, textarea,
+    .btn, .navbar, .nav, .form-control, .form-select,
+    .card-title, .card-text, .modal-title, .alert
+)::after {
+    font-family: var(--font-sans) !important;
+}
+
+/* ============================================================================
+   Global spacing rhythm — rapikan jarak komponen lintas halaman
+   ============================================================================ */
+.section-spacing,
+section {
+    margin-bottom: var(--org-space-lg);
+}
+
+.card,
+.section-card,
+.panel,
+.modal-content,
+.alert {
+    border-radius: clamp(10px, 0.6vw + 8px, 16px);
+}
+
+.card-body,
+.panel-body,
+.modal-body {
+    padding: var(--org-space-md);
+}
+
+.btn {
+    line-height: 1.35;
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+    padding-top: var(--org-space-sm);
+    padding-bottom: var(--org-space-sm);
+}
+
+.form-label {
+    margin-bottom: var(--org-space-xs);
+}
+
+.form-control,
+.form-select,
+textarea {
+    padding-top: var(--org-space-sm);
+    padding-bottom: var(--org-space-sm);
 }
 
 /* Khusus blok yang sengaja monospace tetap dihormati */
