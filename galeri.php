@@ -25,7 +25,7 @@ $extraHeadMarkup .= '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@
    publikasi_premium_styles agar override aturan legacy .gl-item / .gl-masonry.
    Gunakan org_asset_url() (BUKAN org_href) karena ini static asset, bukan PHP page,
    agar query string ?v= tidak ter-URL-encode jadi %3F%3D. */
-$extraHeadMarkup .= '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/galeri-page-cards.css?v=3'), ENT_QUOTES, 'UTF-8') . '">' . "\n";
+$extraHeadMarkup .= '<link rel="stylesheet" href="' . htmlspecialchars(org_asset_url('assets/css/galeri-page-cards.css?v=4'), ENT_QUOTES, 'UTF-8') . '">' . "\n";
 
 $publikasiPremiumInitSwiper = false;
 ob_start();
