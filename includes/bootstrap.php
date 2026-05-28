@@ -666,16 +666,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $shouldRedirect = true;
         $redirectPage = $orgSanitizeReturn((string) ($_POST['return_to'] ?? 'struktur.php'));
 
-        /* Audit log: setiap percobaan delete dicatat ke storage/personnel_audit.log
-           untuk memudahkan diagnosis "data muncul kembali setelah refresh".
-           Log mencakup: timestamp, person id/slug yang diminta, hasil cari,
-           writeOk, persistOk, jumlah baris file sebelum & sesudah, dan
-           ringkasan error. */
+        /* Audit log: setiap percobaan delete dicatat ke personnel_audit.log
+           (root proyek, sejajar personnel.json) untuk diagnosis. */
         $auditLog = static function (array $entry) use ($personnelFile): void {
-            $logDir = dirname($personnelFile) . DIRECTORY_SEPARATOR . 'storage';
-            if (!is_dir($logDir)) {
-                @mkdir($logDir, 0775, true);
-            }
+            $logDir = dirname($personnelFile);
             $logFile = $logDir . DIRECTORY_SEPARATOR . 'personnel_audit.log';
             $line = '[' . date('Y-m-d H:i:s') . '] '
                 . json_encode($entry, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
@@ -735,10 +729,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                    oleh seed/proses lain di masa depan, filter di
                    sync_from_disk akan tetap menyingkirkan entry ini. */
                 $tombstoneOk = true;
+                $tombstoneError = null;
+                $tombstonePath = null;
                 if (is_file(__DIR__ . DIRECTORY_SEPARATOR . 'org_personnel_tombstone.php')) {
                     require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_personnel_tombstone.php';
+                    if (function_exists('org_personnel_tombstone_file_path')) {
+                        $tombstonePath = org_personnel_tombstone_file_path();
+                    }
                     if (function_exists('org_personnel_tombstone_add')) {
-                        $tombstoneOk = (bool) @org_personnel_tombstone_add($deletedId, $slug, $deletedName);
+                        $tombstoneOk = (bool) org_personnel_tombstone_add($deletedId, $slug, $deletedName);
+                        if (!$tombstoneOk && function_exists('org_personnel_tombstone_last_error')) {
+                            $tombstoneError = org_personnel_tombstone_last_error();
+                        }
                     }
                 }
 
@@ -777,12 +779,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $auditLog([
                     'op' => 'delete_personnel',
                     'person_id' => $deletedId,
+                    'person_slug' => $slug,
                     'person_name' => $deletedName,
                     'before_count' => $beforeCount,
                     'after_count' => $afterCount,
                     'write_ok' => $writeOk,
                     'persist_ok' => $persistOk,
                     'tombstone_ok' => $tombstoneOk,
+                    'tombstone_path' => $tombstonePath,
+                    'tombstone_error' => $tombstoneError,
+                    'tombstone_dir_writable' => $tombstonePath !== null
+                        ? is_writable(dirname((string) $tombstonePath))
+                        : null,
                     'file' => $personnelFileResolved,
                     'is_writable' => is_writable($personnelFileResolved),
                     'last_error' => error_get_last(),
@@ -809,7 +817,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['flash_message'] = 'Gagal menghapus personel (' . $reason . '). '
                         . 'Pastikan berkas personnel.json di root proyek bisa ditulis, '
                         . 'dan tidak sedang dibuka oleh program lain (editor / antivirus). '
-                        . 'Detail tersimpan di storage/personnel_audit.log.';
+                        . 'Detail tersimpan di personnel_audit.log (root proyek).';
                     $_SESSION['flash_type'] = 'danger';
                 }
             }

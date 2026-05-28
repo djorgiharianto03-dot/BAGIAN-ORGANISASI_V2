@@ -5,48 +5,79 @@ declare(strict_types=1);
 /**
  * Tombstone (nisan) personel — daftar id/slug yang sudah pernah dihapus dan
  * TIDAK boleh muncul lagi di sumber data manapun.
- * -----------------------------------------------------------------------------
- * MENGAPA ADA?
- * Seed default (`$defaultPersonnelSeed` di bootstrap.php) berisi seluruh nama
- * tim. Kalau seed re-fire (race-condition `file_exists()` di Windows + AV)
- * atau ada proses lain yang mengembalikan personnel.json ke kondisi awal,
- * baris yang sudah dihapus akan "hidup kembali" — keluhan user yang berulang.
  *
- * SOLUSI: catat secara permanen siapa saja yang pernah dihapus.
- *   - delete_personnel  → push entry ke tombstone, lalu hapus dari JSON+DB
- *   - load (sync/seed)  → buang setiap entry yang ada di tombstone
- *   - add_personnel     → kalau admin sengaja menambahkan ulang nama/slug yang
- *     ada di tombstone, otomatis lepas dari tombstone (un-tombstone)
- *
- * FILE: `storage/personnel_tombstone.json`
- * STRUKTUR:
- *   [
- *     {
- *       "id": "staff_xxx",
- *       "slug": "djorgi-harianto-s-e",
- *       "name": "Djorgi Harianto, S.E",
- *       "deleted_at": "2026-05-27 10:15:00"
- *     },
- *     ...
- *   ]
+ * FILE: `personnel_tombstone.json` di root proyek (sejajar personnel.json).
+ * Legacy: `storage/personnel_tombstone.json` masih dibaca sekali untuk migrasi.
  */
+
+if (!function_exists('org_personnel_tombstone_last_error')) {
+    function org_personnel_tombstone_last_error(): ?string
+    {
+        return $GLOBALS['org_personnel_tombstone_last_error'] ?? null;
+    }
+}
+
+if (!function_exists('org_personnel_tombstone_set_error')) {
+    function org_personnel_tombstone_set_error(?string $message): void
+    {
+        $GLOBALS['org_personnel_tombstone_last_error'] = $message;
+    }
+}
+
+if (!function_exists('org_personnel_tombstone_root')) {
+    function org_personnel_tombstone_root(): string
+    {
+        return defined('ORG_ROOT') ? (string) ORG_ROOT : dirname(__DIR__);
+    }
+}
 
 if (!function_exists('org_personnel_tombstone_file_path')) {
     function org_personnel_tombstone_file_path(): string
     {
-        $root = defined('ORG_ROOT') ? (string) ORG_ROOT : dirname(__DIR__);
-        return $root . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'personnel_tombstone.json';
+        return org_personnel_tombstone_root()
+            . DIRECTORY_SEPARATOR
+            . 'personnel_tombstone.json';
+    }
+}
+
+if (!function_exists('org_personnel_tombstone_legacy_file_path')) {
+    function org_personnel_tombstone_legacy_file_path(): string
+    {
+        return org_personnel_tombstone_root()
+            . DIRECTORY_SEPARATOR
+            . 'storage'
+            . DIRECTORY_SEPARATOR
+            . 'personnel_tombstone.json';
+    }
+}
+
+if (!function_exists('org_personnel_tombstone_migrate_legacy')) {
+    function org_personnel_tombstone_migrate_legacy(): void
+    {
+        $path = org_personnel_tombstone_file_path();
+        if (is_file($path)) {
+            return;
+        }
+        $legacy = org_personnel_tombstone_legacy_file_path();
+        if (!is_file($legacy)) {
+            return;
+        }
+        $raw = @file_get_contents($legacy);
+        if ($raw === false || $raw === '') {
+            return;
+        }
+        @file_put_contents($path, $raw, LOCK_EX);
     }
 }
 
 if (!function_exists('org_personnel_tombstone_load')) {
     /**
-     * Baca isi tombstone. Selalu kembalikan array (boleh kosong).
-     *
      * @return list<array{id:string, slug:string, name:string, deleted_at:string}>
      */
     function org_personnel_tombstone_load(): array
     {
+        org_personnel_tombstone_migrate_legacy();
+
         $path = org_personnel_tombstone_file_path();
         if (!is_file($path)) {
             return [];
@@ -71,24 +102,18 @@ if (!function_exists('org_personnel_tombstone_load')) {
                 'deleted_at' => (string) ($row['deleted_at'] ?? ''),
             ];
         }
+
         return $out;
     }
 }
 
-if (!function_exists('org_personnel_tombstone_save')) {
+if (!function_exists('org_personnel_tombstone_normalize_rows')) {
     /**
-     * Tulis tombstone secara atomik. True = sukses verifikasi pasca-tulis.
-     *
      * @param list<array<string,mixed>> $rows
+     * @return list<array{id:string, slug:string, name:string, deleted_at:string}>
      */
-    function org_personnel_tombstone_save(array $rows): bool
+    function org_personnel_tombstone_normalize_rows(array $rows): array
     {
-        $path = org_personnel_tombstone_file_path();
-        $dir = dirname($path);
-        if (!is_dir($dir) && !@mkdir($dir, 0775, true) && !is_dir($dir)) {
-            return false;
-        }
-
         $clean = [];
         $seen = [];
         foreach ($rows as $r) {
@@ -113,89 +138,153 @@ if (!function_exists('org_personnel_tombstone_save')) {
             ];
         }
 
+        return $clean;
+    }
+}
+
+if (!function_exists('org_personnel_tombstone_save')) {
+    /**
+     * @param list<array<string,mixed>> $rows
+     */
+    function org_personnel_tombstone_save(array $rows): bool
+    {
+        org_personnel_tombstone_set_error(null);
+
+        $path = org_personnel_tombstone_file_path();
+        $dir = dirname($path);
+        if (!is_dir($dir) && !@mkdir($dir, 0775, true) && !is_dir($dir)) {
+            org_personnel_tombstone_set_error('cannot_create_dir:' . $dir);
+
+            return false;
+        }
+
+        $clean = org_personnel_tombstone_normalize_rows($rows);
         $json = json_encode($clean, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         if ($json === false) {
+            org_personnel_tombstone_set_error('json_encode_failed');
+
             return false;
         }
 
-        /* Atomic write: tmp → rename, dengan retry untuk lock Windows. */
-        $tmp = $path . '.tmp.' . bin2hex(random_bytes(4));
-        $fp = @fopen($tmp, 'cb');
-        if ($fp === false) {
-            return false;
+        $expectedKeys = [];
+        foreach ($clean as $row) {
+            $id = (string) ($row['id'] ?? '');
+            $slug = strtolower((string) ($row['slug'] ?? ''));
+            $expectedKeys[] = $id !== '' ? 'id:' . $id : 'slug:' . $slug;
         }
-        $writeOk = false;
-        if (@flock($fp, LOCK_EX)) {
-            @ftruncate($fp, 0);
-            @rewind($fp);
-            $written = @fwrite($fp, $json);
-            if ($written !== false && $written === strlen($json)) {
-                @fflush($fp);
-                $writeOk = true;
+        sort($expectedKeys);
+
+        $atomicWrite = static function (string $target, string $data): bool {
+            $fp = @fopen($target, 'c+b');
+            if ($fp === false) {
+                $fp = @fopen($target, 'wb');
             }
-            @flock($fp, LOCK_UN);
-        }
-        @fclose($fp);
-
-        if (!$writeOk) {
-            @unlink($tmp);
-            return false;
-        }
-
-        clearstatcache(true, $tmp);
-        if (!@rename($tmp, $path)) {
-            @unlink($tmp);
-            /* Fallback direct write dengan retry */
-            $retries = 0;
-            $directOk = false;
-            while ($retries < 3 && !$directOk) {
-                $fp2 = @fopen($path, 'cb');
-                if ($fp2 !== false) {
-                    if (@flock($fp2, LOCK_EX)) {
-                        @ftruncate($fp2, 0);
-                        @rewind($fp2);
-                        $w = @fwrite($fp2, $json);
-                        if ($w !== false && $w === strlen($json)) {
-                            @fflush($fp2);
-                            $directOk = true;
-                        }
-                        @flock($fp2, LOCK_UN);
-                    }
-                    @fclose($fp2);
-                }
-                if (!$directOk) {
-                    usleep(50000);
-                }
-                $retries++;
-            }
-            if (!$directOk) {
+            if ($fp === false) {
                 return false;
             }
+            $ok = false;
+            if (@flock($fp, LOCK_EX)) {
+                @ftruncate($fp, 0);
+                @rewind($fp);
+                $written = @fwrite($fp, $data);
+                if ($written !== false && $written === strlen($data)) {
+                    @fflush($fp);
+                    $ok = true;
+                }
+                @flock($fp, LOCK_UN);
+            }
+            @fclose($fp);
+
+            return $ok;
+        };
+
+        $writeOk = false;
+        $tmp = $path . '.tmp.' . bin2hex(random_bytes(4));
+        if ($atomicWrite($tmp, $json)) {
+            clearstatcache(true, $tmp);
+            if (@rename($tmp, $path)) {
+                $writeOk = true;
+            } else {
+                @unlink($tmp);
+                for ($attempt = 0; $attempt < 3 && !$writeOk; $attempt++) {
+                    if ($atomicWrite($path, $json)) {
+                        $writeOk = true;
+                        break;
+                    }
+                    usleep(50000);
+                }
+            }
+        } else {
+            @unlink($tmp);
+            for ($attempt = 0; $attempt < 3 && !$writeOk; $attempt++) {
+                if ($atomicWrite($path, $json)) {
+                    $writeOk = true;
+                    break;
+                }
+                usleep(50000);
+            }
+        }
+
+        if (!$writeOk) {
+            $fallback = @file_put_contents($path, $json, LOCK_EX);
+            $writeOk = ($fallback !== false && $fallback === strlen($json));
+        }
+
+        if (!$writeOk) {
+            org_personnel_tombstone_set_error('write_failed path=' . $path
+                . ' dir_writable=' . (is_writable($dir) ? '1' : '0')
+                . ' file_writable=' . (is_file($path) && is_writable($path) ? '1' : (is_writable($dir) ? '1' : '0')));
+
+            return false;
         }
 
         clearstatcache(true, $path);
 
-        /* Verifikasi pasca-tulis */
         $verifyRaw = @file_get_contents($path);
-        if ($verifyRaw === false) {
+        if ($verifyRaw === false || $verifyRaw === '') {
+            org_personnel_tombstone_set_error('verify_read_empty');
+
             return false;
         }
         $verifyData = json_decode($verifyRaw, true);
-        return is_array($verifyData) && count($verifyData) === count($clean);
+        if (!is_array($verifyData)) {
+            org_personnel_tombstone_set_error('verify_json_invalid');
+
+            return false;
+        }
+
+        $verifyKeys = [];
+        foreach ($verifyData as $verifyRow) {
+            if (!is_array($verifyRow)) {
+                continue;
+            }
+            $id = trim((string) ($verifyRow['id'] ?? ''));
+            $slug = strtolower(trim((string) ($verifyRow['slug'] ?? '')));
+            if ($id === '' && $slug === '') {
+                continue;
+            }
+            $verifyKeys[] = $id !== '' ? 'id:' . $id : 'slug:' . $slug;
+        }
+        sort($verifyKeys);
+        if ($verifyKeys !== $expectedKeys) {
+            org_personnel_tombstone_set_error('verify_mismatch expected=' . count($expectedKeys) . ' got=' . count($verifyKeys));
+
+            return false;
+        }
+
+        return true;
     }
 }
 
 if (!function_exists('org_personnel_tombstone_add')) {
-    /**
-     * Tambahkan entry ke tombstone. Idempoten — kalau id/slug sudah ada,
-     * cuma update `deleted_at` agar audit-trail jelas.
-     */
     function org_personnel_tombstone_add(string $id, string $slug, string $name): bool
     {
         $id   = trim($id);
         $slug = strtolower(trim($slug));
         $name = trim($name);
         if ($id === '' && $slug === '') {
+            org_personnel_tombstone_set_error('empty_id_and_slug');
+
             return false;
         }
         $existing = org_personnel_tombstone_load();
@@ -223,15 +312,12 @@ if (!function_exists('org_personnel_tombstone_add')) {
                 'deleted_at' => $now,
             ];
         }
+
         return org_personnel_tombstone_save($existing);
     }
 }
 
 if (!function_exists('org_personnel_tombstone_remove')) {
-    /**
-     * Lepas entry dari tombstone (un-tombstone). Dipanggil saat admin
-     * dengan sengaja menambahkan ulang nama/slug yang sudah dihapus.
-     */
     function org_personnel_tombstone_remove(string $id, string $slug): bool
     {
         $id   = trim($id);
@@ -253,18 +339,15 @@ if (!function_exists('org_personnel_tombstone_remove')) {
             $kept[] = $row;
         }
         if (!$changed) {
-            return true; /* tidak ada yang perlu disimpan ulang */
+            return true;
         }
+
         return org_personnel_tombstone_save($kept);
     }
 }
 
 if (!function_exists('org_personnel_tombstone_filter')) {
     /**
-     * Buang dari $rows setiap entry yang id ATAU slug-nya cocok dengan
-     * tombstone. Dipakai SETIAP KALI data personel dimuat dari sumber
-     * apa pun (sync_from_disk, DB init, dll.).
-     *
      * @param list<array<string,mixed>> $rows
      * @return list<array<string,mixed>>
      */
@@ -301,14 +384,13 @@ if (!function_exists('org_personnel_tombstone_filter')) {
             }
             $out[] = $row;
         }
+
         return array_values($out);
     }
 }
 
 if (!function_exists('org_personnel_tombstone_filter_db_rows')) {
     /**
-     * Versi untuk row DB (key: nama, jabatan, id). Slug dihitung dari nama.
-     *
      * @param list<array<string,mixed>> $rows
      * @return list<array<string,mixed>>
      */
@@ -346,6 +428,7 @@ if (!function_exists('org_personnel_tombstone_filter_db_rows')) {
             }
             $out[] = $row;
         }
+
         return array_values($out);
     }
 }
