@@ -10,6 +10,17 @@
 @media (max-width: 991.98px) {
 
     /* ---------- 0. Hamburger polos: hanya 3 garis (tanpa kotak) ---------- */
+    .sg-portal-page .site-header__topbar {
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    .sg-portal-page .site-header__brand-row {
+        display: flex !important;
+        align-items: center !important;
+        margin-bottom: 0 !important;
+    }
+
     .sg-portal-page .site-header__nav-toggle {
         min-width: 36px !important;
         width: 36px !important;
@@ -22,6 +33,9 @@
         display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
+        align-self: center !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
         gap: 0 !important;
     }
 
