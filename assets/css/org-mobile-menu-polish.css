@@ -9,6 +9,47 @@
 
 @media (max-width: 991.98px) {
 
+    /* ---------- 0. Hamburger polos: hanya 3 garis (tanpa kotak) ---------- */
+    .sg-portal-page .site-header__nav-toggle {
+        min-width: 36px !important;
+        width: 36px !important;
+        height: 28px !important;
+        padding: 0 !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0 !important;
+    }
+
+    .sg-portal-page .site-header__nav-toggle:hover,
+    .sg-portal-page .site-header__nav-toggle:focus-visible,
+    .sg-portal-page .site-header__nav-toggle[aria-expanded="true"] {
+        background: transparent !important;
+        border-color: transparent !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    .sg-portal-page .site-header__nav-toggle-label {
+        display: none !important;
+    }
+
+    .sg-portal-page .site-header__hamburger-line {
+        width: 24px !important;
+        height: 2.5px !important;
+        border-radius: 999px !important;
+        background: rgba(255, 255, 255, 0.96) !important;
+        margin: 0 !important;
+    }
+
+    .sg-portal-page .site-header__nav-toggle[aria-expanded="true"] .site-header__hamburger-line {
+        background: rgba(186, 230, 253, 0.98) !important;
+    }
+
     /* ---------- 1. Backdrop gelap di belakang menu --------------------- */
     /* Saat menu mobile terbuka, render lapisan pseudo `::before` pada body
        sebagai overlay agar konten halaman di belakangnya teredam. JS akan
@@ -46,10 +87,13 @@
             0 12px 24px -8px rgba(56, 189, 248, 0.12) !important;
         padding: 0 !important;
         animation: orgMobileSlideDown 240ms cubic-bezier(0.22, 1, 0.36, 1);
+        top: var(--site-header-mobile-top, 120px) !important;
+        margin-top: 0 !important;
     }
 
     .sg-portal-page .site-header__nav-panel.is-open {
         padding: 0 !important;
+        border-top: 1px solid rgba(148, 197, 253, 0.2) !important;
     }
 
     @keyframes orgMobileSlideDown {
