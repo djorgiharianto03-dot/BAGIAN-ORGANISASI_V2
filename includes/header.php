@@ -150,13 +150,10 @@ if ($orgHeaderBerandaPage && str_contains($bodyClassAttr, 'sg-portal-subpage')) 
     echo org_portal_subpages_stylesheet_link();
 }
 
-/* SEO: schema.org WebSite — supaya Google menampilkan nama situs
-   "Bagian Organisasi Setda Aru" (alih-alih hostname kepulauanarukab.go.id).
-   Berlaku di SEMUA halaman. Tidak menyentuh CSS / layout. */
+/* SEO: schema.org WebSite — nama situs resmi di semua halaman (beranda pakai @graph lengkap). */
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'org_beranda_seo.php';
+echo org_seo_global_website_script_markup($orgHeaderBerandaPage);
 ?>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","name":"Bagian Organisasi Setda Kabupaten Kepulauan Aru","alternateName":"Bagian Organisasi Setda Aru","url":"https://www.bagorga.kepulauanarukab.go.id/"}
-</script>
 </head>
 <body<?php echo $bodyClassAttr !== '' ? ' class="' . htmlspecialchars($bodyClassAttr, ENT_QUOTES, 'UTF-8') . '"' : ''; ?>>
 <?php

@@ -213,7 +213,7 @@ if (!function_exists('org_share_post_meta_html')) {
             $excerpt = $label . ' resmi dari Bagian Organisasi Setda Kabupaten Kepulauan Aru.';
         }
         $url = org_share_build_post_url($id);
-        $siteName = 'Bagian Organisasi Setda Kepulauan Aru';
+        $siteName = org_seo_site_name();
 
         /* Gambar absolut — pakai gambar post; fallback ke logo situs supaya
            crawler tetap dapat preview meskipun post belum punya gambar. */

@@ -2,7 +2,58 @@
 
 /**
  * SEO dasar halaman beranda (meta, canonical, Open Graph, JSON-LD, logo resmi).
+ *
+ * Nama situs & navigasi utama juga dipakai untuk structured data WebSite /
+ * SiteNavigationElement agar Google menampilkan nama resmi (bukan hostname)
+ * dan sitelinks: Profil, Layanan, Dokumen, Informasi.
  */
+
+/** Nama resmi situs — konsisten di title, og:site_name, dan schema.org WebSite. */
+function org_seo_site_name(): string
+{
+    return 'Bagian Organisasi Setda Kabupaten Kepulauan Aru';
+}
+
+/**
+ * @return list<string>
+ */
+function org_seo_site_alternate_names(): array
+{
+    return [
+        'Bagian Organisasi Setda Aru',
+        'Bagorga Kepulauan Aru',
+    ];
+}
+
+function org_seo_website_id(): string
+{
+    return org_beranda_seo_production_base_url() . '/#website';
+}
+
+function org_seo_organization_id(): string
+{
+    return org_beranda_seo_production_base_url() . '/#organization';
+}
+
+function org_seo_navigation_id(): string
+{
+    return org_beranda_seo_production_base_url() . '/#main-navigation';
+}
+
+/**
+ * Navigasi utama yang diinginkan tampil sebagai sitelinks Google.
+ *
+ * @return list<array{name: string, path: string}>
+ */
+function org_seo_main_navigation_items(): array
+{
+    return [
+        ['name' => 'Profil', 'path' => 'profil'],
+        ['name' => 'Layanan', 'path' => 'layanan'],
+        ['name' => 'Dokumen', 'path' => 'dokumen'],
+        ['name' => 'Informasi', 'path' => 'berita'],
+    ];
+}
 
 /** URL publik produksi (canonical, sitemap, schema). */
 function org_beranda_seo_production_base_url(): string
@@ -46,7 +97,7 @@ function org_beranda_seo_public_base_url(): string
 
 function org_beranda_seo_page_title(): string
 {
-    return 'Bagian Organisasi Setda Kabupaten Kepulauan Aru';
+    return org_seo_site_name();
 }
 
 function org_beranda_seo_meta_description(): string
@@ -128,19 +179,121 @@ function org_beranda_seo_logo_browser_absolute_url(string $logoWebPath): string
  */
 function org_beranda_seo_json_ld(string $logoAbsoluteUrl = ''): array
 {
-    $data = [
-        '@context' => 'https://schema.org',
+    return org_seo_homepage_json_ld_graph($logoAbsoluteUrl);
+}
+
+/**
+ * JSON-LD beranda: organisasi + WebSite (nama situs) + navigasi utama.
+ *
+ * @return array<string, mixed>
+ */
+function org_seo_homepage_json_ld_graph(string $logoAbsoluteUrl = ''): array
+{
+    $base = org_beranda_seo_production_base_url();
+    $home = $base . '/';
+
+    $organization = [
         '@type' => 'GovernmentOrganization',
-        'name' => 'Bagian Organisasi Setda Kabupaten Kepulauan Aru',
-        'alternateName' => 'Bagian Organisasi Setda Aru',
-        'url' => org_beranda_seo_production_base_url(),
+        '@id' => org_seo_organization_id(),
+        'name' => org_seo_site_name(),
+        'alternateName' => org_seo_site_alternate_names(),
+        'url' => $base,
     ];
     $logoAbsoluteUrl = trim($logoAbsoluteUrl);
     if ($logoAbsoluteUrl !== '') {
-        $data['logo'] = $logoAbsoluteUrl;
+        $organization['logo'] = $logoAbsoluteUrl;
     }
 
-    return $data;
+    $website = [
+        '@type' => 'WebSite',
+        '@id' => org_seo_website_id(),
+        'url' => $home,
+        'name' => org_seo_site_name(),
+        'alternateName' => org_seo_site_alternate_names(),
+        'inLanguage' => 'id-ID',
+        'publisher' => ['@id' => org_seo_organization_id()],
+        'hasPart' => ['@id' => org_seo_navigation_id()],
+        'potentialAction' => [
+            '@type' => 'SearchAction',
+            'target' => [
+                '@type' => 'EntryPoint',
+                'urlTemplate' => $base . '/dokumen?q={search_term_string}',
+            ],
+            'query-input' => 'required name=search_term_string',
+        ],
+    ];
+
+    $navElements = [];
+    $position = 1;
+    foreach (org_seo_main_navigation_items() as $item) {
+        $navElements[] = [
+            '@type' => 'SiteNavigationElement',
+            'position' => $position,
+            'name' => $item['name'],
+            'url' => $base . '/' . $item['path'],
+        ];
+        $position++;
+    }
+
+    $navigation = [
+        '@type' => 'ItemList',
+        '@id' => org_seo_navigation_id(),
+        'name' => 'Navigasi Utama',
+        'itemListElement' => $navElements,
+    ];
+
+    return [
+        '@context' => 'https://schema.org',
+        '@graph' => [$organization, $website, $navigation],
+    ];
+}
+
+/**
+ * WebSite ringkas untuk halaman selain beranda (nama situs di semua halaman).
+ *
+ * @return array<string, mixed>
+ */
+function org_seo_global_website_json_ld(): array
+{
+    return [
+        '@context' => 'https://schema.org',
+        '@type' => 'WebSite',
+        '@id' => org_seo_website_id(),
+        'url' => org_beranda_seo_production_base_url() . '/',
+        'name' => org_seo_site_name(),
+        'alternateName' => org_seo_site_alternate_names(),
+        'inLanguage' => 'id-ID',
+        'publisher' => ['@id' => org_seo_organization_id()],
+    ];
+}
+
+function org_seo_site_name_meta_markup(): string
+{
+    $name = htmlspecialchars(org_seo_site_name(), ENT_QUOTES, 'UTF-8');
+
+    return '<meta property="og:site_name" content="' . $name . '">' . "\n"
+        . '<meta name="application-name" content="' . $name . '">' . "\n";
+}
+
+function org_seo_sitemap_link_markup(): string
+{
+    $href = htmlspecialchars(org_beranda_seo_production_base_url() . '/sitemap.xml', ENT_QUOTES, 'UTF-8');
+
+    return '<link rel="sitemap" type="application/xml" title="Sitemap" href="' . $href . '">' . "\n";
+}
+
+/**
+ * Script WebSite global — dilewati di beranda (sudah ada @graph lengkap).
+ */
+function org_seo_global_website_script_markup(bool $skipOnHomepage = false): string
+{
+    if ($skipOnHomepage) {
+        return '';
+    }
+
+    return '<script type="application/ld+json">'
+        . json_encode(org_seo_global_website_json_ld(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
+        . '</script>' . "\n";
 }
 
 /**
@@ -157,7 +310,9 @@ function org_beranda_seo_head_markup(string $logoWebPath = ''): string
     $title = org_beranda_seo_page_title();
     $logoAlt = org_beranda_seo_logo_alt();
 
-    $out = '<meta name="description" content="' . htmlspecialchars($desc, ENT_QUOTES, 'UTF-8') . '">' . "\n"
+    $out = org_seo_site_name_meta_markup()
+        . org_seo_sitemap_link_markup()
+        . '<meta name="description" content="' . htmlspecialchars($desc, ENT_QUOTES, 'UTF-8') . '">' . "\n"
         . '<meta name="robots" content="index, follow">' . "\n"
         . '<link rel="canonical" href="' . htmlspecialchars($canonical, ENT_QUOTES, 'UTF-8') . '">' . "\n"
         . '<meta property="og:type" content="website">' . "\n"
@@ -194,7 +349,7 @@ function org_beranda_seo_head_markup(string $logoWebPath = ''): string
 
     $schemaLogo = $logo !== '' ? org_beranda_seo_logo_absolute_url($logo, true) : '';
     $out .= '<script type="application/ld+json">'
-        . json_encode(org_beranda_seo_json_ld($schemaLogo), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
+        . json_encode(org_seo_homepage_json_ld_graph($schemaLogo), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
         . '</script>' . "\n";
 
     return $out;

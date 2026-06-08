@@ -79,7 +79,7 @@ org_tailwind_bootstrap();
                         <li><a href="<?php echo org_href('profil.php'); ?>">Profil</a></li>
                         <li><a href="<?php echo org_href('layanan.php'); ?>">Layanan</a></li>
                         <li><a href="<?php echo org_href('dokumen.php'); ?>">Dokumen</a></li>
-                        <li><a href="<?php echo org_href('berita.php'); ?>">Pusat Informasi &amp; Pengumuman</a></li>
+                        <li><a href="<?php echo org_href('berita.php'); ?>">Informasi</a></li>
                         <li><a href="<?php echo org_href('galeri.php'); ?>">Galeri</a></li>
                     </ul>
                 </nav>

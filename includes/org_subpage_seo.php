@@ -84,7 +84,8 @@ if (!function_exists('org_subpage_seo_head_markup')) {
         $desc = htmlspecialchars($description, ENT_QUOTES, 'UTF-8');
         $url = htmlspecialchars($canonical, ENT_QUOTES, 'UTF-8');
 
-        $out = '<meta name="description" content="' . $desc . '">' . "\n"
+        $out = org_seo_site_name_meta_markup()
+            . '<meta name="description" content="' . $desc . '">' . "\n"
             . '<meta name="robots" content="index, follow">' . "\n"
             . '<link rel="canonical" href="' . $url . '">' . "\n"
             . '<meta property="og:type" content="website">' . "\n"
