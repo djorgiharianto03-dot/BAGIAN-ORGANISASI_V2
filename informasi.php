@@ -82,7 +82,7 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'head
             </nav>
             <article class="card border-0 shadow-sm overflow-hidden">
                 <?php if ($imgU !== ''): ?>
-                    <img src="<?php echo htmlspecialchars($imgU, ENT_QUOTES, 'UTF-8'); ?>" class="w-100 object-fit-cover" style="max-height: 22rem;" alt="">
+                    <img src="<?php echo htmlspecialchars($imgU, ENT_QUOTES, 'UTF-8'); ?>" class="w-100 d-block pi-detail-hero-img" alt="<?php echo htmlspecialchars((string) ($post['judul'] ?? ''), ENT_QUOTES, 'UTF-8'); ?>">
                 <?php endif; ?>
                 <div class="card-body p-4 p-lg-5">
                     <span class="badge <?php echo htmlspecialchars($badgeClass, ENT_QUOTES, 'UTF-8'); ?> mb-2"><?php echo htmlspecialchars($badgeLabel, ENT_QUOTES, 'UTF-8'); ?></span>

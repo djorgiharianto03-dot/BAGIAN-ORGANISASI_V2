@@ -303,7 +303,7 @@ if (!function_exists('org_share_assets_html')) {
         }
         $emitted = true;
         $css = '<link rel="stylesheet" href="'
-            . htmlspecialchars(org_asset_url('assets/css/org-share.css?v=1'), ENT_QUOTES, 'UTF-8')
+            . htmlspecialchars(org_asset_url('assets/css/org-share.css?v=2'), ENT_QUOTES, 'UTF-8')
             . '">' . "\n";
         $js = '<script src="'
             . htmlspecialchars(org_asset_url('assets/js/org-share.js?v=1'), ENT_QUOTES, 'UTF-8')
