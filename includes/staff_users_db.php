@@ -109,7 +109,7 @@ function org_eorg_session_can_access_hub(): bool
 
 /**
  * Unggah & hapus dokumen perpustakaan digital (dashboard / bootstrap).
- * Hanya super admin dan admin penuh — bukan sub admin E-Organisasi atau Publikasi.
+ * Super admin, admin penuh, dan sub admin publikasi.
  */
 function org_staff_can_manage_perpustakaan_dokumen(): bool
 {
@@ -118,7 +118,7 @@ function org_staff_can_manage_perpustakaan_dokumen(): bool
     }
     $role = org_staff_role_normalize((string) ($_SESSION['level'] ?? $_SESSION['admin_role'] ?? ''));
 
-    return in_array($role, ['super_admin', 'admin'], true);
+    return in_array($role, ['super_admin', 'admin', 'sub_admin_publikasi'], true);
 }
 
 /** Dashboard grafik, buku tamu, arsip surat — hanya admin / sub admin E-Org / Kabag. */

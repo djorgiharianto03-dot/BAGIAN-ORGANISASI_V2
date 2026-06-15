@@ -7,7 +7,7 @@ if (!function_exists('org_is_dev_environment')) {
 }
 org_force_https_redirect();
 
-$pageTitle = $pageTitle ?? 'Bagian Organisasi — Sekretariat Daerah Kab. Kepulauan Aru';
+$pageTitle = $pageTitle ?? 'Bagian Organisasi Setda Aru | Kabupaten Kepulauan Aru';
 $navActive = $navActive ?? '';
 $bodyClass = isset($bodyClass) && is_string($bodyClass) ? trim($bodyClass) : '';
 $htmlClass = isset($htmlClass) && is_string($htmlClass) ? trim($htmlClass) : '';

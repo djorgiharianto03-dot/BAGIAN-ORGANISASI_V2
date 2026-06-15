@@ -8,10 +8,16 @@
  * dan sitelinks: Profil, Layanan, Dokumen, Informasi.
  */
 
-/** Nama resmi situs — konsisten di title, og:site_name, dan schema.org WebSite. */
+/** Nama resmi situs — organisasi, og:site_name, dan identitas publik. */
 function org_seo_site_name(): string
 {
     return 'Bagian Organisasi Setda Kabupaten Kepulauan Aru';
+}
+
+/** Nama situs untuk Google Site Name (schema.org WebSite.name). */
+function org_seo_google_site_name(): string
+{
+    return 'Bagian organisasi setda aru';
 }
 
 /**
@@ -97,7 +103,7 @@ function org_beranda_seo_public_base_url(): string
 
 function org_beranda_seo_page_title(): string
 {
-    return org_seo_site_name();
+    return 'Bagian Organisasi Setda Aru | Kabupaten Kepulauan Aru';
 }
 
 function org_beranda_seo_meta_description(): string
@@ -208,7 +214,7 @@ function org_seo_homepage_json_ld_graph(string $logoAbsoluteUrl = ''): array
         '@type' => 'WebSite',
         '@id' => org_seo_website_id(),
         'url' => $home,
-        'name' => org_seo_site_name(),
+        'name' => org_seo_google_site_name(),
         'alternateName' => org_seo_site_alternate_names(),
         'inLanguage' => 'id-ID',
         'publisher' => ['@id' => org_seo_organization_id()],
@@ -258,12 +264,8 @@ function org_seo_global_website_json_ld(): array
     return [
         '@context' => 'https://schema.org',
         '@type' => 'WebSite',
-        '@id' => org_seo_website_id(),
+        'name' => org_seo_google_site_name(),
         'url' => org_beranda_seo_production_base_url() . '/',
-        'name' => org_seo_site_name(),
-        'alternateName' => org_seo_site_alternate_names(),
-        'inLanguage' => 'id-ID',
-        'publisher' => ['@id' => org_seo_organization_id()],
     ];
 }
 
